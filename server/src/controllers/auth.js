@@ -1,5 +1,11 @@
 import User from "../models/user.js";
 import error from "../helpers/error.js";
+import bcrypt from "bcryptjs";
+
+const requiredFields = (values, res) => {
+    if (values.filter(value => !value).length)
+        return error("Todos os campos são obrigatórios.", 400, res);
+}
 
 const types = {
     email: {
@@ -18,13 +24,12 @@ const types = {
 
 export const signUp = async (req, res) => {
     const { email, username } = req.body;
-    const allValues = Object.values(req.body);
+    const values = Object.values(req.body);
 
     try {
         let validationError;
 
-        if (allValues.filter(value => !value).length)
-            return error("Todos os campos são obrigatórios.", 400, res);
+        if (requiredFields(values, res)) return requiredFields(values, res);
 
         const [emailExists, usernameExists] = await Promise.all([
             User.findOne({ email }),
@@ -46,8 +51,9 @@ export const signUp = async (req, res) => {
 
         const user = await User.create(req.body);
 
+        user.password = undefined;
         res.status(201).send(user);
-    } catch (error) {
+    } catch (err) {
         return error(
             "Não foi possível fazer o cadastro. Tente novamente mais tarde.", 
             500, 
@@ -55,3 +61,36 @@ export const signUp = async (req, res) => {
         );
     }
 };
+
+export const signIn = async (req, res) => {
+    const { user, password } = req.body;
+    const values = Object.values(req.body);
+
+    try {
+        let userData;
+
+        if (requiredFields(values, res)) return requiredFields(values, res);
+
+        const userExists = await Promise.all([
+            User.findOne({ email: user }).select("+password"),
+            User.findOne({ username: user }).select("+password"),
+        ]);
+
+        if (!userExists.filter(item => !!item).length)
+            return error("Usuário não encontrado.", 400, res);
+
+        userData = userExists[0];
+
+        if (!(await bcrypt.compare(password, userData.password)))
+            return error("Senha inválida.", 400, res);
+
+        userData.password = undefined;
+        res.send(userData);
+    } catch (err) {
+        return error(
+            "Não foi possível fazer o login. Tente novamente mais tarde.", 
+            500, 
+            res
+        );
+    }
+}
