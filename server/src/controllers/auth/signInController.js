@@ -1,6 +1,7 @@
 import User from "../../models/userModel.js";
 import bcrypt from "bcryptjs";
 import { error, requiredFields } from "../../helpers/validations.js";
+import generateToken from "../../helpers/token.js";
 
 export default async function signIn(req, res) {
     const { user, password } = req.body;
@@ -25,7 +26,10 @@ export default async function signIn(req, res) {
             return error("Senha inválida.", 400, res);
 
         userData.password = undefined;
-        res.send(userData);
+        res.send({
+            user: userData,
+            token: generateToken(userData.id)
+        });
     } catch (err) {
         return error(
             "Não foi possível fazer o login. Tente novamente mais tarde.", 

@@ -1,5 +1,6 @@
 import User from "../../models/userModel.js";
 import { types, error, requiredFields } from "../../helpers/validations.js";
+import generateToken from "../../helpers/token.js";
 
 export default async function signUp(req, res) {
     const { email, username } = req.body;
@@ -31,7 +32,10 @@ export default async function signUp(req, res) {
         const user = await User.create(req.body);
 
         user.password = undefined;
-        res.status(201).send(user);
+        res.status(201).send({
+            user,
+            token: generateToken(user.id)
+        });
     } catch (err) {
         return error(
             "Não foi possível fazer o cadastro. Tente novamente mais tarde.", 
