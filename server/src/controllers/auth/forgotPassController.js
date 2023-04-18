@@ -40,13 +40,32 @@ export default async function forgotPassword(req, res) {
                 token
             })
         };
-        const result = err => {
+        const result = (err, info) => {
             if (err) return error(
                 "Não foi possível enviar um link para login. Tente novamente mais tarde.", 
                 500, 
                 res
             );
-            return res.send({ success: true });
+            const emailAddress = info.envelope.to[0];
+            const email = emailAddress.split("@");
+            const username = () => {
+                const length = email[0].length;
+                const start = email[0].slice(0, 3);
+                
+                if (length >= 6)
+                    return `${start}${"*".repeat(7)}`;
+                else if (length >= 4)
+                    return `${email[0][0]}${"*".repeat(3)}`;
+                else
+                    return "*".repeat(3);
+            }
+            const domain = email[1];
+            const hiddenEmail = `${username()}@${domain}`;
+
+            return res.send({ 
+                success: true,
+                email: hiddenEmail
+            });
         }
 
         await User.findByIdAndUpdate(user.id, {
