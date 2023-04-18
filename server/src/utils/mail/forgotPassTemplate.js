@@ -1,4 +1,4 @@
-export default function forgotPassTemplate({ userId, name, token }) {
+export default function forgotPassTemplate({ name, URLToReset, userId, token }) {
     const firstName = name.split(" ")[0];
     const css = styles => styles;
     const containerStyles = (css`
@@ -47,7 +47,7 @@ export default function forgotPassTemplate({ userId, name, token }) {
 
                 <a 
                     style="${btnStyles}"
-                    href="${process.env.WEBSITE_RESET_PASS}?user=${userId}?token=${token}"
+                    href="${URLToReset}?user=${userId}&token=${token}"
                     target="_blank"
                     rel="noopener noreferrer">
                     Redefinir minha senha

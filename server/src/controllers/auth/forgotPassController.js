@@ -5,7 +5,7 @@ import transporter from "../../utils/mail/transporter.js";
 import forgotPassTemplate from "../../utils/mail/forgotPassTemplate.js";
 
 export default async function forgotPassword(req, res) {
-    const { user: userIdentify } = req.body;
+    const { user: userIdentify, URLToReset, websiteName } = req.body;
 
     try {
         if (!userIdentify) return error(
@@ -24,19 +24,23 @@ export default async function forgotPassword(req, res) {
         if (!userExists.length)
             return error("Usuário não encontrado.", 400, res);
 
+        if (!URLToReset)
+            return error("URL para redefinição de senha não fornecida.", 400, res);
+
         user = userExists[0];
         const token = crypto.randomBytes(20).toString("hex");
         const tokenExpiration = Date.now() + (1000 * 60 * 30);
         const message = {
             from: {
-                name: process.env.WEBSITE_NAME,
+                name: websiteName || "",
                 address: process.env.MAIL_FROM
             },
             to: user.email,
             subject: "Redefinição de senha",
             html: forgotPassTemplate({ 
-                userId: user.id,
                 name: user.name, 
+                URLToReset,
+                userId: user.id,
                 token
             })
         };
