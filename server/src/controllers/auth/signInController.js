@@ -1,7 +1,7 @@
 import User from "../../models/userModel.js";
 import bcrypt from "bcryptjs";
-import { error, requiredFields } from "../../helpers/validations.js";
-import generateToken from "../../helpers/token.js";
+import { error, requiredFields } from "../../utils/helpers/validations.js";
+import generateToken from "../../utils/helpers/token.js";
 
 export default async function signIn(req, res) {
     const { user, password } = req.body;

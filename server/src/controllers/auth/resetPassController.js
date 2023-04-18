@@ -1,5 +1,5 @@
 import User from "../../models/userModel.js";
-import { error } from "../../helpers/validations.js";
+import { error } from "../../utils/helpers/validations.js";
 
 export default async function resetPassword(req, res) {
     const { userId, token, password } = req.body;

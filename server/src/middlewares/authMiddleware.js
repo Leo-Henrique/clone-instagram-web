@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { error } from "../helpers/validations.js";
+import { error } from "../utils/helpers/validations.js";
 
 export default function auth(req, res, next) {
     const authHeader = req.headers.authorization;

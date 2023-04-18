@@ -1,6 +1,6 @@
 import User from "../../models/userModel.js";
-import { types, error, requiredFields } from "../../helpers/validations.js";
-import generateToken from "../../helpers/token.js";
+import { types, error, requiredFields } from "../../utils/helpers/validations.js";
+import generateToken from "../../utils/helpers/token.js";
 
 export default async function signUp(req, res) {
     const { email, username } = req.body;
