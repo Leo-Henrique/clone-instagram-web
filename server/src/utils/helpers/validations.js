@@ -10,6 +10,10 @@ export const types = {
     username: {
         regex: /^[\w.]+$/,
         message: "Nomes de usuário só podem conter letras, números, sublinhados e pontos."
+    },
+    password: {
+        regex: /.{3,}/,
+        message: "Sua senha deve ter no mínimo 3 caracteres."
     }
 }
 

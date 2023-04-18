@@ -1,4 +1,4 @@
-export default function forgotPassTemplate({ name, URLToReset, userId, token }) {
+export default function forgotPassTemplate({ name, websiteName, URLToReset, userId, token }) {
     const firstName = name.split(" ")[0];
     const css = styles => styles;
     const containerStyles = (css`
@@ -42,7 +42,7 @@ export default function forgotPassTemplate({ name, URLToReset, userId, token }) 
                 </p>
 
                 <p style="margin-bottom: 20px">
-                    Você nos informou que esqueceu sua senha através do nosso site <b style="color: #000">${process.env.WEBSITE_NAME}</b>. Clique no botão abaixo para redefini-la.
+                    Você nos informou que esqueceu sua senha através do nosso site<b style="color: #000">${websiteName ? ` ${websiteName}` : ""}</b>. Clique no botão abaixo para redefini-la.
                 </p>
 
                 <a 
@@ -59,9 +59,11 @@ export default function forgotPassTemplate({ name, URLToReset, userId, token }) 
             </div>
 
             <div style="${footerStyles}">
-                <b style="display: block;">
-                    ${process.env.WEBSITE_NAME}
-                </b>
+                ${websiteName ? /*html*/`
+                    <b style="display: block;">
+                        ${websiteName}
+                    </b>
+                ` : ""}
 
                 <p style="margin: 4px 0 0 0">
                     Por Leonardo Henrique.

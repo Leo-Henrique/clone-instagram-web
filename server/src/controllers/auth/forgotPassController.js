@@ -39,6 +39,7 @@ export default async function forgotPassword(req, res) {
             subject: "Redefinição de senha",
             html: forgotPassTemplate({ 
                 name: user.name, 
+                websiteName,
                 URLToReset,
                 userId: user.id,
                 token

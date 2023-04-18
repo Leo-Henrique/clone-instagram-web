@@ -1,5 +1,5 @@
 import User from "../../models/userModel.js";
-import { error } from "../../utils/helpers/validations.js";
+import { error, types } from "../../utils/helpers/validations.js";
 
 export default async function resetPassword(req, res) {
     const { userId, token, password } = req.body;
@@ -24,7 +24,11 @@ export default async function resetPassword(req, res) {
                 res
             );
         
-        if (!password) return error("Digite uma nova senha para redefini-la.", 400, res);
+        if (!password) 
+            return error("Digite uma nova senha para redefini-la.", 400, res);
+
+        if (!password.match(types.password.regex))
+            return error(types.password.message, 400, res);
 
         user.password = password;
         user.passwordResetToken = undefined;
