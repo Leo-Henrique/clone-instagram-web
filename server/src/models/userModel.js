@@ -38,7 +38,8 @@ const UserSchema = new mongoose.Schema({
     bio: {
         type: String,
         trim: true,
-    }
+    },
+    image: String,
 });
 
 UserSchema.pre("save", async function(next) {

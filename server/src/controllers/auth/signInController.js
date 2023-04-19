@@ -8,7 +8,9 @@ export default async function signIn(req, res) {
     const values = Object.values(req.body);
 
     try {
-        if (requiredFields(values, res)) return requiredFields(values, res);
+        const required = requiredFields(req, res);
+        
+        if (required) return required();
 
         let user = await Promise.all([
             User.findOne({ email: userIdentify }).select("+password"),

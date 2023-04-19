@@ -1,15 +1,14 @@
 import User from "../../models/userModel.js";
-import { types, error, requiredFields } from "../../utils/helpers/validations.js";
+import { error, requiredFields, validateFields } from "../../utils/helpers/validations.js";
 import generateToken from "../../utils/helpers/token.js";
 
 export default async function signUp(req, res) {
     const { email, username } = req.body;
-    const values = Object.values(req.body);
 
     try {
-        let validationError;
+        const required = requiredFields(req, res);
 
-        if (requiredFields(values, res)) return requiredFields(values, res);
+        if (required) return required();
 
         const [emailExists, usernameExists] = await Promise.all([
             User.findOne({ email }),
@@ -19,15 +18,9 @@ export default async function signUp(req, res) {
         if (emailExists) return error("E-mail já existente.", 400, res);
         if (usernameExists) return error("Nome de usuário já existente.", 400, res);
 
-        Object.keys(types).forEach(type => {
-            const validateField = req.body[type];
-            const validate = validateField.match(types[type].regex);
+        const validate = validateFields(req, res);
 
-            if (validateField && !validate) 
-                validationError = error(types[type].message, 400, res);
-        });
-
-        if (validationError) return validationError;
+        if (validate) return validate();
 
         const user = await User.create(req.body);
 
