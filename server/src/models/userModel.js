@@ -40,13 +40,23 @@ const UserSchema = new mongoose.Schema({
         trim: true,
     },
     image: String,
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+    }]
 });
 
 UserSchema.pre("save", async function(next) {
-    const hash = await bcrypt.hash(this.password, 10);
+    if (this.password) {
+        const hash = await bcrypt.hash(this.password, 10);
 
-    this.password = hash;
-    next();
+        this.password = hash;
+        next();
+    } else next();
 });
 
 const User = mongoose.model("users", UserSchema);

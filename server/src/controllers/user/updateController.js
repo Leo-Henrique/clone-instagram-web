@@ -1,8 +1,8 @@
-import User from "../models/userModel.js";
-import { error, requiredFields, types, validateFields } from "../utils/helpers/validations.js";
+import User from "../../models/userModel.js";
+import { error, requiredFields, types, validateFields } from "../../utils/helpers/validations.js";
 import bcrypt from "bcryptjs";
 
-export const update = async (req, res) => {
+export const updateInfos = async (req, res) => {
     const values = Object.values(req.body);
 
     try {
