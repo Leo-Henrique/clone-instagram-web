@@ -1,5 +1,6 @@
 import User from "../models/userModel.js";
-import { error, requiredFields, validateFields } from "../utils/helpers/validations.js";
+import { error, requiredFields, types, validateFields } from "../utils/helpers/validations.js";
+import bcrypt from "bcryptjs";
 
 export const update = async (req, res) => {
     const values = Object.values(req.body);
@@ -35,3 +36,40 @@ export const update = async (req, res) => {
     }
 };
 
+export const updatePassword = async (req, res) => {
+    const { old, current, currentConfirm } = req.body;
+
+    try {
+        const required = requiredFields(req, res);
+
+        if (required) return required();
+
+        const user = await User.findById(req.userId).select("+password");
+
+        if (!(await bcrypt.compare(old, user.password)))
+            return error("Sua senha antiga foi inserida incorretamente.", 400, res);
+
+        if (old === current)
+            return error("Crie uma nova senha diferente da atual.", 400, res);
+
+        if (!current.match(types.password.regex)) {
+            const msg = types.password.message;
+            const newMsg = msg.replace("senha", "nova senha");
+
+            return error(newMsg, 400, res);
+        }
+
+        if (current !== currentConfirm)
+            return error("As senhas não correspondem.", 400, res);
+
+        user.password = current;
+        user.save();
+        res.send({ success: "Sua senha foi atualizada com sucesso." });
+    } catch (err) {
+        return error(
+            "Não foi possível atualizar sua senha. Tente novamente mais tarde.",
+            500,
+            res
+        )
+    }
+}

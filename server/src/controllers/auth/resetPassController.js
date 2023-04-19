@@ -35,8 +35,12 @@ export default async function resetPassword(req, res) {
         user.passwordResetTokenExpiration = undefined;
         user.save();
 
-        return res.send({ success: "Sua senha foi alterada com sucesso." });
+        return res.send({ success: "Sua senha foi atualizada com sucesso." });
     } catch (err) {
-        return error("Não foi possível redefinir sua senha.", 500, res);
+        return error(
+            "Não foi possível redefinir sua senha. Tente novamente mais tarde.", 
+            500, 
+            res
+        );
     }
 }
