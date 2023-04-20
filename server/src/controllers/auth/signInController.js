@@ -5,7 +5,6 @@ import generateToken from "../../utils/helpers/token.js";
 
 export default async function signIn(req, res) {
     const { user: userIdentify, password } = req.body;
-    const values = Object.values(req.body);
 
     try {
         const required = requiredFields(req, res);
@@ -20,7 +19,7 @@ export default async function signIn(req, res) {
         const userExists = user.filter(item => !!item);
 
         if (!userExists.length)
-            return error("Usuário não encontrado.", 400, res);
+            return error("Usuário não encontrado.", 404, res);
 
         user = userExists[0];
 

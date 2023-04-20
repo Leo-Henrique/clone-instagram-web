@@ -22,7 +22,7 @@ export default async function forgotPassword(req, res) {
         const userExists = user.filter(item => !!item);
 
         if (!userExists.length)
-            return error("Usuário não encontrado.", 400, res);
+            return error("Usuário não encontrado.", 404, res);
 
         if (!URLToReset)
             return error("URL para redefinição de senha não fornecida.", 400, res);

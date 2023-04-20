@@ -9,7 +9,7 @@ export default async function resetPassword(req, res) {
         const user = await User.findById(userId).select(getToken);
 
         if (!user)
-            return error("Não é possível redefinir a senha de um usuário inexistente.")
+            return error("Não é possível redefinir a senha de um usuário inexistente.", 404, res);
 
         if (!user.passwordResetToken)
             return error("A senha já foi alterada.", 400, res);

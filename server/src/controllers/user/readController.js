@@ -20,10 +20,10 @@ export const getUser = async (req, res) => {
         const user = await User.findOne({ username }).populate(friends);
 
         if (!user)
-            return error("Usuário inexistente.", 400, res);
+            return error("Usuário inexistente.", 404, res);
 
         return res.send(user);
     } catch (err) {
-        return error("Não foi possível carregar os usuários.", 500, res);
+        return error("Não foi possível carregar o usuário.", 500, res);
     }
 }
