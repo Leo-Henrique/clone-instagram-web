@@ -18,10 +18,18 @@ export default async function deleteUser(req, res) {
         if (!(await bcrypt.compare(password, user.password)))
             return error("Sua senha está incorreta.", 400, res);
 
+        const referencedUsers = [...user.followers, ...user.following];
+        
+        await User.updateMany({ _id: { $in: referencedUsers } }, {
+            $pull: {
+                followers: req.userId,
+                following: req.userId
+            }
+        })
         await User.findByIdAndDelete(req.userId);
-
-        res.send({ success: "Sua conta foi excluída."})
+        res.send({ success: "Sua conta foi excluída."});
     } catch (err) {
+        return console.log(err)
         return error(
             "Não foi possível excluir sua conta. Tente novamente mais tarde.",
             500,
