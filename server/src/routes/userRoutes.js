@@ -7,6 +7,7 @@ import {
 import { follow, unfollow } from "../controllers/user/followController.js";
 import deleteUser from "../controllers/user/deleteController.js";
 import { getUser, getUsers } from "../controllers/user/readController.js";
+import { deleteProfilePicture, newProfilePicture } from "../controllers/user/pictureController.js";
 
 const router = express.Router();
 
@@ -14,11 +15,13 @@ router.get("/:username", getUser);
 
 router.use(authMiddleware);
 
-router.get("/", getUsers);
-router.patch("/", updateInfos);
-router.patch("/password", updatePassword);
+router.post("/picture", newProfilePicture);
+router.delete("/picture", deleteProfilePicture);
 router.post("/follow", follow);
 router.delete("/unfollow", unfollow);
+router.patch("/", updateInfos);
+router.patch("/password", updatePassword);
 router.delete("/", deleteUser);
+router.get("/", getUsers);
 
 export default router;

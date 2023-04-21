@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+export const defaultPicture = "uploads/default/user-picture.jpeg";
+
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -39,7 +41,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    image: String,
+    picture: {
+        type: String,
+        default: defaultPicture
+    },
     followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
