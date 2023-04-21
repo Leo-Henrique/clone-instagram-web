@@ -1,7 +1,7 @@
 import User from "../../models/userModel.js";
 import { error } from "../../utils/helpers/validations.js";
 import crypto from "crypto";
-import transporter from "../../utils/mail/transporter.js";
+import transporter from "../../config/mailer.js";
 import forgotPassTemplate from "../../utils/mail/forgotPassTemplate.js";
 
 export default async function forgotPassword(req, res) {
