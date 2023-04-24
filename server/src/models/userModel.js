@@ -37,6 +37,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    verified: {
+        type: Boolean,
+        default: false
+    },
     bio: {
         type: String,
         trim: true,
