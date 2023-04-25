@@ -1,3 +1,4 @@
+import auth from "../../middlewares/authMiddleware.js";
 import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js"
 import { error } from "../../utils/helpers/validations.js";
@@ -26,24 +27,33 @@ export const getPost = async (req, res) => {
 
 export const getPosts = async (req, res) => {
     const { items, collection, username } = req.query;
-    const { userId } = req;
+    const filteredPosts = (posts) => {
+        if (items && collection)
+            return getCollection(posts, items, collection);
+        else
+            return posts;
+    }
 
     try {
-        const filteredPosts = (posts) => 
-            items ? getCollection(posts, items, collection) : posts;
-
         if (username) {
+            const hasFilter = items || collection;
+            const filterLimit = items > 12 || collection > 1;
+
+            if (!hasFilter || filterLimit) await auth(req, res);
+
             const allPosts = await Post.find().populate("user");
             const posts = allPosts.filter(({ user }) => user.username === username);
           
             reorder(posts);
             res.send(filteredPosts(posts));
         } else {
-            const user = await User.findById(userId);
-            const feed = await Post.find({ user: {
-                $in: [userId, ...user.following]
-            }}).populate("user media.persons.user");
+            await auth(req, res);
 
+            const user = await User.findById(req.userId);
+            const feed = await Post.find({ user: {
+                $in: [req.userId, ...user.following]
+            }}).populate("user media.persons.user");
+            
             reorder(feed);
             res.send(filteredPosts(feed));
         }

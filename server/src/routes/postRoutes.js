@@ -7,11 +7,11 @@ import { getPost, getPosts } from "../controllers/post/readController.js";
 const router = express.Router();
 
 router.get("/:postId", getPost);
+router.get("/", getPosts);
 
 router.use(authMiddleware);
 
 router.post("/", createPost);
 router.patch("/:postId", updatePost);
-router.get("/", getPosts);
 
 export default router;
