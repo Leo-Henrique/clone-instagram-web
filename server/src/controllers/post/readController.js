@@ -2,7 +2,7 @@ import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js"
 import { error } from "../../utils/helpers/validations.js";
 
-export const getPosts = async (req, res) => {
+export default async function(req, res) {
     const { items, collection, username } = req.query;
 
     try {
