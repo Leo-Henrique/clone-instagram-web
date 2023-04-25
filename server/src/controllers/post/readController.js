@@ -2,35 +2,51 @@ import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js"
 import { error } from "../../utils/helpers/validations.js";
 
-export default async function getPosts(req, res) {
-    const { items, collection, username } = req.query;
+const reorder = (posts) => posts.sort((a, b) => b.createdAt - a.createdAt);
+
+const getCollection = (posts, items, collection) => {
+    const endIndex = items * collection;
+
+    return posts.filter((post, index) => 
+        index >= endIndex - items && index < endIndex
+    );
+}
+
+export const getPost = async (req, res) => {
+    const { postId } = req.params;
 
     try {
-        const user = await User.findById(req.userId);
-        const populate = "user media.persons.user";
-        const [allPosts, feed] = await Promise.all([
-            Post.find().populate(populate),
-            Post.find({ user: { $in: user.following } }).populate(populate)
-        ]);
-        const posts = username 
-            ? allPosts.filter(({ user }) => 
-                user.username === username.toLowerCase()
-            )
-            : allPosts.filter(({ user }) => 
-                user.id === req.userId
-            ).concat(feed);
+        const post = await Post.findById(postId).populate("user");
+        
+        return res.send(post);
+    } catch (err) {
+        return error("Não foi possível carregar a publicação", 500, res);
+    }
+}
 
-        posts.sort((a, b) => b.createdAt - a.createdAt);
+export const getPosts = async (req, res) => {
+    const { items, collection, username } = req.query;
+    const { userId } = req;
 
-        const getCollection = () => {
-            const endIndex = items * collection;
+    try {
+        const filteredPosts = (posts) => 
+            items ? getCollection(posts, items, collection) : posts;
 
-            return posts.filter((post, index) => 
-                index >= endIndex - items && index < endIndex
-            );
+        if (username) {
+            const allPosts = await Post.find().populate("user");
+            const posts = allPosts.filter(({ user }) => user.username === username);
+          
+            reorder(posts);
+            res.send(filteredPosts(posts));
+        } else {
+            const user = await User.findById(userId);
+            const feed = await Post.find({ user: {
+                $in: [userId, ...user.following]
+            }}).populate("user media.persons.user");
+
+            reorder(feed);
+            res.send(filteredPosts(feed));
         }
-
-        return res.send(items ? getCollection() : posts);
     } catch (err) {
         return error("Não foi possível carregar as publicações.", 500, res);
     }
