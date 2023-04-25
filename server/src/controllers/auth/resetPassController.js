@@ -5,17 +5,26 @@ export default async function resetPassword(req, res) {
     const { userId, token, password } = req.body;
 
     try {
-        const getToken = "+passwordResetToken +passwordResetTokenExpiration";
+        const getToken =
+            "+passwordResetToken +passwordResetTokenExpiration";
         const user = await User.findById(userId).select(getToken);
 
         if (!user)
-            return error("Não é possível redefinir a senha de um usuário inexistente.", 404, res);
+            return error(
+                "Não é possível redefinir a senha de um usuário inexistente.",
+                404,
+                res
+            );
 
         if (!user.passwordResetToken)
             return error("A senha já foi alterada.", 400, res);
 
         if (token !== user.passwordResetToken)
-            return error("Você não tem permissão para alterar essa senha.", 400, res);
+            return error(
+                "Você não tem permissão para alterar essa senha.",
+                400,
+                res
+            );
 
         if (Date.now() > user.passwordResetTokenExpiration)
             return error(
@@ -23,9 +32,13 @@ export default async function resetPassword(req, res) {
                 400,
                 res
             );
-        
-        if (!password) 
-            return error("Digite uma nova senha para redefini-la.", 400, res);
+
+        if (!password)
+            return error(
+                "Digite uma nova senha para redefini-la.",
+                400,
+                res
+            );
 
         if (!password.match(types.password.regex))
             return error(types.password.message, 400, res);
@@ -35,11 +48,13 @@ export default async function resetPassword(req, res) {
         user.passwordResetTokenExpiration = undefined;
         user.save();
 
-        return res.send({ success: "Sua senha foi atualizada com sucesso." });
+        return res.send({
+            success: "Sua senha foi atualizada com sucesso.",
+        });
     } catch (err) {
         return error(
-            "Não foi possível redefinir sua senha. Tente novamente mais tarde.", 
-            500, 
+            "Não foi possível redefinir sua senha. Tente novamente.",
+            500,
             res
         );
     }

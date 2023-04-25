@@ -8,7 +8,7 @@ export default async function signIn(req, res) {
 
     try {
         const required = requiredFields(req, res);
-        
+
         if (required) return required();
 
         let user = await Promise.all([
@@ -16,7 +16,7 @@ export default async function signIn(req, res) {
             User.findOne({ username: userIdentify }).select("+password"),
         ]);
 
-        const userExists = user.filter(item => !!item);
+        const userExists = user.filter((item) => !!item);
 
         if (!userExists.length)
             return error("Usuário não encontrado.", 404, res);
@@ -29,12 +29,12 @@ export default async function signIn(req, res) {
         user.password = undefined;
         res.send({
             user: user,
-            token: generateToken(user.id)
+            token: generateToken(user.id),
         });
     } catch (err) {
         return error(
-            "Não foi possível fazer o login. Tente novamente mais tarde.", 
-            500, 
+            "Não foi possível fazer o login. Tente novamente.",
+            500,
             res
         );
     }

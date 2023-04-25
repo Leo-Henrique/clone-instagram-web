@@ -12,11 +12,10 @@ export const newProfilePicture = async (req, res) => {
 
         res.send({ source: path });
     } catch (err) {
-        if (typeof err === "string")
-            return error(err, 400, res);
+        if (typeof err === "string") return error(err, 400, res);
         else
             return error(
-                "Não foi possível adicionar uma foto de perfil. Tente novamente mais tarde.",
+                "Não foi possível adicionar uma foto de perfil. Tente novamente.",
                 500,
                 res
             );
@@ -33,7 +32,7 @@ export const deleteProfilePicture = async (req, res) => {
         res.send({ source: defaultPicture });
     } catch (err) {
         return error(
-            "Não foi possível remover sua foto de perfil. Tente novamente mais tarde.",
+            "Não foi possível remover sua foto de perfil. Tente novamente.",
             500,
             res
         );
