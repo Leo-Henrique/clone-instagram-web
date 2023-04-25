@@ -2,11 +2,11 @@ import User from "../../models/userModel.js";
 import { error } from "../../utils/helpers/validations.js";
 import { defaultPicture } from "../../models/userModel.js";
 import fs from "fs";
-import { uploadUserPicture } from "../../modules/upload.js";
+import { uploadUserPicture } from "../../modules/multer/uploads.js";
 
 export const newProfilePicture = async (req, res) => {
     try {
-        const { path } = await uploadUserPicture(req, res);
+        const { path } = await uploadUserPicture("picture", req, res);
 
         await User.findByIdAndUpdate(req.userId, { picture: path });
 
