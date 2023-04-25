@@ -34,7 +34,7 @@ export default async function updatePost(req, res) {
         res.send(post);
     } catch (err) {
         return error(
-            "Não foi possível atualizar sua publicação. Tente novamente", 
+            "Não foi possível atualizar sua publicação. Tente novamente.", 
             500, 
             res
         );

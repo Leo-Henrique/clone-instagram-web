@@ -11,7 +11,7 @@ export default function auth(req, res, next) {
         const scheme = "Bearer ";
         
         if (!authHeader.startsWith(scheme))
-            return error("Formato das credenciais incorreta.", 401, res);
+            return error("Formato das credenciais incorreto.", 401, res);
     
         const token = authHeader.replace(scheme, "");
         const secret = process.env.JWT_SECRET;
