@@ -11,6 +11,7 @@ router.get("/", getPosts);
 
 router.use(authMiddleware);
 
+// router.get("/reels", getReels);
 router.post("/", createPost);
 router.patch("/:postId", updatePost);
 
