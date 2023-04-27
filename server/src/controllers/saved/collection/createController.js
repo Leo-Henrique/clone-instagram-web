@@ -1,7 +1,7 @@
-import Saved from "../../models/savedModel.js";
-import { error } from "../../utils/helpers/validations.js";
+import Saved from "../../../models/savedModel.js";
+import { error } from "../../../utils/helpers/validations.js";
 
-export const createCollection = async (req, res) => {
+export default async function createCollection(req, res) {
     const { userId: user } = req;
     const { collection, posts } = req.body;
 
@@ -14,12 +14,28 @@ export const createCollection = async (req, res) => {
 
         if (!hasSaved) saved = await Saved.create({ user });
 
-        if (saved.albums.includes(collection))
+        const hasName = saved.albums.filter(album => 
+            album.toLowerCase() === collection.toLowerCase()
+        )[0];
+
+        if (hasName)
             return error("Uma coleção com este nome já existe.", 400, res);
 
         saved.albums.push(collection);
 
         if (posts) {
+            let err;
+
+            posts.forEach(postAdd => {
+                const hasPost = saved.posts.filter(({ post }) => 
+                    post.toString() === postAdd
+                )[0];
+
+                if (!hasPost) err = "Alguma publicação não está salva.";
+            });;
+
+            if (err) return error(err, 400, res);
+
             saved.posts.forEach(({ post, albums }) => {
                 if (posts.includes(post.toString()))
                     albums.push(collection);
