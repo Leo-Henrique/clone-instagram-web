@@ -2,18 +2,9 @@ import auth from "../../middlewares/authMiddleware.js";
 import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js"
 import { error } from "../../utils/helpers/validations.js";
+import filteredContent from "../../utils/helpers/filteredContent.js";
 
 const reorder = (posts) => posts.sort((a, b) => b.createdAt - a.createdAt);
-
-const filteredPosts = (posts, items, collection) => {
-    if (items && collection) {
-        const endIndex = items * collection;
-
-        return posts.filter((post, index) => 
-            index >= endIndex - items && index < endIndex
-        );
-    } else return posts;
-}
 
 export const getPost = async (req, res) => {
     const { postId } = req.params;
@@ -45,7 +36,7 @@ export const getPosts = async (req, res) => {
             const posts = allPosts.filter(({ user }) => user.username === username);
           
             reorder(posts);
-            res.send(filteredPosts(posts, items, collection));
+            res.send(filteredContent(posts, req.query));
         } else {
             await auth(req, res);
 
@@ -56,7 +47,7 @@ export const getPosts = async (req, res) => {
             }).populate("user media.persons.user");
             
             reorder(feed);
-            res.send(filteredPosts(feed, items, collection));
+            res.send(filteredContent(feed, req.query));
         }
     } catch (err) {
         return error("Não foi possível carregar as publicações.", 500, res);

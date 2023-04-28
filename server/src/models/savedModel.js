@@ -1,22 +1,33 @@
 import mongoose from "mongoose";
 
-const PostsSchema = mongoose.Schema({
-    post: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "posts",
-        required: true,
-    },
-    albums: [String],
-}, { _id: false });
-
-const SavedSchema = mongoose.Schema({
+const SavedSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
         required: true,
     },
-    posts: [PostsSchema],
-    albums: [String],
+    albums: [new mongoose.Schema({
+        name: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        posts: [new mongoose.Schema({
+            post: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "posts",
+                required: true,
+            },
+            addedAt: {
+                type: Date,
+                default: Date.now(),
+            }
+        }, { _id: false })],
+        createdAt: {
+            type: Date,
+            default: Date.now(),
+        },
+    }, { _id: false })],
 });
 
 const Saved = mongoose.model("saved", SavedSchema);

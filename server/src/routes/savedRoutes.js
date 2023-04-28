@@ -1,14 +1,18 @@
 import express from "express";
 import authMiddleware from "../middlewares/authMiddleware.js";
-import savePost from "../controllers/saved/savePostController.js";
-import createCollection from "../controllers/saved/collection/createController.js";;
-import updateCollection from "../controllers/saved/collection/updateController.js";
+import savePost from "../controllers/saved/saveController.js";
+import createCollection from "../controllers/saved/createController.js";
+import updateCollection from "../controllers/saved/updateController.js";
+import { getCollections, getCollection } from "../controllers/saved/readController.js";
 
 const router = express.Router();
 
 router.use(authMiddleware);
-router.post("/only/:postId", savePost);
-router.post("/collections", createCollection);
-router.patch("/collections/:name", updateCollection);
+router.post("/:postId", savePost);
+router.post("/", createCollection);
+router.patch("/", updateCollection);
+router.get("/", getCollections);
+router.get("/:collection", getCollection);
+
 
 export default router;
