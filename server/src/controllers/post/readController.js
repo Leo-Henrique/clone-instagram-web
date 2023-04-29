@@ -14,7 +14,7 @@ export const getPost = async (req, res) => {
         
         return res.send(post);
     } catch (err) {
-        return error("Não foi possível carregar a publicação", 500, res);
+        return error("Não foi possível carregar a publicação.", 500, res);
     }
 }
 

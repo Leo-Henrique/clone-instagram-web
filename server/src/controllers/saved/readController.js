@@ -9,6 +9,8 @@ export const getCollections = async (req, res) => {
         const userSaves = await Saved.findOne({ user: req.userId })
             .populate("albums.posts.post");
 
+        if (!userSaves) res.send([]);
+
         const { albums } = userSaves;
 
         albums.sort((a, b) => b.createdAt - a.createdAt);
