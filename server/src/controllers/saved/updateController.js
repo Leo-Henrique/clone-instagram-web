@@ -19,10 +19,14 @@ export default async function updateCollection(req, res) {
         const album = albums.filter(({ name }) => 
             name.toLowerCase() === collection.toLowerCase()
         )[0];
+        const isAllCollection = collection.toLowerCase() === "all";
 
         if (!album) return error("A coleção não existe.", 400, res);
 
         if (rename) {
+            if (isAllCollection) 
+                return error("Não é possível renomear essa coleção.", 400, res);
+
             const hasName = albums.some(({ name }) => 
                 name.toString() === rename.toString()
             );
@@ -34,23 +38,42 @@ export default async function updateCollection(req, res) {
         }
 
         if (add) {
+            if (isAllCollection) 
+                return error("Não é possível adicionar publicações nesta coleção.", 400, res);
+                
             updatePosts(add, album, (hasPost, id) => {
                 if (!hasPost) album.posts.unshift({ post: id });
             });
         }
 
         if (remove) {
-            updatePosts(remove, album, (hasPost, id) => {
-                const index = album.posts.findIndex(({ post }) => 
-                    post.toString() === id
-                );
+            if (isAllCollection) {
+                remove.forEach(id => {
+                    albums.forEach(({ posts }) => {
+                        const index = posts.findIndex(({ post }) =>
+                            post.toString() === id
+                        );
 
-                if (hasPost) album.posts.splice(index, 1);
-            });
+                        if (index !== -1) posts.splice(index, 1);
+                    });
+                });
+            } else {
+                updatePosts(remove, album, (hasPost, id) => {
+                    const index = album.posts.findIndex(({ post }) => 
+                        post.toString() === id
+                    );
+    
+                    if (hasPost) album.posts.splice(index, 1);
+                });
+            }
         }
         
         userSaves.save();
-        res.send({ success: "Sua coleção foi atualizada." });
+        await userSaves.populate("albums.posts.post");
+        res.send({
+            name: album.name,
+            posts: album.posts.map(({ post }) => post)
+        });
     } catch (err) {
         return error(
             "Não foi possível atualizar sua coleção. Tente novamente.", 

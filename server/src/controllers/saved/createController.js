@@ -19,16 +19,18 @@ export default async function createCollection(req, res) {
 
         albums.push({ name: collection });
 
-        if (posts) {
-            const album = albums.filter(({ name }) => 
-                name === collection
-            )[0];
-            
-            album.posts = posts.map(post => ({ post }))
-        };
+        const album = albums.filter(({ name }) => 
+            name === collection
+        )[0];
+
+        if (posts) album.posts = posts.map(post => ({ post }))
 
         userSaves.save();
-        res.send({ success: "Sua coleção foi criada." });
+        await userSaves.populate("albums.posts.post");
+        res.send({
+            name: album.name,
+            posts: album.posts.map(({ post }) => post)
+        });
     } catch (err) {
         return error(
             "Não foi possível criar sua coleção. Tente novamente.",
