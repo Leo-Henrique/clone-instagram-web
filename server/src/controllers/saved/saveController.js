@@ -12,7 +12,8 @@ export default async function savePost(req, res) {
 
         const { albums } = userSaves;
 
-        if (!albums.length) albums.unshift({ name: "all" });
+        if (!albums.length || albums[0].name !== "$all$") 
+            albums.unshift({ name: "$all$" });
 
         const hasPost = albums[0].posts.some(({ post }) => 
             post.toString() === postId
@@ -41,10 +42,10 @@ export default async function savePost(req, res) {
         }
 
         userSaves.save();
-        res.send(({ success: collection 
+        res.send({ success: collection
             ?  `A publicação foi salva na coleção '${collection}'.`
             : "A publicação foi salva."
-        }));
+        });
     } catch (err) {
         return error(
             "Não foi possível salvar a publicação. Tente novamente.",

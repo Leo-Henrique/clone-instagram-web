@@ -19,13 +19,16 @@ export default async function updateCollection(req, res) {
         const album = albums.filter(({ name }) => 
             name.toLowerCase() === collection.toLowerCase()
         )[0];
-        const isAllCollection = collection.toLowerCase() === "all";
+        const isAllCollection = collection.toLowerCase() === "$all$";
 
         if (!album) return error("A coleção não existe.", 400, res);
 
         if (rename) {
             if (isAllCollection) 
                 return error("Não é possível renomear essa coleção.", 400, res);
+
+            if (rename.toLowerCase() === "$all$")
+                return error("Não é possível utilizar este nome.", 400, res);
 
             const hasName = albums.some(({ name }) => 
                 name.toString() === rename.toString()
@@ -57,6 +60,18 @@ export default async function updateCollection(req, res) {
                         if (index !== -1) posts.splice(index, 1);
                     });
                 });
+
+                const allCollection = albums.filter(({ name }) => 
+                    name === "$all$"
+                )[0];
+
+                if (allCollection && !allCollection.posts.length) {
+                    const index = albums.findIndex(({ name }) =>
+                        name === "$all$"
+                    );
+
+                    albums.splice(index, 1);
+                };
             } else {
                 updatePosts(remove, album, (hasPost, id) => {
                     const index = album.posts.findIndex(({ post }) => 
@@ -67,13 +82,17 @@ export default async function updateCollection(req, res) {
                 });
             }
         }
-        
+
         userSaves.save();
         await userSaves.populate("albums.posts.post");
-        res.send({
-            name: album.name,
-            posts: album.posts.map(({ post }) => post)
-        });
+
+        if (isAllCollection && albums[0].name !== "$all")
+            res.send({ success: "Todas as publicações salvas foram excluídas." });
+        else
+            res.send({
+                name: album.name,
+                posts: album.posts.map(({ post }) => post)
+            });
     } catch (err) {
         return error(
             "Não foi possível atualizar sua coleção. Tente novamente.", 

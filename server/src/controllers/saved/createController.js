@@ -6,6 +6,9 @@ export default async function createCollection(req, res) {
     const { collection, posts } = req.body;
 
     try {
+        if (collection.toLowerCase() === "$all$")
+            return error("Infelizmente, a coleção não pode ter este nome.", 400, res);
+
         let userSaves = await Saved.findOne({ user });
         if (!userSaves) userSaves = await Saved.create({ user });
 

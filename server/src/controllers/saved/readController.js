@@ -8,7 +8,6 @@ export const getCollections = async (req, res) => {
     try {
         const userSaves = await Saved.findOne({ user: req.userId })
             .populate("albums.posts.post");
-        if (!userSaves) return res.send([]);
 
         const { albums } = userSaves;
 
@@ -20,15 +19,15 @@ export const getCollections = async (req, res) => {
         const preview = albums.map(({ name, posts }) => {
             const recentPosts = posts.map(({ post }, index) => {
                 if (index < 4) return post;
-            }).filter(post => post); 
+            }).filter(post => post);
 
             return { name, recentPosts };
         });
         const allCollectionIndex = preview.findIndex(({ name }) => 
-            name === "all"
+            name === "$all$"
         );
         const allCollection = preview.splice(allCollectionIndex, 1);
-        
+
         preview.unshift(allCollection[0]);
         res.send(filteredContent(preview, req.query));
     } catch (err) {
