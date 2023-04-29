@@ -24,7 +24,7 @@ export const follow = async (req, res) => {
         follow.followers.push(user.id);
         user.save();
         follow.save();
-        res.send({ success: true });
+        res.send();
     } catch (err) {
         return error(
             "Não foi possível seguir este usuário. Tente novamente.",
@@ -53,7 +53,7 @@ export const unfollow = async (req, res) => {
         );
         user.save();
         unfollow.save();
-        res.send({ success: true });
+        res.send();
     } catch (err) {
         return error(
             "Não foi possível deixar de seguir este usuário. Tente novamente.",
@@ -62,3 +62,18 @@ export const unfollow = async (req, res) => {
         );
     }
 };
+
+export const getFriends = async (req, res) => {
+    const { username, friends } = req.params;
+
+    try {
+        if (!friends.match(/^followers$|^following$/))
+            return res.status(404).send();
+
+        const user = await User.findOne({ username }).populate(friends);
+        
+        res.send(user[friends]);
+    } catch (err) {
+        return error("Não foi possível obter os usuários.", 500, res);
+    }
+}

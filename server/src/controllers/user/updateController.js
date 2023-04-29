@@ -31,7 +31,7 @@ export const updateInfos = async (req, res) => {
 
         const user = await User.findByIdAndUpdate(req.userId, req.body, {
             new: true,
-        });
+        }).select("+email");
 
         res.send(user);
     } catch (err) {

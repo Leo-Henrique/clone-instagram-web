@@ -1,11 +1,10 @@
+import auth from "../../middlewares/authMiddleware.js";
 import User from "../../models/userModel.js";
 import { error } from "../../utils/helpers/validations.js";
 
-const friends = ("followers following");
-
 export const getUsers = async (req, res) => {
     try {
-        const users = await User.find().populate(friends);
+        const users = await User.find();
 
         return res.send(users);
     } catch (err) {
@@ -14,16 +13,27 @@ export const getUsers = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-    const username = req.params.username;
+    const { username } = req.params;
+    const { current } = req.query;
 
     try {
-        const user = await User.findOne({ username }).populate(friends);
+        const user = await User.findOne({ username }).select("+email");
 
         if (!user)
             return error("Usuário inexistente.", 404, res);
 
-        return res.send(user);
+        if (current === "true") {
+            await auth(req, res);
+
+            if (user.id === req.userId)
+                return res.send(user);
+            else
+                return error("Não é possível carregar essas informações.", 400, res);
+        } else {
+            user.email = undefined;
+            res.send(user);
+        }
     } catch (err) {
-        return error("Não foi possível carregar o usuário.", 500, res);
+        return error("Não foi possível carregar as informações do usuário.", 500, res);
     }
 }

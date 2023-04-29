@@ -16,8 +16,8 @@ export default async function forgotPassword(req, res) {
             );
 
         let user = await Promise.all([
-            User.findOne({ email: userIdentify }),
-            User.findOne({ username: userIdentify }),
+            User.findOne({ email: userIdentify }).select("+email"),
+            User.findOne({ username: userIdentify }).select("+email"),
         ]);
 
         const userExists = user.filter((item) => !!item);
@@ -71,10 +71,7 @@ export default async function forgotPassword(req, res) {
             const domain = email[1];
             const hiddenEmail = `${username()}@${domain}`;
 
-            return res.send({
-                success: true,
-                email: hiddenEmail,
-            });
+            return res.send({ email: hiddenEmail });
         };
 
         await User.findByIdAndUpdate(user.id, {
