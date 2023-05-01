@@ -4,20 +4,25 @@ import { error } from "../../utils/helpers/validations.js";
 
 export default async function updatePost(req, res) {
     const { postId } = req.params;
-    const { persons, legend, showLikes, showComments } = req.body;
+    const { persons } = req.body;
+    const keys = Object.keys(req.body);
 
     try {
-        const post = await Post.findByIdAndUpdate(postId, {
-            legend,
-            showLikes,
-            showComments,
-        }, { new: true });
-        const eachPerson = persons && persons.map(({ users }) => 
-            users.map(({ username }) => username)
-        ).flat();
-        const eachUser = await User.find({ username: { $in: eachPerson }});
+        const post = await Post.findById(postId);
+
+        if (post.user.toString() !== req.userId)
+            return error("Você não tem permissão para editar essa publicação.", 400, res);
+
+        keys.forEach(key => {
+            if (key !== "persons" && post[key]) post[key] = req.body[key];
+        })
 
         if (persons) {
+            const eachPerson = persons.map(({ users }) => 
+                users.map(({ username }) => username)
+            ).flat();
+            const eachUser = await User.find({ username: { $in: eachPerson }});
+
             persons.forEach(({ media, users }) => {
                 post.media[media].persons = users.map(
                     ({ username, offsetX, offsetY }) => ({
