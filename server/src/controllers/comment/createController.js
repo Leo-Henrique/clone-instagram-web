@@ -4,7 +4,7 @@ import { error, types } from "../../utils/helpers/validations.js";
 
 export default async function createComment(req, res) {
     const { postId } = req.params;
-    const { content } = req.body;
+    const { content, answering } = req.body;
 
     try {
         if (!content) return error("Seu comentário não pode estar vazio.", 400, res);
@@ -12,16 +12,28 @@ export default async function createComment(req, res) {
         if (!content.match(types.comment.regex))
             return error(types.comment.message, 400, res);
 
-        const comment = await Comment.create({
-            user: req.userId,
-            content,
-        });
-        await Post.findByIdAndUpdate(postId, {
-            $push: { comments: comment.id }
-        });
+        const schema = { user: req.userId, content };
+        let comment;
+
+        if (!answering) {
+            comment = await Comment.create(schema);
+
+            await Post.findByIdAndUpdate(postId, {
+                $push: { comments: comment.id }
+            });
+
+        } else {
+            const parent = await Comment.findByIdAndUpdate(answering, {
+                $push: { replies: schema }
+            }, { new: true });
+            const { replies } = parent;
+
+           comment = replies[replies.length - 1];
+        }
 
         res.send(comment);
     } catch (err) {
+        
         return error(
             "Não foi possível publicar seu comentário. Tente novamente.",
             500,
