@@ -18,6 +18,10 @@ export const types = {
     bio: {
         regex: /^.{1,150}$/m,
         message: "Sua biografia deve ter no máximo 150 caracteres."
+    },
+    comment: {
+        regex: /^.{1,1000}$/m,
+        message: "Seu comentário deve ter no máximo 1000 caracteres."
     }
 }
 
