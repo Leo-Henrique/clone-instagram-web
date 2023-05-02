@@ -22,10 +22,7 @@ export const deleteSave = async (req, res) => {
             if (index !== -1) posts.splice(index, 1);
         });
 
-        if (!albums[0].posts.length) albums.splice(0, 1);
-        
-        userSaves.save();
-
+        await userSaves.save();
         if (!albums.length) await Saved.deleteOne({ user: req.userId });
 
         res.send({ success: "A publicação foi removida dos salvos." });
@@ -56,10 +53,10 @@ export const deleteCollection = async (req, res) => {
             return error("A coleção não existe.", 400, res);
 
         albums.splice(albumIndex, 1);
+        await userSaves.save();
 
         if (!albums.length) await Saved.deleteOne({ user: req.userId });
 
-        userSaves.save();
         res.send({ success: "Sua coleção foi excluída." });
     } catch (err) {
         return error(

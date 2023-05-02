@@ -60,18 +60,6 @@ export default async function updateCollection(req, res) {
                         if (index !== -1) posts.splice(index, 1);
                     });
                 });
-
-                const allCollection = albums.filter(({ name }) => 
-                    name === "$all$"
-                )[0];
-
-                if (allCollection && !allCollection.posts.length) {
-                    const index = albums.findIndex(({ name }) =>
-                        name === "$all$"
-                    );
-
-                    albums.splice(index, 1);
-                };
             } else {
                 updatePosts(remove, album, (hasPost, id) => {
                     const index = album.posts.findIndex(({ post }) => 
@@ -83,16 +71,19 @@ export default async function updateCollection(req, res) {
             }
         }
 
-        userSaves.save();
-        await userSaves.populate("albums.posts.post");
+        await userSaves.save();
+        if (!albums.length) {
+            await Saved.deleteOne({ user: req.userId });
 
-        if (isAllCollection && albums[0].name !== "$all")
-            res.send({ success: "Todas as publicações salvas foram excluídas." });
-        else
+            res.send();
+        } else {
+            await userSaves.populate("albums.posts.post");
+
             res.send({
                 name: album.name,
                 posts: album.posts.map(({ post }) => post)
             });
+        }
     } catch (err) {
         return error(
             "Não foi possível atualizar sua coleção. Tente novamente.", 

@@ -30,6 +30,18 @@ const SavedSchema = new mongoose.Schema({
     }, { _id: false })],
 });
 
+SavedSchema.pre("save", async function(next) {
+    const globalCollection = this.albums.find(({ name }) => name === "$all$");
+
+    if (globalCollection && !globalCollection.posts.length) {
+        const index = this.albums.indexOf(globalCollection);
+    
+        this.albums.splice(index, 1);
+    }
+    
+    next();
+});
+
 const Saved = mongoose.model("saved", SavedSchema);
 
 export default Saved;
