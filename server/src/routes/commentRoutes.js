@@ -11,6 +11,6 @@ router.post("/:postId", createComment);
 router.post("/likes/:commentId", like);
 router.get("/likes/:commentId", getLikes);
 router.delete("/likes/:commentId", unlike);
-router.delete("/:postId", deleteComment);
+router.delete("/:commentId", deleteComment);
 
 export default router;

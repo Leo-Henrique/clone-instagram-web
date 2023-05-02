@@ -53,26 +53,30 @@ const PostSchema = new mongoose.Schema({
     }
 });
 
-PostSchema.pre("findOneAndDelete", async function(next) {
-    const postId = this._conditions._id;
-    const post = await Post.findById(postId);
-    const usersSaves =  await Saved.find();
+PostSchema.pre(["findOneAndDelete", "deleteMany"], async function(next) {
+    const posts = await Post.find(this._conditions);
+    const usersSaves = await Saved.find();
 
     usersSaves.forEach(async saved => {
         if (saved) {
-            saved.albums.forEach(({ posts }) => {
-                const postIndex = posts.findIndex(({ post }) =>
-                    post.toString() === postId
-                );
+            saved.albums.forEach(({ posts: albumPosts }) => {
+                posts.forEach(post => {
+                    const postIndex = albumPosts.findIndex(albumPost =>
+                        albumPost.post.toString() === post.id
+                    );
     
-                if (postIndex !== -1) posts.splice(postIndex, 1);
-            })
+                    if (postIndex !== -1) albumPosts.splice(postIndex, 1);
+                })
+            });
     
             await saved.save();
             if (!saved.albums.length) await Saved.findByIdAndDelete(saved.id);
         }
     });
-    await Comment.deleteMany({ _id: { $in: post.comments } });
+    posts.forEach(async post => {
+        await Comment.deleteMany({ _id: { $in: post.comments } });
+    });
+    
     next();
 });
 

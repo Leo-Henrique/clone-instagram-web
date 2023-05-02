@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import Post from "./postModel.js";
+import Saved from "./savedModel.js";
+import Comment from "./commentModel.js";
 
 export const defaultPicture = "uploads/default/user-picture.jpeg";
 
@@ -67,6 +70,38 @@ UserSchema.pre("save", async function(next) {
         this.password = hash;
         next();
     } else next();
+});
+
+UserSchema.pre("findOneAndDelete", async function(next) {
+    const userId = this._conditions._id;
+    const user = await User.findById(userId);
+    const referencedUsers = [...user.followers, ...user.following];
+
+    await User.updateMany(
+        { _id: { $in: referencedUsers } },
+        { 
+            $pull: { followers: userId, following: userId },
+        }
+    );
+    await Post.deleteMany({ user: userId });
+    await Post.updateMany({ likes: userId }, { $pull: { likes: userId } });
+    await Saved.deleteOne({ user: userId });
+    await Comment.deleteMany({ user: userId });
+
+    const comments = await Comment.find();
+
+    comments.forEach(comment => {
+        comment.likes = comment.likes.filter(id => id.toString() !== userId);
+        comment.replies = comment.replies.filter(({ user }) => 
+            user.toString() !== userId
+        );
+        comment.replies.forEach(reply => {
+            reply.likes = reply.likes.filter(user => user.toString() !== userId);
+        })
+
+        comment.save();
+    });
+    next();
 });
 
 const User = mongoose.model("users", UserSchema);

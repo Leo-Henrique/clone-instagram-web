@@ -6,8 +6,9 @@ const genericError = "Não foi possível obter suas publicações salvas.";
 
 export const getCollections = async (req, res) => {
     try {
-        const userSaves = await Saved.findOne({ user: req.userId })
-            .populate("albums.posts.post");
+        const userSaves = await Saved.findOne({ user: req.userId }).populate(
+            "albums.posts.post"
+        );
 
         if (!userSaves) res.send([]);
 
@@ -19,15 +20,15 @@ export const getCollections = async (req, res) => {
         });
 
         const preview = albums.map(({ name, posts }) => {
-            const recentPosts = posts.map(({ post }, index) => {
-                if (index < 4) return post;
-            }).filter(post => post);
+            const recentPosts = posts
+                .map(({ post }, index) => {
+                    if (index < 4) return post;
+                })
+                .filter(post => post);
 
             return { name, recentPosts };
         });
-        const allCollectionIndex = preview.findIndex(({ name }) => 
-            name === "$all$"
-        );
+        const allCollectionIndex = preview.findIndex(({ name }) => name === "*all*");
         const allCollection = preview.splice(allCollectionIndex, 1);
 
         preview.unshift(allCollection[0]);
@@ -41,10 +42,11 @@ export const getCollection = async (req, res) => {
     const { collection } = req.params;
 
     try {
-        const userSaves = await Saved.findOne({ user: req.userId })
-            .populate("albums.posts.post");
-        const album = userSaves.albums.filter(({ name }) =>
-            name.toLowerCase() === collection.toLowerCase()
+        const userSaves = await Saved.findOne({ user: req.userId }).populate(
+            "albums.posts.post"
+        );
+        const album = userSaves.albums.filter(
+            ({ name }) => name.toLowerCase() === collection.toLowerCase()
         )[0];
 
         if (!album) return error("A coleção não existe.", 400, res);
@@ -57,4 +59,4 @@ export const getCollection = async (req, res) => {
     } catch (err) {
         return error(genericError, 500, res);
     }
-}
+};
