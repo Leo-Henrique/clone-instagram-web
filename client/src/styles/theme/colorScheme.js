@@ -33,3 +33,5 @@ export const colorScheme = {
         danger: "#ED4956",
     },
 };
+
+export default colorScheme;
