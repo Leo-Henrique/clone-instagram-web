@@ -26,11 +26,14 @@ export const colorScheme = {
         postMarked: "rgba(0, 0, 0, .85)",
         postAudio: "rgba(219,219,219,.2)",
         postPlay: "rgba(0,0,0,.5)",
+        primaryLight1: "#29a6f9",
         primary: "#0095F6",
         primaryDark1: "#1877F2",
         primaryDark2: "#00376B",
         secondary: "#FF3040",
         danger: "#ED4956",
+        white: "#FFF",
+        black: "#000",
     },
 };
 

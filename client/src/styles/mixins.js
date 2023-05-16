@@ -1,10 +1,11 @@
 import { css } from "styled-components";
-import theme from "./theme";
 
-export const transition = (properties, type = "button") => (css`
-    transition-property: ${properties.join(", ")};
-    transition-duration: ${theme.transitions[type].duration}ms;
-    transition-timing-function: ${theme.transitions[type].timingFunction};
+export const transition = 
+    (properties, type = "button") => 
+    ({ theme }) => (css`
+        transition-property: ${properties.join(", ")};
+        transition-duration: ${theme.transitions[type].duration}ms;
+        transition-timing-function: ${theme.transitions[type].timingFunction};
 `);
 
 export const SVGResponsive = (css`

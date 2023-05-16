@@ -9,8 +9,8 @@ const GlobalStyle = createGlobalStyle(({ theme }) => css`
         line-height: 1.5;
         font-weight: 400;
         font-family: ${theme.fontFamily};
-        color: ${theme.colors.text};
-        background-color: ${theme.colors.background};
+        color: ${theme.colors.light.text};
+        background-color: ${theme.colors.light.background};
     }
 `)
 

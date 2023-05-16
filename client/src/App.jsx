@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
+import { BrowserRouter } from "react-router-dom";
 
 import theme from "./styles/theme";
 import colorScheme from "./styles/theme/colorScheme";
 import GlobalStyle from "./styles/GlobalStyle";
+import AppRoutes from "./routes/";
 
 export default function App() {
     const [themePreference, setThemePreference] = useState(() => {
@@ -13,12 +15,17 @@ export default function App() {
     });
     const colors = {
         ...colorScheme[themePreference],
-        ...colorScheme.global
+        ...colorScheme.global,
+        light: colorScheme.light
     };
 
     return (
         <ThemeProvider theme={{ ...theme, colors }}>
             <GlobalStyle />
+
+            <BrowserRouter>
+                <AppRoutes />
+            </BrowserRouter>
         </ThemeProvider>
     )
 }

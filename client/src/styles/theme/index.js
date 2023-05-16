@@ -13,6 +13,7 @@ const theme = {
         subh1: "1.6rem",
         body: "1.4rem",
         small: "1.2rem",
+        input: "16px",
     },
     transitions: {
         global: {
