@@ -7,5 +7,5 @@ export default function AppRoutes() {
         <Routes>
             <Route path="/" element={<Home />} />
         </Routes>
-    )
+    );
 }

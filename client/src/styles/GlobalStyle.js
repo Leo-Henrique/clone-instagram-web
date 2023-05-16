@@ -1,7 +1,7 @@
 import { css, createGlobalStyle } from "styled-components";
 import leoReset from "../../node_modules/leo-reset.css/dist/leo-reset.css?inline";
 
-const GlobalStyle = createGlobalStyle(({ theme }) => css`
+const GlobalStyle = createGlobalStyle`${({ theme }) => (css`
     ${leoReset};
 
     body {
@@ -12,6 +12,11 @@ const GlobalStyle = createGlobalStyle(({ theme }) => css`
         color: ${theme.colors.light.text};
         background-color: ${theme.colors.light.background};
     }
-`)
+    input {
+        ${theme.breakpoints.sm} {
+            font-size: 16px;
+        }
+    }
+`)}`
 
 export default GlobalStyle;
