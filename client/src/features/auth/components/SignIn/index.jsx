@@ -2,37 +2,23 @@ import { Link } from "react-router-dom";
 
 import { AuthContainer, Auth } from "../layout";
 import Input from "../layout/Input";
-import SignInWrapper from "./style";
-import IMGSlide1 from "../../../../assets/images/home-screenshot1.png";
-import IMGSlide2 from "../../../../assets/images/home-screenshot2.png";
-import IMGSlide3 from "../../../../assets/images/home-screenshot3.png";
-import IMGSlide4 from "../../../../assets/images/home-screenshot4.png";
+import { SignInWrapper } from "./style";
+import Slideshow from "./Slideshow";
 import SVGInstagram from "../../../../assets/icons/vectors/instagram.svg";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import Footer from "../../../../components/Footer";
+import useHead from "../../../../hooks/useHead";
 
 export default function SignIn() {
+    useHead({
+        title: "Instagram",
+        desc: "Crie uma conta ou entre no Clone do Instagram, uma simulação completa criada por Leonardo Henrique da versão web do verdadeiro Instagram.",
+    });
+
     return (
         <AuthContainer>
             <SignInWrapper>
-                <SignInWrapper.Smartphones>
-                    <img
-                        src={IMGSlide1}
-                        alt="Captura de tela exibindo publicações do Instagram"
-                    />
-                    <img
-                        src={IMGSlide2}
-                        alt="Captura de tela exibindo interação com mensagens pelo Instagram"
-                    />
-                    <img
-                        src={IMGSlide3}
-                        alt="Captura de tela exibindo um perfil de um usuário do Instagram"
-                    />
-                    <img
-                        src={IMGSlide4}
-                        alt="Captura de tela exibindo uma foto de duas pessoas pela câmera do Instagram"
-                    />
-                </SignInWrapper.Smartphones>
+                <Slideshow />
 
                 <Auth>
                     <Auth.Main
@@ -51,7 +37,11 @@ export default function SignIn() {
                                 autoFocus
                             />
 
-                            <Input id="password" label="Senha" type="password" />
+                            <Input
+                                id="password"
+                                label="Senha"
+                                type="password"
+                            />
 
                             <SubmitBtn text="Entrar" />
                         </form>

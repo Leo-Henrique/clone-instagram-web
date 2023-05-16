@@ -5,8 +5,7 @@ const theme = {
     breakpoints,
     mixins,
     queries,
-    fontFamily:
-        "'system-ui', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    fontFamily: "'system-ui', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     fontSizes: {
         h1: "2.4rem",
         h2: "2rem",
@@ -22,6 +21,10 @@ const theme = {
         button: {
             duration: 200,
             timingFunction: "ease-in-out",
+        },
+        slideshow: {
+            duration: 1500,
+            timingFunction: "ease-in",
         },
     },
 };
