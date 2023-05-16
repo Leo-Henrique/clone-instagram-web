@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 import { AuthContainer, Auth } from "../layout";
-import Input from "../layout/Input";
 import { SignInWrapper } from "./style";
 import Slideshow from "./Slideshow";
 import SVGInstagram from "../../../../assets/icons/vectors/instagram.svg";
@@ -30,14 +29,14 @@ export default function SignIn() {
                         </Auth.Logo>
 
                         <form>
-                            <Input
+                            <Auth.Input
                                 id="user"
                                 label="Nome de usuário ou e-mail"
                                 type="text"
                                 autoFocus
                             />
 
-                            <Input
+                            <Auth.Input
                                 id="password"
                                 label="Senha"
                                 type="password"

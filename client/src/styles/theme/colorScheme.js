@@ -1,4 +1,4 @@
-export const colorScheme = {
+const colorScheme = {
     light: {
         background: "#FAFAFA",
         block: "#FFF",

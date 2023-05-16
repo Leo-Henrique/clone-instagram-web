@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 import { Info, Main } from "./Blocks";
 import Logo from "./Logo";
+import Input from "./Input";
 import Separator from "./Separator";
 import SmallLink from "./SmallLink";
 
@@ -22,5 +23,6 @@ export const Auth = styled.div`
 Auth.Main = Main;
 Auth.Info = Info;
 Auth.Logo = Logo;
+Auth.Input = Input;
 Auth.Separator = Separator;
 Auth.SmallLink = SmallLink;
