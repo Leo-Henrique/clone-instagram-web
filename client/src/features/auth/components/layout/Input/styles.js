@@ -58,16 +58,7 @@ Wrapper.ShowPassword = styled.button`${({ theme }) => (css`
     font-weight: 600;
     color: ${theme.colors.light.textSupport1};
     cursor: pointer;
-    ${theme.mixins.transition(["opacity"], "button")};
-
-    ${theme.queries.desktop} {
-        &:hover {
-            opacity: .6;
-        }
-    }
-    &:active {
-        opacity: .3;
-    }
+    ${theme.mixins.genericLinkStates};
 `)}`
 
 export default Wrapper;

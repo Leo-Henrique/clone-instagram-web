@@ -5,7 +5,6 @@ export const Button = styled.button`${({ theme }) => (css`
     width: 100%;
     padding: .6rem 1.6rem;
     text-align: center;
-    white-space: nowrap;
     font-weight: 600;
     color: ${theme.colors.white};
     background-color: ${theme.colors.primary};

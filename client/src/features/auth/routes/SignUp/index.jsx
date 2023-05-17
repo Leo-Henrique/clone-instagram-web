@@ -38,7 +38,7 @@ export default function SignUp() {
     return (
         <AuthContainer>
             <Auth>
-                <Auth.Main $paddingTop="4.5rem" $paddingBottom="3.5rem">
+                <Auth.Main $paddingBottom="3.5rem">
                     <Auth.Logo $marginBottom="1.5rem" />
 
                     <Title>
@@ -59,7 +59,8 @@ export default function SignUp() {
                         ))}
 
                         <Text>
-                            Os seus dados serão usados unicamente para a sua identificação.
+                            Os seus dados serão usados unicamente para a sua
+                            identificação.
                         </Text>
 
                         <SubmitBtn text="Cadastre-se" />

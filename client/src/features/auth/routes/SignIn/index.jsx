@@ -25,10 +25,7 @@ export default function SignIn() {
                 <Slideshow />
 
                 <Auth>
-                    <Auth.Main
-                        $paddingTop="4.5rem"
-                        $paddingBottom="calc(2rem - 1.2rem)"
-                    >
+                    <Auth.Main $paddingBottom="calc(2rem - 1.2rem)">
                         <Auth.Logo />
 
                         <form>

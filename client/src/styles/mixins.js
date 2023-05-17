@@ -24,3 +24,16 @@ export const authBlock = ({ theme }) => (css`
         border: none;
     }
 `);
+
+export const genericLinkStates = ({ theme }) => (css`
+    ${theme.mixins.transition(["opacity"], "button")};
+
+    ${theme.queries.desktop} {
+        &:hover {
+            opacity: .6;
+        }
+    }
+    &:active {
+        opacity: .3;
+    }
+`);
