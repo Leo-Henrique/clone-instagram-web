@@ -1,0 +1,14 @@
+import { styled } from "styled-components";
+
+const Main = styled.div`
+    ${({ theme }) => theme.mixins.authBlock};
+    padding-top: ${({ $paddingTop }) => $paddingTop};
+    padding-bottom: ${({ $paddingBottom }) => $paddingBottom};
+
+    @media (max-width: 450px) {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+`;
+
+export default Main;

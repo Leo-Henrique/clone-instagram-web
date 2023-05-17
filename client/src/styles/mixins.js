@@ -14,7 +14,13 @@ export const SVGResponsive = (css`
     height: auto;
 `);
 
-export const center = (css`
-    margin-left: auto;
-    margin-right: auto;
+export const authBlock = ({ theme }) => (css`
+    max-width: 350px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    border: 1px solid ${theme.colors.light.stroke};
+
+    @media (max-width: 450px) {
+        border: none;
+    }
 `);

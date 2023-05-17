@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { AuthContainer, Auth } from "../../components/layout";
 import { SignInWrapper } from "./style";
 import Slideshow from "../../components/Slideshow";
-import SVGInstagram from "../../../../assets/icons/vectors/instagram.svg";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
@@ -30,9 +29,7 @@ export default function SignIn() {
                         $paddingTop="4.5rem"
                         $paddingBottom="calc(2rem - 1.2rem)"
                     >
-                        <Auth.Logo>
-                            <SVGInstagram />
-                        </Auth.Logo>
+                        <Auth.Logo />
 
                         <form>
                             <Auth.Input
@@ -64,12 +61,11 @@ export default function SignIn() {
                         </Auth.SmallLink>
                     </Auth.Main>
 
-                    <Auth.Info>
-                        <p>
-                            <span>Não tem uma conta? </span>
-                            <Link to="auth/signup">Cadastre-se</Link>
-                        </p>
-                    </Auth.Info>
+                    <Auth.Info
+                        text="Não tem uma conta?"
+                        linkText="Cadastre-se"
+                        linkHref="auth/signup"
+                    />
                 </Auth>
             </SignInWrapper>
 

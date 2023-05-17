@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 
-import { Info, Main } from "./Blocks";
+import Main from "./Main";
+import Info from "./Info";
 import Logo from "./Logo";
 import Input from "./Input";
 import Separator from "./Separator";
