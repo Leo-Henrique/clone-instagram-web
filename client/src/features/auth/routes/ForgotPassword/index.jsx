@@ -6,6 +6,7 @@ import ImgIcon from "../../../../components/ImgIcon";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import { AlternateLink, ReturnLink } from "./style";
+import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
 
 export default function ForgotPassword() {
@@ -59,6 +60,8 @@ export default function ForgotPassword() {
                     <Link to="/">Voltar ao login</Link>
                 </ReturnLink>
             </Auth>
+
+            <Footer />
         </AuthContainer>
     );
 }
