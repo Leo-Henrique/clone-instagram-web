@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { AuthContainer, Auth } from "../layout";
+import { AuthContainer, Auth } from "../../components/layout";
 import { SignInWrapper } from "./style";
-import Slideshow from "./Slideshow";
+import Slideshow from "../../components/Slideshow";
 import SVGInstagram from "../../../../assets/icons/vectors/instagram.svg";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import Footer from "../../../../components/Footer";

@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 
-import IMGSmartphones from "../../../../../assets/images/home-smartphones.png";
+import IMGSmartphones from "../../../../assets/images/home-smartphones.png";
 
 const Wrapper = styled.div`
     flex: 0 0 380px;

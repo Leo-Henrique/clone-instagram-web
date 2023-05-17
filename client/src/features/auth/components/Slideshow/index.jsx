@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 
 import Wrapper from "./style";
-import IMGSlide1 from "../../../../../assets/images/home-screenshot1.png";
-import IMGSlide2 from "../../../../../assets/images/home-screenshot2.png";
-import IMGSlide3 from "../../../../../assets/images/home-screenshot3.png";
-import IMGSlide4 from "../../../../../assets/images/home-screenshot4.png";
+import IMGSlide1 from "../../../../assets/images/home-screenshot1.png";
+import IMGSlide2 from "../../../../assets/images/home-screenshot2.png";
+import IMGSlide3 from "../../../../assets/images/home-screenshot3.png";
+import IMGSlide4 from "../../../../assets/images/home-screenshot4.png";
 import { useTheme } from "styled-components";
 
 export default function Slideshow() {
