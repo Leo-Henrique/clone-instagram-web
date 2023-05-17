@@ -9,6 +9,7 @@ const colorScheme = {
         footer: "#C7C7C7",
         separator: "#DBDBDB",
         stroke: "#DBDBDB",
+        strokeFocus: "#A8A8A8",
     },
     dark: {
         background: "#121212",
@@ -20,6 +21,7 @@ const colorScheme = {
         footer: "#737373",
         separator: "#1B1B1B",
         stroke: "#262626",
+        strokeFocus: "#262626",
     },
     global: {
         postConfig: "rgba(26, 26, 26, .8)",

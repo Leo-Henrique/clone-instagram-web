@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { AuthContainer, Auth } from "../layout";
@@ -9,6 +10,11 @@ import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
 
 export default function SignIn() {
+    const [form, setForm] = useState({
+        user: "",
+        password: "",
+    });
+
     useHead({
         title: "Instagram",
         desc: "Crie uma conta ou entre no Clone do Instagram, uma simulação completa criada por Leonardo Henrique da versão web do verdadeiro Instagram.",
@@ -33,6 +39,8 @@ export default function SignIn() {
                                 id="user"
                                 label="Nome de usuário ou e-mail"
                                 type="text"
+                                form={form}
+                                setForm={setForm}
                                 autoFocus
                             />
 
@@ -40,6 +48,8 @@ export default function SignIn() {
                                 id="password"
                                 label="Senha"
                                 type="password"
+                                form={form}
+                                setForm={setForm}
                             />
 
                             <SubmitBtn text="Entrar" />
