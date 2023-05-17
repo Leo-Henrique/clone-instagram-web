@@ -1,5 +1,11 @@
 import { css, styled } from "styled-components";
 
+const stroke = sides => ({ theme }) => (css`
+    ${sides.map(side => (css` 
+        border-${side}: 1px solid ${theme.colors.light.stroke};
+    `))};
+`)
+
 export const AlternateLink = styled.div`${({ theme }) => (css`
     text-align: center;
 
@@ -12,7 +18,12 @@ export const AlternateLink = styled.div`${({ theme }) => (css`
     }
 `)}`;
 
-export const ReturnLink = styled(AlternateLink)`
-    border: 1px solid ${({ theme }) => theme.colors.light.stroke};
-    border-top: none;
-`;
+export const ReturnLink = styled(AlternateLink)`${({ theme }) => (css`
+    ${stroke(["right", "left", "bottom"])};
+
+    ${theme.breakpoints.authSm} {
+        border: none;
+        ${stroke(["top", "bottom"])};
+        margin-top: 4rem;
+    }
+`)}`;

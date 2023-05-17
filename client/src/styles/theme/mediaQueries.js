@@ -6,6 +6,7 @@ const sizes = {
     lg: "991.98px",
     md: "767.98px",
     sm: "575.98px",
+    authSm: "450px",
 };
 
 export const devices = {};

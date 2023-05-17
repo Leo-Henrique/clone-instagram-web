@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { Auth, AuthContainer } from "../../components/layout";
+import Template from "../../components/Layout/Template";
+import Layout from "../../components/Layout/style";
 import ImgIcon from "../../../../components/ImgIcon";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import SubmitBtn from "../../../../components/SubmitBtn";
-import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
 
 export default function ForgotPassword() {
@@ -17,35 +17,31 @@ export default function ForgotPassword() {
     });
 
     return (
-        <AuthContainer>
-            <Auth>
-                <Auth.Main>
-                    <ImgIcon $src={IMGForgotPassword} $size={96} $center />
+        <Template>
+            <Layout.FormBlock>
+                <ImgIcon $src={IMGForgotPassword} $size={96} $center />
 
-                    <Auth.Title $marginTop="1.5rem">
-                        Crie uma nova senha
-                    </Auth.Title>
+                <Layout.Title $marginTop="1.5rem">
+                    Crie uma nova senha
+                </Layout.Title>
 
-                    <Auth.Text>
-                        Sua senha deve ter no mínimo 3 caracteres.
-                    </Auth.Text>
+                <Layout.Text>
+                    Sua senha deve ter no mínimo 3 caracteres.
+                </Layout.Text>
 
-                    <form>
-                        <Auth.Input
-                            id="password"
-                            type="password"
-                            label="Senha"
-                            form={form}
-                            setForm={setForm}
-                            autoFocus
-                        />
+                <form>
+                    <Layout.Input
+                        id="password"
+                        type="password"
+                        label="Senha"
+                        form={form}
+                        setForm={setForm}
+                        autoFocus
+                    />
 
-                        <SubmitBtn text="Redefinir minha senha" />
-                    </form>
-                </Auth.Main>
-            </Auth>
-
-            <Footer />
-        </AuthContainer>
+                    <SubmitBtn text="Redefinir minha senha" />
+                </form>
+            </Layout.FormBlock>
+        </Template>
     );
 }

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Auth, AuthContainer } from "../../components/layout";
+import Template from "../../components/Layout/Template";
+import Layout from "../../components/Layout/style";
 import ImgIcon from "../../../../components/ImgIcon";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import { AlternateLink, ReturnLink } from "./style";
-import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
 
 export default function ForgotPassword() {
@@ -19,49 +19,44 @@ export default function ForgotPassword() {
     });
 
     return (
-        <AuthContainer>
-            <Auth>
-                <Auth.Main>
-                    <ImgIcon $src={IMGForgotPassword} $size={96} $center />
+        <Template>
+            <Layout.FormBlock>
+                <ImgIcon $src={IMGForgotPassword} $size={96} $center />
 
-                    <Auth.Title $marginTop="1.5rem">
-                        Problemas para entrar?
-                    </Auth.Title>
+                <Layout.Title $marginTop="1.5rem">
+                    Problemas para entrar?
+                </Layout.Title>
 
-                    <Auth.Text>
-                        Insira seu e-mail ou nome de usuário que lhe enviaremos
-                        um link por e-mail para que você possa redefinir sua
-                        senha.
-                    </Auth.Text>
+                <Layout.Text>
+                    Insira seu e-mail ou nome de usuário que lhe enviaremos um
+                    link por e-mail para que você possa redefinir sua senha.
+                </Layout.Text>
 
-                    <form>
-                        <Auth.Input
-                            id="user"
-                            type="text"
-                            label="E-mail ou nome de usuário"
-                            form={form}
-                            setForm={setForm}
-                            autoFocus
-                        />
+                <form>
+                    <Layout.Input
+                        id="user"
+                        type="text"
+                        label="E-mail ou nome de usuário"
+                        form={form}
+                        setForm={setForm}
+                        autoFocus
+                    />
 
-                        <SubmitBtn text="Enviar link para login" />
-                    </form>
+                    <SubmitBtn text="Enviar link para login" />
+                </form>
 
-                    <Auth.Separator $margin="2rem 0 calc(2rem - 1.2rem)">
-                        ou
-                    </Auth.Separator>
+                <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)">
+                    ou
+                </Layout.Separator>
 
-                    <AlternateLink>
-                        <Link to="/auth/signup">Criar nova conta</Link>
-                    </AlternateLink>
-                </Auth.Main>
+                <AlternateLink>
+                    <Link to="/auth/signup">Criar nova conta</Link>
+                </AlternateLink>
+            </Layout.FormBlock>
 
-                <ReturnLink>
-                    <Link to="/">Voltar ao login</Link>
-                </ReturnLink>
-            </Auth>
-
-            <Footer />
-        </AuthContainer>
+            <ReturnLink>
+                <Link to="/">Voltar ao login</Link>
+            </ReturnLink>
+        </Template>
     );
 }

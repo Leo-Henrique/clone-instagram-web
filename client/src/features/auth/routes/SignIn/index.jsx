@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { AuthContainer, Auth } from "../../components/layout";
+import Layout from "../../components/Layout/style";
 import { SignInWrapper } from "./style";
 import Slideshow from "../../components/Slideshow";
 import SubmitBtn from "../../../../components/SubmitBtn";
@@ -20,16 +20,16 @@ export default function SignIn() {
     });
 
     return (
-        <AuthContainer>
+        <Layout>
             <SignInWrapper>
                 <Slideshow />
 
-                <Auth>
-                    <Auth.Main $paddingBottom="calc(2rem - 1.2rem)">
-                        <Auth.Logo />
+                <Layout.Column>
+                    <Layout.FormBlock $paddingBottom="calc(2rem - 1.2rem)">
+                        <Layout.Logo />
 
                         <form>
-                            <Auth.Input
+                            <Layout.Input
                                 id="user"
                                 label="Nome de usuário ou e-mail"
                                 type="text"
@@ -38,7 +38,7 @@ export default function SignIn() {
                                 autoFocus
                             />
 
-                            <Auth.Input
+                            <Layout.Input
                                 id="password"
                                 label="Senha"
                                 type="password"
@@ -49,24 +49,24 @@ export default function SignIn() {
                             <SubmitBtn text="Entrar" />
                         </form>
 
-                        <Auth.Separator $margin="2rem 0 calc(2rem - 1.2rem)" />
+                        <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)" />
 
-                        <Auth.SmallLink>
+                        <Layout.SmallLink>
                             <Link to="auth/forgot_password">
                                 Esqueceu sua senha?
                             </Link>
-                        </Auth.SmallLink>
-                    </Auth.Main>
+                        </Layout.SmallLink>
+                    </Layout.FormBlock>
 
-                    <Auth.Info
+                    <Layout.InfoBlock
                         text="Não tem uma conta?"
                         linkText="Cadastre-se"
                         linkHref="auth/signup"
                     />
-                </Auth>
+                </Layout.Column>
             </SignInWrapper>
 
             <Footer />
-        </AuthContainer>
+        </Layout>
     );
 }

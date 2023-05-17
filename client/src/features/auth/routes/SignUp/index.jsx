@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-import { Auth, AuthContainer } from "../../components/layout";
+import Template from "../../components/Layout/Template";
+import Layout from "../../components/Layout/style";
 import { Text, Title } from "./style";
-import Footer from "../../../../components/Footer";
 import SubmitBtn from "../../../../components/SubmitBtn";
+import useHead from "../../../../hooks/useHead";
 
 export default function SignUp() {
     const fields = [
@@ -35,46 +36,47 @@ export default function SignUp() {
         return obj;
     });
 
+    useHead({
+        title: "Cadastre-se | Instagram",
+        desc: "Crie sua conta para o Clone do Instagram.",
+    });
+
     return (
-        <AuthContainer>
-            <Auth>
-                <Auth.Main $paddingBottom="3.5rem">
-                    <Auth.Logo $marginBottom="1.5rem" />
+        <Template>
+            <Layout.FormBlock $paddingBottom="3.5rem">
+                <Layout.Logo $marginBottom="1.5rem" />
 
-                    <Title>
-                        Cadastre-se para ver fotos e vídeos dos seus amigos.
-                    </Title>
+                <Title>
+                    Cadastre-se para ver fotos e vídeos dos seus amigos.
+                </Title>
 
-                    <Auth.Separator />
+                <Layout.Separator />
 
-                    <form>
-                        {fields.map((field, index) => (
-                            <Auth.Input
-                                {...field}
-                                key={field.id}
-                                form={form}
-                                setForm={setForm}
-                                autoFocus={index === 0}
-                            />
-                        ))}
+                <form>
+                    {fields.map((field, index) => (
+                        <Layout.Input
+                            {...field}
+                            key={field.id}
+                            form={form}
+                            setForm={setForm}
+                            autoFocus={index === 0}
+                        />
+                    ))}
 
-                        <Text>
-                            Os seus dados serão usados unicamente para a sua
-                            identificação.
-                        </Text>
+                    <Text>
+                        Os seus dados serão usados unicamente para a sua
+                        identificação.
+                    </Text>
 
-                        <SubmitBtn text="Cadastre-se" />
-                    </form>
-                </Auth.Main>
+                    <SubmitBtn text="Cadastre-se" />
+                </form>
+            </Layout.FormBlock>
 
-                <Auth.Info
-                    text="Possui uma conta?"
-                    linkText="Conecte-se"
-                    linkHref="/"
-                />
-            </Auth>
-
-            <Footer />
-        </AuthContainer>
+            <Layout.InfoBlock
+                text="Possui uma conta?"
+                linkText="Conecte-se"
+                linkHref="/"
+            />
+        </Template>
     );
 }

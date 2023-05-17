@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import Wrapper from "./style.js";
 
-export default function Info({ text, linkHref, linkText }) {
+export default function InfoBlock({ text, linkHref, linkText }) {
     return (
         <Wrapper>
             <p>
