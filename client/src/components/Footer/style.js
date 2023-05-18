@@ -1,7 +1,7 @@
 import { css, styled } from "styled-components";
 
-export const Wrapper = styled.footer`${({ theme, $padding }) => (css`
-    padding: ${$padding ? $padding : "5rem 0 3rem 0"};
+export const Wrapper = styled.footer`${({ theme }) => (css`
+    padding: 5rem 1.5rem 3rem;
     text-align: center;
     color: ${theme.colors.light.textSupport2};
 `)}`
