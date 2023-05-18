@@ -7,12 +7,21 @@ import Slideshow from "../../components/Slideshow";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
+import useSignInMutation from "../../api/signIn";
 
 export default function SignIn() {
     const [form, setForm] = useState({
         user: "",
         password: "",
     });
+    const [signIn, result] = useSignInMutation();
+    const { data, isSuccess, isLoading, isError, error } = result;
+    const submit = event => {
+        event.preventDefault();
+        signIn(form);
+    }
+
+    console.log(result);
 
     useHead({
         title: "Instagram",
@@ -28,7 +37,7 @@ export default function SignIn() {
                     <Layout.FormBlock $paddingBottom="calc(2rem - 1.2rem)">
                         <Layout.Logo />
 
-                        <form>
+                        <form onSubmit={submit}>
                             <Layout.Input
                                 id="user"
                                 label="Nome de usuário ou e-mail"
@@ -46,7 +55,7 @@ export default function SignIn() {
                                 setForm={setForm}
                             />
 
-                            <SubmitBtn text="Entrar" />
+                            <SubmitBtn isLoading={isLoading} text="Entrar" />
                         </form>
 
                         <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)" />

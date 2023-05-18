@@ -1,7 +1,9 @@
 import { css, styled } from "styled-components";
 
 export const Button = styled.button`${({ theme }) => (css`
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     padding: .6rem 1.6rem;
     text-align: center;
@@ -9,15 +11,17 @@ export const Button = styled.button`${({ theme }) => (css`
     color: ${theme.colors.white};
     background-color: ${theme.colors.primary};
     border-radius: 8px;
-    cursor: pointer;
     ${theme.mixins.transition(["background-color"], "button")};
 
-    ${theme.queries.desktop} {
-        &:hover {
-            background-color: ${theme.colors.primaryDark1};
+    &:not([disabled]) {
+        cursor: pointer;
+        ${theme.queries.desktop} {
+            &:hover {
+                background-color: ${theme.colors.primaryDark1};
+            }
         }
-    }
-    &:active {
-        background-color: ${theme.colors.primaryLight1};
+        &:active {
+            background-color: ${theme.colors.primaryLight1};
+        }
     }
 `)}`
