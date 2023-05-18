@@ -8,7 +8,7 @@ const app = express();
 
 dotenv.config();
 database();
-app.use(cors({ origin: process.env.ALLOW_ACCESS }));
+app.use(cors({ "origin": process.env.ALLOW_ACCESS }));
 app.use(express.json());
 app.use("/api", routes);
 app.listen(3000);
