@@ -9,6 +9,7 @@ import Separator from "./content/Separator";
 import SmallLink from "./content/SmallLink";
 import Title from "./content/Title";
 import Text from "./content/Text";
+import Error from "./content/Error";
 
 const Layout = styled.div`
     display: flex;
@@ -26,5 +27,6 @@ Layout.Separator = Separator;
 Layout.SmallLink = SmallLink;
 Layout.Title = Title;
 Layout.Text = Text;
+Layout.Error = Error;
 
 export default Layout;

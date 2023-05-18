@@ -19,9 +19,7 @@ export default function SignIn() {
     const submit = event => {
         event.preventDefault();
         signIn(form);
-    }
-
-    console.log(result);
+    };
 
     useHead({
         title: "Instagram",
@@ -59,6 +57,8 @@ export default function SignIn() {
                         </form>
 
                         <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)" />
+
+                        {isError && <Layout.Error error={error} />}
 
                         <Layout.SmallLink>
                             <Link to="auth/forgot_password">
