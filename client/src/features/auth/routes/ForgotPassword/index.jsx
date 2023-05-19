@@ -6,17 +6,30 @@ import Layout from "../../components/Layout/style";
 import ImgIcon from "../../../../components/ImgIcon";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import SubmitBtn from "../../../../components/SubmitBtn";
-import { AlternateLink, ReturnLink } from "./style";
 import useHead from "../../../../hooks/useHead";
+import useForgotPasswordMutation from "../../api/forgotPassword";
+import SentEmail from "./SentEmail";
 
 export default function ForgotPassword() {
     const [form, setForm] = useState({ user: "" });
+    const [request, result] = useForgotPasswordMutation();
+    const { data, isLoading, isSuccess, isError, error } = result;
+    const submit = event => {
+        event.preventDefault();
+        request({
+            user: form.user,
+            websiteName: "Clone Instagram Web",
+            URLToReset: `${location.origin}/auth/reset_password`,
+        });
+    };
 
     useHead({
         title: "Redefinir senha | Instagram",
         desc: "Redefina sua senha do Clone do Instagram.",
         index: false,
     });
+
+    if (isSuccess) return <SentEmail data={data} />
 
     return (
         <Template>
@@ -32,7 +45,7 @@ export default function ForgotPassword() {
                     link por e-mail para que você possa redefinir sua senha.
                 </Layout.Text>
 
-                <form>
+                <form onSubmit={submit}>
                     <Layout.Input
                         id="user"
                         type="text"
@@ -42,21 +55,26 @@ export default function ForgotPassword() {
                         autoFocus
                     />
 
-                    <SubmitBtn text="Enviar link para login" />
+                    <SubmitBtn
+                        isLoading={isLoading}
+                        text="Enviar link para login"
+                    />
                 </form>
+
+                {isError && <Layout.Error error={error} $margin="2rem 0 0" />}
 
                 <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)">
                     ou
                 </Layout.Separator>
 
-                <AlternateLink>
+                <Layout.AlternateLink>
                     <Link to="/auth/signup">Criar nova conta</Link>
-                </AlternateLink>
+                </Layout.AlternateLink>
             </Layout.FormBlock>
 
-            <ReturnLink>
+            <Layout.ReturnLink>
                 <Link to="/">Voltar ao login</Link>
-            </ReturnLink>
+            </Layout.ReturnLink>
         </Template>
     );
 }

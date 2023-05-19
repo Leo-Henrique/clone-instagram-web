@@ -1,5 +1,6 @@
 import User from "../../models/userModel.js";
 import { error, types } from "../../utils/helpers/validations.js";
+import generateToken from "../../utils/helpers/token.js";
 
 export default async function resetPassword(req, res) {
     const { userId, token, password } = req.body;
@@ -17,7 +18,7 @@ export default async function resetPassword(req, res) {
             );
 
         if (!user.passwordResetToken)
-            return error("A senha já foi alterada.", 400, res);
+            return error("Solicite a redefinição de senha novamente na página de login.", 400, res);
 
         if (token !== user.passwordResetToken)
             return error(
@@ -50,6 +51,7 @@ export default async function resetPassword(req, res) {
 
         return res.send({
             success: "Sua senha foi atualizada com sucesso.",
+            token: generateToken(user.id),
         });
     } catch (err) {
         return error(

@@ -1,24 +1,14 @@
 import { css, styled } from "styled-components";
 
+import AlternateLink from "./AlternateLink";
+
 const stroke = sides => ({ theme }) => (css`
     ${sides.map(side => (css` 
         border-${side}: 1px solid ${theme.colors.light.stroke};
     `))};
 `)
 
-export const AlternateLink = styled.div`${({ theme }) => (css`
-    text-align: center;
-
-    a {
-        display: inline-block;
-        color: ${theme.colors.light.textSupport1};
-        font-weight: 600;
-        padding: 1.2rem;
-        ${theme.mixins.genericLinkStates};
-    }
-`)}`;
-
-export const ReturnLink = styled(AlternateLink)`${({ theme }) => (css`
+const ReturnLink = styled(AlternateLink)`${({ theme }) => (css`
     ${stroke(["right", "left", "bottom"])};
 
     ${theme.breakpoints.authSm} {
@@ -27,3 +17,5 @@ export const ReturnLink = styled(AlternateLink)`${({ theme }) => (css`
         margin-top: 4rem;
     }
 `)}`;
+
+export default ReturnLink;
