@@ -9,26 +9,18 @@ import SubmitBtn from "../../../../components/SubmitBtn";
 import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
 import { useSignInMutation } from "../../api/signIn";
-import { signIn } from "../../authSlice";
+import { authenticate } from "../../authSlice";
 
 export default function SignIn() {
     const [form, setForm] = useState({
         user: "",
         password: "",
     });
-    const [authenticate, { isLoading, isError, error }] = useSignInMutation();
+    const [signIn, { isLoading, isError, error }] = useSignInMutation();
     const dispatch = useDispatch();
-    const submit = async event => {
+    const submit = event => {
         event.preventDefault();
-
-        const { data } = await authenticate(form);
-
-        if (data) {
-            const { token, user } = data;
-
-            dispatch(signIn({ token, user }));
-            localStorage.setItem("token", JSON.stringify(token));
-        }
+        dispatch(authenticate({ request: signIn, form }));
     };
 
     useHead({

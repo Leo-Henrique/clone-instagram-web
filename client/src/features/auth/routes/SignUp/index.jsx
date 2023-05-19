@@ -5,6 +5,9 @@ import Layout from "../../components/Layout/style";
 import { Text, Title } from "./style";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
+import useSignUpMutation from "../../api/signUp";
+import { useDispatch } from "react-redux";
+import { authenticate } from "../../authSlice";
 
 export default function SignUp() {
     const fields = [
@@ -35,6 +38,12 @@ export default function SignUp() {
         fields.forEach(({ id }) => (obj[id] = ""));
         return obj;
     });
+    const [signUp, { isLoading, isError, error }] = useSignUpMutation();
+    const dispatch = useDispatch();
+    const submit = event => {
+        event.preventDefault();
+        dispatch(authenticate({ request: signUp, form }));
+    };
 
     useHead({
         title: "Cadastre-se | Instagram",
@@ -52,7 +61,7 @@ export default function SignUp() {
 
                 <Layout.Separator />
 
-                <form>
+                <form onSubmit={submit}>
                     {fields.map((field, index) => (
                         <Layout.Input
                             {...field}
@@ -68,8 +77,12 @@ export default function SignUp() {
                         identificação.
                     </Text>
 
-                    <SubmitBtn text="Cadastre-se" />
+                    <SubmitBtn isLoading={isLoading} text="Cadastre-se" />
                 </form>
+
+                {isError && (
+                    <Layout.Error error={error} $margin="2.5rem 0 0 0" />
+                )}
             </Layout.FormBlock>
 
             <Layout.InfoBlock
