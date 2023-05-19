@@ -1,12 +1,12 @@
 import { Button } from "./style";
-import Loading from "../Loading";
+import Spinner from "../Spinner";
 
 export default function SubmitBtn({ text, isLoading }) {
     return (
         <>
             <Button disabled={isLoading && true}>
                 {isLoading ? (
-                    <Loading $themeColor="white" $padding="1.5px 0" />
+                    <Spinner $themeColor="white" $padding="1.5px 0" />
                 ) : (
                     text
                 )}
