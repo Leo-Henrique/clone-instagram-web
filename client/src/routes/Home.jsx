@@ -1,9 +1,10 @@
+import { useSelector } from "react-redux";
+
 import SignIn from "../features/auth/routes/SignIn";
 
 export default function Home() {
-    return (
-        <>
-            <SignIn />
-        </>
-    );
+    const { isAuthenticated } = useSelector(({ auth }) => auth);
+
+    if (isAuthenticated) return <>Feed</>;
+    else return <SignIn />;
 }

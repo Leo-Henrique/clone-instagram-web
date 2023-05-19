@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import theme from "./styles/theme";
 import colorScheme from "./styles/theme/colorScheme";
 import GlobalStyle from "./styles/GlobalStyle";
+import AuthProvider from "./providers/authProvider";
 import AppRoutes from "./routes/";
 
 export default function App() {
@@ -16,7 +17,7 @@ export default function App() {
     const colors = {
         ...colorScheme[themePreference],
         ...colorScheme.global,
-        light: colorScheme.light
+        light: colorScheme.light,
     };
 
     return (
@@ -24,8 +25,10 @@ export default function App() {
             <GlobalStyle />
 
             <BrowserRouter>
-                <AppRoutes />
+                <AuthProvider>
+                    <AppRoutes />
+                </AuthProvider>
             </BrowserRouter>
         </ThemeProvider>
-    )
+    );
 }

@@ -1,6 +1,6 @@
 import api from "../../../store/api";
 
-const { useSignInMutation } = api.injectEndpoints({
+const extendApi = api.injectEndpoints({
     endpoints: build => ({
         signIn: build.mutation({
             query: body => ({
@@ -10,7 +10,10 @@ const { useSignInMutation } = api.injectEndpoints({
                 body,
             }),
         }),
+        auth: build.query({
+            query: () => "auth",
+        }),
     }),
 });
 
-export default useSignInMutation;
+export const { useSignInMutation, useAuthQuery } = extendApi;

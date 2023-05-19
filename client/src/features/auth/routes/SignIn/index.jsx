@@ -8,7 +8,7 @@ import Slideshow from "../../components/Slideshow";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
-import useSignInMutation from "../../api/signIn";
+import { useSignInMutation } from "../../api/signIn";
 import { signIn } from "../../authSlice";
 
 export default function SignIn() {
