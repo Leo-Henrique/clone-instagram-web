@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import Layout from "../../components/Layout/style";
 import { SignInWrapper } from "./style";
@@ -8,21 +9,25 @@ import SubmitBtn from "../../../../components/SubmitBtn";
 import Footer from "../../../../components/Footer";
 import useHead from "../../../../hooks/useHead";
 import useSignInMutation from "../../api/signIn";
+import { signIn } from "../../authSlice";
 
 export default function SignIn() {
     const [form, setForm] = useState({
         user: "",
         password: "",
     });
-    const [signIn, { isLoading, isError, error }] = useSignInMutation();
+    const [authenticate, { isLoading, isError, error }] = useSignInMutation();
+    const dispatch = useDispatch();
     const submit = async event => {
         event.preventDefault();
 
-        const { data } = await signIn(form);
+        const { data } = await authenticate(form);
 
         if (data) {
-            localStorage.setItem("token", JSON.stringify(data.token));
-            location.reload();
+            const { token, user } = data;
+
+            dispatch(signIn({ token, user }));
+            localStorage.setItem("token", JSON.stringify(token));
         }
     };
 
