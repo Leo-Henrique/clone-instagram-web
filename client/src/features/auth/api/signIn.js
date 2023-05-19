@@ -1,4 +1,4 @@
-import api from "../../../store/api";
+import api from "../../../app/api";
 
 const extendApi = api.injectEndpoints({
     endpoints: build => ({
