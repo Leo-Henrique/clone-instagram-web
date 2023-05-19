@@ -1,5 +1,5 @@
 import { Wrapper } from "./style";
 
-export default function ImgIcon(props) {
+export default function PNGIcon(props) {
     return <Wrapper {...props}></Wrapper>;
 }

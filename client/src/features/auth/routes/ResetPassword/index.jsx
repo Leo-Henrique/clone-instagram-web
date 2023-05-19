@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import Template from "../../components/Layout/Template";
 import Layout from "../../components/Layout/style";
-import ImgIcon from "../../../../components/ImgIcon";
+import PNGIcon from "../../../../components/PNGIcon";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
@@ -47,7 +47,7 @@ export default function ResetPassword() {
     return (
         <Template>
             <Layout.FormBlock>
-                <ImgIcon $src={IMGForgotPassword} $size={96} $center />
+                <PNGIcon $src={IMGForgotPassword} $size={96} $center />
 
                 <Layout.Title $marginTop="1.5rem">
                     Crie uma nova senha
