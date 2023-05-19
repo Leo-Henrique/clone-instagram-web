@@ -18,12 +18,16 @@ export default function ResetPassword() {
     const userId = params.get("user");
     const token = params.get("token");
     const [request, { isLoading, isError, error }] = useResetPasswordMutation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const submit = async event => {
         event.preventDefault();
 
-        const { data } = await request({ userId, token, password: form.password });
+        const { data } = await request({
+            userId,
+            token,
+            password: form.password,
+        });
 
         if (data) {
             dispatch(signIn({ token: data.token }));
@@ -63,7 +67,11 @@ export default function ResetPassword() {
                         autoFocus
                     />
 
-                    <SubmitBtn isLoading={isLoading} text="Redefinir minha senha" />
+                    <SubmitBtn
+                        isLoading={isLoading}
+                        text="Redefinir minha senha"
+                        form={form}
+                    />
                 </form>
 
                 {isError && <Layout.Error error={error} />}

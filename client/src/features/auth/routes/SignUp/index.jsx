@@ -77,7 +77,11 @@ export default function SignUp() {
                         identificação.
                     </Text>
 
-                    <SubmitBtn isLoading={isLoading} text="Cadastre-se" />
+                    <SubmitBtn
+                        isLoading={isLoading}
+                        text="Cadastre-se"
+                        form={form}
+                    />
                 </form>
 
                 {isError && (

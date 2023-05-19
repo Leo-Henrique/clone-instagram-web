@@ -29,7 +29,7 @@ export default function ForgotPassword() {
         index: false,
     });
 
-    if (isSuccess) return <SentEmail data={data} />
+    if (isSuccess) return <SentEmail data={data} />;
 
     return (
         <Template>
@@ -58,6 +58,7 @@ export default function ForgotPassword() {
                     <SubmitBtn
                         isLoading={isLoading}
                         text="Enviar link para login"
+                        form={form}
                     />
                 </form>
 

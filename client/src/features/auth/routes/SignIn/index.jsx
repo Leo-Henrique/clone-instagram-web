@@ -55,7 +55,11 @@ export default function SignIn() {
                                 setForm={setForm}
                             />
 
-                            <SubmitBtn isLoading={isLoading} text="Entrar" />
+                            <SubmitBtn
+                                form={form}
+                                isLoading={isLoading}
+                                text="Entrar"
+                            />
                         </form>
 
                         <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)" />

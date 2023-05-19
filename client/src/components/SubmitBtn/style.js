@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 
-export const Button = styled.button`${({ theme }) => (css`
+export const Button = styled.button`${({ theme, $filledFields }) => (css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -11,7 +11,8 @@ export const Button = styled.button`${({ theme }) => (css`
     color: ${theme.colors.white};
     background-color: ${theme.colors.primary};
     border-radius: 8px;
-    ${theme.mixins.transition(["background-color"], "button")};
+    opacity: ${$filledFields ? 1 : .7};
+    ${theme.mixins.transition(["background-color, opacity"])};
 
     &:not([disabled]) {
         cursor: pointer;
