@@ -14,11 +14,16 @@ export default function SignIn() {
         user: "",
         password: "",
     });
-    const [signIn, result] = useSignInMutation();
-    const { data, isSuccess, isLoading, isError, error } = result;
-    const submit = event => {
+    const [signIn, { isLoading, isError, error }] = useSignInMutation();
+    const submit = async event => {
         event.preventDefault();
-        signIn(form);
+
+        const { data } = await signIn(form);
+
+        if (data) {
+            localStorage.setItem("token", JSON.stringify(data.token));
+            location.reload();
+        }
     };
 
     useHead({
