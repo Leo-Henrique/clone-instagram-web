@@ -1,4 +1,5 @@
 import { css, styled } from "styled-components";
+import { m } from "framer-motion";
 
 const fieldPadding = "1rem";
 const fieldGap = ".6rem";
@@ -51,7 +52,7 @@ Wrapper.Label = styled.label`${({ theme, $focused, $filled }) => (css`
     `)}
 `)}`;
 
-Wrapper.ShowPassword = styled.button`${({ theme }) => (css`
+Wrapper.ShowPassword = styled(m.button)`${({ theme }) => (css`
     margin-top: -${fieldGap};
     margin-left: ${fieldPadding};
     font-size: ${theme.fontSizes.body};

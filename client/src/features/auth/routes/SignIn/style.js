@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
+import { m } from "framer-motion";
 
-export const SignInWrapper = styled.main`
+export const SignInWrapper = styled(m.main)`
     max-width: 790px;
     width: 100%;
     margin: 0 auto;

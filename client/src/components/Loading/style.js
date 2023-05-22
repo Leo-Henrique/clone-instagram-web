@@ -1,6 +1,7 @@
 import { css, styled } from "styled-components";
+import { m } from "framer-motion";
 
-const Wrapper = styled.div`
+const Wrapper = styled(m.div)`
     ${({ theme, $isAuthenticated }) => (css`
         display: flex;
         flex-direction: column;

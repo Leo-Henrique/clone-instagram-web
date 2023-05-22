@@ -1,5 +1,4 @@
-import { m } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useTheme } from "styled-components";
 
 import convertThemeTransition from "../utils/convertThemeTransition";
@@ -24,8 +23,6 @@ export default function useMotion({
     variants: variantName = "opacity",
     transition: transitionName,
 }) {
-    const element = useRef();
-    const [tag, setTag] = useState("div");
     const [transition, setTransition] = useState({});
     const animation = Object.keys(variants[variantName]);
     const theme = useTheme();
@@ -37,18 +34,8 @@ export default function useMotion({
         setTransition(convertThemeTransition(themeTransition));
     }
 
-    useEffect(() => {
-        if (element.current) {
-            const tagName = element.current.tagName;
-
-            setTag(tagName.toLowerCase());
-        }
-    }, []);
-
     if (!reducedMotion.matches)
         return {
-            ref: element,
-            as: m[tag],
             variants: variants[variantName],
             initial: animation[0],
             animate: animation[1],
