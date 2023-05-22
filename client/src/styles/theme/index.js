@@ -26,6 +26,10 @@ const theme = {
             duration: 1500,
             timingFunction: "ease-in",
         },
+        loading: {
+            duration: 150,
+            timingFunction: "ease-in"
+        }
     },
 };
 

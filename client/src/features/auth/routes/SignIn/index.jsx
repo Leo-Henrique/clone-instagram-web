@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-import Layout from "../../components/Layout/style";
-import { SignInWrapper } from "./style";
-import Slideshow from "../../components/Slideshow";
-import SubmitBtn from "../../../../components/SubmitBtn";
 import Footer from "../../../../components/Footer";
+import SubmitBtn from "../../../../components/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
+import useMotion from "../../../../hooks/useMotion";
 import { useSignInMutation } from "../../api/signIn";
 import { authenticate } from "../../authSlice";
+import Layout from "../../components/Layout/style";
+import Slideshow from "../../components/Slideshow";
+import { SignInWrapper } from "./style";
 
 export default function SignIn() {
     const [form, setForm] = useState({
@@ -22,6 +23,7 @@ export default function SignIn() {
         event.preventDefault();
         dispatch(authenticate({ request: signIn, form }));
     };
+    const motionProps = useMotion({ variants: "signInRoute" });
 
     useHead({
         title: "Instagram",
@@ -30,7 +32,7 @@ export default function SignIn() {
 
     return (
         <Layout>
-            <SignInWrapper>
+            <SignInWrapper {...motionProps}>
                 <Slideshow />
 
                 <Layout.Column>

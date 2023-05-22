@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { ThemeProvider } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 
-import theme from "./styles/theme";
-import colorScheme from "./styles/theme/colorScheme";
-import GlobalStyle from "./styles/GlobalStyle";
+import MotionProvider from "./providers/MotionProvider";
 import AuthProvider from "./providers/authProvider";
 import AppRoutes from "./routes/";
+import GlobalStyle from "./styles/GlobalStyle";
+import theme from "./styles/theme";
+import colorScheme from "./styles/theme/colorScheme";
 
 export default function App() {
     const [themePreference, setThemePreference] = useState(() => {
@@ -25,9 +26,11 @@ export default function App() {
             <GlobalStyle />
 
             <BrowserRouter>
-                <AuthProvider>
-                    <AppRoutes />
-                </AuthProvider>
+                <MotionProvider>
+                    <AuthProvider>
+                        <AppRoutes />
+                    </AuthProvider>
+                </MotionProvider>
             </BrowserRouter>
         </ThemeProvider>
     );
