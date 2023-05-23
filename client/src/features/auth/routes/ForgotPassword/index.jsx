@@ -1,27 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
-import Template from "../../components/Layout/Template";
-import Layout from "../../components/Layout/style";
-import PNGIcon from "../../../../components/PNGIcon";
-import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
-import SubmitBtn from "../../../../components/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useForgotPasswordMutation from "../../api/forgotPassword";
+import Template from "../../components/Layout/Template";
+import SendEmail from "./SendEmail";
 import SentEmail from "./SentEmail";
 
 export default function ForgotPassword() {
-    const [form, setForm] = useState({ user: "" });
     const [request, result] = useForgotPasswordMutation();
-    const { data, isLoading, isSuccess, isError, error } = result;
-    const submit = event => {
-        event.preventDefault();
-        request({
-            user: form.user,
-            websiteName: "Clone Instagram Web",
-            URLToReset: `${location.origin}/auth/reset_password`,
-        });
-    };
+    const { data, isSuccess } = result;
 
     useHead({
         title: "Redefinir senha | Instagram",
@@ -29,53 +16,15 @@ export default function ForgotPassword() {
         index: false,
     });
 
-    if (isSuccess) return <SentEmail data={data} />;
-
     return (
         <Template>
-            <Layout.FormBlock>
-                <PNGIcon $src={IMGForgotPassword} $size={96} $center />
-
-                <Layout.Title $marginTop="1.5rem">
-                    Problemas para entrar?
-                </Layout.Title>
-
-                <Layout.Text>
-                    Insira seu e-mail ou nome de usuário que lhe enviaremos um
-                    link por e-mail para que você possa redefinir sua senha.
-                </Layout.Text>
-
-                <form onSubmit={submit}>
-                    <Layout.Input
-                        id="user"
-                        type="text"
-                        label="E-mail ou nome de usuário"
-                        form={form}
-                        setForm={setForm}
-                        autoFocus
-                    />
-
-                    <SubmitBtn
-                        isLoading={isLoading}
-                        text="Enviar link para login"
-                        form={form}
-                    />
-                </form>
-
-                {isError && <Layout.Error error={error} $margin="2rem 0 0" />}
-
-                <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)">
-                    ou
-                </Layout.Separator>
-
-                <Layout.AlternateLink>
-                    <Link to="/auth/signup">Criar nova conta</Link>
-                </Layout.AlternateLink>
-            </Layout.FormBlock>
-
-            <Layout.ReturnLink>
-                <Link to="/">Voltar ao login</Link>
-            </Layout.ReturnLink>
+            <AnimatePresence mode="wait">
+                {!isSuccess ? (
+                    <SendEmail key="1" request={request} result={result} />
+                ) : (
+                    <SentEmail key="2" email={data.email} />
+                )}
+            </AnimatePresence>
         </Template>
     );
 }

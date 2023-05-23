@@ -66,7 +66,7 @@ export default function SignIn() {
 
                         <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)" />
 
-                        {isError && <Layout.Error error={error} />}
+                        <Layout.Error isError={isError} error={error} />
 
                         <Layout.SmallLink>
                             <Link to="auth/forgot_password">

@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import Template from "../../components/Layout/Template";
-import Layout from "../../components/Layout/style";
-import { Text, Title } from "./style";
+import { useDispatch } from "react-redux";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
-import { useDispatch } from "react-redux";
 import { authenticate } from "../../authSlice";
+import Template from "../../components/Layout/Template";
+import Layout from "../../components/Layout/style";
+import { Text, Title } from "./style";
 
 export default function SignUp() {
     const fields = [
@@ -84,9 +84,11 @@ export default function SignUp() {
                     />
                 </form>
 
-                {isError && (
-                    <Layout.Error error={error} $margin="2.5rem 0 0 0" />
-                )}
+                <Layout.Error
+                    isError={isError}
+                    error={error}
+                    $padding="2.5rem 0 0 0"
+                />
             </Layout.FormBlock>
 
             <Layout.InfoBlock

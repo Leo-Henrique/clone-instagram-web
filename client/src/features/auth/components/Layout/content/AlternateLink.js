@@ -1,6 +1,7 @@
+import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
-const AlternateLink = styled.div`${({ theme }) => (css`
+const AlternateLink = styled(m.div)`${({ theme }) => (css`
     text-align: center;
 
     a {

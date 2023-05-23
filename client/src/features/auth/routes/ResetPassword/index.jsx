@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
-import Template from "../../components/Layout/Template";
-import Layout from "../../components/Layout/style";
-import PNGIcon from "../../../../components/PNGIcon";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
+import PNGIcon from "../../../../components/PNGIcon";
 import SubmitBtn from "../../../../components/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
 import { signIn } from "../../authSlice";
+import Template from "../../components/Layout/Template";
+import Layout from "../../components/Layout/style";
 
 export default function ResetPassword() {
     const [form, setForm] = useState({ password: "" });
@@ -74,7 +74,7 @@ export default function ResetPassword() {
                     />
                 </form>
 
-                {isError && <Layout.Error error={error} />}
+                <Layout.Error isError={isError} error={error} />
             </Layout.FormBlock>
 
             <Layout.ReturnLink>

@@ -16,8 +16,9 @@ const Wrapper = styled.div`
 Wrapper.Label = styled.label`${({ theme, $focused, $filled }) => (css`
     display: flex;
     align-items: center;
+    column-gap: ${fieldPadding};
     position: relative;
-    padding: ${fieldPadding};
+    padding: 0 ${fieldPadding};
     font-size: ${theme.fontSizes.small};
     border: 1px solid ${$focused 
         ? theme.colors.light.strokeFocus 
@@ -38,28 +39,35 @@ Wrapper.Label = styled.label`${({ theme, $focused, $filled }) => (css`
     input {
         width: 100%;
         outline: none;
+        padding: ${fieldPadding} 0;
     }
 
     ${$filled && (css`
-        padding-bottom: calc(${fieldPadding} - ${fieldGap});
-
         span {
-            transform: scale(.8) translateY(-16px);
+            transform: scale(.8) translateY(-12px);
         }
         input {
-            margin-top: ${fieldGap};
+            padding-top: calc(${fieldPadding} + ${fieldGap});
+            padding-bottom: calc(${fieldPadding} - ${fieldGap});
         }
     `)}
 `)}`;
 
 Wrapper.ShowPassword = styled(m.button)`${({ theme }) => (css`
-    margin-top: -${fieldGap};
-    margin-left: ${fieldPadding};
     font-size: ${theme.fontSizes.body};
     font-weight: 600;
     color: ${theme.colors.light.textSupport1};
     cursor: pointer;
-    ${theme.mixins.genericLinkStates};
+    ${theme.mixins.transition(["color"])};
+    
+    ${theme.queries.desktop} {
+        &:hover {
+            color: ${theme.colors.light.textSupport2};
+        }
+    }
+    &:active {
+        color: ${theme.colors.light.text};
+    }
 `)}`
 
 export default Wrapper;

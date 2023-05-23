@@ -1,5 +1,7 @@
+import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
+import useMotion from "../../../../../../hooks/useMotion";
 import Wrapper from "./styles";
 
 export default function Input({ label, id, type, form, setForm, ...rest }) {
@@ -11,6 +13,7 @@ export default function Input({ label, id, type, form, setForm, ...rest }) {
         if (fieldType === "password") setFieldType("text");
         else setFieldType("password");
     };
+    const motionProps = useMotion({});
 
     const change = ({ target: { id, value } }) => {
         setForm({ ...form, [id]: value });
@@ -36,14 +39,17 @@ export default function Input({ label, id, type, form, setForm, ...rest }) {
                     onBlur={() => setFocused(false)}
                     {...rest}
                 />
-                {showPassword && (
-                    <Wrapper.ShowPassword
-                        type="button"
-                        onClick={toggleShowPassword}
-                    >
-                        {fieldType === "password" ? "Exibir" : "Ocultar"}
-                    </Wrapper.ShowPassword>
-                )}
+                <AnimatePresence>
+                    {showPassword && (
+                        <Wrapper.ShowPassword
+                            type="button"
+                            onClick={toggleShowPassword}
+                            {...motionProps}
+                        >
+                            {fieldType === "password" ? "Exibir" : "Ocultar"}
+                        </Wrapper.ShowPassword>
+                    )}
+                </AnimatePresence>
             </Wrapper.Label>
         </Wrapper>
     );
