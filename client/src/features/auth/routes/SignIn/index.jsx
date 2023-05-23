@@ -23,7 +23,12 @@ export default function SignIn() {
         event.preventDefault();
         dispatch(authenticate({ request: signIn, form }));
     };
-    const motionProps = useMotion({ variants: "signInRoute" });
+    const motionProps = useMotion({
+        variants: {
+            initial: { opacity: 0, x: -15 },
+            animate: { opacity: 1, x: 0 },
+        },
+    });
 
     useHead({
         title: "Instagram",

@@ -6,7 +6,7 @@ import Layout from "../../components/Layout/style";
 import { Icon, ReturnLink } from "./style";
 
 export default function SentEmail({ email }) {
-    const motionProps = useMotion({ variants: "block" });
+    const motionProps = useMotion({ variants: "blockNew" });
 
     return (
         <Layout.FormBlock

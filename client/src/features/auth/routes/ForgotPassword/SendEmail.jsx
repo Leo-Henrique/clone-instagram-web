@@ -20,7 +20,7 @@ export default function SendEmail({
             URLToReset: `${location.origin}/auth/reset_password`,
         });
     };
-    const motionProps = useMotion({ variants: "authRoutes" });
+    const motionProps = useMotion({ variants: "blockOld" });
 
     return (
         <>
