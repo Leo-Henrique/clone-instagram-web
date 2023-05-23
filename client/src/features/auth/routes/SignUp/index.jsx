@@ -46,8 +46,9 @@ export default function SignUp() {
     };
 
     useHead({
-        title: "Cadastre-se | Instagram",
+        title: "Cadastre-se",
         desc: "Crie sua conta para o Clone do Instagram.",
+        index: true
     });
 
     return (

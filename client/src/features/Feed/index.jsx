@@ -1,7 +1,7 @@
 import useHead from "../../hooks/useHead";
 
 export default function Feed() {
-    useHead({ title: "Instagram", index: false });
+    useHead({});
 
     return <div>Feed</div>;
 }

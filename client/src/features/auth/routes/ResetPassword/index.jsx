@@ -38,16 +38,12 @@ export default function ResetPassword() {
             setTimeout(() => {
                 dispatch(signIn({ token }));
                 localStorage.setItem("token", JSON.stringify(token));
-                navigate("/")
+                navigate("/");
             }, messageTime);
         }
     };
 
-    useHead({
-        title: "Criar nova senha | Instagram",
-        desc: "Crie uma nova senha para sua conta do Clone do Instagram.",
-        index: false,
-    });
+    useHead({ title: "Criar nova senha" });
 
     if (!location.search || !userId || !token) return <Navigate to="/" />;
 

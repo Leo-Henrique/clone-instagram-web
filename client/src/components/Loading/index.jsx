@@ -4,6 +4,7 @@ import IMGLogo from "../../assets/images/logo.png";
 import useMotion from "../../hooks/useMotion";
 import Image from "../Image";
 import Wrapper from "./style";
+import useHead from "../../hooks/useHead";
 
 export default function Loading() {
     const { isAuthenticated } = useSelector(({ auth }) => auth);
@@ -11,6 +12,8 @@ export default function Loading() {
         variants: "opacity",
         transition: "loading",
     });
+
+    useHead({})
 
     return (
         <Wrapper $isAuthenticated={isAuthenticated} {...motionProps}>

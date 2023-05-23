@@ -31,8 +31,8 @@ export default function SignIn() {
     });
 
     useHead({
-        title: "Instagram",
         desc: "Crie uma conta ou entre no Clone do Instagram, uma simulação completa criada por Leonardo Henrique da versão web do verdadeiro Instagram.",
+        index: true
     });
 
     return (

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
-export default function useHead({ title, desc, index = true }) {
+const appName = "Instagram";
+
+export default function useHead({ title = appName, desc = "", index = false }) {
     const getElem = value => document.querySelector(value);
     const getMeta = value => document.querySelector(`meta[name="${value}"]`);
     const getMetaOG = value =>
@@ -8,9 +10,11 @@ export default function useHead({ title, desc, index = true }) {
 
     useEffect(() => {
         const descriptions = [getMeta("description"), getMetaOG("description")];
+        const titleFormatted =
+            title !== appName ? `${title} | ${appName}` : appName;
 
-        document.title = title;
-        getMetaOG("title")?.setAttribute("content", title);
+        document.title = titleFormatted;
+        getMetaOG("title")?.setAttribute("content", titleFormatted);
         descriptions.forEach(elem => elem?.setAttribute("content", desc));
         getElem(`link[rel="canonical"]`)?.setAttribute("href", location.href);
         getMetaOG("url")?.setAttribute("content", location.href);

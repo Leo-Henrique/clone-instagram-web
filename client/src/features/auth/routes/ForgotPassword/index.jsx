@@ -10,11 +10,7 @@ export default function ForgotPassword() {
     const [request, result] = useForgotPasswordMutation();
     const { data, isSuccess } = result;
 
-    useHead({
-        title: "Redefinir senha | Instagram",
-        desc: "Redefina sua senha do Clone do Instagram.",
-        index: false,
-    });
+    useHead({ title: "Redefinir senha" });
 
     return (
         <Template>
