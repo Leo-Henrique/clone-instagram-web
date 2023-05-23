@@ -10,6 +10,7 @@ import useResetPasswordMutation from "../../api/resetPassword";
 import { signIn } from "../../authSlice";
 import Template from "../../components/Layout/Template";
 import Layout from "../../components/Layout/style";
+import { showMessage } from "../../../../app/slices/message";
 
 export default function ResetPassword() {
     const [form, setForm] = useState({ password: "" });
@@ -23,17 +24,18 @@ export default function ResetPassword() {
     const submit = async event => {
         event.preventDefault();
 
-        const { data } = await request({
-            userId,
-            token,
-            password: form.password,
-        });
+        dispatch(showMessage({ message: "a" }))
+        // const { data } = await request({
+        //     userId,
+        //     token,
+        //     password: form.password,
+        // });
 
-        if (data) {
-            dispatch(signIn({ token: data.token }));
-            localStorage.setItem("token", JSON.stringify(data.token));
-            navigate("/");
-        }
+        // if (data) {
+        //     dispatch(signIn({ token: data.token }));
+        //     localStorage.setItem("token", JSON.stringify(data.token));
+        //     navigate("/");
+        // }
     };
 
     useHead({
