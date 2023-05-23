@@ -34,10 +34,12 @@ export default function ResetPassword() {
             const { token, success } = data;
             const messageTime = 3000;
 
-            dispatch(signIn({ token }));
-            localStorage.setItem("token", JSON.stringify(token));
             dispatch(showMessage({ text: success, duration: messageTime }));
-            setTimeout(() => navigate("/"), messageTime);
+            setTimeout(() => {
+                dispatch(signIn({ token }));
+                localStorage.setItem("token", JSON.stringify(token));
+                navigate("/")
+            }, messageTime);
         }
     };
 
