@@ -25,7 +25,7 @@ export default function AuthProvider({ children }) {
     if (isError && error.status === 401) localStorage.removeItem("token");
 
     return (
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
             {isLoading || !render ? <PageLoading key="loading" /> : children}
         </AnimatePresence>
     )
