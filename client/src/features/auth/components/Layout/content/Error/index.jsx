@@ -10,7 +10,11 @@ export default function Error({ isError, error, ...rest }) {
         <AnimatePresence>
             {isError && (
                 <Wrapper {...motionProps} {...rest}>
-                    <p>{error.data.error}</p>
+                    <p>
+                        {error.data
+                            ? error.data.error
+                            : "Um erro inesperado ocorreu. Tente novamente."}
+                    </p>
                 </Wrapper>
             )}
         </AnimatePresence>

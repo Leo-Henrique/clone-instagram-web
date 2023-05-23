@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "../styles/GlobalStyle";
@@ -17,10 +18,11 @@ export default function StylesProvider({ children }) {
         light: colorScheme.light,
         dark: colorScheme.dark,
     };
+    const { isAuthenticated } = useSelector(({ auth }) => auth);
 
     return (
         <ThemeProvider theme={{ ...theme, colors }}>
-            <GlobalStyle />
+            <GlobalStyle $isAuthenticated={isAuthenticated} />
 
             {children}
         </ThemeProvider>
