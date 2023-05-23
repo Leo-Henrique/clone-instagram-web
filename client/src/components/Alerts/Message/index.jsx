@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
-import useMotion from "../../hooks/useMotion";
+import useMotion from "../../../hooks/useMotion";
 
 import Wrapper from "./style";
 

@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 
-import IMGLogo from "../../assets/images/logo.png";
-import useMotion from "../../hooks/useMotion";
-import Image from "../Image";
+import IMGLogo from "../../../assets/images/logo.png";
+import useMotion from "../../../hooks/useMotion";
+import Image from "../../Misc/Image";
 import Wrapper from "./style";
-import useHead from "../../hooks/useHead";
+import useHead from "../../../hooks/useHead";
 
-export default function Loading() {
+export default function PageLoading() {
     const { isAuthenticated } = useSelector(({ auth }) => auth);
     const motionProps = useMotion({
         variants: "opacity",

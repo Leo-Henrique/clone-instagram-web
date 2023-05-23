@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useDispatch } from "react-redux";
-import SubmitBtn from "../../../../components/SubmitBtn";
+import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
 import { authenticate } from "../../authSlice";

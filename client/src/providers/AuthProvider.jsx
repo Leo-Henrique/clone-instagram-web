@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Loading from "../components/Loading";
+import PageLoading from "../components/Loaders/PageLoading";
 import { useAuthQuery } from "../features/auth/api/signIn";
 import { signIn } from "../features/auth/authSlice";
 
@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
 
     return (
         <AnimatePresence>
-            {isLoading || !render ? <Loading key="loading" /> : children}
+            {isLoading || !render ? <PageLoading key="loading" /> : children}
         </AnimatePresence>
     )
 }

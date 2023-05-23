@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "./style";
-import Spinner from "../Spinner";
+import Spinner from "../../Loaders/Spinner";
 
 export default function SubmitBtn({ text, isLoading, form }) {
     const [filledFields, setFilledFields] = useState(form ? false : true);

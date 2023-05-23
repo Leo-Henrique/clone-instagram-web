@@ -1,6 +1,6 @@
 import { m } from "framer-motion";
 
-import Footer from "../../../../components/Footer";
+import Footer from "../../../../components/misc/Footer";
 import useMotion from "../../../../hooks/useMotion";
 import Layout from "./style";
 

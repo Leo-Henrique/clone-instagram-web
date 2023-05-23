@@ -2,7 +2,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import store from "../app/store";
-import Message from "../components/Message";
+import Message from "../components/Alerts/Message";
 import MotionProvider from "./MotionProvider";
 import StylesProvider from "./StylesProvider";
 import AuthProvider from "./authProvider";

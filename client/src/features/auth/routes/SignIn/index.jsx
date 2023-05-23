@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Footer from "../../../../components/Footer";
-import SubmitBtn from "../../../../components/SubmitBtn";
+import Footer from "../../../../components/misc/Footer";
+import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useMotion from "../../../../hooks/useMotion";
 import { useSignInMutation } from "../../api/signIn";

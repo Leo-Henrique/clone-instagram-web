@@ -4,8 +4,8 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import { showMessage } from "../../../../app/slices/message";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
-import PNGIcon from "../../../../components/PNGIcon";
-import SubmitBtn from "../../../../components/SubmitBtn";
+import PNGIcon from "../../../../components/misc/PNGIcon";
+import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
 import { signIn } from "../../authSlice";
