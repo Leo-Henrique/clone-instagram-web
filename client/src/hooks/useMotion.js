@@ -25,6 +25,10 @@ const variants = {
         initial: { height: 0 },
         animate: { height: "auto" },
     },
+    message: {
+        initial: { opacity: 0, y: 30 },
+        animate: { opacity: 1, y: 0 },
+    },
 };
 
 export default function useMotion({

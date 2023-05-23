@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
+import { showMessage } from "../../../../app/slices/message";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import PNGIcon from "../../../../components/PNGIcon";
 import SubmitBtn from "../../../../components/SubmitBtn";
@@ -10,7 +11,6 @@ import useResetPasswordMutation from "../../api/resetPassword";
 import { signIn } from "../../authSlice";
 import Template from "../../components/Layout/Template";
 import Layout from "../../components/Layout/style";
-import { showMessage } from "../../../../app/slices/message";
 
 export default function ResetPassword() {
     const [form, setForm] = useState({ password: "" });
@@ -24,18 +24,21 @@ export default function ResetPassword() {
     const submit = async event => {
         event.preventDefault();
 
-        dispatch(showMessage({ message: "a" }))
-        // const { data } = await request({
-        //     userId,
-        //     token,
-        //     password: form.password,
-        // });
+        const { data } = await request({
+            userId,
+            token,
+            password: form.password,
+        });
 
-        // if (data) {
-        //     dispatch(signIn({ token: data.token }));
-        //     localStorage.setItem("token", JSON.stringify(data.token));
-        //     navigate("/");
-        // }
+        if (data) {
+            const { token, success } = data;
+            const messageTime = 3000;
+
+            dispatch(signIn({ token }));
+            localStorage.setItem("token", JSON.stringify(token));
+            dispatch(showMessage({ text: success, duration: messageTime }));
+            setTimeout(() => navigate("/"), messageTime);
+        }
     };
 
     useHead({

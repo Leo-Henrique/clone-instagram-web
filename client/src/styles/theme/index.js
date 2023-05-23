@@ -31,6 +31,9 @@ const theme = {
             timingFunction: "ease-in"
         }
     },
+    zIndexes: {
+        message: 10
+    }
 };
 
 export default theme;

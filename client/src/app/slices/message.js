@@ -5,18 +5,18 @@ const messageSlice = createSlice({
     initialState: {
         id: null,
         showing: false,
-        message: null,
+        text: null,
         duration: null,
     },
     reducers: {
-        show: (state, { payload: { message, duration } }) => {
+        show: (state, { payload: { text, duration } }) => {
             state.showing = true;
-            state.message = message;
+            state.text = text;
             state.duration = duration;
         },
         hide: () => ({
             showing: false,
-            message: null,
+            text: null,
             duration: null,
             id: null,
         }),
@@ -28,18 +28,18 @@ const messageSlice = createSlice({
 
 const { show, hide, inCallStack } = messageSlice.actions;
 export const showMessage =
-    ({ message, duration }) =>
+    ({ text, duration }) =>
     (dispatch, getState) => {
         const messageTime = duration ? duration : 3000;
         const { showing, id } = getState().message;
 
         if (showing) clearInterval(id);
 
-        dispatch(show({ message, duration: messageTime }));
+        dispatch(show({ text, duration: messageTime }));
 
         const timeoutID = setTimeout(() => dispatch(hide()), messageTime);
 
         dispatch(inCallStack(timeoutID));
     };
-    
+
 export default messageSlice.reducer;

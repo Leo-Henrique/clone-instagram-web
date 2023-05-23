@@ -15,6 +15,7 @@ export default function StylesProvider({ children }) {
         ...colorScheme[themePreference],
         ...colorScheme.global,
         light: colorScheme.light,
+        dark: colorScheme.dark,
     };
 
     return (
