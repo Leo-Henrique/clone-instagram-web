@@ -17,11 +17,14 @@ export default function SignIn() {
         user: "",
         password: "",
     });
-    const [signIn, { isLoading, isError, error }] = useSignInMutation();
+    const [request, { isLoading, isError, error }] = useSignInMutation();
     const dispatch = useDispatch();
-    const submit = event => {
+    const submit = async event => {
         event.preventDefault();
-        dispatch(authenticate({ request: signIn, form }));
+
+        const { data } = await request(form);
+
+        if (data) dispatch(authenticate(data));
     };
     const motionProps = useMotion({
         variants: {

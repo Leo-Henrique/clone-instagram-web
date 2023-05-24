@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { useDispatch } from "react-redux";
+import { showMessage } from "../../../../app/slices/message";
 import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
@@ -37,11 +38,24 @@ export default function SignUp() {
         fields.forEach(({ id }) => (obj[id] = ""));
         return obj;
     });
-    const [signUp, { isLoading, isError, error }] = useSignUpMutation();
+    const [request, { isLoading, isError, error }] = useSignUpMutation();
     const dispatch = useDispatch();
-    const submit = event => {
+    const submit = async event => {
         event.preventDefault();
-        dispatch(authenticate({ request: signUp, form }));
+
+        const { data } = await request(form);
+
+        if (data) {
+            const messageTime = 3000;
+
+            dispatch(
+                showMessage({
+                    text: `Bem-vindo, ${data.user.name.split(" ")[0]}!`,
+                    duration: messageTime,
+                })
+            );
+            setTimeout(() => dispatch(authenticate(data)), messageTime);
+        }
     };
 
     useHead({

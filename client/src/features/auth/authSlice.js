@@ -8,22 +8,17 @@ const authSlice = createSlice({
         user: null,
     },
     reducers: {
-        signIn: (state, { payload }) => ({ 
-            ...state, 
-            ...payload, 
+        signIn: (state, { payload }) => ({
+            ...state,
+            ...payload,
             isAuthenticated: true,
         }),
     },
 });
 
 export const { signIn } = authSlice.actions;
-export const authenticate = ({ request, form }) => async dispatch => {
-    const { data } = await request(form);
-
-    if (data) {
-        dispatch(signIn(data));
-        localStorage.setItem("token", JSON.stringify(data.token));
-    }
-};
-
+export const authenticate = data => dispatch => {
+    dispatch(signIn(data));
+    localStorage.setItem("token", JSON.stringify(data.token));
+}
 export default authSlice.reducer;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 
 import { showMessage } from "../../../../app/slices/message";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
@@ -8,7 +8,7 @@ import PNGIcon from "../../../../components/misc/PNGIcon";
 import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
-import { signIn } from "../../authSlice";
+import { authenticate } from "../../authSlice";
 import Layout from "../../components/Layout";
 
 export default function ResetPassword() {
@@ -18,7 +18,6 @@ export default function ResetPassword() {
     const userId = params.get("user");
     const token = params.get("token");
     const [request, { isLoading, isError, error }] = useResetPasswordMutation();
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const submit = async event => {
         event.preventDefault();
@@ -33,12 +32,10 @@ export default function ResetPassword() {
             const { token, success } = data;
             const messageTime = 3000;
 
-            dispatch(showMessage({ text: success, duration: messageTime }));
-            setTimeout(() => {
-                dispatch(signIn({ token }));
-                localStorage.setItem("token", JSON.stringify(token));
-                navigate("/");
-            }, messageTime);
+            dispatch(
+                showMessage({ text: success, duration: messageTime })
+            );
+            setTimeout(() => dispatch(authenticate({ token })), messageTime);
         }
     };
 
