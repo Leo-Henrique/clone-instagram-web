@@ -58,27 +58,29 @@ export default function Navigation({ filter }) {
 
     return (
         <Styled.Wrapper>
-            {renderLinks.map(({ name, href, icon }) => (
-                <Styled.Item key={name}>
-                    <Styled.Action
-                        {...(href
-                            ? { as: NavLink, to: href }
-                            : { as: "button", type: "button" })}
-                    >
-                        <Styled.Icon>
-                            {typeof icon === "string" ? (
-                                <img
-                                    src={icon}
-                                    alt={`Sua foto de perfil, ${user.name}`}
-                                />
-                            ) : (
-                                icon
-                            )}
-                        </Styled.Icon>
-                        <Styled.Text>{name}</Styled.Text>
-                    </Styled.Action>
-                </Styled.Item>
-            ))}
+            <ul>
+                {renderLinks.map(({ name, href, icon }) => (
+                    <Styled.Item key={name}>
+                        <Styled.Action
+                            {...(href
+                                ? { as: NavLink, to: href }
+                                : { as: "button", type: "button" })}
+                        >
+                            <Styled.Icon>
+                                {typeof icon === "string" ? (
+                                    <img
+                                        src={icon}
+                                        alt={`Sua foto de perfil, ${user.name}`}
+                                    />
+                                ) : (
+                                    icon
+                                )}
+                            </Styled.Icon>
+                            <Styled.Text>{name}</Styled.Text>
+                        </Styled.Action>
+                    </Styled.Item>
+                ))}
+            </ul>
         </Styled.Wrapper>
     );
 }
