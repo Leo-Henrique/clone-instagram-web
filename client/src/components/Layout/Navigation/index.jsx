@@ -8,7 +8,7 @@ import SVGHome from "../../../assets/icons/vectors/home.svg";
 import SVGMessages from "../../../assets/icons/vectors/messages.svg";
 import SVGReels from "../../../assets/icons/vectors/reels.svg";
 import SVGSearch from "../../../assets/icons/vectors/search.svg";
-import { SERVER_HOST } from "../../../config";
+import { SERVER_DOMAIN } from "../../../config";
 import Nav from "./style";
 
 export default function Navigation({ filter }) {
@@ -49,7 +49,7 @@ export default function Navigation({ filter }) {
         {
             name: "Perfil",
             href: `/${user.username}`,
-            icon: `${SERVER_HOST}/${user.picture}`,
+            icon: `${SERVER_DOMAIN}/${user.picture}`,
         },
     ];
     const renderLinks = filter
