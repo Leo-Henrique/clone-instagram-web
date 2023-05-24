@@ -5,9 +5,8 @@ import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
 import { authenticate } from "../../authSlice";
-import Template from "../../components/Layout/Template";
-import Layout from "../../components/Layout/style";
-import { Text, Title } from "./style";
+import Layout from "../../components/Layout";
+import * as Styled from "./style";
 
 export default function SignUp() {
     const fields = [
@@ -48,17 +47,17 @@ export default function SignUp() {
     useHead({
         title: "Cadastre-se",
         desc: "Crie sua conta para o Clone do Instagram.",
-        index: true
+        index: true,
     });
 
     return (
-        <Template>
+        <Layout.Template>
             <Layout.FormBlock $paddingBottom="3.5rem">
                 <Layout.Logo $marginBottom="1.5rem" />
 
-                <Title>
+                <Styled.Title>
                     Cadastre-se para ver fotos e vídeos dos seus amigos.
-                </Title>
+                </Styled.Title>
 
                 <Layout.Separator />
 
@@ -73,10 +72,10 @@ export default function SignUp() {
                         />
                     ))}
 
-                    <Text>
+                    <Styled.Text>
                         Os seus dados serão usados unicamente para a sua
                         identificação.
-                    </Text>
+                    </Styled.Text>
 
                     <SubmitBtn
                         isLoading={isLoading}
@@ -97,6 +96,6 @@ export default function SignUp() {
                 linkText="Conecte-se"
                 linkHref="/"
             />
-        </Template>
+        </Layout.Template>
     );
 }

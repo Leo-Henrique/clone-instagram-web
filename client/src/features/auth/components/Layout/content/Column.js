@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { m } from "framer-motion";
 
-const Column = styled(m.div)`
+export const Column = styled(m.div)`
     max-width: 350px;
     width: 100%;
     flex: 1;
@@ -10,5 +10,3 @@ const Column = styled(m.div)`
     flex-direction: column;
     justify-content: center;
 `;
-
-export default Column;

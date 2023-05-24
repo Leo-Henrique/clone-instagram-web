@@ -9,7 +9,7 @@ import SVGMessages from "../../../assets/icons/vectors/messages.svg";
 import SVGReels from "../../../assets/icons/vectors/reels.svg";
 import SVGSearch from "../../../assets/icons/vectors/search.svg";
 import { SERVER_DOMAIN } from "../../../config";
-import Nav from "./style";
+import * as Styled from "./style";
 
 export default function Navigation({ filter }) {
     const { user } = useSelector(({ auth }) => auth);
@@ -57,15 +57,15 @@ export default function Navigation({ filter }) {
         : links;
 
     return (
-        <Nav>
+        <Styled.Wrapper>
             {renderLinks.map(({ name, href, icon }) => (
-                <Nav.Item key={name}>
-                    <Nav.Action
+                <Styled.Item key={name}>
+                    <Styled.Action
                         {...(href
                             ? { as: NavLink, to: href }
                             : { as: "button", type: "button" })}
                     >
-                        <Nav.Icon>
+                        <Styled.Icon>
                             {typeof icon === "string" ? (
                                 <img
                                     src={icon}
@@ -74,11 +74,11 @@ export default function Navigation({ filter }) {
                             ) : (
                                 icon
                             )}
-                        </Nav.Icon>
-                        <Nav.Text>{name}</Nav.Text>
-                    </Nav.Action>
-                </Nav.Item>
+                        </Styled.Icon>
+                        <Styled.Text>{name}</Styled.Text>
+                    </Styled.Action>
+                </Styled.Item>
             ))}
-        </Nav>
+        </Styled.Wrapper>
     );
 }

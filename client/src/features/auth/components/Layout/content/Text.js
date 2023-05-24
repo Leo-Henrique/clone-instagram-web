@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-const Text = styled.p`
+export const Text = styled.p`
     color: ${({ theme }) => theme.colors.light.textSupport2};
     line-height: 1.4;
     text-align: center;
@@ -11,5 +11,3 @@ const Text = styled.p`
         font-weight: 600;
     }
 `;
-
-export default Text;

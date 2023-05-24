@@ -4,7 +4,7 @@ import { m } from "framer-motion";
 const fieldPadding = "1rem";
 const fieldGap = ".6rem";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
     & + & {
         margin-top: 0.8rem;
     }
@@ -13,7 +13,7 @@ const Wrapper = styled.div`
     }
 `;
 
-Wrapper.Label = styled.label`${({ theme, $focused, $filled }) => (css`
+export const Label = styled.label`${({ theme, $focused, $filled }) => (css`
     display: flex;
     align-items: center;
     column-gap: ${fieldPadding};
@@ -53,7 +53,7 @@ Wrapper.Label = styled.label`${({ theme, $focused, $filled }) => (css`
     `)}
 `)}`;
 
-Wrapper.ShowPassword = styled(m.button)`${({ theme }) => (css`
+export const ShowPassword = styled(m.button)`${({ theme }) => (css`
     font-size: ${theme.fontSizes.body};
     font-weight: 600;
     color: ${theme.colors.light.textSupport1};
@@ -69,5 +69,3 @@ Wrapper.ShowPassword = styled(m.button)`${({ theme }) => (css`
         color: ${theme.colors.light.text};
     }
 `)}`
-
-export default Wrapper;

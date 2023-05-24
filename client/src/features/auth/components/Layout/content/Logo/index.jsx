@@ -1,10 +1,10 @@
-import Wrapper from "./style";
 import SVGInstagram from "../../../../../../assets/icons/vectors/instagram.svg";
+import * as Styled from "./style";
 
 export default function Logo(props) {
     return (
-        <Wrapper {...props}>
+        <Styled.Wrapper {...props}>
             <SVGInstagram />
-        </Wrapper>
+        </Styled.Wrapper>
     );
 }

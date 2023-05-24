@@ -2,7 +2,7 @@ import { css, styled } from "styled-components";
 
 import IMGSmartphones from "../../../../assets/images/home-smartphones.png";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
     flex: 0 0 380px;
     height: 595px;
     background: url(${IMGSmartphones}) no-repeat;
@@ -13,7 +13,7 @@ const Wrapper = styled.div`
     }
 `;
 
-Wrapper.Item = styled.img`${({ theme, $currentItem }) => (css`
+export const Item = styled.img`${({ theme, $currentItem }) => (css`
     position: absolute;
     top: 27px;
     right: 21px;
@@ -21,5 +21,3 @@ Wrapper.Item = styled.img`${({ theme, $currentItem }) => (css`
     display: ${$currentItem ? "block" : "none"};
     ${theme.mixins.transition(["opacity"], "slideshow")};
 `)}`
-
-export default Wrapper;

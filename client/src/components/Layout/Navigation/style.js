@@ -1,10 +1,7 @@
 import { styled } from "styled-components";
 
-const Nav = styled.ul``;
-
-Nav.Item = styled.li``;
-Nav.Action = styled.div``
-Nav.Icon = styled.div``
-Nav.Text = styled.span``
-
-export default Nav;
+export const Wrapper = styled.ul``;
+export const Item = styled.li``;
+export const Action = styled.div``;
+export const Icon = styled.div``;
+export const Text = styled.span``;

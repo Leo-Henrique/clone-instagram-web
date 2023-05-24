@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Button } from "./style";
+import * as Styled from "./style";
 import Spinner from "../../Loaders/Spinner";
 
 export default function SubmitBtn({ text, isLoading, form }) {
@@ -15,7 +15,7 @@ export default function SubmitBtn({ text, isLoading, form }) {
     }, [form]);
 
     return (
-        <Button
+        <Styled.Button
             disabled={isLoading || !filledFields}
             $filledFields={filledFields}
         >
@@ -24,6 +24,6 @@ export default function SubmitBtn({ text, isLoading, form }) {
             ) : (
                 text
             )}
-        </Button>
+        </Styled.Button>
     );
 }

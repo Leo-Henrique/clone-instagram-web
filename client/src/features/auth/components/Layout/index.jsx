@@ -2,9 +2,9 @@ import { m } from "framer-motion";
 
 import Footer from "../../../../components/Layout/Footer";
 import useMotion from "../../../../hooks/useMotion";
-import Layout from "./style";
+import * as Styled from "./style";
 
-export default function Template({ children }) {
+const Template = ({ children }) => {
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, x: 15 },
@@ -13,12 +13,16 @@ export default function Template({ children }) {
     });
 
     return (
-        <Layout>
-            <Layout.Column {...motionProps} as={m.main}>
+        <Styled.Wrapper>
+            <Styled.Column {...motionProps} as={m.main}>
                 {children}
-            </Layout.Column>
+            </Styled.Column>
 
             <Footer />
-        </Layout>
+        </Styled.Wrapper>
     );
-}
+};
+
+const Layout = { ...Styled, Template };
+
+export default Layout;

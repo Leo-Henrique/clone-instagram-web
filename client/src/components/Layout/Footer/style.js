@@ -6,7 +6,7 @@ export const Wrapper = styled.footer`${({ theme }) => (css`
     color: ${theme.colors.light.textSupport2};
 `)}`
 
-Wrapper.Text = styled.p`${({ theme }) => (css`
+export const Text = styled.p`${({ theme }) => (css`
     display: inline-block;
 
     ${theme.queries.desktop} {

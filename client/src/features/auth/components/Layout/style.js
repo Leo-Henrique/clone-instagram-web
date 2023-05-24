@@ -1,36 +1,19 @@
 import { styled } from "styled-components";
 
-import Column from "./content/Column";
-import FormBlock from "./content/FormBlock";
-import InfoBlock from "./content/InfoBlock";
-import Logo from "./content/Logo";
-import Input from "./content/Input";
-import Separator from "./content/Separator";
-import SmallLink from "./content/SmallLink";
-import AlternateLink from "./content/AlternateLink";
-import ReturnLink from "./content/ReturnLink";
-import Title from "./content/Title";
-import Text from "./content/Text";
-import Error from "./content/Error";
-
-const Layout = styled.div`
+export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     padding-top: 3rem;
 `;
 
-Layout.Column = Column;
-Layout.FormBlock = FormBlock;
-Layout.InfoBlock = InfoBlock;
-Layout.Logo = Logo;
-Layout.Input = Input;
-Layout.Separator = Separator;
-Layout.SmallLink = SmallLink;
-Layout.AlternateLink = AlternateLink;
-Layout.ReturnLink = ReturnLink;
-Layout.Title = Title;
-Layout.Text = Text;
-Layout.Error = Error;
-
-export default Layout;
+export { Column } from "./content/Column";
+export { default as Error } from "./content/Error";
+export { FormBlock } from "./content/FormBlock";
+export { default as InfoBlock } from "./content/InfoBlock";
+export { default as Input } from "./content/Input";
+export { AlternateLink, ReturnLink, SmallLink } from "./content/Links";
+export { default as Logo } from "./content/Logo";
+export { Separator } from "./content/Separator";
+export { Text } from "./content/Text";
+export { Title } from "./content/Title";

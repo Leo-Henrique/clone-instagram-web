@@ -1,11 +1,11 @@
 import Navigation from "./Navigation";
-import Wrapper from "./style";
+import * as Styled from "./style";
 
 export default function Layout({ children }) {
     return (
-        <Wrapper>
+        <Styled.Wrapper>
             <Navigation />
             {children}
-        </Wrapper>
+        </Styled.Wrapper>
     );
 }

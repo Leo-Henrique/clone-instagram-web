@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 import useMotion from "../../../../../../hooks/useMotion";
-import Wrapper from "./styles";
+import * as Styled from "./style";
 
 export default function Input({ label, id, type, form, setForm, ...rest }) {
     const [focused, setFocused] = useState(false);
@@ -28,8 +28,8 @@ export default function Input({ label, id, type, form, setForm, ...rest }) {
     };
 
     return (
-        <Wrapper>
-            <Wrapper.Label $focused={focused} $filled={filled}>
+        <Styled.Wrapper>
+            <Styled.Label $focused={focused} $filled={filled}>
                 <span>{label}</span>
                 <input
                     id={id}
@@ -41,16 +41,16 @@ export default function Input({ label, id, type, form, setForm, ...rest }) {
                 />
                 <AnimatePresence>
                     {showPassword && (
-                        <Wrapper.ShowPassword
+                        <Styled.ShowPassword
                             type="button"
                             onClick={toggleShowPassword}
                             {...motionProps}
                         >
                             {fieldType === "password" ? "Exibir" : "Ocultar"}
-                        </Wrapper.ShowPassword>
+                        </Styled.ShowPassword>
                     )}
                 </AnimatePresence>
-            </Wrapper.Label>
-        </Wrapper>
+            </Styled.Label>
+        </Styled.Wrapper>
     );
 }

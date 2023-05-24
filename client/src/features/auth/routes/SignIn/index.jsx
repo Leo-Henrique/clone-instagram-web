@@ -8,9 +8,9 @@ import useHead from "../../../../hooks/useHead";
 import useMotion from "../../../../hooks/useMotion";
 import { useSignInMutation } from "../../api/signIn";
 import { authenticate } from "../../authSlice";
-import Layout from "../../components/Layout/style";
+import Layout from "../../components/Layout";
 import Slideshow from "../../components/Slideshow";
-import { SignInWrapper } from "./style";
+import * as Styled from "./style";
 
 export default function SignIn() {
     const [form, setForm] = useState({
@@ -32,12 +32,12 @@ export default function SignIn() {
 
     useHead({
         desc: "Crie uma conta ou entre no Clone do Instagram, uma simulação completa criada por Leonardo Henrique da versão web do verdadeiro Instagram.",
-        index: true
+        index: true,
     });
 
     return (
-        <Layout>
-            <SignInWrapper {...motionProps}>
+        <Layout.Wrapper>
+            <Styled.Wrapper {...motionProps}>
                 <Slideshow />
 
                 <Layout.Column>
@@ -86,9 +86,9 @@ export default function SignIn() {
                         linkHref="auth/signup"
                     />
                 </Layout.Column>
-            </SignInWrapper>
+            </Styled.Wrapper>
 
             <Footer />
-        </Layout>
+        </Layout.Wrapper>
     );
 }

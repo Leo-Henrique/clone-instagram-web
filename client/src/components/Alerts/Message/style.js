@@ -1,7 +1,7 @@
 import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
-const Wrapper = styled(m.div)`${({ theme }) => (css`
+export const Wrapper = styled(m.div)`${({ theme }) => (css`
     width: 100%;
     position: fixed;
     inset: auto 0 0;
@@ -14,5 +14,3 @@ const Wrapper = styled(m.div)`${({ theme }) => (css`
         max-width: 650px;
     }
 `)}`;
-
-export default Wrapper;

@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import Wrapper from "./style";
+import { useTheme } from "styled-components";
 import IMGSlide1 from "../../../../assets/images/home-screenshot1.png";
 import IMGSlide2 from "../../../../assets/images/home-screenshot2.png";
 import IMGSlide3 from "../../../../assets/images/home-screenshot3.png";
 import IMGSlide4 from "../../../../assets/images/home-screenshot4.png";
-import { useTheme } from "styled-components";
+import * as Styled from "./style";
 
 export default function Slideshow() {
     const images = [
@@ -50,10 +50,10 @@ export default function Slideshow() {
     }, [currentItem]);
 
     return (
-        <Wrapper ref={container}>
+        <Styled.Wrapper ref={container}>
             {images.map(({ src, alt }, index) => {
                 return (
-                    <Wrapper.Item
+                    <Styled.Item
                         key={index}
                         src={src}
                         alt={alt}
@@ -61,6 +61,6 @@ export default function Slideshow() {
                     />
                 );
             })}
-        </Wrapper>
+        </Styled.Wrapper>
     );
 }

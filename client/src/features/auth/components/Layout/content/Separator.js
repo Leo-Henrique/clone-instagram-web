@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 
-const Separator = styled.div`
+export const Separator = styled.div`
     margin: ${({ $margin = "2rem 0" }) => $margin};
 
     ${({ children, theme }) => children ? (css`
@@ -23,5 +23,3 @@ const Separator = styled.div`
         background-color: ${theme.colors.light.stroke};
     `)}
 `;
-
-export default Separator;

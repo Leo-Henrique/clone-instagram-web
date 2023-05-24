@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 
-const Wrapper = styled.div`${({ theme }) => (css`
+export const Wrapper = styled.div`${({ theme }) => (css`
     ${theme.mixins.authBlock};
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -22,5 +22,3 @@ const Wrapper = styled.div`${({ theme }) => (css`
         }
     }
 `)}`;
-
-export default Wrapper;

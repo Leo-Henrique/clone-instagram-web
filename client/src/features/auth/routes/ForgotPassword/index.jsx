@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 
 import useHead from "../../../../hooks/useHead";
 import useForgotPasswordMutation from "../../api/forgotPassword";
-import Template from "../../components/Layout/Template";
+import Layout from "../../components/Layout"
 import SendEmail from "./SendEmail";
 import SentEmail from "./SentEmail";
 
@@ -13,7 +13,7 @@ export default function ForgotPassword() {
     useHead({ title: "Redefinir senha" });
 
     return (
-        <Template>
+        <Layout.Template>
             <AnimatePresence mode="wait">
                 {!isSuccess ? (
                     <SendEmail key="1" request={request} result={result} />
@@ -21,6 +21,6 @@ export default function ForgotPassword() {
                     <SentEmail key="2" email={data.email} />
                 )}
             </AnimatePresence>
-        </Template>
+        </Layout.Template>
     );
 }

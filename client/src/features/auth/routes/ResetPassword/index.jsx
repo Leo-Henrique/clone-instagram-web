@@ -9,8 +9,7 @@ import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
 import { signIn } from "../../authSlice";
-import Template from "../../components/Layout/Template";
-import Layout from "../../components/Layout/style";
+import Layout from "../../components/Layout";
 
 export default function ResetPassword() {
     const [form, setForm] = useState({ password: "" });
@@ -48,7 +47,7 @@ export default function ResetPassword() {
     if (!location.search || !userId || !token) return <Navigate to="/" />;
 
     return (
-        <Template>
+        <Layout.Template>
             <Layout.FormBlock>
                 <PNGIcon $src={IMGForgotPassword} $size={96} $center />
 
@@ -83,6 +82,6 @@ export default function ResetPassword() {
             <Layout.ReturnLink>
                 <Link to="/">Voltar ao login</Link>
             </Layout.ReturnLink>
-        </Template>
+        </Layout.Template>
     );
 }

@@ -5,7 +5,7 @@ import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import PNGIcon from "../../../../components/misc/PNGIcon";
 import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useMotion from "../../../../hooks/useMotion";
-import Layout from "../../components/Layout/style";
+import Layout from "../../components/Layout";
 
 export default function SendEmail({
     request,
