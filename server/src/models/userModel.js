@@ -4,7 +4,7 @@ import Post from "./postModel.js";
 import Saved from "./savedModel.js";
 import Comment from "./commentModel.js";
 
-export const defaultPicture = "uploads/default/user-picture.jpeg";
+export const defaultPicture = "uploads/default/user-picture.jpg";
 
 const UserSchema = new mongoose.Schema({
     username: {
