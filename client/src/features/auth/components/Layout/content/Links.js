@@ -3,7 +3,7 @@ import { css, styled } from "styled-components";
 
 const stroke = sides => ({ theme }) => (css`
     ${sides.map(side => (css` 
-        border-${side}: 1px solid ${theme.colors.light.stroke};
+        border-${side}: 1px solid ${theme.colors.stroke};
     `))};
 `)
 
@@ -32,7 +32,7 @@ export const AlternateLink = styled(m.div)`${({ theme }) => (css`
 
     a {
         display: inline-block;
-        color: ${theme.colors.light.textSupport1};
+        color: ${theme.colors.textSupport1};
         font-weight: 600;
         padding: 1.2rem;
         ${theme.mixins.genericLinkStates};

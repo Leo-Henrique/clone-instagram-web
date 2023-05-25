@@ -1,7 +1,7 @@
 import { css, styled } from "styled-components";
 
 const text = ({ theme }) => (css`
-    color: ${theme.colors.light.textSupport2};
+    color: ${theme.colors.textSupport2};
     text-align: center;
 `);
 

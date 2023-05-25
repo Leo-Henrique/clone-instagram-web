@@ -18,7 +18,7 @@ export const authBlock = ({ theme }) => (css`
     max-width: 350px;
     padding-left: 4rem;
     padding-right: 4rem;
-    border: 1px solid ${theme.colors.light.stroke};
+    border: 1px solid ${theme.colors.stroke};
 
     ${theme.breakpoints.authSm} {
         padding-left: 1.5rem;

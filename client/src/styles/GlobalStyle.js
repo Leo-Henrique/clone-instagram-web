@@ -1,7 +1,7 @@
 import { createGlobalStyle, css } from "styled-components";
 import leoReset from "../../node_modules/leo-reset.css/dist/leo-reset.css?inline";
 
-const GlobalStyle = createGlobalStyle`${({ theme, $isAuthenticated }) => css`
+const GlobalStyle = createGlobalStyle`${({ theme }) => css`
     ${leoReset};
 
     body {
@@ -9,12 +9,8 @@ const GlobalStyle = createGlobalStyle`${({ theme, $isAuthenticated }) => css`
         line-height: 1.5;
         font-weight: 400;
         font-family: ${theme.fontFamily};
-        color: ${$isAuthenticated
-            ? theme.colors.text
-            : theme.colors.light.text};
-        background-color: ${$isAuthenticated
-            ? theme.colors.background
-            : theme.colors.light.background};
+        color: ${theme.colors.text};
+        background-color: ${theme.colors.background};
     }
     input {
         ${theme.breakpoints.sm} {

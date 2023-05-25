@@ -3,7 +3,7 @@ import { css, styled } from "styled-components";
 export const Wrapper = styled.footer`${({ theme }) => (css`
     padding: 5rem 1.5rem 3rem;
     text-align: center;
-    color: ${theme.colors.light.textSupport2};
+    color: ${theme.colors.textSupport2};
 `)}`
 
 export const Text = styled.p`${({ theme }) => (css`

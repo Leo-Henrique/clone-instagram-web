@@ -21,15 +21,15 @@ export const Label = styled.label`${({ theme, $focused, $filled }) => (css`
     padding: 0 ${fieldPadding};
     font-size: ${theme.fontSizes.small};
     border: 1px solid ${$focused 
-        ? theme.colors.light.strokeFocus 
-        : theme.colors.light.stroke};
+        ? theme.colors.strokeFocus 
+        : theme.colors.stroke};
     border-radius: 3px;
     cursor: text;
     ${theme.mixins.transition(["border"], "button")};
 
     span {
         position: absolute;
-        color: ${theme.colors.light.textSupport2};
+        color: ${theme.colors.textSupport2};
         transform-origin: left;
         transition: transform ease-out .1s;
     }
@@ -56,16 +56,16 @@ export const Label = styled.label`${({ theme, $focused, $filled }) => (css`
 export const ShowPassword = styled(m.button)`${({ theme }) => (css`
     font-size: ${theme.fontSizes.body};
     font-weight: 600;
-    color: ${theme.colors.light.textSupport1};
+    color: ${theme.colors.textSupport1};
     cursor: pointer;
     ${theme.mixins.transition(["color"])};
     
     ${theme.queries.desktop} {
         &:hover {
-            color: ${theme.colors.light.textSupport2};
+            color: ${theme.colors.textSupport2};
         }
     }
     &:active {
-        color: ${theme.colors.light.text};
+        color: ${theme.colors.text};
     }
 `)}`

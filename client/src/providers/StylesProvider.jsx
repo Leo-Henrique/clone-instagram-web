@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
 
+import { setInitialTheme } from "../app/slices/theme";
 import GlobalStyle from "../styles/GlobalStyle";
 import styledTheme from "../styles/theme";
 import colorScheme from "../styles/theme/colorScheme";
-import { setInitialTheme } from "../app/slices/theme";
 
 export default function StylesProvider({ children }) {
     const dispatch = useDispatch();
-    const { theme, auth: { isAuthenticated } } = useSelector(state => state);
-    const colors = {
-        ...colorScheme[theme],
-        ...colorScheme.global,
-        light: colorScheme.light,
-        dark: colorScheme.dark,
-    }
+    const {
+        theme,
+        auth: { isAuthenticated },
+    } = useSelector(state => state);
+    const colors = { ...colorScheme[theme], ...colorScheme.global };
 
-    useEffect(() => { dispatch(setInitialTheme()); }, [isAuthenticated]);
+    useEffect(() => {
+        dispatch(setInitialTheme());
+    }, [isAuthenticated]);
 
     return (
         <ThemeProvider theme={{ ...styledTheme, colors }}>
-            <GlobalStyle $isAuthenticated={isAuthenticated} />
+            <GlobalStyle />
 
             {children}
         </ThemeProvider>
