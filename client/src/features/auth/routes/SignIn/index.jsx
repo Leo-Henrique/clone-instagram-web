@@ -7,7 +7,6 @@ import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useMotion from "../../../../hooks/useMotion";
 import { useSignInMutation } from "../../api/signIn";
-import { authenticate } from "../../authSlice";
 import Layout from "../../components/Layout";
 import Slideshow from "../../components/Slideshow";
 import * as Styled from "./style";
@@ -24,7 +23,7 @@ export default function SignIn() {
 
         const { data } = await request(form);
 
-        if (data) dispatch(authenticate(data));
+        if (data) dispatch(signInThunk(data));
     };
     const motionProps = useMotion({
         variants: {

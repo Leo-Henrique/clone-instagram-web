@@ -19,7 +19,7 @@ const authSlice = createSlice({
 
 export const { signIn, logout } = authSlice.actions;
 
-export const authenticate = data => dispatch => {
+export const signInThunk = data => dispatch => {
     dispatch(signIn(data));
     localStorage.setItem("token", JSON.stringify(data.token));
 };
@@ -27,5 +27,5 @@ export const authenticate = data => dispatch => {
 export const logoutThunk = () => dispatch => {
     dispatch(logout());
     localStorage.removeItem("token");
-}
+};
 export default authSlice.reducer;

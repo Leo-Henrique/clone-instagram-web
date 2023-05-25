@@ -5,7 +5,6 @@ import { showMessage } from "../../../../app/slices/message";
 import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
-import { authenticate } from "../../authSlice";
 import Layout from "../../components/Layout";
 import * as Styled from "./style";
 
@@ -54,7 +53,7 @@ export default function SignUp() {
                     duration: messageTime,
                 })
             );
-            setTimeout(() => dispatch(authenticate(data)), messageTime);
+            setTimeout(() => dispatch(signInThunk(data)), messageTime);
         }
     };
 

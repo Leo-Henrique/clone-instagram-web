@@ -8,7 +8,6 @@ import PNGIcon from "../../../../components/misc/PNGIcon";
 import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
-import { authenticate } from "../../authSlice";
 import Layout from "../../components/Layout";
 
 export default function ResetPassword() {
@@ -32,10 +31,8 @@ export default function ResetPassword() {
             const { token, success } = data;
             const messageTime = 3000;
 
-            dispatch(
-                showMessage({ text: success, duration: messageTime })
-            );
-            setTimeout(() => dispatch(authenticate({ token })), messageTime);
+            dispatch(showMessage({ text: success, duration: messageTime }));
+            setTimeout(() => dispatch(signInThunk({ token })), messageTime);
         }
     };
 
