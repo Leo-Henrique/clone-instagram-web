@@ -7,6 +7,7 @@ import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useMotion from "../../../../hooks/useMotion";
 import { useSignInMutation } from "../../api/signIn";
+import { signInThunk } from "../../authSlice";
 import Layout from "../../components/Layout";
 import Slideshow from "../../components/Slideshow";
 import * as Styled from "./style";

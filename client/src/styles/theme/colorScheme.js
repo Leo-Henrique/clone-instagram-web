@@ -26,6 +26,8 @@ const colorScheme = {
         strokeFocus: "#262626",
     },
     global: {
+        messageBackground: "#262626",
+        messageText: "#F5F5F5",
         postConfig: "rgba(26, 26, 26, .8)",
         postMarked: "rgba(0, 0, 0, .85)",
         postAudio: "rgba(219,219,219,.2)",

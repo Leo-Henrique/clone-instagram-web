@@ -30,8 +30,10 @@ export const setInitialTheme = () => (dispatch, getState) => {
 
 export const toggleTheme = () => (dispatch, getState) => {
     const { theme } = getState();
+    const newTheme = theme === "light" ? "dark" : "light";
 
-    dispatch(setTheme(theme === "light" ? "dark" : "light"));
+    dispatch(setTheme(newTheme));
+    localStorage.setItem("theme", newTheme);
 };
 
 export default themeSlice.reducer;

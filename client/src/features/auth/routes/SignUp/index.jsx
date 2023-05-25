@@ -5,6 +5,7 @@ import { showMessage } from "../../../../app/slices/message";
 import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
+import { signInThunk } from "../../authSlice";
 import Layout from "../../components/Layout";
 import * as Styled from "./style";
 

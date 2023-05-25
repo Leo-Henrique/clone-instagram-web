@@ -20,7 +20,7 @@ export default function AuthProvider({ children }) {
     const dispatch = useDispatch();
 
     useEffect(() => { token && setTimeout(() => setRender(true), timeLoading) }, []);
-    useEffect(() => { user && dispatch(signIn({ user })) }, [isSuccess]);
+    useEffect(() => { isSuccess && dispatch(signIn({ user })) }, [isSuccess]);
 
     if (isError && error.status === 401) localStorage.removeItem("token");
 

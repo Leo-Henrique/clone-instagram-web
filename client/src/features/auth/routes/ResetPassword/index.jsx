@@ -8,6 +8,7 @@ import PNGIcon from "../../../../components/misc/PNGIcon";
 import SubmitBtn from "../../../../components/misc/SubmitBtn";
 import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
+import { signInThunk } from "../../authSlice";
 import Layout from "../../components/Layout";
 
 export default function ResetPassword() {
