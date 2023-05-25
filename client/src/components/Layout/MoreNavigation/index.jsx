@@ -8,6 +8,7 @@ import SVGMore from "../../../assets/icons/vectors/menu.svg";
 import SVGMode from "../../../assets/icons/vectors/moon.svg";
 import SVGSaved from "../../../assets/icons/vectors/save.svg";
 import useMotion from "../../../hooks/useMotion";
+import useSize from "../../../hooks/useSize";
 import * as Styled from "./style";
 
 export default function MoreNavigation() {
@@ -38,6 +39,7 @@ export default function MoreNavigation() {
             animate: { opacity: 1, y: 0 },
         },
     });
+    const { element: button, size: buttonHeight } = useSize("Height");
 
     return (
         <Styled.Wrapper>
@@ -45,6 +47,7 @@ export default function MoreNavigation() {
                 type="button"
                 onClick={() => setOpen(!open)}
                 $menuOpen={open}
+                ref={button}
             >
                 <Styled.ButtonIcon>
                     <SVGMore />
@@ -54,7 +57,7 @@ export default function MoreNavigation() {
             </Styled.Button>
             <AnimatePresence>
                 {open && (
-                    <Styled.Menu {...motionProps}>
+                    <Styled.Menu {...motionProps} $buttonHeight={buttonHeight}>
                         {menu.map(({ name, href, icon }) => (
                             <li key={name}>
                                 <Styled.MenuAction

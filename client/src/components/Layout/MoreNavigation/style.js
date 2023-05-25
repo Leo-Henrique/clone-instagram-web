@@ -5,7 +5,6 @@ import { Action, Icon, actionActive } from "../Navigation/style";
 import { linkMarginX } from "../style";
 
 export const Wrapper = styled.div`
-    border: 1px solid red;
     position: relative;
 `;
 
@@ -15,9 +14,9 @@ export const Button = styled(Action)`
 
 export const ButtonIcon = styled(Icon)``;
 
-export const Menu = styled(m.ul)`${({ theme }) => (css`
+export const Menu = styled(m.ul)`${({ theme, $buttonHeight }) => (css`
     position: absolute;
-    inset: auto 0 0;
+    inset: auto 0 calc(1rem + ${$buttonHeight});
     margin: 0 ${linkMarginX};
     background-color: ${theme.colors.blockSupport1};
     border-radius: 5px;
