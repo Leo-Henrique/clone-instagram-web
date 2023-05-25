@@ -9,6 +9,7 @@ const themeSlice = createSlice({
 });
 
 export const { setTheme } = themeSlice.actions;
+
 export const setInitialTheme = () => (dispatch, getState) => {
     const { isAuthenticated } = getState().auth;
 
@@ -25,6 +26,12 @@ export const setInitialTheme = () => (dispatch, getState) => {
     };
 
     dispatch(setTheme(getDevicePreference()));
+};
+
+export const toggleTheme = () => (dispatch, getState) => {
+    const { theme } = getState();
+
+    dispatch(setTheme(theme === "light" ? "dark" : "light"));
 };
 
 export default themeSlice.reducer;

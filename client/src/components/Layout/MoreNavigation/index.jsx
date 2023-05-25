@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import SVGConfig from "../../../assets/icons/vectors/config.svg";
@@ -10,9 +10,12 @@ import SVGSaved from "../../../assets/icons/vectors/save.svg";
 import useMotion from "../../../hooks/useMotion";
 import useSize from "../../../hooks/useSize";
 import * as Styled from "./style";
+import { toggleTheme } from "../../../app/slices/theme";
+import { logoutThunk } from "../../../features/auth/authSlice";
 
 export default function MoreNavigation() {
     const { user } = useSelector(({ auth }) => auth);
+    const dispatch = useDispatch();
     const menu = [
         {
             name: "Configurações",
@@ -27,9 +30,11 @@ export default function MoreNavigation() {
         {
             name: "Alterar modo",
             icon: <SVGMode />,
+            onClick: () => dispatch(toggleTheme()),
         },
         {
             name: "Sair",
+            onClick: () => dispatch(logoutThunk())
         },
     ];
     const [menuOpen, setMenuOpen] = useState(false);
@@ -59,12 +64,12 @@ export default function MoreNavigation() {
             <AnimatePresence>
                 {menuOpen && (
                     <Styled.Menu {...motionProps} $buttonHeight={buttonHeight}>
-                        {menu.map(({ name, href, icon }) => (
+                        {menu.map(({ name, href, icon, onClick }) => (
                             <li key={name}>
                                 <Styled.MenuAction
                                     {...(href
                                         ? { as: Link, to: href }
-                                        : { as: "button", type: "button" })}
+                                        : { as: "button", type: "button", onClick })}
                                 >
                                     <span>{name}</span>
                                     {icon && (

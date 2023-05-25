@@ -13,12 +13,19 @@ const authSlice = createSlice({
             ...payload,
             isAuthenticated: true,
         }),
+        logout: () => ({ isAuthenticated: false, token: null, user: null }),
     },
 });
 
-export const { signIn } = authSlice.actions;
+export const { signIn, logout } = authSlice.actions;
+
 export const authenticate = data => dispatch => {
     dispatch(signIn(data));
     localStorage.setItem("token", JSON.stringify(data.token));
+};
+
+export const logoutThunk = () => dispatch => {
+    dispatch(logout());
+    localStorage.removeItem("token");
 }
 export default authSlice.reducer;
