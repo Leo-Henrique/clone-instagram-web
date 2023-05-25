@@ -22,6 +22,7 @@ export const Menu = styled(m.ul)`${({ theme, $buttonHeight }) => (css`
     border-radius: 5px;
     overflow: hidden;
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, .0975));
+    box-shadow: -5px 7px 25px 5px rgba(0, 0, 0, .14);
 
     li:first-child a,
     li:first-child button {
@@ -31,6 +32,10 @@ export const Menu = styled(m.ul)`${({ theme, $buttonHeight }) => (css`
     li:last-child button {
         padding-bottom: 1.2rem;
     }
+    li + li a,
+    li + li button {
+        border-top: 1px solid ${theme.colors.stroke};
+    }
 `)}`;
 
 export const MenuAction = styled.div`${({ theme }) => (css`
@@ -38,18 +43,20 @@ export const MenuAction = styled.div`${({ theme }) => (css`
     display: flex;
     align-items: center;
     column-gap: 1.6rem;
-    padding: .8rem 1.6rem;
+    padding: 1rem 1.6rem;
     color: ${theme.colors.text};
     font-size: ${theme.fontSizes.subh1};
     background-color: transparent;
     cursor: pointer;
     ${theme.mixins.transition(["background-color, opacity"])};
 
-
-
     ${theme.queries.desktop} {
         &:hover {
             background-color: ${theme.colors.blockSupport2};
+
+            svg, img {
+                transform: scale(1.1);
+            }
         }
     }
     &:active {

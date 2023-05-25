@@ -3,15 +3,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { toggleTheme } from "../../../app/slices/theme";
 import SVGConfig from "../../../assets/icons/vectors/config.svg";
 import SVGMore from "../../../assets/icons/vectors/menu.svg";
 import SVGMode from "../../../assets/icons/vectors/moon.svg";
 import SVGSaved from "../../../assets/icons/vectors/save.svg";
+import { logoutThunk } from "../../../features/auth/authSlice";
 import useMotion from "../../../hooks/useMotion";
 import useSize from "../../../hooks/useSize";
 import * as Styled from "./style";
-import { toggleTheme } from "../../../app/slices/theme";
-import { logoutThunk } from "../../../features/auth/authSlice";
 
 export default function MoreNavigation() {
     const { user } = useSelector(({ auth }) => auth);
@@ -34,7 +34,7 @@ export default function MoreNavigation() {
         },
         {
             name: "Sair",
-            onClick: () => dispatch(logoutThunk())
+            onClick: () => dispatch(logoutThunk()),
         },
     ];
     const [menuOpen, setMenuOpen] = useState(false);
@@ -60,7 +60,7 @@ export default function MoreNavigation() {
 
                 <span>Mais</span>
             </Styled.Button>
-            
+
             <AnimatePresence>
                 {menuOpen && (
                     <Styled.Menu {...motionProps} $buttonHeight={buttonHeight}>
@@ -69,7 +69,11 @@ export default function MoreNavigation() {
                                 <Styled.MenuAction
                                     {...(href
                                         ? { as: Link, to: href }
-                                        : { as: "button", type: "button", onClick })}
+                                        : {
+                                              as: "button",
+                                              type: "button",
+                                              onClick,
+                                          })}
                                 >
                                     <span>{name}</span>
                                     {icon && (
