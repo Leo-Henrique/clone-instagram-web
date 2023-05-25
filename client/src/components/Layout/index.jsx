@@ -1,23 +1,25 @@
 import { Link } from "react-router-dom";
 
 import SVGInstagram from "../../assets/icons/vectors/instagram.svg";
+import MoreNavigation from "./MoreNavigation";
 import Navigation from "./Navigation";
 import * as Styled from "./style";
-import MoreNavigation from "./MoreNavigation";
 
 export default function Layout({ children }) {
     return (
-        <Styled.Wrapper>
+        <>
             <Styled.Sidebar>
-                <Link to="/">
-                    <SVGInstagram />
-                </Link>
+                <Styled.Logo>
+                    <Link to="/">
+                        <SVGInstagram />
+                    </Link>
+                </Styled.Logo>
 
                 <Navigation />
 
                 <MoreNavigation />
             </Styled.Sidebar>
-            {children}
-        </Styled.Wrapper>
+            <Styled.Content>{children}</Styled.Content>
+        </>
     );
 }

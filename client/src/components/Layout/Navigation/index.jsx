@@ -58,9 +58,9 @@ export default function Navigation({ filter }) {
 
     return (
         <Styled.Wrapper>
-            <ul>
+            <Styled.List>
                 {renderLinks.map(({ name, href, icon }) => (
-                    <Styled.Item key={name}>
+                    <li key={name}>
                         <Styled.Action
                             {...(href
                                 ? { as: NavLink, to: href }
@@ -76,11 +76,11 @@ export default function Navigation({ filter }) {
                                     icon
                                 )}
                             </Styled.Icon>
-                            <Styled.Text>{name}</Styled.Text>
+                            <span>{name}</span>
                         </Styled.Action>
-                    </Styled.Item>
+                    </li>
                 ))}
-            </ul>
+            </Styled.List>
         </Styled.Wrapper>
     );
 }
