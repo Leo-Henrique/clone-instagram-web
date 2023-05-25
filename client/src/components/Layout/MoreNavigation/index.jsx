@@ -32,21 +32,21 @@ export default function MoreNavigation() {
             name: "Sair",
         },
     ];
-    const [open, setOpen] = useState(true);
+    const [menuOpen, setMenuOpen] = useState(false);
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, y: 15 },
             animate: { opacity: 1, y: 0 },
         },
     });
-    const { element: button, size: buttonHeight } = useSize("Height");
+    const { element: button, size: buttonHeight } = useSize("Height", menuOpen);
 
     return (
         <Styled.Wrapper>
             <Styled.Button
                 type="button"
-                onClick={() => setOpen(!open)}
-                $menuOpen={open}
+                onClick={() => setMenuOpen(!menuOpen)}
+                $menuOpen={menuOpen}
                 ref={button}
             >
                 <Styled.ButtonIcon>
@@ -55,8 +55,9 @@ export default function MoreNavigation() {
 
                 <span>Mais</span>
             </Styled.Button>
+            
             <AnimatePresence>
-                {open && (
+                {menuOpen && (
                     <Styled.Menu {...motionProps} $buttonHeight={buttonHeight}>
                         {menu.map(({ name, href, icon }) => (
                             <li key={name}>
