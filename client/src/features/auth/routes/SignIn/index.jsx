@@ -54,6 +54,7 @@ export default function SignIn() {
                                 type="text"
                                 form={form}
                                 setForm={setForm}
+                                autoComplete="username"
                                 autoFocus
                             />
 
@@ -63,6 +64,7 @@ export default function SignIn() {
                                 type="password"
                                 form={form}
                                 setForm={setForm}
+                                autoComplete="current-password"
                             />
 
                             <SubmitBtn

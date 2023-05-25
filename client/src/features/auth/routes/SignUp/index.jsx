@@ -15,21 +15,25 @@ export default function SignUp() {
             id: "email",
             type: "text",
             label: "E-mail",
+            autoComplete: "email"
         },
         {
             id: "username",
             type: "text",
             label: "Nome de usuário",
+            autoComplete: "username"
         },
         {
             id: "name",
             type: "text",
             label: "Nome completo",
+            autoComplete: "name"
         },
         {
             id: "password",
             type: "password",
             label: "Senha",
+            autoComplete: "new-password"
         },
     ];
     const [form, setForm] = useState(() => {

@@ -61,6 +61,7 @@ export default function ResetPassword() {
                         label="Senha"
                         form={form}
                         setForm={setForm}
+                        autoComplete="new-password"
                         autoFocus
                     />
 

@@ -43,6 +43,7 @@ export default function SendEmail({
                         label="E-mail ou nome de usuário"
                         form={form}
                         setForm={setForm}
+                        autoComplete="email"
                         autoFocus
                     />
 
