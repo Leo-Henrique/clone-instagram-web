@@ -9,6 +9,7 @@ import SVGMore from "../../../assets/icons/vectors/menu.svg";
 import SVGMode from "../../../assets/icons/vectors/moon.svg";
 import SVGSaved from "../../../assets/icons/vectors/save.svg";
 import { logoutThunk } from "../../../features/auth/authSlice";
+import useClose from "../../../hooks/useClose";
 import useMotion from "../../../hooks/useMotion";
 import useSize from "../../../hooks/useSize";
 import * as Styled from "./style";
@@ -37,17 +38,18 @@ export default function MoreNavigation() {
             onClick: () => dispatch(logoutThunk()),
         },
     ];
-    const [menuOpen, setMenuOpen] = useState(false);
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, y: 15 },
             animate: { opacity: 1, y: 0 },
         },
     });
+    const [menuOpen, setMenuOpen] = useState(false);
     const { element: button, size: buttonHeight } = useSize("Height", menuOpen);
+    const { notClose } = useClose(menuOpen, setMenuOpen);
 
     return (
-        <Styled.Wrapper>
+        <Styled.Wrapper ref={notClose}>
             <Styled.Button
                 type="button"
                 onClick={() => setMenuOpen(!menuOpen)}
