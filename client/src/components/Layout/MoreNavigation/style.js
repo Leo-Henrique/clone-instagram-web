@@ -1,18 +1,24 @@
 import { css, styled } from "styled-components";
 import { m } from "framer-motion";
 
-import { Action, Icon, actionActive } from "../Navigation/style";
-import { linkMarginX } from "../style";
+import { Action, Icon, Text, actionActive } from "../Navigation/style";
+import { linkMarginX, sidebarWidth } from "../style";
 
-export const Wrapper = styled.div`
+export const ButtonIcon = styled(Icon)``;
+export const ButtonText = styled(Text)``;
+export const MenuIcon = styled(Icon)``;
+
+export const Wrapper = styled.div`${({ theme }) => (css`
     position: relative;
-`;
+
+    ${theme.breakpoints.md} {
+        display: none;
+    }
+`)}`;
 
 export const Button = styled(Action)`
     ${({ $menuOpen }) => $menuOpen && actionActive};
 `;
-
-export const ButtonIcon = styled(Icon)``;
 
 export const Menu = styled(m.ul)`${({ theme, $buttonHeight }) => (css`
     position: absolute;
@@ -35,6 +41,10 @@ export const Menu = styled(m.ul)`${({ theme, $buttonHeight }) => (css`
     li + li a,
     li + li button {
         border-top: 1px solid ${theme.colors.stroke};
+    }
+
+    ${theme.breakpoints.xl} {
+        width: calc(${sidebarWidth.default} - ${linkMarginX} * 2);
     }
 `)}`;
 
@@ -66,5 +76,3 @@ export const MenuAction = styled.div`${({ theme }) => (css`
         flex: 1;
     }
 `)}`;
-
-export const MenuIcon = styled(Icon)``;

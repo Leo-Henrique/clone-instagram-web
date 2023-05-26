@@ -3,17 +3,27 @@ import { linkMarginX, linkPaddingX } from "../style";
 
 export const actionActive = (css`
     font-weight: 700;
-`)
+`);
 
-export const Wrapper = styled.nav`
+export const Wrapper = styled.nav`${({ theme }) => (css`
     flex: 1;
-`;
+    
+    ${theme.breakpoints.md} {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+`)}`;
 
-export const List = styled.ul`
+export const List = styled.ul`${({ theme }) => (css`
     display: flex;
     flex-direction: column;
     row-gap: .8rem;
-`
+
+    ${theme.breakpoints.md} {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+`)}`;
 
 export const Action = styled.div`${({ theme }) => (css`
     width: calc(100% - ${linkMarginX} * 2);
@@ -48,6 +58,13 @@ export const Action = styled.div`${({ theme }) => (css`
             transform: scale(1);
         }
     }
+
+    ${theme.breakpoints.md} {
+        width: initial;
+        column-gap: initial;
+        padding: 1.4rem 1.2rem;
+        margin: 0;
+    }
 `)}`;
 
 export const Icon = styled.div`${({ theme }) => (css`
@@ -64,5 +81,11 @@ export const Icon = styled.div`${({ theme }) => (css`
     }
     img {
         border-radius: 50%;
+    }
+`)}`;
+
+export const Text = styled.span`${({ theme }) => (css`
+    ${theme.breakpoints.xl} {
+        display: none;
     }
 `)}`;

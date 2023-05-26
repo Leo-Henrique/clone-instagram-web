@@ -62,6 +62,7 @@ export default function Navigation({ filter }) {
                 {renderLinks.map(({ name, href, icon }) => (
                     <li key={name}>
                         <Styled.Action
+                            aria-label={name}
                             {...(href
                                 ? { as: NavLink, to: href }
                                 : { as: "button", type: "button" })}
@@ -76,7 +77,7 @@ export default function Navigation({ filter }) {
                                     icon
                                 )}
                             </Styled.Icon>
-                            <span>{name}</span>
+                            <Styled.Text>{name}</Styled.Text>
                         </Styled.Action>
                     </li>
                 ))}

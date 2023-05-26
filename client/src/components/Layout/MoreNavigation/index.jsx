@@ -55,12 +55,13 @@ export default function MoreNavigation() {
                 onClick={() => setMenuOpen(!menuOpen)}
                 $menuOpen={menuOpen}
                 ref={button}
+                aria-label="Mais"
             >
                 <Styled.ButtonIcon>
                     <SVGMore />
                 </Styled.ButtonIcon>
 
-                <span>Mais</span>
+                <Styled.ButtonText>Mais</Styled.ButtonText>
             </Styled.Button>
 
             <AnimatePresence>

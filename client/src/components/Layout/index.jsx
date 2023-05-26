@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
-
-import SVGInstagram from "../../assets/icons/vectors/instagram.svg";
 import SVGLogo from "../../assets/icons/vectors/logo.svg";
 import useBreakpoint from "../../hooks/useBreakpoint";
+import Logo from "../Misc/Logo";
 import MoreNavigation from "./MoreNavigation";
 import Navigation from "./Navigation";
 import * as Styled from "./style";
@@ -13,17 +11,15 @@ export default function Layout({ children }) {
     return (
         <>
             <Styled.Sidebar>
-                <Styled.Logo>
-                    <Link to="/">
-                        {isBreakpointXl ? <SVGLogo /> : <SVGInstagram />}
-                    </Link>
-                </Styled.Logo>
+                <Logo as={Styled.Logo} SVG={isBreakpointXl && <SVGLogo />} />
 
                 <Navigation />
 
                 <MoreNavigation />
             </Styled.Sidebar>
-            <Styled.Content>{children}</Styled.Content>
+            <Styled.Container>
+                <Styled.Content>{children}</Styled.Content>
+            </Styled.Container>
         </>
     );
 }
