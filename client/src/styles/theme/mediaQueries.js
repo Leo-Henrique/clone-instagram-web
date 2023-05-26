@@ -2,7 +2,7 @@ const media = "@media";
 const property = "max-width";
 const sizes = {
     xxl: "1399.98px",
-    xl: "1199.98px",
+    xl: "1263px",
     lg: "991.98px",
     md: "767.98px",
     sm: "575.98px",

@@ -17,7 +17,7 @@ export default function StylesProvider({ children }) {
 
     useEffect(() => {
         dispatch(setInitialTheme());
-    }, [isAuthenticated]);
+    }, [setInitialTheme, isAuthenticated]);
 
     return (
         <ThemeProvider theme={{ ...styledTheme, colors }}>
