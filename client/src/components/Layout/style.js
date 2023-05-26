@@ -1,3 +1,4 @@
+import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
 export const sidebarWidth = {
@@ -9,7 +10,7 @@ const linkPaddingY = "1.5rem";
 export const linkPaddingX = "1.5rem";
 export const linkMarginX = ".9rem";
 
-export const Sidebar = styled.div`${({ theme }) => (css`
+export const Sidebar = styled(m.div)`${({ theme }) => (css`
     position: fixed;
     inset: 0 auto;
     width: 100%;
@@ -49,9 +50,15 @@ export const Logo = styled.div`${({ theme }) => (css`
     }
 `)}`;
 
-export const Container = styled.div`${({ theme }) => (css`
-    ${theme.mixins.responsiveVariable(sidebarWidth, ["margin-left"])};
-`)}`;
+export const Container = styled.div`
+    ${({ theme, $menuHeight }) => (css`
+        ${theme.mixins.responsiveVariable(sidebarWidth, ["margin-left"])};
+        
+        ${theme.breakpoints.md} {
+            margin-bottom: ${$menuHeight};
+        }
+    `)}
+`;
 
 export const Content = styled.div`${({ theme }) => (css`
     max-width: calc(935px + 20px * 2);

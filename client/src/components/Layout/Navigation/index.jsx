@@ -11,56 +11,67 @@ import SVGSearch from "../../../assets/icons/vectors/search.svg";
 import { SERVER_DOMAIN } from "../../../config";
 import * as Styled from "./style";
 
-export default function Navigation({ filter }) {
+export default function Navigation({ filter, reorder }) {
     const { user } = useSelector(({ auth }) => auth);
     const links = [
         {
+            id: "home",
             name: "Página inicial",
             href: "/",
             icon: <SVGHome />,
         },
         {
+            id: "search",
             name: "Pesquisa",
             icon: <SVGSearch />,
         },
         {
+            id: "explore",
             name: "Explorar",
             href: "/explore",
             icon: <SVGExplore />,
         },
         {
+            id: "reels",
             name: "Reels",
             href: "/reels",
             icon: <SVGReels />,
         },
         {
+            id: "messages",
             name: "Mensagens",
             href: "/direct",
             icon: <SVGMessages />,
         },
         {
+            id: "notifications",
             name: "Notificações",
             icon: <SVGNotifications />,
         },
         {
+            id: "create",
             name: "Criar",
             icon: <SVGCreate />,
         },
         {
+            id: "profile",
             name: "Perfil",
             href: `/${user.username}`,
             icon: `${SERVER_DOMAIN}/${user.picture}`,
         },
     ];
     const renderLinks = filter
-        ? links.filter(({ name }) => filter.includes(name))
+        ? links.filter(({ id }) => filter.includes(id))
         : links;
 
     return (
         <Styled.Wrapper>
             <Styled.List>
-                {renderLinks.map(({ name, href, icon }) => (
-                    <li key={name}>
+                {renderLinks.map(({ id, name, href, icon }) => (
+                    <Styled.Item
+                        key={name}
+                        $order={reorder?.[id] && reorder[id]}
+                    >
                         <Styled.Action
                             aria-label={name}
                             {...(href
@@ -79,7 +90,7 @@ export default function Navigation({ filter }) {
                             </Styled.Icon>
                             <Styled.Text>{name}</Styled.Text>
                         </Styled.Action>
-                    </li>
+                    </Styled.Item>
                 ))}
             </Styled.List>
         </Styled.Wrapper>

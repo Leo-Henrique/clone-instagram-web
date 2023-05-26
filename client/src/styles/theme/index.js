@@ -33,7 +33,8 @@ const theme = {
     },
     zIndexes: {
         message: 10
-    }
+    },
+    containerX: "15px"
 };
 
 export default theme;

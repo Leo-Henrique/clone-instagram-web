@@ -9,8 +9,9 @@ export const Wrapper = styled.nav`${({ theme }) => (css`
     flex: 1;
     
     ${theme.breakpoints.md} {
-        max-width: 600px;
+        max-width: 500px;
         margin: 0 auto;
+        padding: 0 2rem;
     }
 `)}`;
 
@@ -23,6 +24,10 @@ export const List = styled.ul`${({ theme }) => (css`
         flex-direction: row;
         justify-content: space-between;
     }
+`)}`;
+
+export const Item = styled.li`${({ $order }) => (css`
+    ${$order && (css` order: ${$order};`)}
 `)}`;
 
 export const Action = styled.div`${({ theme }) => (css`
@@ -69,6 +74,7 @@ export const Action = styled.div`${({ theme }) => (css`
 
 export const Icon = styled.div`${({ theme }) => (css`
     svg, img {
+        max-width: initial;
         width: 24px;
         height: auto;
         ${theme.mixins.transition(["transform"])};
