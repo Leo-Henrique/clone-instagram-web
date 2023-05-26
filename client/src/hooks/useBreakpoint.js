@@ -1,36 +1,47 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 
-export default function useBreakpoint(breakpoint) {
-    const [condition, setCondition] = useState(null);
-    const { breakpoints } = useTheme();
-    const mediaQuery = breakpoints[breakpoint];
-    const formatName = () => {
-        const firstLetter = breakpoint[0];
-        const rest = breakpoint.slice(1);
+export default function useBreakpoint(breakpoints) {
+    const conditionName = breakpoint => {
+        const formatName = () => {
+            const firstLetter = breakpoint[0];
+            const rest = breakpoint.slice(1);
 
-        return `${firstLetter.toUpperCase()}${rest}`;
-    };
-    const conditionName = `isBreakpoint${formatName()}`;
-
-    if (!mediaQuery) return null;
-
-    useEffect(() => {
-        const addBreakpoint = () => {
-            const query = mediaQuery.replace("@media ", "");
-
-            matchMedia(query).matches
-                ? setCondition(true)
-                : setCondition(false);
+            return `${firstLetter.toUpperCase()}${rest}`;
         };
 
-        addBreakpoint();
-        window.addEventListener("resize", addBreakpoint);
-        return () => window.removeEventListener("resize", addBreakpoint);
+        return `isBreakpoint${formatName()}`;
+    };
+    const [conditions, setConditions] = useState(() => {
+        const obj = {};
+
+        breakpoints.forEach(breakpoint => {
+            obj[conditionName(breakpoint)] = null;
+        });
+
+        return obj;
+    });
+    const theme = useTheme();
+
+    useEffect(() => {
+        const observeQuery = () => {
+            let newConditions = {};
+
+            breakpoints.forEach(breakpoint => {
+                const mediaQuery = theme.breakpoints[breakpoint];
+                const query = mediaQuery.replace("@media ", "");
+                const condition = conditionName(breakpoint);
+
+                newConditions[condition] = matchMedia(query).matches;
+            });
+
+            setConditions(newConditions);
+        };
+
+        observeQuery();
+        window.addEventListener("resize", observeQuery);
+        return () => window.removeEventListener("resize", observeQuery);
     }, []);
 
-    return {
-        mediaQuery,
-        [conditionName]: condition,
-    };
+    return conditions;
 }

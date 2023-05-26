@@ -6,7 +6,7 @@ import Navigation from "./Navigation";
 import * as Styled from "./style";
 
 export default function Layout({ children }) {
-    const { isBreakpointXl } = useBreakpoint("xl");
+    const { isBreakpointXl } = useBreakpoint(["xl"]);
 
     return (
         <>
