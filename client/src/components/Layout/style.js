@@ -1,6 +1,9 @@
 import { css, styled } from "styled-components";
 
-const sidebarWidth = "250px";
+const sidebarWidth = {
+    default: "245px",
+    xl: "72px",
+};
 const linkPaddingY = "1.5rem";
 export const linkPaddingX = "1.5rem";
 export const linkMarginX = ".9rem";
@@ -8,7 +11,6 @@ export const linkMarginX = ".9rem";
 export const Sidebar = styled.div`${({ theme }) => (css`
     position: fixed;
     inset: 0 auto;
-    max-width: ${sidebarWidth};
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -16,6 +18,7 @@ export const Sidebar = styled.div`${({ theme }) => (css`
     padding: calc(4rem - ${linkPaddingY}) 0;
     background-color: ${theme.colors.block};
     border-right: 1px solid ${theme.colors.separator};
+   ${theme.mixins.responsiveVariable(sidebarWidth, ["max-width"])};
 `)}`;
 
 export const Logo = styled.div`${({ theme }) => (css`
@@ -29,12 +32,16 @@ export const Logo = styled.div`${({ theme }) => (css`
         display: inline-block;
         width: 103px;
         height: auto;
+
+        ${theme.breakpoints.xl} {
+            width: 24px;
+        }
     }
     path {
         fill: ${theme.colors.text};
     }
 `)}`;
 
-export const Content = styled.div`
-    margin-left: ${sidebarWidth};
-`;
+export const Content = styled.div`${({ theme }) => (css`
+    ${theme.mixins.responsiveVariable(sidebarWidth, ["margin-left"])};
+`)}`;

@@ -8,6 +8,25 @@ export const transition =
         transition-timing-function: ${theme.transitions[type].timingFunction};
 `);
 
+export const responsiveVariable = 
+    (variable, properties) => 
+    ({ theme }) => {
+        const breakpoints = Object.keys(variable);
+        const addStyles = breakpoint => properties.map(property => (css`
+            ${`${property}: ${variable[breakpoint]};`}
+        `))
+
+        return breakpoints.map(breakpoint => {
+            if (breakpoint !== "default") {
+                return (css`
+                    ${theme.breakpoints[breakpoint]} { 
+                        ${addStyles(breakpoint)}
+                    }
+                `);
+            } else return addStyles("default");
+        });
+};
+
 export const SVGResponsive = (css`
     display: block;
     max-width: 100%;
