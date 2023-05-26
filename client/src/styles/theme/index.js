@@ -32,7 +32,8 @@ const theme = {
         }
     },
     zIndexes: {
-        message: 10
+        tooltip: 10,
+        message: 15,
     },
     containerX: "15px"
 };

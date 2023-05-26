@@ -58,3 +58,8 @@ export const genericLinkStates = ({ theme }) => (css`
         opacity: .3;
     }
 `);
+
+export const elementAbove = (css`
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, .0975));
+    box-shadow: -5px 7px 25px 5px rgba(0, 0, 0, .14);
+`);

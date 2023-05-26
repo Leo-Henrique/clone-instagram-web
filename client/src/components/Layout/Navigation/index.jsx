@@ -9,8 +9,33 @@ import SVGMessages from "../../../assets/icons/vectors/messages.svg";
 import SVGReels from "../../../assets/icons/vectors/reels.svg";
 import SVGSearch from "../../../assets/icons/vectors/search.svg";
 import { SERVER_DOMAIN } from "../../../config";
+import useBreakpoint from "../../../hooks/useBreakpoint";
+import Tooltip from "../../Misc/Tooltip";
 import * as Styled from "./style";
 
+const Action = ({ name, href, icon, ...rest }) => {
+    const { user } = useSelector(({ auth }) => auth);
+
+    return (
+        <Styled.Action
+            {...rest}
+            aria-label={name}
+            {...(href
+                ? { as: NavLink, to: href }
+                : { as: "button", type: "button" })}
+        >
+            <Styled.Icon>
+                {typeof icon === "string" ? (
+                    <img src={icon} alt={`Sua foto de perfil, ${user.name}`} />
+                ) : (
+                    icon
+                )}
+            </Styled.Icon>
+
+            <Styled.Text>{name}</Styled.Text>
+        </Styled.Action>
+    );
+};
 export default function Navigation({ filter, reorder }) {
     const { user } = useSelector(({ auth }) => auth);
     const links = [
@@ -63,33 +88,22 @@ export default function Navigation({ filter, reorder }) {
     const renderLinks = filter
         ? links.filter(({ id }) => filter.includes(id))
         : links;
+    const { isBreakpointXl } = useBreakpoint(["xl"]);
 
     return (
         <Styled.Wrapper>
             <Styled.List>
-                {renderLinks.map(({ id, name, href, icon }) => (
+                {renderLinks.map(link => (
                     <Styled.Item
-                        key={name}
-                        $order={reorder?.[id] && reorder[id]}
+                        key={link.name}
+                        $order={reorder?.[link.id] && reorder[link.id]}
                     >
-                        <Styled.Action
-                            aria-label={name}
-                            {...(href
-                                ? { as: NavLink, to: href }
-                                : { as: "button", type: "button" })}
-                        >
-                            <Styled.Icon>
-                                {typeof icon === "string" ? (
-                                    <img
-                                        src={icon}
-                                        alt={`Sua foto de perfil, ${user.name}`}
-                                    />
-                                ) : (
-                                    icon
-                                )}
-                            </Styled.Icon>
-                            <Styled.Text>{name}</Styled.Text>
-                        </Styled.Action>
+                        <Tooltip
+                            text={link.name}
+                            position="right"
+                            Button={props => <Action {...link} {...props} />}
+                            displayDelay={1000}
+                        />
                     </Styled.Item>
                 ))}
             </Styled.List>

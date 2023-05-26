@@ -11,7 +11,6 @@ import SVGSaved from "../../../assets/icons/vectors/save.svg";
 import { logoutThunk } from "../../../features/auth/authSlice";
 import useClose from "../../../hooks/useClose";
 import useMotion from "../../../hooks/useMotion";
-import useSize from "../../../hooks/useSize";
 import * as Styled from "./style";
 
 export default function MoreNavigation() {
@@ -45,7 +44,6 @@ export default function MoreNavigation() {
         },
     });
     const [menuOpen, setMenuOpen] = useState(false);
-    const { element: button, size: buttonHeight } = useSize("Height", menuOpen);
     const { notClose } = useClose(menuOpen, setMenuOpen);
 
     return (
@@ -54,7 +52,6 @@ export default function MoreNavigation() {
                 type="button"
                 onClick={() => setMenuOpen(!menuOpen)}
                 $menuOpen={menuOpen}
-                ref={button}
                 aria-label="Mais"
             >
                 <Styled.ButtonIcon>
@@ -66,7 +63,7 @@ export default function MoreNavigation() {
 
             <AnimatePresence>
                 {menuOpen && (
-                    <Styled.Menu {...motionProps} $buttonHeight={buttonHeight}>
+                    <Styled.Menu {...motionProps}>
                         {menu.map(({ name, href, icon, onClick }) => (
                             <li key={name}>
                                 <Styled.MenuAction

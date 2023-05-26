@@ -20,15 +20,14 @@ export const Button = styled(Action)`
     ${({ $menuOpen }) => $menuOpen && actionActive};
 `;
 
-export const Menu = styled(m.ul)`${({ theme, $buttonHeight }) => (css`
+export const Menu = styled(m.ul)`${({ theme }) => (css`
     position: absolute;
-    inset: auto 0 calc(1rem + ${$buttonHeight});
+    inset: auto 0 calc(100% + 1rem);
     margin: 0 ${linkMarginX};
     background-color: ${theme.colors.blockSupport1};
     border-radius: 5px;
     overflow: hidden;
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, .0975));
-    box-shadow: -5px 7px 25px 5px rgba(0, 0, 0, .14);
+    ${theme.mixins.elementAbove};
 
     li:first-child a,
     li:first-child button {

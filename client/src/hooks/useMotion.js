@@ -25,17 +25,21 @@ const motionVariants = {
 export default function useMotion({
     variants = "opacity",
     transition = "global",
+    delay
 }) {
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
     const { transitions } = useTheme();
+    const transitionConfig = convertThemeTransition(transitions[transition]);
     const variantsData =
         typeof variants === "string" ? motionVariants[variants] : variants;
+
+    if (delay) transitionConfig.delay = delay;
 
     if (!reducedMotion.matches)
         return {
             variants: variantsData,
             animate: "animate",
-            transition: convertThemeTransition(transitions[transition]),
+            transition: transitionConfig,
             ...(variantsData.initial && { initial: "initial" }),
             ...(variantsData.exit
                 ? { exit: "exit" }
