@@ -12,7 +12,11 @@ export default function Layout({ children, MobileHeader }) {
     const { isBreakpointXl, isBreakpointMd } = useSelector(
         ({ breakpoints }) => breakpoints
     );
-    const { element: menu, height: menuHeight } = useSize();
+    const {
+        element: navbar,
+        height: navbarHeight,
+        width: navbarWidth,
+    } = useSize();
     const motionProps = useMotion({});
 
     return (
@@ -23,7 +27,7 @@ export default function Layout({ children, MobileHeader }) {
                 </Styled.MobileHeader>
             )}
 
-            <Styled.Navbar {...motionProps} ref={menu}>
+            <Styled.Navbar {...motionProps} ref={navbar}>
                 <Logo as={Styled.Logo} SVG={isBreakpointXl && <SVGLogo />} />
 
                 <Navigation
@@ -43,7 +47,10 @@ export default function Layout({ children, MobileHeader }) {
 
                 <MoreNavigation />
             </Styled.Navbar>
-            <Styled.Container $menuHeight={menuHeight}>
+            <Styled.Container
+                $navbarHeight={navbarHeight}
+                $navbarWidth={navbarWidth}
+            >
                 <Styled.Content>{children}</Styled.Content>
             </Styled.Container>
         </>

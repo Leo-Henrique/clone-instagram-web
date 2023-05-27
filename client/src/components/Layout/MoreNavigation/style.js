@@ -2,7 +2,7 @@ import { css, styled } from "styled-components";
 import { m } from "framer-motion";
 
 import { Action, Icon, Text, actionActive } from "../Navigation/style";
-import { linkMarginX, navbarWidth } from "../style";
+import { linkMarginX } from "../style";
 
 export const ButtonIcon = styled(Icon)``;
 export const ButtonText = styled(Text)``;
@@ -43,7 +43,8 @@ export const Menu = styled(m.ul)`${({ theme }) => (css`
     }
 
     ${theme.breakpoints.xl} {
-        width: calc(${navbarWidth.default} - ${linkMarginX} * 2);
+        bottom: calc(100% + .7rem);
+        width: 226px;
     }
 `)}`;
 
