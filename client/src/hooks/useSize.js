@@ -1,25 +1,22 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function useSize(dimension, state) {
+export default function useSize() {
     const element = useRef();
-    const [size, setSize] = useState("0px");
-    const hasState = state !== undefined;
-    const addSize = useCallback(() => {
-        const property = `offset${dimension}`;
-
-        setSize(`${element.current[property]}px`);
-    }, []);
+    const [width, setWidth] = useState("0px");
+    const [height, setHeight] = useState("0px");
 
     useEffect(() => {
-        const addEvent = () => window.addEventListener("resize", addSize);
-        const removeEvent = () => window.removeEventListener("resize", addSize);
+        const observer = new ResizeObserver(entries => {
+            entries.forEach(entry => {
+                const [sizes] = entry.borderBoxSize;
 
-        addSize();
-        if (hasState) state ? addEvent() : removeEvent();
-        else addEvent();
+                setWidth(`${sizes.inlineSize}px`);
+                setHeight(`${sizes.blockSize}px`);
+            });
+        });
 
-        return () => removeEvent();
-    }, [hasState && state]);
+        observer.observe(element.current);
+    }, []);
 
-    return { element, size };
+    return { element, width, height };
 }

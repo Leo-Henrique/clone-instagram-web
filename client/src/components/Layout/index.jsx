@@ -9,7 +9,7 @@ import * as Styled from "./style";
 
 export default function Layout({ children }) {
     const { isBreakpointXl, isBreakpointMd } = useBreakpoint(["xl", "md"]);
-    const { element: menu, size: menuHeight} = useSize("Height", isBreakpointMd);
+    const { element: menu, height: menuHeight } = useSize();
     const motionProps = useMotion({});
 
     return (
@@ -34,7 +34,7 @@ export default function Layout({ children }) {
 
                 <MoreNavigation />
             </Styled.Sidebar>
-            <Styled.Container $menuHeight={isBreakpointMd && menuHeight}>
+            <Styled.Container $menuHeight={menuHeight}>
                 <Styled.Content>{children}</Styled.Content>
             </Styled.Container>
         </>
