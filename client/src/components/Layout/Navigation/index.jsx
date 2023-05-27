@@ -9,7 +9,6 @@ import SVGMessages from "../../../assets/icons/vectors/messages.svg";
 import SVGReels from "../../../assets/icons/vectors/reels.svg";
 import SVGSearch from "../../../assets/icons/vectors/search.svg";
 import { SERVER_DOMAIN } from "../../../config";
-import useBreakpoint from "../../../hooks/useBreakpoint";
 import Tooltip from "../../Misc/Tooltip";
 import * as Styled from "./style";
 
@@ -88,7 +87,6 @@ export default function Navigation({ filter, reorder }) {
     const renderLinks = filter
         ? links.filter(({ id }) => filter.includes(id))
         : links;
-    const { isBreakpointXl } = useBreakpoint(["xl"]);
 
     return (
         <Styled.Wrapper>

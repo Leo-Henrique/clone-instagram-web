@@ -1,5 +1,6 @@
+import { useSelector } from "react-redux";
+
 import SVGLogo from "../../assets/icons/vectors/logo.svg";
-import useBreakpoint from "../../hooks/useBreakpoint";
 import useMotion from "../../hooks/useMotion";
 import useSize from "../../hooks/useSize";
 import Logo from "../Misc/Logo";
@@ -8,7 +9,7 @@ import Navigation from "./Navigation";
 import * as Styled from "./style";
 
 export default function Layout({ children }) {
-    const { isBreakpointXl, isBreakpointMd } = useBreakpoint(["xl", "md"]);
+    const { isBreakpointXl, isBreakpointMd } = useSelector(({ breakpoints }) => breakpoints);
     const { element: menu, height: menuHeight } = useSize();
     const motionProps = useMotion({});
 

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
 
+import { startBreakpoints } from "../app/slices/breakpoints";
 import { setInitialTheme } from "../app/slices/theme";
 import GlobalStyle from "../styles/GlobalStyle";
 import styledTheme from "../styles/theme";
@@ -15,6 +16,9 @@ export default function StylesProvider({ children }) {
     } = useSelector(state => state);
     const colors = { ...colorScheme[theme], ...colorScheme.global };
 
+    useEffect(() => {
+        dispatch(startBreakpoints(styledTheme.breakpoints));
+    }, []);
     useEffect(() => {
         dispatch(setInitialTheme());
     }, [setInitialTheme, isAuthenticated]);

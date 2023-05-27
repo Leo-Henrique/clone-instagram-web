@@ -3,12 +3,14 @@ import auth from "../features/auth/authSlice";
 import api from "./api";
 import message from "./slices/message";
 import theme from "./slices/theme";
+import breakpoints from "./slices/breakpoints";
 
 const reducer = combineReducers({
     [api.reducerPath]: api.reducer,
     auth,
     message,
-    theme
+    theme,
+    breakpoints
 });
 const middleware = getDefaultMiddleware =>
     getDefaultMiddleware().concat(api.middleware);
