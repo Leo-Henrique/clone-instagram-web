@@ -8,13 +8,21 @@ import MoreNavigation from "./MoreNavigation";
 import Navigation from "./Navigation";
 import * as Styled from "./style";
 
-export default function Layout({ children }) {
-    const { isBreakpointXl, isBreakpointMd } = useSelector(({ breakpoints }) => breakpoints);
+export default function Layout({ children, MobileHeader }) {
+    const { isBreakpointXl, isBreakpointMd } = useSelector(
+        ({ breakpoints }) => breakpoints
+    );
     const { element: menu, height: menuHeight } = useSize();
     const motionProps = useMotion({});
 
     return (
         <>
+            {MobileHeader && isBreakpointMd && (
+                <Styled.MobileHeader>
+                    <MobileHeader />
+                </Styled.MobileHeader>
+            )}
+
             <Styled.Navbar {...motionProps} ref={menu}>
                 <Logo as={Styled.Logo} SVG={isBreakpointXl && <SVGLogo />} />
 

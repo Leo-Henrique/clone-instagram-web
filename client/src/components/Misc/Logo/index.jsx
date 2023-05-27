@@ -6,7 +6,9 @@ import * as Styled from "./style";
 export default function Logo({ SVG, ...rest }) {
     return (
         <Styled.Wrapper {...rest}>
-            <Link to="/">{SVG ? SVG : <SVGInstagram />}</Link>
+            <Link to="/" >
+                {SVG ? SVG : <SVGInstagram />}
+            </Link>
         </Styled.Wrapper>
     );
 }

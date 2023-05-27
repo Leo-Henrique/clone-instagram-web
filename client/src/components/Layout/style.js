@@ -74,3 +74,13 @@ export const Content = styled.div`${({ theme }) => (css`
         padding-right: 0;
     }
 `)}`;
+
+export const MobileHeader = styled.header`${({ theme }) => (css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 2rem;
+    padding: 0 ${theme.global.containerPadding};
+    background-color: ${theme.colors.block};
+    border-bottom: 1px solid ${theme.colors.separator};
+`)}`;
