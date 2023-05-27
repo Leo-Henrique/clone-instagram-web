@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 
+
+
+
+
 export default function useBreakpoint(breakpoints) {
     const conditionName = breakpoint => {
         const formatName = () => {

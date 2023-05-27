@@ -16,6 +16,7 @@ export default function useSize() {
         });
 
         observer.observe(element.current);
+        return () => observer.disconnect();
     }, []);
 
     return { element, width, height };
