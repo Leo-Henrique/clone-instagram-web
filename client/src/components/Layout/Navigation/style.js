@@ -76,6 +76,7 @@ export const Action = styled.div`${({ theme }) => (css`
         column-gap: initial;
         padding: 1.4rem 1.2rem;
         margin: 0;
+        background-color: transparent !important;
     }
 `)}`;
 
