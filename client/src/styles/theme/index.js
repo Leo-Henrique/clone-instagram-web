@@ -36,7 +36,9 @@ const theme = {
         tooltip: 10,
         message: 15,
     },
-    containerX: "15px",
+    global: {
+        containerPadding: "15px",
+    },
 };
 
 export default theme;

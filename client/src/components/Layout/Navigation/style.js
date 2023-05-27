@@ -13,6 +13,9 @@ export const Wrapper = styled.nav`${({ theme }) => (css`
         margin: 0 auto;
         padding: 0 2rem;
     }
+    ${theme.breakpoints.sm} {
+        padding: 0 ${theme.global.containerPadding};
+    }
 `)}`;
 
 export const List = styled.ul`${({ theme }) => (css`
