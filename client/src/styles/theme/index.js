@@ -1,5 +1,5 @@
-import { breakpoints, queries } from "./mediaQueries";
 import * as mixins from "../mixins";
+import { breakpoints, queries } from "./mediaQueries";
 
 const theme = {
     breakpoints,
@@ -28,14 +28,15 @@ const theme = {
         },
         loading: {
             duration: 150,
-            timingFunction: "ease-in"
-        }
+            timingFunction: "ease-in",
+        },
     },
     zIndexes: {
+        navbar: 5,
         tooltip: 10,
         message: 15,
     },
-    containerX: "15px"
+    containerX: "15px",
 };
 
 export default theme;

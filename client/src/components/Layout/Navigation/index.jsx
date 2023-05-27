@@ -36,7 +36,10 @@ const Action = ({ name, href, icon, ...rest }) => {
     );
 };
 export default function Navigation({ filter, reorder }) {
-    const { user } = useSelector(({ auth }) => auth);
+    const {
+        auth: { user },
+        breakpoints: { isBreakpointXl, isBreakpointMd },
+    } = useSelector(state => state);
     const links = [
         {
             id: "home",
@@ -96,12 +99,16 @@ export default function Navigation({ filter, reorder }) {
                         key={link.name}
                         $order={reorder?.[link.id] && reorder[link.id]}
                     >
-                        <Tooltip
-                            text={link.name}
-                            position="right"
-                            Button={props => <Action {...link} {...props} />}
-                            displayDelay={1000}
-                        />
+                        {isBreakpointXl && !isBreakpointMd ? (
+                            <Tooltip
+                                text={link.name}
+                                position="right"
+                                Button={props => (
+                                    <Action {...link} {...props} />
+                                )}
+                                displayDelay={1000}
+                            />
+                        ) : <Action {...link} />}
                     </Styled.Item>
                 ))}
             </Styled.List>

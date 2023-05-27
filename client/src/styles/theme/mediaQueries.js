@@ -9,12 +9,8 @@ const sizes = {
     authSm: "450px",
 };
 
-export const devices = {};
-Object.keys(sizes).forEach(breakpoint => {
-    devices[breakpoint] = `(${property}: ${sizes[breakpoint]})`;
-});
-
 export const breakpoints = {};
+
 Object.keys(sizes).forEach(breakpoint => {
     breakpoints[breakpoint] = `${media} (${property}: ${sizes[breakpoint]})`;
 });

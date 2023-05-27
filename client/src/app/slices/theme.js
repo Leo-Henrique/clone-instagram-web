@@ -10,7 +10,7 @@ const themeSlice = createSlice({
 
 export const { setTheme } = themeSlice.actions;
 
-export const setInitialTheme = () => (dispatch, getState) => {
+export const setDefaultTheme = () => (dispatch, getState) => {
     const { isAuthenticated } = getState().auth;
 
     if (!isAuthenticated) return dispatch(setTheme("light"));

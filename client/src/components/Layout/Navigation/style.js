@@ -20,6 +20,9 @@ export const List = styled.ul`${({ theme }) => (css`
     flex-direction: column;
     row-gap: .8rem;
 
+    ${theme.breakpoints.xl} {
+        row-gap: .3rem;
+    }
     ${theme.breakpoints.md} {
         flex-direction: row;
         justify-content: space-between;
@@ -64,6 +67,10 @@ export const Action = styled.div`${({ theme }) => (css`
         }
     }
 
+    ${theme.breakpoints.xl} {
+        justify-content: center;
+        padding: 1.45rem;
+    }
     ${theme.breakpoints.md} {
         width: initial;
         column-gap: initial;

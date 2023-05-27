@@ -1,7 +1,7 @@
 import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
-export const sidebarWidth = {
+export const navbarWidth = {
     default: "245px",
     xl: "72px",
     md: "initial"
@@ -10,8 +10,9 @@ const linkPaddingY = "1.5rem";
 export const linkPaddingX = "1.5rem";
 export const linkMarginX = ".9rem";
 
-export const Sidebar = styled(m.div)`${({ theme }) => (css`
+export const Navbar = styled(m.div)`${({ theme }) => (css`
     position: fixed;
+    z-index: ${theme.zIndexes.navbar};
     inset: 0 auto;
     width: 100%;
     display: flex;
@@ -20,11 +21,12 @@ export const Sidebar = styled(m.div)`${({ theme }) => (css`
     padding: calc(4rem - ${linkPaddingY}) 0;
     background-color: ${theme.colors.block};
     border-right: 1px solid ${theme.colors.separator};
-    ${theme.mixins.responsiveVariable(sidebarWidth, ["max-width"])};
+    ${theme.mixins.responsiveVariable(navbarWidth, ["max-width"])};
 
     ${theme.breakpoints.xl} {
-        row-gap: calc(5.4rem - ${linkPaddingY} * 2);
+        row-gap: calc(5.1rem - ${linkPaddingY} * 2);
         padding-top: calc(3.6rem - ${linkPaddingY});
+        padding-bottom: calc(3.8rem - ${linkPaddingY});
     }
     ${theme.breakpoints.md} {
         inset: auto 0 0;
@@ -52,7 +54,7 @@ export const Logo = styled.div`${({ theme }) => (css`
 
 export const Container = styled.div`
     ${({ theme, $menuHeight }) => (css`
-        ${theme.mixins.responsiveVariable(sidebarWidth, ["margin-left"])};
+        ${theme.mixins.responsiveVariable(navbarWidth, ["margin-left"])};
         
         ${theme.breakpoints.md} {
             margin-bottom: ${$menuHeight};

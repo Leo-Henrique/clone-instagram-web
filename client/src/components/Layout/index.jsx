@@ -15,7 +15,7 @@ export default function Layout({ children }) {
 
     return (
         <>
-            <Styled.Sidebar {...motionProps} ref={menu}>
+            <Styled.Navbar {...motionProps} ref={menu}>
                 <Logo as={Styled.Logo} SVG={isBreakpointXl && <SVGLogo />} />
 
                 <Navigation
@@ -34,7 +34,7 @@ export default function Layout({ children }) {
                 />
 
                 <MoreNavigation />
-            </Styled.Sidebar>
+            </Styled.Navbar>
             <Styled.Container $menuHeight={menuHeight}>
                 <Styled.Content>{children}</Styled.Content>
             </Styled.Container>
