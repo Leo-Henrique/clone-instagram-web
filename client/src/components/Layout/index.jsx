@@ -8,7 +8,7 @@ import MoreNavigation from "./MoreNavigation";
 import Navigation from "./Navigation";
 import * as Styled from "./style";
 
-export default function Layout({ children, MobileHeader }) {
+export default function Layout({ children, MobileHeader, contentStyle }) {
     const { isBreakpointXl, isBreakpointMd } = useSelector(
         ({ breakpoints }) => breakpoints
     );
@@ -17,12 +17,13 @@ export default function Layout({ children, MobileHeader }) {
         height: navbarHeight,
         width: navbarWidth,
     } = useSize();
+    const { element: header, height: headerHeight } = useSize();
     const motionProps = useMotion({});
 
     return (
         <>
             {MobileHeader && isBreakpointMd && (
-                <Styled.MobileHeader>
+                <Styled.MobileHeader ref={header}>
                     <MobileHeader />
                 </Styled.MobileHeader>
             )}
@@ -50,8 +51,11 @@ export default function Layout({ children, MobileHeader }) {
             <Styled.Container
                 $navbarHeight={navbarHeight}
                 $navbarWidth={navbarWidth}
+                $headerHeight={headerHeight}
             >
-                <Styled.Content>{children}</Styled.Content>
+                <Styled.Content $contentStyle={contentStyle}>
+                    {children}
+                </Styled.Content>
             </Styled.Container>
         </>
     );

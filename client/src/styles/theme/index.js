@@ -30,6 +30,10 @@ const theme = {
             duration: 150,
             timingFunction: "ease-in",
         },
+        error: {
+            duration: 200,
+            timingFunction: "ease-in-out",
+        },
     },
     zIndexes: {
         navbar: 5,

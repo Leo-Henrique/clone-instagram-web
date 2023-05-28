@@ -11,6 +11,7 @@ const colorScheme = {
         separator: "#DBDBDB",
         stroke: "#DBDBDB",
         strokeFocus: "#A8A8A8",
+        spinner: "#C7C7C7",
     },
     dark: {
         background: "#121212",
@@ -24,6 +25,7 @@ const colorScheme = {
         separator: "#1B1B1B",
         stroke: "#262626",
         strokeFocus: "#262626",
+        spinner: "#737373",
     },
     global: {
         messageBackground: "#262626",

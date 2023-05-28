@@ -11,7 +11,7 @@ export default function Error({ isError, error, ...rest }) {
             {isError && (
                 <Styled.Wrapper {...motionProps} {...rest}>
                     <p>
-                        {error.data
+                        {error?.data?.error
                             ? error.data.error
                             : "Um erro inesperado ocorreu. Tente novamente."}
                     </p>

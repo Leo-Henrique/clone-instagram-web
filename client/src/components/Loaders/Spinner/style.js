@@ -1,3 +1,4 @@
+import { m } from "framer-motion";
 import { css, keyframes, styled } from "styled-components";
 
 const spin = keyframes`
@@ -9,22 +10,42 @@ const spin = keyframes`
     }
 `;
 
-export const Wrapper = styled.div`
-    ${({ theme, $size = 18, $themeColor = "black", $padding = 0 }) => (css`
-        display: inline-block;
-        width: ${$size}px;
+export const Wrapper = styled(m.div)`
+    ${({
+        theme,
+        $size,
+        $themeColor = "spinner",
+        $padding = 0,
+        $pageLoading,
+    }) => (css`
         padding: ${$padding};
-        animation-name: ${spin};
-        animation-duration: .8s;
-        animation-iteration-count: infinite;
-        animation-timing-function: steps(8,end);
 
         svg {
+            animation-name: ${spin};
+            animation-duration: 0.8s;
+            animation-iteration-count: infinite;
+            animation-timing-function: steps(8, end);
             ${theme.mixins.SVGResponsive};
 
             path {
                 fill: ${theme.colors[$themeColor]};
             }
         }
+        ${$pageLoading ? (css`
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg {
+                width: ${$size ? $size : 26}px;
+            }
+        `) : (css`
+            display: inline-block;
+
+            svg {
+                width: ${$size ? $size : 18}px;
+            }
+        `)}
     `)}
 `;

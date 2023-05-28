@@ -50,16 +50,20 @@ export const Logo = styled.div`${({ theme }) => (css`
 `)}`;
 
 export const Container = styled.div`
-    ${({ theme, $navbarWidth, $navbarHeight}) => (css`
+    ${({ theme, $navbarWidth, $navbarHeight, $headerHeight }) => (css`
+        height: 100vh;
         margin-left: ${$navbarWidth};
         
         ${theme.breakpoints.md} {
+            height: calc(100vh - ${$navbarHeight} - ${$headerHeight});
+            margin-left: 0;
             margin-bottom: ${$navbarHeight};
         }
     `)}
 `;
 
-export const Content = styled.div`${({ theme }) => (css`
+export const Content = styled.div`${({ theme, $contentStyle }) => (css`
+    height: 100%;
     max-width: calc(935px + 20px * 2);
     padding-left: 20px;
     padding-right: 20px;
@@ -70,6 +74,8 @@ export const Content = styled.div`${({ theme }) => (css`
         padding-left: 0;
         padding-right: 0;
     }
+
+    ${$contentStyle};
 `)}`;
 
 export const MobileHeader = styled.header`${({ theme }) => (css`

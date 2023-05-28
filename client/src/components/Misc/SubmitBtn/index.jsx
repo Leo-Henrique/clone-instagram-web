@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import * as Styled from "./style";
 import Spinner from "../../Loaders/Spinner";
+import * as Styled from "./style";
 
-export default function SubmitBtn({ text, isLoading, form }) {
+export default function SubmitBtn({ text, isLoading, form, ...rest }) {
     const [filledFields, setFilledFields] = useState(form ? false : true);
 
     useEffect(() => {
@@ -18,6 +18,7 @@ export default function SubmitBtn({ text, isLoading, form }) {
         <Styled.Button
             disabled={isLoading || !filledFields}
             $filledFields={filledFields}
+            {...rest}
         >
             {isLoading ? (
                 <Spinner $themeColor="white" $padding="1.5px 0" />

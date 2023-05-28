@@ -1,10 +1,10 @@
 import { css, styled } from "styled-components";
 
-export const Button = styled.button`${({ theme, $filledFields }) => (css`
+export const Button = styled.button`${({ theme, $filledFields, $expand = true }) => (css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: ${$expand ? "100%" : "initial"};
     padding: .6rem 1.6rem;
     text-align: center;
     font-weight: 600;

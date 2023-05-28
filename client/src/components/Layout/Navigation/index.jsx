@@ -35,7 +35,7 @@ const Action = ({ name, href, icon, ...rest }) => {
         </Styled.Action>
     );
 };
-export default function Navigation({ filter, reorder, ...props }) {
+export default function Navigation({ filter, reorder, ...rest }) {
     const {
         auth: { user },
         breakpoints: { isBreakpointXl, isBreakpointMd },
@@ -92,7 +92,7 @@ export default function Navigation({ filter, reorder, ...props }) {
         : links;
 
     return (
-        <Styled.Wrapper {...props}>
+        <Styled.Wrapper {...rest}>
             <Styled.List>
                 {renderLinks.map(link => (
                     <Styled.Item
