@@ -6,7 +6,7 @@ export const getUsers = async (req, res) => {
     try {
         const users = await User.find();
 
-        return res.send(users);
+        return res.send(users.filter(({ id }) => id !== req.userId));
     } catch (err) {
         return error("Não foi possível carregar os usuários.", 500, res);
     }
