@@ -13,8 +13,8 @@ export const Logo = styled(CloneLogo)`
 `;
 
 export const Navigation = styled(CloneNavigation)`
-    max-width: initial;
-    margin: initial;
-    padding: initial;
-    flex: initial;
+    max-width: initial !important;
+    margin: initial !important;
+    padding: initial !important;
+    flex: initial !important;
 `;

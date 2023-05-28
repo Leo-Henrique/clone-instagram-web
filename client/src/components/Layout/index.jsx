@@ -29,7 +29,7 @@ export default function Layout({ children, MobileHeader, contentStyle }) {
             )}
 
             <Styled.Navbar {...motionProps} ref={navbar}>
-                <Logo as={Styled.Logo} SVG={isBreakpointXl && <SVGLogo />} />
+                <Styled.Logo SVG={isBreakpointXl && <SVGLogo />} />
 
                 <Navigation
                     filter={

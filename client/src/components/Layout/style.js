@@ -1,6 +1,8 @@
 import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
+import CloneLogo from "../Misc/Logo";
+
 const linkPaddingY = "1.5rem";
 export const linkPaddingX = "1.5rem";
 export const linkMarginX = ".9rem";
@@ -34,7 +36,7 @@ export const Navbar = styled(m.div)`${({ theme }) => (css`
     }
 `)}`;
 
-export const Logo = styled.div`${({ theme }) => (css`
+export const Logo = styled(CloneLogo)`${({ theme }) => (css`
     a {
         padding: ${linkPaddingY} ${linkPaddingX};
         margin: 0 ${linkMarginX};
