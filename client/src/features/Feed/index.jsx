@@ -3,7 +3,7 @@ import Spinner from "../../components/Loaders/Spinner";
 import useHead from "../../hooks/useHead";
 import useGetPostsQuery from "./api/getPosts";
 import Template from "./components/Template";
-import * as Styled from "./style"
+import Welcome from "./components/Welcome";
 
 export default function Feed() {
     const {
@@ -16,11 +16,18 @@ export default function Feed() {
     } = useGetPostsQuery();
 
     useHead({});
-
+    
     return (
-        <Template contentStyle={isSuccess && Styled.Wrapper}>
-            {isLoading && <Spinner $pageLoading={true} />}
-            {isError && <QueryError pageError={false} />}
+        <Template>
+            {isLoading ? (
+                <Spinner $pageLoading={true} />
+            ) : isError ? (
+                <QueryError pageError={true} />
+            ) : isSuccess && posts.length ? (
+                <>posts</>
+            ) : (
+                isSuccess && <Welcome />
+            )}
         </Template>
     );
 }

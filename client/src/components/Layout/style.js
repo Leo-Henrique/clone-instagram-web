@@ -53,18 +53,18 @@ export const Logo = styled(CloneLogo)`${({ theme }) => (css`
 
 export const Container = styled.div`
     ${({ theme, $navbarWidth, $navbarHeight, $headerHeight }) => (css`
-        height: 100vh;
+        height: 100%;
         margin-left: ${$navbarWidth};
         
         ${theme.breakpoints.md} {
-            height: calc(100vh - ${$navbarHeight} - ${$headerHeight});
+            height: calc(100% - ${$navbarHeight} - ${$headerHeight});
             margin-left: 0;
             margin-bottom: ${$navbarHeight};
         }
     `)}
 `;
 
-export const Content = styled.div`${({ theme, $contentStyle }) => (css`
+export const Content = styled.div`${({ theme }) => (css`
     height: 100%;
     max-width: calc(935px + 20px * 2);
     padding-left: 20px;
@@ -76,8 +76,6 @@ export const Content = styled.div`${({ theme, $contentStyle }) => (css`
         padding-left: 0;
         padding-right: 0;
     }
-
-    ${$contentStyle};
 `)}`;
 
 export const MobileHeader = styled.header`${({ theme }) => (css`
@@ -85,7 +83,7 @@ export const MobileHeader = styled.header`${({ theme }) => (css`
     align-items: center;
     justify-content: space-between;
     column-gap: 2rem;
-    padding: 0 ${theme.global.containerPadding};
+    padding: 0 ${theme.global.containerPaddingX};
     background-color: ${theme.colors.block};
     border-bottom: 1px solid ${theme.colors.separator};
 `)}`;

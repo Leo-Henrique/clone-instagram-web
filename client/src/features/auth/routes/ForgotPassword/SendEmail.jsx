@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import PNGIcon from "../../../../components/misc/PNGIcon";
-import SubmitBtn from "../../../../components/misc/SubmitBtn";
+import Button from "../../../../components/misc/Button";
 import useMotion from "../../../../hooks/useMotion";
 import Layout from "../../components/Layout";
 
@@ -47,7 +47,7 @@ export default function SendEmail({
                         autoFocus
                     />
 
-                    <SubmitBtn
+                    <Button
                         isLoading={isLoading}
                         text="Enviar link para login"
                         form={form}

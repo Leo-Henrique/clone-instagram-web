@@ -63,3 +63,23 @@ export const elementAbove = (css`
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, .0975));
     box-shadow: -5px 7px 25px 5px rgba(0, 0, 0, .14);
 `);
+
+export const link = ({ fontSize, primary }) => ({ theme }) => (css`
+    font-size: ${theme.fontSizes[fontSize]};
+    font-weight: 600;
+    ${theme.mixins.transition(["color", "opacity"])};
+    ${primary ? (css`
+        color: ${theme.colors.primary};
+        ${theme.queries.desktop} {
+            &:hover {
+                color: ${theme.colors.primaryDark1};
+            }
+        }
+        &:active {
+            color: ${theme.colors.primaryLight1};
+        }
+    `) : (css`
+        color: ${theme.colors.text};
+        ${theme.mixins.genericLinkStates};
+    `)}
+`);

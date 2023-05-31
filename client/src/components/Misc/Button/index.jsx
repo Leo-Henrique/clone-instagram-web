@@ -3,7 +3,14 @@ import { useEffect, useState } from "react";
 import Spinner from "../../Loaders/Spinner";
 import * as Styled from "./style";
 
-export default function SubmitBtn({ text, isLoading, form, ...rest }) {
+export default function Button({
+    text,
+    isLoading,
+    form,
+    expand,
+    primary,
+    ...rest
+}) {
     const [filledFields, setFilledFields] = useState(form ? false : true);
 
     useEffect(() => {
@@ -17,7 +24,8 @@ export default function SubmitBtn({ text, isLoading, form, ...rest }) {
     return (
         <Styled.Button
             disabled={isLoading || !filledFields}
-            $filledFields={filledFields}
+            $expand={expand}
+            $primary={primary}
             {...rest}
         >
             {isLoading ? (

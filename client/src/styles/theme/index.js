@@ -41,7 +41,8 @@ const theme = {
         message: 15,
     },
     global: {
-        containerPadding: "15px",
+        containerPaddingX: "15px",
+        containerPaddingY: "20px"
     },
 };
 

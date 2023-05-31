@@ -5,7 +5,7 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import { showMessage } from "../../../../app/slices/message";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import PNGIcon from "../../../../components/misc/PNGIcon";
-import SubmitBtn from "../../../../components/misc/SubmitBtn";
+import Button from "../../../../components/misc/Button";
 import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
 import { signInThunk } from "../../authSlice";
@@ -65,9 +65,9 @@ export default function ResetPassword() {
                         autoFocus
                     />
 
-                    <SubmitBtn
-                        isLoading={isLoading}
+                    <Button
                         text="Redefinir minha senha"
+                        isLoading={isLoading}
                         form={form}
                     />
                 </form>

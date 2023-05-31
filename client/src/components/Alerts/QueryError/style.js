@@ -2,6 +2,7 @@ import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled(m.div)`${({ theme }) => (css`
+    min-height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,9 +10,8 @@ export const Wrapper = styled(m.div)`${({ theme }) => (css`
     max-width: 500px;
     margin: 0 auto;
     text-align: center;
-    padding: 2rem ${theme.global.containerPadding};
+    padding: 2rem ${theme.global.containerPaddingX};
     row-gap: 2rem;
-    height: 100%;
 `)}`;
 
 export const Icon = styled.div`${({ theme }) => (css`

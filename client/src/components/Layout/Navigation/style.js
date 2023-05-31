@@ -14,7 +14,7 @@ export const Wrapper = styled.nav`${({ theme }) => (css`
         padding: 0 2rem;
     }
     ${theme.breakpoints.sm} {
-        padding: 0 ${theme.global.containerPadding};
+        padding: 0 ${theme.global.containerPaddingX};
     }
 `)}`;
 

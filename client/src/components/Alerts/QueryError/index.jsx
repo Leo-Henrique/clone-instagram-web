@@ -1,6 +1,6 @@
 import SVGWarning from "../../../assets/icons/vectors/warning.svg";
 import useMotion from "../../../hooks/useMotion";
-import SubmitBtn from "../../Misc/SubmitBtn";
+import Button from "../../Misc/Button";
 import * as Styled from "./style";
 
 export default function QueryError({ error, pageError }) {
@@ -32,14 +32,14 @@ export default function QueryError({ error, pageError }) {
 
             <Styled.Text $pageError={pageError}>
                 {!error || !message
-                    ? "Oops, não foi possível carregar as informações :("
+                    ? "Oops, não foi possível carregar o conteúdo :("
                     : messageFormatted()}
             </Styled.Text>
 
             {pageError && (
-                <SubmitBtn
+                <Button
                     text="Tentar novamente"
-                    $expand={false}
+                    expand={false}
                     onClick={() => location.reload()}
                 />
             )}

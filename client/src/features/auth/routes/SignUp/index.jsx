@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { showMessage } from "../../../../app/slices/message";
-import SubmitBtn from "../../../../components/misc/SubmitBtn";
+import Button from "../../../../components/misc/Button";
 import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
 import { signInThunk } from "../../authSlice";
@@ -95,7 +95,7 @@ export default function SignUp() {
                         identificação.
                     </Styled.Text>
 
-                    <SubmitBtn
+                    <Button
                         isLoading={isLoading}
                         text="Cadastre-se"
                         form={form}

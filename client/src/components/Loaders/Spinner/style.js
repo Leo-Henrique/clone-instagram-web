@@ -32,7 +32,7 @@ export const Wrapper = styled(m.div)`
             }
         }
         ${$pageLoading ? (css`
-            height: 100%;
+            min-height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;

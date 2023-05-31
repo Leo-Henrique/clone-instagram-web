@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Footer from "../../../../components/Layout/Footer";
-import SubmitBtn from "../../../../components/misc/SubmitBtn";
+import Button from "../../../../components/misc/Button";
 import useHead from "../../../../hooks/useHead";
 import useMotion from "../../../../hooks/useMotion";
 import { useSignInMutation } from "../../api/signIn";
@@ -67,7 +67,7 @@ export default function SignIn() {
                                 autoComplete="current-password"
                             />
 
-                            <SubmitBtn
+                            <Button
                                 form={form}
                                 isLoading={isLoading}
                                 text="Entrar"

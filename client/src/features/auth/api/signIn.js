@@ -12,6 +12,12 @@ const extendApi = api.injectEndpoints({
         }),
         auth: build.query({
             query: () => "auth",
+            transformResponse: res => {
+                const { _id } = res;
+
+                delete res._id;
+                return { userId: _id, ...res };
+            }
         }),
     }),
 });

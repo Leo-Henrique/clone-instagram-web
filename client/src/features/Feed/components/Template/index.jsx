@@ -1,7 +1,7 @@
-import Layout from "../../../components/Layout";
+import Layout from "../../../../components/Layout";
 import * as Styled from "./style";
 
-export default function Template({ children, contentStyle }) {
+export default function Template({ children }) {
     return (
         <Layout
             MobileHeader={() => (
@@ -14,7 +14,6 @@ export default function Template({ children, contentStyle }) {
                     />
                 </>
             )}
-            {...(contentStyle && { contentStyle })}
         >
             {children}
         </Layout>
