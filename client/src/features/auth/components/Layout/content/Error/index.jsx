@@ -4,7 +4,7 @@ import useMotion from "../../../../../../hooks/useMotion";
 import * as Styled from "./style";
 
 export default function Error({ isError, error, ...rest }) {
-    const motionProps = useMotion({ variants: "height" });
+    const motionProps = useMotion({ variants: "height", transition: "error" });
 
     return (
         <AnimatePresence>

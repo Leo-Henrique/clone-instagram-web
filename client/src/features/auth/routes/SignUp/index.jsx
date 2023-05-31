@@ -50,7 +50,7 @@ export default function SignUp() {
         const { data } = await request(form);
 
         if (data) {
-            const messageTime = 3000;
+            const messageTime = 2000;
 
             dispatch(
                 showMessage({
