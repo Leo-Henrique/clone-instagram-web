@@ -29,8 +29,6 @@ export default function useDrag(active) {
             current: getX(e) - startX,
             max: containerRef.current.offsetWidth - innerRef.current.scrollWidth,
             get walk() {
-                console.log(this.current)
-
                 if (this.current >= this.min) return this.min;
                 if (this.max >= this.current) return this.max;
                 return this.current;
@@ -52,13 +50,13 @@ export default function useDrag(active) {
             const resetDisplacement = () => {
                 displacement = 0;
                 innerRef.current.style.transform = "initial";
-            }
+            };
             const observer = new ResizeObserver(resetDisplacement);
-            
+
             observer.observe(container);
             return () => observer.disconnect();
         }
-    }, [active])
+    }, [active]);
 
     return {
         containerRef,
