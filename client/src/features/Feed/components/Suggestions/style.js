@@ -6,8 +6,6 @@ export const User = styled.li`${({ theme }) => (css`
     column-gap: 1rem;
 
     ${theme.breakpoints.md} {
-        max-width: 300px;
-        flex: 1 0 80%;
         flex-direction: column;
         background-color: ${theme.colors.block};
         padding: 3rem 2rem;

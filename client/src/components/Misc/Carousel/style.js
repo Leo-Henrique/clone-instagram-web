@@ -9,6 +9,7 @@ export const Inner = styled.div`${({ theme, $active }) => (css`
         display: flex;
 
         > * {
+            flex: 1 0 80%;
            ${theme.mixins.transition(["opacity, transform"])};
         }
         > *[active] {
