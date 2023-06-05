@@ -43,9 +43,9 @@ export default function Layout({ children, MobileHeader }) {
             </Styled.Navbar>
             <Styled.Container
                 style={{
-                    height: isBreakpointMd
-                        ? `calc(100% - ${navbarHeight} - ${headerHeight})`
-                        : "100%",
+                    height:
+                        isBreakpointMd &&
+                        `calc(100% - ${navbarHeight} - ${headerHeight})`,
                     marginBottom: isBreakpointMd && navbarHeight,
                     marginLeft: !isBreakpointMd && navbarWidth,
                 }}
