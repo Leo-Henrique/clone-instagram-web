@@ -5,7 +5,7 @@ import * as Styled from "./style";
 
 export default function Welcome({ users, welcome }) {
     return (
-        <Styled.Wrapper $welcome={welcome}>
+        <>
             {users.map(({ username, name, verified, picture }, index) => (
                 <Styled.User key={username}>
                     <Styled.UserImage $welcome={welcome}>
@@ -18,9 +18,7 @@ export default function Welcome({ users, welcome }) {
                     <Styled.UserInfos>
                         <h2>{username}</h2>
 
-                        {verified && (
-                            <SVGVerified aria-label="Usuário verificado" />
-                        )}
+                        {verified && <SVGVerified aria-label="Usuário verificado" />}
 
                         {welcome && <p>{name}</p>}
                     </Styled.UserInfos>
@@ -28,6 +26,6 @@ export default function Welcome({ users, welcome }) {
                     <FollowBtn user={users[index]} link={!welcome} />
                 </Styled.User>
             ))}
-        </Styled.Wrapper>
+        </>
     );
 }

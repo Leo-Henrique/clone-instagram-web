@@ -51,7 +51,11 @@ export const Logo = styled(CloneLogo)`${({ theme }) => (css`
     }
 `)}`;
 
-export const Container = styled.div`
+export const Container = styled.div.attrs(props => ({
+    $navbarWidth: props.$navbarWidth, 
+    $navbarHeight: props.$navbarHeight, 
+    $headerHeight: props.$headerHeight, 
+}))`
     ${({ theme, $navbarWidth, $navbarHeight, $headerHeight }) => (css`
         height: 100%;
         margin-left: ${$navbarWidth};

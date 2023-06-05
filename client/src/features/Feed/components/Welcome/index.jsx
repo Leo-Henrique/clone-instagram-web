@@ -1,16 +1,13 @@
+import { useSelector } from "react-redux";
 import QueryError from "../../../../components/Alerts/QueryError";
+import Carousel from "../../../../components/Misc/Carousel";
 import useGetUsersQuery from "../../api/getUsers";
 import Suggestions from "../Suggestions";
 import * as Styled from "./style";
 
 export default function Welcome() {
-    const {
-        data: users,
-        isLoading,
-        isSuccess,
-        isError,
-        error,
-    } = useGetUsersQuery();
+    const { data: users, isLoading, isSuccess, isError, error } = useGetUsersQuery();
+    const { isBreakpointMd } = useSelector(({ breakpoints }) => breakpoints);
 
     if (isLoading) return <>Skeleton</>;
 
@@ -26,9 +23,12 @@ export default function Welcome() {
                     publicam aqui.
                 </Styled.Text>
 
-                <Styled.Carousel>
+                <Carousel
+                    active={isBreakpointMd}
+                    inner={Styled.CarouselInner}
+                >
                     <Suggestions users={users} welcome={true} />
-                </Styled.Carousel>
+                </Carousel>
             </Styled.Wrapper>
         );
 }

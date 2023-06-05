@@ -1,40 +1,13 @@
 import { css, styled } from "styled-components";
 
-export const Wrapper = styled.ul`${({ theme, $welcome }) => (css`
-    display: flex;
-    flex-direction: column;
-
-    ${$welcome ? (css`
-        row-gap: 2rem;
-        padding: 2rem;
-        background-color: ${theme.colors.block};
-        border: 1px solid ${theme.colors.stroke};
-        border-radius: 5px;
-
-        ${theme.breakpoints.md} {
-            flex-direction: row;
-            padding: 0;
-            column-gap: 1rem;
-            background-color: transparent;
-            border: none;
-            border-radius: 0;
-        }
-    `) : (css`
-        row-gap: 1rem;
-
-        ${theme.breakpoints.lg} {
-            display: none;
-        }
-    `)}
-`)}`;
-
 export const User = styled.li`${({ theme }) => (css`
     display: flex;
     align-items: center;
     column-gap: 1rem;
 
     ${theme.breakpoints.md} {
-        flex: 1 0 250px;
+        max-width: 300px;
+        flex: 1 0 80%;
         flex-direction: column;
         background-color: ${theme.colors.block};
         padding: 3rem 2rem;

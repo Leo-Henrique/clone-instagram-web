@@ -7,7 +7,7 @@ export default function FollowBtn({ user: { followers, following }, link }) {
         auth: {
             user: { userId },
         },
-        breakpoints: { isBreakpointMd },
+        breakpoints: { isBreakpointSm },
     } = useSelector(state => state);
     const userFollow = followers.includes(userId);
     const userFollowed = following.includes(userId);
@@ -20,7 +20,7 @@ export default function FollowBtn({ user: { followers, following }, link }) {
     return (
         <Styled.Button
             text={text()}
-            expand={isBreakpointMd}
+            expand={isBreakpointSm}
             primary={!userFollow}
             $link={link}
         />
