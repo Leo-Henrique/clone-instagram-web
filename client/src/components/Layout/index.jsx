@@ -11,11 +11,7 @@ export default function Layout({ children, MobileHeader }) {
     const { isBreakpointXl, isBreakpointMd } = useSelector(
         ({ breakpoints }) => breakpoints
     );
-    const {
-        element: navbar,
-        height: navbarHeight,
-        width: navbarWidth,
-    } = useSize();
+    const { element: navbar, height: navbarHeight, width: navbarWidth } = useSize();
     const { element: header, height: headerHeight } = useSize();
     const motionProps = useMotion({});
 
@@ -40,21 +36,21 @@ export default function Layout({ children, MobileHeader }) {
                             "profile",
                         ]
                     }
-                    reorder={
-                        isBreakpointMd && { create: 3, reels: 4, profile: 5 }
-                    }
+                    reorder={isBreakpointMd && { create: 3, reels: 4, profile: 5 }}
                 />
 
                 <MoreNavigation />
             </Styled.Navbar>
             <Styled.Container
-                $navbarHeight={navbarHeight}
-                $navbarWidth={navbarWidth}
-                $headerHeight={headerHeight}
+                style={{
+                    height: isBreakpointMd
+                        ? `calc(100% - ${navbarHeight} - ${headerHeight})`
+                        : "100%",
+                    marginBottom: isBreakpointMd && navbarHeight,
+                    marginLeft: !isBreakpointMd && navbarWidth,
+                }}
             >
-                <Styled.Content>
-                    {children}
-                </Styled.Content>
+                <Styled.Content>{children}</Styled.Content>
             </Styled.Container>
         </>
     );

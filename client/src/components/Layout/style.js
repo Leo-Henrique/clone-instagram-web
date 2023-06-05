@@ -51,21 +51,8 @@ export const Logo = styled(CloneLogo)`${({ theme }) => (css`
     }
 `)}`;
 
-export const Container = styled.div.attrs(props => ({
-    $navbarWidth: props.$navbarWidth, 
-    $navbarHeight: props.$navbarHeight, 
-    $headerHeight: props.$headerHeight, 
-}))`
-    ${({ theme, $navbarWidth, $navbarHeight, $headerHeight }) => (css`
-        height: 100%;
-        margin-left: ${$navbarWidth};
-        
-        ${theme.breakpoints.md} {
-            height: calc(100% - ${$navbarHeight} - ${$headerHeight});
-            margin-left: 0;
-            margin-bottom: ${$navbarHeight};
-        }
-    `)}
+export const Container = styled.div`
+    height: 100%;
 `;
 
 export const Content = styled.div`${({ theme }) => (css`
