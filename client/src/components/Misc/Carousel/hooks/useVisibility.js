@@ -6,8 +6,6 @@ export default function useVisibility({ containerRef, innerRef }) {
     useEffect(() => {
         const items = Array.from(innerRef.current.children);
         const handleVisibility = entries => {
-            console.log(entries)
-
             const callback = ({ isIntersecting, target }) => {
                 if (isIntersecting) {
                     items.forEach(item => item.classList.remove(visibleClass));

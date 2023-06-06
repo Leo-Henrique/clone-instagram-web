@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 
-import CloneButton from "../../../../components/Misc/Button";
+import CloneButton from "../Button";
 
 export const Button = styled(CloneButton)`${({ theme, $link, primary }) => (css`
     ${$link && (css`

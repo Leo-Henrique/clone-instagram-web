@@ -1,6 +1,6 @@
 import SVGVerified from "../../../../assets/icons/vectors/verified-blue.svg";
 import { SERVER_DOMAIN } from "../../../../config";
-import FollowBtn from "../../../misc/components/FollowBtn";
+import FollowBtn from "../../../../components/Misc/FollowBtn";
 import * as Styled from "./style";
 
 export default function Welcome({ users, welcome }) {
