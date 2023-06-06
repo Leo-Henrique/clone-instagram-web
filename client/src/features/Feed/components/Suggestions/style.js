@@ -21,8 +21,11 @@ export const UserImage = styled.div`${({ theme, $welcome }) => (css`
         border-radius: 50%;
 
         ${theme.breakpoints.md} {
-            width: 90px;
+            width: 120px;
             margin-bottom: .6rem;
+        }
+        ${theme.breakpoints.sm} {
+            width: 90px;
         }
     }
 `)}`;

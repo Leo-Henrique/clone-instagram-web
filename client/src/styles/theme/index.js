@@ -22,10 +22,6 @@ const theme = {
             duration: 200,
             timingFunction: "ease-in-out",
         },
-        slideshow: {
-            duration: 1500,
-            timingFunction: "ease-in",
-        },
         loading: {
             duration: 150,
             timingFunction: "ease-in",
@@ -34,6 +30,14 @@ const theme = {
             duration: 200,
             timingFunction: "ease-in-out",
         },
+        slideshow: {
+            duration: 1500,
+            timingFunction: "ease-in",
+        },
+        carousel: {
+            duration: 200,
+            timingFunction: "ease"
+        }
     },
     zIndexes: {
         navbar: 5,

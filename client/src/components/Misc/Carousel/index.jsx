@@ -6,13 +6,16 @@ import * as Styled from "./style";
 export default function Carousel({ children }) {
     const containerRef = useRef(null);
     const innerRef = useRef(null);
-    const { initialDisplacement, ...dragEvents } = useDrag({ containerRef, innerRef });
-
-    useVisibility({ containerRef, innerRef });
+    const visibleClass = useVisibility({ containerRef, innerRef });
+    const { adjustDisplacement, ...dragEvents } = useDrag({
+        containerRef,
+        innerRef,
+        visibleClass,
+    });
 
     useEffect(() => {
         const observer = new ResizeObserver(() => {
-            initialDisplacement();
+            adjustDisplacement();
         });
 
         observer.observe(containerRef.current);

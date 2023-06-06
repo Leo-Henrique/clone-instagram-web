@@ -6,10 +6,12 @@ export default function useVisibility({ containerRef, innerRef }) {
     useEffect(() => {
         const items = Array.from(innerRef.current.children);
         const handleVisibility = entries => {
+            console.log(entries)
+
             const callback = ({ isIntersecting, target }) => {
                 if (isIntersecting) {
                     items.forEach(item => item.classList.remove(visibleClass));
-                    setTimeout(() => target.classList.add(visibleClass), 20);
+                    target.classList.add(visibleClass);
                 }
             };
 
@@ -17,11 +19,13 @@ export default function useVisibility({ containerRef, innerRef }) {
         };
         const options = {
             root: containerRef.current,
-            threshold: 0.7,
+            threshold: 0.6,
         };
         const observer = new IntersectionObserver(handleVisibility, options);
 
         items.forEach(item => observer.observe(item));
         return () => observer.disconnect();
     }, []);
+
+    return visibleClass;
 }

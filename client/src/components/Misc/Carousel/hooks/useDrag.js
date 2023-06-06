@@ -1,64 +1,85 @@
-export default function useDrag({ containerRef, innerRef }) {
-    const isTouchEvent = ({ type }) => type.startsWith("touch");
-    const getX = e => {
-        let X;
+import { useTheme } from "styled-components";
 
-        if (isTouchEvent(e)) X = e.changedTouches[0].pageX;
-        else X = e.pageX;
+export default function useDrag({ containerRef, innerRef, visibleClass }) {
+    const theme = useTheme();
+    const helpers = {
+        isTouchEvent: ({ type }) => type.startsWith("touch"),
+        getX(e) {
+            let X;
 
-        return Math.floor(X);
+            if (this.isTouchEvent(e)) X = e.changedTouches[0].pageX;
+            else X = e.pageX;
+
+            return Math.floor(X);
+        },
     };
-    const walk = {
-        get containerWidth() {
-            return containerRef.current.offsetWidth;
-        },
-        get innerWidth() {
-            return innerRef.current.scrollWidth;
-        },
-        get min() {
-            const firstItem = innerRef.current.children[0];
-            const itemWidth = firstItem.offsetWidth;
+    const actions = {
+        addDisplacement(value) {
+            const propertyValue = `translate3d(${value}px, 0, 0)`;
 
-            return this.containerWidth / 2 - itemWidth / 2;
+            innerRef.current.style.transform = propertyValue;
         },
-        get max() {
-            const items = innerRef.current.children;
-            const lastItem = innerRef.current.children[items.length - 1];
-            const itemWidth = lastItem.offsetWidth;
-            const itemCenter = this.containerWidth / 2 - itemWidth / 2;
+        addCenteringTransition(add) {
+            const { duration, timingFunction } = theme.transitions.carousel;
+            const propertyValue = `transform ${duration}ms ${timingFunction}`;
 
-            return this.containerWidth - this.innerWidth - itemCenter;
+            if (add) innerRef.current.style.transition = propertyValue;
+            else innerRef.current.style.removeProperty("transition");
         },
-        current(e) {
-            const walk = getX(e) - startX;
+    };
+    const centeredItem = item => {
+        const getItem = item => {
+            const items = Array.from(innerRef.current.children);
 
-            if (walk >= this.min) return this.min;
-            if (walk <= this.max) return this.max;
+            switch (item) {
+                case "first":
+                    return items[0];
+                case "last":
+                    return items[items.length - 1];
+                case "current":
+                    return items.find(item => item.classList.contains(visibleClass));
+            }
+        };
+        const element = getItem(item) || getItem("first");
+        const containerWidth = containerRef.current.offsetWidth;
+        const margin = containerWidth - element.offsetWidth;
+        const invertSign = num => num * -1;
 
-            return walk;
-        },
+        return invertSign(element.offsetLeft - margin / 2);
     };
     let pressed = false;
     let startX = 0;
-    let displacement = 0;
-    const addDisplacement = value => {
-        displacement = value;
-        innerRef.current.style.transform = `translate3d(${value}px, 0, 0)`;
-    };
     const start = e => {
-        if (!isTouchEvent(e)) e.preventDefault();
+        if (!helpers.isTouchEvent(e)) e.preventDefault();
 
         pressed = true;
-        startX = getX(e) - displacement;
+        e.currentTarget.style.cursor = "grabbing";
+        startX = helpers.getX(e) - centeredItem("current");
+        actions.addCenteringTransition(false);
     };
     const move = e => {
         if (!pressed) return;
 
-        addDisplacement(walk.current(e));
+        const walk = () => {
+            const current = helpers.getX(e) - startX;
+            const min = centeredItem("first");
+            const max = centeredItem("last");
+
+            if (current >= min) return min;
+            if (current <= max) return max;
+
+            return current;
+        };
+
+        actions.addDisplacement(walk());
     };
     const end = e => {
         e.preventDefault();
+
         pressed = false;
+        e.currentTarget.style.cursor = "grab";
+        actions.addCenteringTransition(true);
+        actions.addDisplacement(centeredItem("current"));
     };
 
     return {
@@ -69,6 +90,6 @@ export default function useDrag({ containerRef, innerRef }) {
         onMouseMove: move,
         onMouseUp: end,
         onMouseLeave: end,
-        initialDisplacement: () => addDisplacement(walk.min),
+        adjustDisplacement: () => actions.addDisplacement(centeredItem("current")),
     };
 }
