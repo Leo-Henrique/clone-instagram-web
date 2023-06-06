@@ -50,7 +50,7 @@ export const Text = styled.p`${({ theme }) => (css`
     }
 `)}`;
 
-export const CarouselInner = styled.ul`${({ theme }) => (css`
+export const Suggestions = styled.ul`${({ theme }) => (css`
     display: flex;
     flex-direction: column;
     row-gap: 2rem;
@@ -58,13 +58,4 @@ export const CarouselInner = styled.ul`${({ theme }) => (css`
     background-color: ${theme.colors.block};
     border: 1px solid ${theme.colors.stroke};
     border-radius: 5px;
-
-    ${theme.breakpoints.md} {
-        flex-direction: row;
-        padding: 0;
-        column-gap: 1rem;
-        background-color: transparent;
-        border: none;
-        border-radius: 0;
-    }
 `)}`;

@@ -23,12 +23,15 @@ export default function Welcome() {
                     publicam aqui.
                 </Styled.Text>
 
-                <Carousel
-                    active={isBreakpointMd}
-                    inner={Styled.CarouselInner}
-                >
-                    <Suggestions users={users} welcome={true} />
-                </Carousel>
+                {isBreakpointMd ? (
+                    <Carousel>
+                        <Suggestions users={users} welcome={true} />
+                    </Carousel>
+                ) : (
+                    <Styled.Suggestions>
+                        <Suggestions users={users} welcome={true} />
+                    </Styled.Suggestions>
+                )}
             </Styled.Wrapper>
         );
 }

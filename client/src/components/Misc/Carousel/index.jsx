@@ -1,19 +1,27 @@
+import { useEffect, useRef } from "react";
 import useDrag from "./hooks/useDrag";
+import useVisibility from "./hooks/useVisibility";
 import * as Styled from "./style";
 
-export default function Carousel({ children, active, inner }) {
-    const { containerRef, innerRef, events } = useDrag(active);
-    const Inner = () => (
-        <Styled.Inner as={inner} $active={active} ref={innerRef}>
-            {children}
-        </Styled.Inner>
-    );
+export default function Carousel({ children }) {
+    const containerRef = useRef(null);
+    const innerRef = useRef(null);
+    const { initialDisplacement, ...dragEvents } = useDrag({ containerRef, innerRef });
 
-    if (active)
-        return (
-            <Styled.Wrapper ref={containerRef} {...events}>
-                <Inner />
-            </Styled.Wrapper>
-        );
-    else return <Inner />;
+    useVisibility({ containerRef, innerRef });
+
+    useEffect(() => {
+        const observer = new ResizeObserver(() => {
+            initialDisplacement();
+        });
+
+        observer.observe(containerRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    return (
+        <Styled.Wrapper ref={containerRef} {...dragEvents}>
+            <Styled.Inner ref={innerRef}>{children}</Styled.Inner>
+        </Styled.Wrapper>
+    );
 }

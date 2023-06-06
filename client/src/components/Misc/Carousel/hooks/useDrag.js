@@ -1,8 +1,4 @@
-import { useEffect, useRef } from "react";
-
-export default function useDrag(active) {
-    const containerRef = useRef(null);
-    const innerRef = useRef(null);
+export default function useDrag({ containerRef, innerRef }) {
     const isTouchEvent = ({ type }) => type.startsWith("touch");
     const getX = e => {
         let X;
@@ -12,9 +8,43 @@ export default function useDrag(active) {
 
         return Math.floor(X);
     };
+    const walk = {
+        get containerWidth() {
+            return containerRef.current.offsetWidth;
+        },
+        get innerWidth() {
+            return innerRef.current.scrollWidth;
+        },
+        get min() {
+            const firstItem = innerRef.current.children[0];
+            const itemWidth = firstItem.offsetWidth;
+
+            return this.containerWidth / 2 - itemWidth / 2;
+        },
+        get max() {
+            const items = innerRef.current.children;
+            const lastItem = innerRef.current.children[items.length - 1];
+            const itemWidth = lastItem.offsetWidth;
+            const itemCenter = this.containerWidth / 2 - itemWidth / 2;
+
+            return this.containerWidth - this.innerWidth - itemCenter;
+        },
+        current(e) {
+            const walk = getX(e) - startX;
+
+            if (walk >= this.min) return this.min;
+            if (walk <= this.max) return this.max;
+
+            return walk;
+        },
+    };
     let pressed = false;
     let startX = 0;
     let displacement = 0;
+    const addDisplacement = value => {
+        displacement = value;
+        innerRef.current.style.transform = `translate3d(${value}px, 0, 0)`;
+    };
     const start = e => {
         if (!isTouchEvent(e)) e.preventDefault();
 
@@ -24,51 +54,21 @@ export default function useDrag(active) {
     const move = e => {
         if (!pressed) return;
 
-        const { walk } = {
-            min: 0,
-            current: getX(e) - startX,
-            max: containerRef.current.offsetWidth - innerRef.current.scrollWidth,
-            get walk() {
-                if (this.current >= this.min) return this.min;
-                if (this.max >= this.current) return this.max;
-                return this.current;
-            },
-        };
-
-        displacement = walk;
-        innerRef.current.style.transform = `translate3d(${walk}px, 0, 0)`;
+        addDisplacement(walk.current(e));
     };
     const end = e => {
         e.preventDefault();
         pressed = false;
     };
 
-    useEffect(() => {
-        const { current: container } = containerRef;
-
-        if (container) {
-            const resetDisplacement = () => {
-                displacement = 0;
-                innerRef.current.style.transform = "initial";
-            };
-            const observer = new ResizeObserver(resetDisplacement);
-
-            observer.observe(container);
-            return () => observer.disconnect();
-        }
-    }, [active]);
-
     return {
-        containerRef,
-        innerRef,
-        events: {
-            onTouchStart: start,
-            onTouchMove: move,
-            onTouchEnd: end,
-            onMouseDown: start,
-            onMouseMove: move,
-            onMouseUp: end,
-            onMouseLeave: end,
-        },
+        onTouchStart: start,
+        onTouchMove: move,
+        onTouchEnd: end,
+        onMouseDown: start,
+        onMouseMove: move,
+        onMouseUp: end,
+        onMouseLeave: end,
+        initialDisplacement: () => addDisplacement(walk.min),
     };
 }
