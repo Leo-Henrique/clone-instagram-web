@@ -18,12 +18,12 @@ export default function Layout({ children, MobileHeader }) {
     return (
         <>
             {MobileHeader && isBreakpointMd && (
-                <Styled.MobileHeader ref={header}>
+                <Styled.MobileHeader ref={header} id="header">
                     <MobileHeader />
                 </Styled.MobileHeader>
             )}
 
-            <Styled.Navbar {...motionProps} ref={navbar}>
+            <Styled.Navbar {...motionProps} ref={navbar} id="navbar">
                 <Styled.Logo SVG={isBreakpointXl && <SVGLogo />} />
 
                 <Navigation

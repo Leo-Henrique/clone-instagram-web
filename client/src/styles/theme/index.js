@@ -42,7 +42,8 @@ const theme = {
     zIndexes: {
         navbar: 5,
         tooltip: 10,
-        message: 15,
+        newPosts: 15,
+        message: 20,
     },
     global: {
         containerPaddingX: "15px",

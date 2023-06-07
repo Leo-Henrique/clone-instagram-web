@@ -45,7 +45,7 @@ export const showError =
     ({ error, duration = 6000 }) =>
     dispatch => {
         const defaultError = "Um erro inesperado ocorreu. Tente novamente.";
-        const resError = error.data.error;
+        const resError = error?.data?.error;
 
         dispatch(
             showMessage({
