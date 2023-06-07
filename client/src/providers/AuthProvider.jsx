@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import PageLoading from "../components/Loaders/PageLoading";
 import { useAuthQuery } from "../features/auth/api/signIn";
-import { signIn } from "../features/auth/authSlice";
+import { signIn } from "../features/auth/slices/auth";
 
 export default function AuthProvider({ children }) {
     const { token } = useSelector(({ auth }) => auth);

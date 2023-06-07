@@ -8,7 +8,7 @@ import SVGConfig from "../../../assets/icons/vectors/config.svg";
 import SVGMore from "../../../assets/icons/vectors/menu.svg";
 import SVGMode from "../../../assets/icons/vectors/moon.svg";
 import SVGSaved from "../../../assets/icons/vectors/save.svg";
-import { logoutThunk } from "../../../features/auth/authSlice";
+import { logoutThunk } from "../../../features/auth/slices/auth";
 import useClose from "../../../hooks/useClose";
 import useMotion from "../../../hooks/useMotion";
 import * as Styled from "./style";

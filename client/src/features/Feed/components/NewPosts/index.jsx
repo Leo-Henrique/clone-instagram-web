@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import useMotion from "../../../../hooks/useMotion";
 import * as Styled from "./style";
-import { resetWarn } from "../../newPostsSlice";
+import { resetWarn } from "../../slices/newPosts";
 
 export default function NewPosts({ refetch }) {
     const [headerHeight, setHeaderHeight] = useState("0px");

@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import auth from "../features/auth/authSlice";
+import newPosts from "../features/Feed/slices/newPosts";
+import auth from "../features/auth/slices/auth";
 import api from "./api";
+import breakpoints from "./slices/breakpoints";
 import message from "./slices/message";
 import theme from "./slices/theme";
-import breakpoints from "./slices/breakpoints";
-import newPosts from "../features/Feed/newPostsSlice";
 
 const reducer = combineReducers({
     [api.reducerPath]: api.reducer,

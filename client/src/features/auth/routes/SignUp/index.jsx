@@ -5,7 +5,7 @@ import { showMessage } from "../../../../app/slices/message";
 import Button from "../../../../components/misc/Button";
 import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
-import { signInThunk } from "../../authSlice";
+import { signInThunk } from "../../slices/auth";
 import Layout from "../../components/Layout";
 import * as Styled from "./style";
 

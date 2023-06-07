@@ -7,7 +7,7 @@ import {
     decrementPosts,
     notWarn,
     warnThunk,
-} from "../../../features/Feed/newPostsSlice";
+} from "../../../features/Feed/slices/newPosts";
 import { useFollowMutation, useUnfollowMutation } from "./api";
 import * as Styled from "./style";
 
