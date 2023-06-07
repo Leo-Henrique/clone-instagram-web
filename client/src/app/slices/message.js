@@ -28,18 +28,31 @@ const messageSlice = createSlice({
 
 const { show, hide, inCallStack } = messageSlice.actions;
 export const showMessage =
-    ({ text, duration }) =>
+    ({ text, duration = 3000 }) =>
     (dispatch, getState) => {
-        const messageTime = duration ? duration : 3000;
         const { showing, id } = getState().message;
 
         if (showing) clearInterval(id);
 
-        dispatch(show({ text, duration: messageTime }));
+        dispatch(show({ text, duration }));
 
-        const timeoutID = setTimeout(() => dispatch(hide()), messageTime);
+        const timeoutID = setTimeout(() => dispatch(hide()), duration);
 
         dispatch(inCallStack(timeoutID));
+    };
+
+export const showError =
+    ({ error, duration = 6000 }) =>
+    dispatch => {
+        const defaultError = "Um erro inesperado ocorreu. Tente novamente.";
+        const resError = error.data.error;
+
+        dispatch(
+            showMessage({
+                text: resError ? resError : defaultError,
+                duration,
+            })
+        );
     };
 
 export default messageSlice.reducer;
