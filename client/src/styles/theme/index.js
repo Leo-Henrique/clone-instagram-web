@@ -44,10 +44,11 @@ const theme = {
         tooltip: 10,
         newPosts: 15,
         message: 20,
+        modal: 25,
     },
     global: {
         containerPaddingX: "15px",
-        containerPaddingY: "20px"
+        containerPaddingY: "20px",
     },
 };
 

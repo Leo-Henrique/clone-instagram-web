@@ -1,6 +1,6 @@
 import SVGVerified from "../../../../assets/icons/vectors/verified-blue.svg";
-import FollowBtn from "../../../../components/Misc/FollowBtn";
 import { SERVER_DOMAIN } from "../../../../config";
+import FollowButton from "../../../misc/components/FollowButton";
 import * as Styled from "./style";
 
 export default function Welcome({ users, welcome }) {
@@ -23,7 +23,7 @@ export default function Welcome({ users, welcome }) {
                         {welcome && <p>{name}</p>}
                     </Styled.UserInfos>
 
-                    <FollowBtn user={users[index]} welcome={welcome} />
+                    <FollowButton user={users[index]} welcome={welcome} />
                 </Styled.User>
             ))}
         </>

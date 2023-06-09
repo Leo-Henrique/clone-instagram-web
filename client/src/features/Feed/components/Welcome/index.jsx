@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import QueryError from "../../../../components/Alerts/QueryError";
-import Carousel from "../../../../components/Misc/Carousel";
+import Carousel from "../../../../components/Features/Carousel";
 import useGetUsersQuery from "../../api/getUsers";
 import Suggestions from "../Suggestions";
 import * as Styled from "./style";

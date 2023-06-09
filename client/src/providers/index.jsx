@@ -2,7 +2,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import store from "../app/store";
-import Message from "../components/Alerts/Message";
+import HelpersProvider from "./HelpersProvider";
 import MotionProvider from "./MotionProvider";
 import StylesProvider from "./StylesProvider";
 import AuthProvider from "./authProvider";
@@ -13,8 +13,9 @@ export default function AppProvider({ children }) {
             <StylesProvider>
                 <BrowserRouter>
                     <MotionProvider>
-                        <Message />
-                        <AuthProvider>{children}</AuthProvider>
+                        <HelpersProvider>
+                            <AuthProvider>{children}</AuthProvider>
+                        </HelpersProvider>
                     </MotionProvider>
                 </BrowserRouter>
             </StylesProvider>

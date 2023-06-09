@@ -9,7 +9,7 @@ import SVGMessages from "../../../assets/icons/vectors/messages.svg";
 import SVGReels from "../../../assets/icons/vectors/reels.svg";
 import SVGSearch from "../../../assets/icons/vectors/search.svg";
 import { SERVER_DOMAIN } from "../../../config";
-import Tooltip from "../../Misc/Tooltip";
+import Tooltip from "../../Features/Tooltip";
 import * as Styled from "./style";
 
 const Action = ({ name, href, icon, ...rest }) => {

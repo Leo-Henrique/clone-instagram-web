@@ -1,4 +1,4 @@
-import api from "../../../../app/api";
+import api from "../../../app/api";
 
 const transformResponse = (data, { response: { status } }) => status;
 

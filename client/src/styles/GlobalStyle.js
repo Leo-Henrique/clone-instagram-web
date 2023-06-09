@@ -14,6 +14,12 @@ const GlobalStyle = createGlobalStyle`${({ theme, $isAuthenticated }) => (css`
         font-family: ${theme.fontFamily};
         color: ${theme.colors.text};
         background-color: ${theme.colors.background};
+
+        &.hide-scrollbar {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+        }
     }
     input {
         ${theme.breakpoints.sm} {

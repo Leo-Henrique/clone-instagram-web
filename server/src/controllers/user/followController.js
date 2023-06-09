@@ -13,8 +13,10 @@ export const follow = async (req, res) => {
             User.findById(req.userId),
             User.findOne({ username }),
         ]);
+        const youFollow = user.following.includes(follow.id)
+        const followed = follow.followers.includes(req.userId);
 
-        if (user.following.includes(follow.id) || follow.followers.includes(user.id))
+        if (youFollow || followed)
             return error("Você já está seguindo este usuário.", 400, res);
 
         user.following.push(follow.id);
@@ -41,12 +43,10 @@ export const unfollow = async (req, res) => {
             User.findById(req.userId).populate("following"),
             User.findOne({ username }).populate("followers"),
         ]);
-        const hasFollow = user.following.some(({ id }) => id === unfollow.id);
-        const targetHasFollower = unfollow.followers.some(
-            ({ id }) => id === user.id
-        );
+        const youFollow = user.following.some(({ id }) => id === unfollow.id);
+        const followed = unfollow.followers.some(({ id }) => id === req.userId);
 
-        if (!hasFollow || !targetHasFollower)
+        if (!youFollow && !followed)
             return error(
                 "Você não segue este usuário para deixar de segui-lo.",
                 400,

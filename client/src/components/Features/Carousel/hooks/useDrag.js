@@ -74,8 +74,6 @@ export default function useDrag({ containerRef, innerRef, visibleClass }) {
         actions.addDisplacement(walk());
     };
     const end = e => {
-        e.preventDefault();
-
         pressed = false;
         e.currentTarget.style.cursor = "grab";
         actions.addCenteringTransition(true);

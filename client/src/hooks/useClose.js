@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from "react";
 export default function useClose(state, setState) {
     const notCloseIn = useRef();
     const clickOutside = useCallback(({ target }) => {
-        if (target.contains(notCloseIn.current)) setState(false);
+        if (!notCloseIn.current.contains(target)) setState(false);
     });
     const escapeKey = useCallback(({ key }) => {
         if (key === "Escape") setState(false);
