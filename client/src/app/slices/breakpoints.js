@@ -1,33 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const breakpointsSlice = createSlice({
-    name: "breakpoints",
-    initialState: {},
-    reducers: {
-        start: (state, { payload }) => payload,
-        change: (state, { payload }) => {
-            state[payload.name] = payload.state;
-        },
-    },
-});
+import { breakpoints } from "../../styles/theme/mediaQueries";
 
-const { start, change } = breakpointsSlice.actions;
-export const startBreakpoints = breakpoints => dispatch => {
+const initialState = () => {
     const names = Object.keys(breakpoints);
     const initialState = {};
 
     names.forEach(name => {
-        const mediaQuery = matchMedia(breakpoints[name].replace("@media ", ""));
-        const upperCaseName = `${name[0].toUpperCase()}${name.slice(1)}`;
-        const stateName = [`isBreakpoint${upperCaseName}`];
-        const changeState = ({ matches }) =>
-            dispatch(change({ name: stateName, state: matches }));
+        const newName = `${name[0].toUpperCase()}${name.slice(1)}`;
+        const propertyName = `isBreakpoint${newName}`;
+        const query = breakpoints[name].replace("@media ", "");
 
-        initialState[stateName] = mediaQuery.matches;
-        mediaQuery.addEventListener("change", changeState);
+        initialState[propertyName] = matchMedia(query).matches;
     });
 
-    dispatch(start(initialState));
+    return initialState;
+};
+
+const breakpointsSlice = createSlice({
+    name: "breakpoints",
+    initialState: initialState(),
+    reducers: {
+        change: (state, { payload: { breakpoint, active } }) => ({
+            ...state,
+            [breakpoint]: active,
+        }),
+    },
+});
+
+const { change } = breakpointsSlice.actions;
+
+export const watchBreakpoints = () => dispatch => {
+    const names = Object.keys(breakpoints);
+
+    names.forEach(name => {
+        const upperCaseName = `${name[0].toUpperCase()}${name.slice(1)}`;
+        const stateName = `isBreakpoint${upperCaseName}`;
+        const mediaQuery = matchMedia(breakpoints[name].replace("@media ", ""));
+        const handleBreakpoint = ({ matches }) => {
+            dispatch(change({ breakpoint: stateName, active: matches }));
+        };
+
+        mediaQuery.addEventListener("change", handleBreakpoint);
+    });
 };
 
 export default breakpointsSlice.reducer;
