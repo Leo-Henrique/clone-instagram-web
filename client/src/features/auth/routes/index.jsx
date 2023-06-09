@@ -1,12 +1,12 @@
-import { Navigate, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import SignUp from "./SignUp";
 
 export default function AuthRoutes() {
-    const { isAuthenticated } = useSelector(({ auth }) => auth);
+    const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
 
     if (isAuthenticated) return <Navigate to="/" />;
     else

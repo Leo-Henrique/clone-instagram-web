@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import SVGLogo from "../../assets/icons/vectors/logo.svg";
 import useMotion from "../../hooks/useMotion";
@@ -9,7 +9,8 @@ import * as Styled from "./style";
 
 export default function Layout({ children, MobileHeader }) {
     const { isBreakpointXl, isBreakpointMd } = useSelector(
-        ({ breakpoints }) => breakpoints
+        ({ breakpoints }) => breakpoints,
+        shallowEqual
     );
     const { element: navbar, height: navbarHeight, width: navbarWidth } = useSize();
     const { element: header, height: headerHeight } = useSize();

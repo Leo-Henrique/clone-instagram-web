@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+
 import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
 import useGetUsersQuery from "../../api/getUsers";
@@ -7,7 +8,9 @@ import * as Styled from "./style";
 
 export default function Welcome() {
     const { data: users, isLoading, isSuccess, isError, error } = useGetUsersQuery();
-    const { isBreakpointMd } = useSelector(({ breakpoints }) => breakpoints);
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
 
     if (isLoading) return <>Skeleton</>;
 

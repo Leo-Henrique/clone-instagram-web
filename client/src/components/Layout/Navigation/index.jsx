@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import SVGCreate from "../../../assets/icons/vectors/create.svg";
@@ -13,7 +13,7 @@ import Tooltip from "../../Features/Tooltip";
 import * as Styled from "./style";
 
 const Action = ({ name, href, icon, ...rest }) => {
-    const { user } = useSelector(({ auth }) => auth);
+    const userName = useSelector(({ auth }) => auth.user.name);
 
     return (
         <Styled.Action
@@ -25,7 +25,7 @@ const Action = ({ name, href, icon, ...rest }) => {
         >
             <Styled.Icon>
                 {typeof icon === "string" ? (
-                    <img src={icon} alt={`Sua foto de perfil, ${user.name}`} />
+                    <img src={icon} alt={`Sua foto de perfil, ${userName}`} />
                 ) : (
                     icon
                 )}
@@ -36,10 +36,12 @@ const Action = ({ name, href, icon, ...rest }) => {
     );
 };
 export default function Navigation({ filter, reorder, ...rest }) {
-    const {
-        auth: { user },
-        breakpoints: { isBreakpointXl, isBreakpointMd },
-    } = useSelector(state => state);
+    const username = useSelector(({ auth }) => auth.user.username);
+    const userPicture = useSelector(({ auth }) => auth.user.picture);
+    const { isBreakpointXl, isBreakpointMd } = useSelector(
+        ({ breakpoints }) => breakpoints,
+        shallowEqual
+    );
     const links = [
         {
             id: "home",
@@ -83,8 +85,8 @@ export default function Navigation({ filter, reorder, ...rest }) {
         {
             id: "profile",
             name: "Perfil",
-            href: `/${user.username}`,
-            icon: `${SERVER_DOMAIN}/${user.picture}`,
+            href: `/${username}`,
+            icon: `${SERVER_DOMAIN}/${userPicture}`,
         },
     ];
     const renderLinks = filter
@@ -103,12 +105,12 @@ export default function Navigation({ filter, reorder, ...rest }) {
                             <Tooltip
                                 text={link.name}
                                 position="right"
-                                Button={props => (
-                                    <Action {...link} {...props} />
-                                )}
+                                Button={props => <Action {...link} {...props} />}
                                 displayDelay={1000}
                             />
-                        ) : <Action {...link} />}
+                        ) : (
+                            <Action {...link} />
+                        )}
                     </Styled.Item>
                 ))}
             </Styled.List>

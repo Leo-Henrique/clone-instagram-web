@@ -4,7 +4,7 @@ import SignIn from "../features/auth/routes/SignIn";
 import Feed from "../features/Feed/routes";
 
 export default function Home() {
-    const { isAuthenticated } = useSelector(({ auth }) => auth);
+    const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
 
     if (isAuthenticated) return <Feed />;
     else return <SignIn />;

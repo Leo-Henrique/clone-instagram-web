@@ -3,26 +3,26 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import useMotion from "../../../../hooks/useMotion";
-import * as Styled from "./style";
 import { resetWarn } from "../../slices/newPosts";
+import * as Styled from "./style";
 
 export default function NewPosts({ refetch }) {
-    const [headerHeight, setHeaderHeight] = useState("0px");
-    const {
-        newPosts: { show },
-        breakpoints: { isBreakpointMd },
-    } = useSelector(state => state);
+    const show = useSelector(({ newPosts }) => newPosts.show);
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, y: -30 },
             animate: { opacity: 1, y: 0 },
         },
     });
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const showFeed = () => {
         refetch();
         dispatch(resetWarn());
-    }
+    };
+    const [headerHeight, setHeaderHeight] = useState("0px");
 
     useEffect(() => {
         if (isBreakpointMd) {

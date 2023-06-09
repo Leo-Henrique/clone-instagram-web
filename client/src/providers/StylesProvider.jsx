@@ -5,26 +5,25 @@ import { ThemeProvider } from "styled-components";
 import { watchBreakpoints } from "../app/slices/breakpoints";
 import { setDefaultTheme } from "../app/slices/theme";
 import GlobalStyle from "../styles/GlobalStyle";
-import styledTheme from "../styles/theme";
+import theme from "../styles/theme";
 import colorScheme from "../styles/theme/colorScheme";
 
 export default function StylesProvider({ children }) {
     const dispatch = useDispatch();
-    const {
-        theme,
-        auth: { isAuthenticated },
-    } = useSelector(state => state);
-    const colors = { ...colorScheme[theme], ...colorScheme.global };
+    const themeName = useSelector(({ theme }) => theme);
+    const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
+    const colors = { ...colorScheme[themeName], ...colorScheme.global };
 
     useEffect(() => {
         dispatch(watchBreakpoints());
     }, []);
+
     useEffect(() => {
         dispatch(setDefaultTheme());
-    }, [setDefaultTheme, isAuthenticated]);
+    }, [isAuthenticated]);
 
     return (
-        <ThemeProvider theme={{ ...styledTheme, colors }}>
+        <ThemeProvider theme={{ ...theme, colors }}>
             <GlobalStyle $isAuthenticated={isAuthenticated} />
 
             {children}

@@ -14,7 +14,7 @@ import useMotion from "../../../hooks/useMotion";
 import * as Styled from "./style";
 
 export default function MoreNavigation() {
-    const { user } = useSelector(({ auth }) => auth);
+    const username = useSelector(({ auth }) => auth.user.username);
     const dispatch = useDispatch();
     const menu = [
         {
@@ -24,7 +24,7 @@ export default function MoreNavigation() {
         },
         {
             name: "Salvos",
-            href: `/${user.username}/saved`,
+            href: `/${username}/saved`,
             icon: <SVGSaved />,
         },
         {
@@ -77,9 +77,7 @@ export default function MoreNavigation() {
                                 >
                                     <span>{name}</span>
                                     {icon && (
-                                        <Styled.MenuIcon>
-                                            {icon}
-                                        </Styled.MenuIcon>
+                                        <Styled.MenuIcon>{icon}</Styled.MenuIcon>
                                     )}
                                 </Styled.MenuAction>
                             </li>

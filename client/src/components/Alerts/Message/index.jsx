@@ -5,7 +5,8 @@ import useMotion from "../../../hooks/useMotion";
 import * as Styled from "./style";
 
 export default function Message() {
-    const { showing, text } = useSelector(({ message }) => message);
+    const showing = useSelector(({ message }) => message.showing);
+    const text = useSelector(({ message }) => message.text);
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, y: 30 },

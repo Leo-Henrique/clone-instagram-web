@@ -7,7 +7,7 @@ import { useAuthQuery } from "../features/auth/api/signIn";
 import { signIn } from "../features/auth/slices/auth";
 
 export default function AuthProvider({ children }) {
-    const { token } = useSelector(({ auth }) => auth);
+    const token = useSelector(({ auth }) => auth.token);
     const [render, setRender] = useState(!token);
     const timeLoading = 1000;
     const {
@@ -19,8 +19,12 @@ export default function AuthProvider({ children }) {
     } = useAuthQuery(false, { skip: !token });
     const dispatch = useDispatch();
 
-    useEffect(() => { token && setTimeout(() => setRender(true), timeLoading) }, []);
-    useEffect(() => { isSuccess && dispatch(signIn({ user })) }, [isSuccess]);
+    useEffect(() => {
+        if (token) setTimeout(() => setRender(true), timeLoading);
+    }, []);
+    useEffect(() => {
+        if (isSuccess) dispatch(signIn({ user }));
+    }, [isSuccess]);
 
     if (isError && error.status === 401) localStorage.removeItem("token");
 
@@ -28,5 +32,5 @@ export default function AuthProvider({ children }) {
         <AnimatePresence mode="wait">
             {isLoading || !render ? <PageLoading key="loading" /> : children}
         </AnimatePresence>
-    )
+    );
 }
