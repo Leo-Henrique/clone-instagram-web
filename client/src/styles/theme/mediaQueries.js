@@ -11,8 +11,17 @@ const sizes = {
 
 export const breakpoints = {};
 
-Object.keys(sizes).forEach(breakpoint => {
-    breakpoints[breakpoint] = `${media} (${property}: ${sizes[breakpoint]})`;
+Object.keys(sizes).forEach(name => {
+    breakpoints[name] = `${media} (${property}: ${sizes[name]})`;
+});
+
+export const breakpointsStates = {};
+
+Object.keys(sizes).forEach(name => {
+    const upperCaseName = `${name[0].toUpperCase()}${name.slice(1)}`;
+    const stateName = `isBreakpoint${upperCaseName}`;
+
+    breakpointsStates[stateName] = `(${property}: ${sizes[name]})`;
 });
 
 const desktop = `${media} not all and (hover: none)`;
