@@ -25,25 +25,28 @@ const motionVariants = {
 export default function useMotion({
     variants = "opacity",
     transition = "global",
-    delay
+    delay,
 }) {
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
     const { transitions } = useTheme();
-    const transitionConfig = convertThemeTransition(transitions[transition]);
-    const variantsData =
+    const variantsConfig =
         typeof variants === "string" ? motionVariants[variants] : variants;
+    const transitionConfig =
+        typeof transition === "string"
+            ? convertThemeTransition(transitions[transition])
+            : transition;
 
     if (delay) transitionConfig.delay = delay;
 
     if (!reducedMotion.matches)
         return {
-            variants: variantsData,
+            variants: variantsConfig,
             animate: "animate",
             transition: transitionConfig,
-            ...(variantsData.initial && { initial: "initial" }),
-            ...(variantsData.exit
+            ...(variantsConfig.initial && { initial: "initial" }),
+            ...(variantsConfig.exit
                 ? { exit: "exit" }
-                : variantsData.initial && { exit: "initial" }),
+                : variantsConfig.initial && { exit: "initial" }),
         };
     else return {};
 }

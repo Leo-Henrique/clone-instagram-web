@@ -1,6 +1,7 @@
+import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
-export const Button = styled.button`
+export const Button = styled(m.button)`
     ${({ theme, $expand = true, $primary = true }) => (css`
         display: inline-flex;
         align-items: center;

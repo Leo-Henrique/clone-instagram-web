@@ -43,8 +43,8 @@ const theme = {
         navbar: 5,
         tooltip: 10,
         newPosts: 15,
-        message: 20,
-        modal: 25,
+        modal: 20,
+        message: 25,
     },
     global: {
         containerPaddingX: "15px",
