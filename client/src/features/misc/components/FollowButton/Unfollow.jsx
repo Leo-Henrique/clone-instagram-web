@@ -8,12 +8,7 @@ import { decrementPosts, notWarn } from "../../../feed/slices/newPosts";
 import { useUnfollowMutation } from "../../api/follow";
 import * as Styled from "./style";
 
-export default function Unfollow({
-    buttonConfig,
-    instagramUser,
-    handlePostAlert,
-    setUserFollow,
-}) {
+export default function Unfollow({ buttonConfig, instagramUser, handlePostAlert }) {
     const [unfollowPending, setUnfollowPending] = useState(null);
     const newPosts = useSelector(({ newPosts }) => newPosts);
     const confirmed = useSelector(({ confirmation }) => confirmation.confirmed);
@@ -39,8 +34,7 @@ export default function Unfollow({
             await request({ username }).unwrap();
 
             if (handlePostAlert) dispatch(decrementPosts(postsCount));
-
-            setUserFollow(false);
+            if (newPosts.postCount - postsCount === 0) dispatch(notWarn());
         } catch (error) {
             dispatch(showError({ error }));
         }
@@ -51,10 +45,6 @@ export default function Unfollow({
 
         if (confirmed && unfollowUsername) unfollow();
     }, [confirmed]);
-
-    useEffect(() => {
-        if (newPosts.show && newPosts.postCount === 0) dispatch(notWarn());
-    }, [newPosts.postCount]);
 
     return <Styled.Button {...buttonConfig} text="Seguindo" onClick={confirm} />;
 }

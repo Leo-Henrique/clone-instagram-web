@@ -1,24 +1,22 @@
-import { useState } from "react";
+import { memo } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import Follow from "./Follow";
 import Unfollow from "./Unfollow";
 
-export default function FollowButton({ user: instagramUser, welcome }) {
+const FollowButton = memo(({ user: instagramUser, welcome }) => {
     const userId = useSelector(({ auth }) => auth.user.userId);
     const isBreakpointSm = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointSm
     );
     const { pathname } = useLocation();
+    const following = instagramUser.followers.includes(userId);
     const handlePostAlert = instagramUser.posts.length && pathname === "/";
-    const [userFollow, setUserFollow] = useState(
-        instagramUser.followers.includes(userId)
-    );
     const props = {
         buttonConfig: {
             expand: isBreakpointSm,
-            primary: !userFollow,
+            primary: !following,
             $link: !welcome,
         },
         instagramUser: {
@@ -26,9 +24,10 @@ export default function FollowButton({ user: instagramUser, welcome }) {
             postsCount: instagramUser.posts.length,
         },
         handlePostAlert,
-        setUserFollow,
     };
 
-    if (userFollow) return <Unfollow {...props} />;
+    if (following) return <Unfollow {...props} />;
     else return <Follow {...props} />;
-}
+});
+
+export default FollowButton;

@@ -5,12 +5,7 @@ import { warnThunk } from "../../../feed/slices/newPosts";
 import { useFollowMutation } from "../../api/follow";
 import * as Styled from "./style";
 
-export default function Follow({
-    buttonConfig,
-    instagramUser,
-    handlePostAlert,
-    setUserFollow,
-}) {
+export default function Follow({ buttonConfig, instagramUser, handlePostAlert }) {
     const userId = useSelector(({ auth }) => auth.user.userId);
     const dispatch = useDispatch();
     const [request] = useFollowMutation();
@@ -21,8 +16,6 @@ export default function Follow({
             await request({ username }).unwrap();
 
             if (handlePostAlert) dispatch(warnThunk(postsCount));
-
-            setUserFollow(true);
         } catch (error) {
             dispatch(showError({ error }));
         }

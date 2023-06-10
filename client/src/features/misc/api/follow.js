@@ -1,6 +1,21 @@
 import api from "../../../app/api";
 
-const transformResponse = (data, { response: { status } }) => status;
+const updateCache = async (arg, { dispatch, getState, queryFulfilled }) => {
+    const update = draft => {
+        const authenticatedUserId = getState().auth.user.userId;
+        const user = draft.find(({ username }) => username === arg.username);
+        const { followers } = user;
+
+        if (followers.includes(authenticatedUserId))
+            user.followers = followers.filter(id => id !== authenticatedUserId);
+        else followers.push(authenticatedUserId);
+    };
+
+    try {
+        await queryFulfilled;
+        dispatch(api.util.updateQueryData("getUsers", undefined, update));
+    } catch {}
+};
 
 const extendApi = api.injectEndpoints({
     endpoints: build => ({
@@ -11,7 +26,7 @@ const extendApi = api.injectEndpoints({
                 headers: { "Content-Type": "application/json" },
                 body,
             }),
-            transformResponse,
+            onQueryStarted: updateCache,
         }),
         unfollow: build.mutation({
             query: body => ({
@@ -20,7 +35,7 @@ const extendApi = api.injectEndpoints({
                 headers: { "Content-Type": "application/json" },
                 body,
             }),
-            transformResponse,
+            onQueryStarted: updateCache,
         }),
     }),
 });
