@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function useVisibility({ containerRef, innerRef }) {
+export default function useVisibility({ containerRef, innerRef, checkVisible }) {
     const visibleClass = "visible";
 
     useEffect(() => {
@@ -20,10 +20,11 @@ export default function useVisibility({ containerRef, innerRef }) {
             threshold: 0.6,
         };
         const observer = new IntersectionObserver(handleVisibility, options);
+        console.log(items[0])
 
         items.forEach(item => observer.observe(item));
         return () => observer.disconnect();
-    }, []);
+    }, [checkVisible && checkVisible]);
 
     return visibleClass;
 }

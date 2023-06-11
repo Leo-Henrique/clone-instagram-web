@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 import SVGVerified from "../../../../assets/icons/vectors/verified-blue.svg";
 import Skeleton from "../../../../components/Loaders/Skeleton";
 import { SERVER_DOMAIN } from "../../../../config";
@@ -6,6 +8,9 @@ import * as Styled from "./style";
 
 export default function Welcome({ data, welcome }) {
     const users = data ? data : Array.from({ length: 6 });
+    const isBreakpointSm = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointSm
+    );
 
     return (
         <>
@@ -37,7 +42,10 @@ export default function Welcome({ data, welcome }) {
                     {user ? (
                         <FollowButton user={users[index]} welcome={welcome} />
                     ) : (
-                        <Skeleton $width="20%" $height="2em" />
+                        <Skeleton
+                            $height="2.36em"
+                            {...(isBreakpointSm || { $width: "75px" })}
+                        />
                     )}
                 </Styled.User>
             ))}

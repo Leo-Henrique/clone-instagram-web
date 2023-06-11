@@ -3,10 +3,10 @@ import useDrag from "./hooks/useDrag";
 import useVisibility from "./hooks/useVisibility";
 import * as Styled from "./style";
 
-export default function Carousel({ children }) {
+export default function Carousel({ children, checkVisible }) {
     const containerRef = useRef(null);
     const innerRef = useRef(null);
-    const visibleClass = useVisibility({ containerRef, innerRef });
+    const visibleClass = useVisibility({ containerRef, innerRef, checkVisible });
     const { adjustDisplacement, ...dragEvents } = useDrag({
         containerRef,
         innerRef,

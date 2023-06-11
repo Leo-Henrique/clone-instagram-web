@@ -30,7 +30,7 @@ export default function Welcome() {
             </Styled.Text>
 
             {isBreakpointMd ? (
-                <Carousel>
+                <Carousel checkVisible={isSuccess}>
                     <Suggestions data={data} welcome={true} />
                 </Carousel>
             ) : (
