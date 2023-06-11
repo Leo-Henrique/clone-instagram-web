@@ -57,15 +57,13 @@ export const Container = styled.div`
 
 export const Content = styled.div`${({ theme }) => (css`
     height: 100%;
-    max-width: calc(935px + 20px * 2);
-    padding-left: 20px;
-    padding-right: 20px;
+    max-width: calc(935px + ${theme.global.containerPaddingY} * 2);
+    padding: ${theme.global.containerPaddingY};
     margin-left: auto;
     margin-right: auto;
 
     ${theme.breakpoints.md} {
-        padding-left: 0;
-        padding-right: 0;
+        padding: 0;
     }
 `)}`;
 

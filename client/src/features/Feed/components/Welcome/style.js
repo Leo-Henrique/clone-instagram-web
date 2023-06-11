@@ -7,13 +7,10 @@ export const Wrapper = styled.div`${({ theme }) => (css`
     justify-content: center;
     max-width: 500px;
     margin: 0 auto;
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding: 4rem 0;
 
     ${theme.breakpoints.md} {
         max-width: initial;
-        padding-top: 4rem;
-        padding-bottom: 4rem;
     }
 `)}`;
 
