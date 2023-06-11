@@ -11,6 +11,7 @@ export const User = styled.li`${({ theme }) => (css`
         padding: 3rem 2rem;
         border-radius: 20px;
         text-align: center;
+        box-shadow: 0 0 32px 2px rgba(0, 0, 0, .16);
     }
 `)}`;
 

@@ -18,11 +18,11 @@ export default function Welcome() {
     return (
         <Styled.Wrapper>
             <Styled.Title>
-                {isSuccess ? "Bem-vindo ao Instagram" : <Skeleton />}
+                {!isSuccess ? "Bem-vindo ao Instagram" : <Skeleton />}
             </Styled.Title>
 
             <Styled.Text>
-                {isSuccess ? (
+                {!isSuccess ? (
                     "Ao seguir as pessoas, você verá as fotos e vídeos que elas publicam aqui."
                 ) : (
                     <Skeleton />
@@ -30,12 +30,12 @@ export default function Welcome() {
             </Styled.Text>
 
             {isBreakpointMd ? (
-                <Carousel checkVisible={isSuccess}>
-                    <Suggestions data={data} welcome={true} />
+                <Carousel checkVisible={!isSuccess} $padding="4rem 0 2rem">
+                    <Suggestions data={!data} welcome={true} />
                 </Carousel>
             ) : (
                 <Styled.Suggestions>
-                    <Suggestions data={data} welcome={true} />
+                    <Suggestions data={!data} welcome={true} />
                 </Styled.Suggestions>
             )}
         </Styled.Wrapper>

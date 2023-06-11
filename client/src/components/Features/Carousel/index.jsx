@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
+
 import useDrag from "./hooks/useDrag";
 import useVisibility from "./hooks/useVisibility";
 import * as Styled from "./style";
 
-export default function Carousel({ children, checkVisible }) {
+export default function Carousel({ children, checkVisible, $padding }) {
     const containerRef = useRef(null);
     const innerRef = useRef(null);
     const visibleClass = useVisibility({ containerRef, innerRef, checkVisible });
@@ -23,7 +24,7 @@ export default function Carousel({ children, checkVisible }) {
     }, []);
 
     return (
-        <Styled.Wrapper ref={containerRef} {...dragEvents}>
+        <Styled.Wrapper ref={containerRef} $padding={$padding} {...dragEvents}>
             <Styled.Inner ref={innerRef}>{children}</Styled.Inner>
         </Styled.Wrapper>
     );

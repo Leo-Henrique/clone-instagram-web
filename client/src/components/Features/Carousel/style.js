@@ -3,6 +3,7 @@ import { css, styled } from "styled-components";
 export const Wrapper = styled.div`
     overflow: hidden;
     cursor: grab;
+    padding: ${({ $padding = 0 }) => $padding};
 `;
 
 export const Inner = styled.div`${({ theme }) => (css`

@@ -41,6 +41,10 @@ export const Text = styled.p`${({ theme }) => (css`
     }
     &:last-of-type {
         margin-bottom: 4rem;
+
+        ${theme.breakpoints.md} {
+            margin-bottom: 0;
+        }
     }
     ${theme.breakpoints.md} {
         max-width: 500px;

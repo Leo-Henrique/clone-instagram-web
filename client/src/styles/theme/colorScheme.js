@@ -13,7 +13,7 @@ const colorScheme = {
         stroke: "#DBDBDB",
         strokeFocus: "#A8A8A8",
         spinner: "#C7C7C7",
-        skeletonBlock: "#CFCFCE",
+        skeletonBlock: "#DCDCDC",
         skeletonAnimate: "#E3E3E3"
     },
     dark: {
