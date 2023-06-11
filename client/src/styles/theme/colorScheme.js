@@ -13,6 +13,8 @@ const colorScheme = {
         stroke: "#DBDBDB",
         strokeFocus: "#A8A8A8",
         spinner: "#C7C7C7",
+        skeletonBlock: "#CFCFCE",
+        skeletonAnimate: "#E3E3E3"
     },
     dark: {
         background: "#121212",
@@ -28,6 +30,8 @@ const colorScheme = {
         stroke: "#262626",
         strokeFocus: "#262626",
         spinner: "#737373",
+        skeletonBlock: "#262626",
+        skeletonAnimate: "#363636"
     },
     global: {
         messageBackground: "#262626",

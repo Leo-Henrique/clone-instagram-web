@@ -1,29 +1,44 @@
 import SVGVerified from "../../../../assets/icons/vectors/verified-blue.svg";
+import Skeleton from "../../../../components/Loaders/Skeleton";
 import { SERVER_DOMAIN } from "../../../../config";
 import FollowButton from "../../../misc/components/FollowButton";
 import * as Styled from "./style";
 
-export default function Welcome({ users, welcome }) {
+export default function Welcome({ data, welcome }) {
+    const users = data ? data : Array.from({ length: 6 });
+
     return (
         <>
-            {users.map(({ username, name, verified, picture }, index) => (
-                <Styled.User key={username}>
+            {users.map((user, index) => (
+                <Styled.User key={user?.username || index}>
                     <Styled.UserImage $welcome={welcome}>
-                        <img
-                            src={`${SERVER_DOMAIN}/${picture}`}
-                            alt={`Foto de perfil de ${name}`}
-                        />
+                        {user?.picture ? (
+                            <img
+                                src={`${SERVER_DOMAIN}/${user.picture}`}
+                                alt={`Foto de perfil de ${user.name}`}
+                            />
+                        ) : (
+                            <Skeleton circle={true} />
+                        )}
                     </Styled.UserImage>
 
                     <Styled.UserInfos>
-                        <h2>{username}</h2>
+                        <h2>{user?.username || <Skeleton $width="80px" />}</h2>
 
-                        {verified && <SVGVerified aria-label="Usuário verificado" />}
+                        {user?.verified && (
+                            <SVGVerified aria-label="Usuário verificado" />
+                        )}
 
-                        {welcome && <p>{name}</p>}
+                        {welcome && (
+                            <p>{user?.name || <Skeleton $width="40px" />}</p>
+                        )}
                     </Styled.UserInfos>
 
-                    <FollowButton user={users[index]} welcome={welcome} />
+                    {user ? (
+                        <FollowButton user={users[index]} welcome={welcome} />
+                    ) : (
+                        <Skeleton $width="20%" $height="2em" />
+                    )}
                 </Styled.User>
             ))}
         </>
