@@ -2,7 +2,7 @@ import FollowButton from "../../../misc/components/FollowButton";
 import UserBadge from "../../../misc/components/UserBadge";
 import * as Styled from "./style";
 
-export default function Suggestions({ data }) {
+export default function Suggestions({ data, followLink }) {
     const users = data ? data : Array.from({ length: 6 });
 
     return (
@@ -15,7 +15,7 @@ export default function Suggestions({ data }) {
                         styles={Styled.customUserStyles}
                     />
 
-                    <FollowButton user={user} />
+                    <FollowButton user={user} $link={followLink} />
                 </Styled.Wrapper>
             ))}
         </>
