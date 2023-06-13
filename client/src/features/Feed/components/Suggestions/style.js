@@ -1,12 +1,14 @@
 import { css, styled } from "styled-components";
 
-export const User = styled.li`${({ theme }) => (css`
+export const Wrapper = styled.li`${({ theme }) => (css`
     display: flex;
+    justify-content: space-between;
     align-items: center;
     column-gap: 1rem;
 
     ${theme.breakpoints.md} {
         flex-direction: column;
+        row-gap: 2rem;
         background-color: ${theme.colors.block};
         padding: 3rem 2rem;
         border-radius: 20px;
@@ -15,43 +17,27 @@ export const User = styled.li`${({ theme }) => (css`
     }
 `)}`;
 
-export const UserImage = styled.div`${({ theme, $welcome }) => (css`
-    &, img {
-        width: ${$welcome ? "45px" : "32px"};
-        height: auto;
-        border-radius: 50%;
+export const customUserStyles = {};
 
-        ${theme.breakpoints.md} {
-            width: 120px;
-            margin-bottom: .6rem;
-        }
-        ${theme.breakpoints.sm} {
-            width: 90px;
-        }
+customUserStyles.wrapper = ({ theme }) => (css`
+    ${theme.breakpoints.md} {
+        display: block;
+        flex-direction: column;
+        width: 100%;
     }
-`)}`;
+`);
 
-export const UserInfos = styled.div`${({ theme }) => (css`
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+customUserStyles.picture = ({ theme }) => (css`
+    width: 45px;
+    height: 45px;
 
     ${theme.breakpoints.md} {
-        margin-bottom: 2rem;
-        justify-content: center;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1rem;
     }
-
-    h2 {
-        font-weight: 600;
+    ${theme.breakpoints.sm} {
+        width: 90px;
+        height: 90px;
     }
-    svg {
-        width: 12px;
-        height: auto;
-        margin-left: .6rem;
-    }
-    p {
-        flex: 1 100%;
-        color: ${theme.colors.textSupport2};
-    }
-`)}`;
+`);

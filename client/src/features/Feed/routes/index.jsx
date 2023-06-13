@@ -1,39 +1,21 @@
-import QueryError from "../../../components/Alerts/QueryError";
-import Spinner from "../../../components/Loaders/Spinner";
+import { useSelector } from "react-redux";
+
 import useHead from "../../../hooks/useHead";
-import useGetPostsQuery from "../api/getPosts";
+import Feed from "../components/Feed";
+import NewPosts from "../components/NewPosts";
 import Template from "../components/Template";
 import Welcome from "../components/Welcome";
-import NewPosts from "../components/NewPosts"
 
-export default function Feed() {
-    const {
-        data: posts,
-        isLoading,
-        isFetching,
-        isSuccess,
-        isError,
-        error,
-        refetch
-    } = useGetPostsQuery();
+export default function Main() {
+    const hasFeed = useSelector(({ auth }) => auth.user.hasContentInFeed);
 
     useHead({});
 
     return (
         <>
-            <Template>
-                {isLoading ? (
-                    <Spinner $pageLoading={true} />
-                ) : isError ? (
-                    <QueryError pageError={true} />
-                ) : isSuccess && posts.length ? (
-                    <>posts</>
-                ) : (
-                    isSuccess && <Welcome />
-                )}
-            </Template>
+            <NewPosts />
 
-            <NewPosts refetch={refetch} />
+            <Template>{hasFeed ? <Feed /> : <Welcome />}</Template>
         </>
     );
 }

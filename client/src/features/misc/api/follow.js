@@ -2,7 +2,7 @@ import api from "../../../app/api";
 
 const updateCache = async (arg, { dispatch, getState, queryFulfilled }) => {
     const update = draft => {
-        const authenticatedUserId = getState().auth.user.userId;
+        const authenticatedUserId = getState().auth.user.id;
         const user = draft.find(({ username }) => username === arg.username);
         const { followers } = user;
 

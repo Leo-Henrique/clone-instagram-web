@@ -3,6 +3,10 @@ import Comment from "./commentModel.js";
 import Saved from "./savedModel.js";
 
 const MediaSchema = new mongoose.Schema({
+    type: {
+        type: "String",
+        required: true
+    },
     source: {
         type: String,
         required: true,

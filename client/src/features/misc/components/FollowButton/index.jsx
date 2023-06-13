@@ -3,39 +3,47 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
+import Skeleton from "../../../../components/Loaders/Skeleton";
 import useMotion from "../../../../hooks/useMotion";
-import Follow from "./Follow";
-import Unfollow from "./Unfollow";
+import Follow from "./Follow/Follow";
+import Unfollow from "./Unfollow/Unfollow";
 
-const FollowButton = memo(({ user: instagramUser, welcome }) => {
-    const userId = useSelector(({ auth }) => auth.user.userId);
+const FollowButton = memo(({ user: instagramUser, $link }) => {
+    const userId = useSelector(({ auth }) => auth.user.id);
     const isBreakpointSm = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointSm
     );
     const { pathname } = useLocation();
     const motionProps = useMotion({ transition: "button" });
-    const following = instagramUser.followers.includes(userId);
-    const handlePostAlert = instagramUser.posts.length && pathname === "/";
-    const props = {
+    const following = instagramUser?.followers?.includes(userId);
+    const props = () => ({
         buttonConfig: {
             expand: isBreakpointSm,
             primary: !following,
-            $link: !welcome,
+            $link,
             ...motionProps,
         },
         instagramUser: {
             ...instagramUser,
             postsCount: instagramUser.posts.length,
         },
-        handlePostAlert,
-    };
+        handlePostAlert: instagramUser.posts.length && pathname === "/",
+    });
+
+    if (!instagramUser)
+        return (
+            <Skeleton
+                {...(isBreakpointSm || { $width: "90px" })}
+                $height={$link ? "2em" : "2.358em"}
+            />
+        );
 
     return (
         <AnimatePresence mode="wait">
             {following ? (
-                <Unfollow {...props} key="unfollow" />
+                <Unfollow {...props()} key="unfollow" />
             ) : (
-                <Follow {...props} key="follow" />
+                <Follow {...props()} key="follow" />
             )}
         </AnimatePresence>
     );

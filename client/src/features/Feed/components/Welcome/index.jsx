@@ -8,7 +8,7 @@ import Suggestions from "../Suggestions";
 import * as Styled from "./style";
 
 export default function Welcome() {
-    const { data, isSuccess, isError, error } = useGetUsersQuery();
+    const { data, isError, error } = useGetUsersQuery();
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
     );
@@ -18,11 +18,11 @@ export default function Welcome() {
     return (
         <Styled.Wrapper>
             <Styled.Title>
-                {isSuccess ? "Bem-vindo ao Instagram" : <Skeleton />}
+                {data ? "Bem-vindo ao Instagram" : <Skeleton />}
             </Styled.Title>
 
             <Styled.Text>
-                {isSuccess ? (
+                {data ? (
                     "Ao seguir as pessoas, você verá as fotos e vídeos que elas publicam aqui."
                 ) : (
                     <Skeleton />
@@ -30,12 +30,12 @@ export default function Welcome() {
             </Styled.Text>
 
             {isBreakpointMd ? (
-                <Carousel checkVisible={isSuccess} $padding="4rem 0 2rem">
-                    <Suggestions data={data} welcome={true} />
+                <Carousel checkVisible={data} $padding="4rem 0 2rem">
+                    <Suggestions data={data} />
                 </Carousel>
             ) : (
                 <Styled.Suggestions>
-                    <Suggestions data={data} welcome={true} />
+                    <Suggestions data={data} />
                 </Styled.Suggestions>
             )}
         </Styled.Wrapper>

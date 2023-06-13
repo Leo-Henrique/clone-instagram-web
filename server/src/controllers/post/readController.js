@@ -52,10 +52,7 @@ export const getPosts = async (req, res) => {
                 .populate("user media.persons.user")
                 .populate({ path: "comments", populate: { path: "user" } });
 
-            feed.forEach(post => {
-                reorderComments(post.comments);
-                post.comments = post.comments.filter((item, index) => index < 2);
-            });
+            feed.forEach(({ comments }) => reorderComments(comments));
             reorder(feed);
             res.send(filteredContent(feed, req.query));
         }

@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import useMotion from "../../../../hooks/useMotion";
-import { resetWarn } from "../../slices/newPosts";
+import { showFeed } from "../../slices/newPosts";
 import * as Styled from "./style";
 
-export default function NewPosts({ refetch }) {
+export default function NewPosts() {
+    const dispatch = useDispatch();
     const show = useSelector(({ newPosts }) => newPosts.show);
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
@@ -17,11 +18,7 @@ export default function NewPosts({ refetch }) {
             animate: { opacity: 1, y: 0 },
         },
     });
-    const dispatch = useDispatch();
-    const showFeed = () => {
-        refetch();
-        dispatch(resetWarn());
-    };
+
     const [headerHeight, setHeaderHeight] = useState("0px");
 
     useEffect(() => {
@@ -36,7 +33,7 @@ export default function NewPosts({ refetch }) {
         <AnimatePresence>
             {show && (
                 <Styled.Wrapper {...motionProps} $headerHeight={headerHeight}>
-                    <button type="button" onClick={showFeed}>
+                    <button type="button" onClick={() => dispatch(showFeed())}>
                         Novas publicações
                     </button>
                 </Styled.Wrapper>

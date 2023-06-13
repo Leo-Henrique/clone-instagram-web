@@ -1,4 +1,5 @@
 import api from "../../../app/api";
+import convertId from "../../../utils/convertId";
 
 const extendApi = api.injectEndpoints({
     endpoints: build => ({
@@ -12,12 +13,7 @@ const extendApi = api.injectEndpoints({
         }),
         auth: build.query({
             query: () => "auth",
-            transformResponse: res => {
-                const { _id } = res;
-
-                delete res._id;
-                return { userId: _id, ...res };
-            }
+            transformResponse: convertId,
         }),
     }),
 });
