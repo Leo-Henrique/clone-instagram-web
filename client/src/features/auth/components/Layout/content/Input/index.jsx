@@ -13,7 +13,7 @@ export default function Input({ label, id, type, form, setForm, ...rest }) {
         if (fieldType === "password") setFieldType("text");
         else setFieldType("password");
     };
-    const motionProps = useMotion({});
+    const motionProps = useMotion();
 
     const change = ({ target: { id, value } }) => {
         setForm({ ...form, [id]: value });

@@ -10,7 +10,7 @@ export default function PageLoading() {
         transition: "loading",
     });
 
-    useHead({});
+    useHead();
 
     return (
         <Styled.Wrapper {...motionProps}>

@@ -22,11 +22,16 @@ const motionVariants = {
     },
 };
 
-export default function useMotion({
-    variants = "opacity",
-    transition = "global",
-    delay,
-}) {
+export default function useMotion(receivedOptions = {}) {
+    const defaultOptions = {
+        variants: "opacity",
+        transition: "global",
+        delay: null,
+    };
+    const { variants, transition, delay } = {
+        ...defaultOptions,
+        ...receivedOptions,
+    };
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
     const { transitions } = useTheme();
     const variantsConfig =

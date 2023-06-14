@@ -9,7 +9,7 @@ import Welcome from "../components/Welcome";
 export default function Main() {
     const hasFeed = useSelector(({ auth }) => auth.user.hasContentInFeed);
 
-    useHead({});
+    useHead();
 
     return (
         <>

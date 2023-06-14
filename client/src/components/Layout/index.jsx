@@ -14,7 +14,7 @@ export default function Layout({ children, MobileHeader }) {
     );
     const { element: navbar, height: navbarHeight, width: navbarWidth } = useSize();
     const { element: header, height: headerHeight } = useSize();
-    const motionProps = useMotion({});
+    const motionProps = useMotion();
 
     return (
         <>

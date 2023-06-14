@@ -36,7 +36,7 @@ export const UsersTitle = styled.p`
 export const UsersList = styled.ul`
     ${({ theme, $skeleton }) => css`
         max-height: 245px;
-        ${theme.mixins.customScrollbar({ theme })};
+        ${theme.mixins.customScrollbar()};
         ${$skeleton ||
         css`
             overflow-y: auto;

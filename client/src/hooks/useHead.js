@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 
-const appName = "Instagram";
-
-export default function useHead({ title = appName, desc = "", index = false }) {
+export default function useHead(receivedOptions = {}) {
+    const appName = "Instagram";
+    const defaultOptions = { title: appName, desc: "", index: false };
+    const { title, desc, index } = { ...defaultOptions, ...receivedOptions };
     const getElem = value => document.querySelector(value);
     const getMeta = value => document.querySelector(`meta[name="${value}"]`);
     const getMetaOG = value =>

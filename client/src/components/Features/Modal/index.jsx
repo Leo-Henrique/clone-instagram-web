@@ -12,7 +12,7 @@ export default function Modal({ children, showModal: show, setShowModal: setShow
     );
     const { notClose } = useClose(show, setShow);
     const [dialogVariants, setDialogVariants] = useState(null);
-    const wrapperMotion = useMotion({});
+    const wrapperMotion = useMotion();
     const dialogMotion = useMotion(
         dialogVariants ? { variants: dialogVariants } : {}
     );
