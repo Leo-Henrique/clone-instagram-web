@@ -1,52 +1,72 @@
 import { Link } from "react-router-dom";
 import { css, styled } from "styled-components";
 
-export const Wrapper = styled(Link)`${({ theme, to, $styles }) => (css`
-    display: inline-flex;
-    align-items: center;
-    column-gap: 1rem;
-    color: ${theme.colors.text};
+export const Wrapper = styled(Link)`
+    ${({ theme, to, $column, $gap = "1rem" }) => css`
+        display: inline-flex;
+        align-items: center;
+        gap: ${$gap};
+        color: ${theme.colors.text};
 
-    ${to && (css`
-        ${theme.queries.desktop} {
-            &:hover > * {
-                opacity: .75;
+        ${$column &&
+        css`
+            flex-direction: column;
+            width: 100%;
+        `}
+
+        ${to &&
+        css`
+            ${theme.queries.desktop} {
+                &:hover > * {
+                    opacity: 0.75;
+                }
+            }
+            &:active > * {
+                opacity: 0.5;
+            }
+        `}
+    `}
+`;
+
+export const Picture = styled.div`
+    ${({ theme, $size = 32 }) => css`
+        ${theme.mixins.transition(["opacity"])}
+        flex-shrink: 0;
+
+        img,
+        & {
+            width: ${$size}px;
+            height: ${$size}px;
+            border-radius: 50%;
+        }
+    `}
+`;
+
+export const Infos = styled.div`
+    ${({ theme }) => css`
+        ${theme.mixins.transition(["opacity"])};
+
+        > div:nth-child(1) {
+            display: flex;
+            align-items: center;
+            column-gap: 0.6rem;
+
+            span {
+                max-width: 155px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                font-weight: 600;
+            }
+            svg {
+                display: inline-block;
+                width: 12px;
+                height: auto;
             }
         }
-        &:active > * {
-            opacity: .5;
+        > div:nth-child(2) {
+            max-width: 260px;
+            color: ${theme.colors.textSupport2};
+            word-break: break-word;
         }
-    `)}
-    ${$styles && $styles};
-`)}`;
-
-export const Picture = styled.div`${({ theme, $styles }) => (css`
-    ${theme.mixins.transition(["opacity"])};
-
-    &, img {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        ${$styles && $styles};
-    }
-`)}`;
-
-export const Infos = styled.div`${({ theme, $styles }) => (css`
-    ${theme.mixins.transition(["opacity"])};
-
-    > div:nth-child(1) {
-        font-weight: 600;
-
-        svg {
-            display: inline-block;
-            width: 12px;
-            height: auto;
-            vertical-align: middle;
-            margin-left: .6rem;
-        }
-    }
-    > div:nth-child(2) {
-        color: ${theme.colors.textSupport2};
-    }
-    ${$styles && $styles};
-`)}`;
+    `}
+`;

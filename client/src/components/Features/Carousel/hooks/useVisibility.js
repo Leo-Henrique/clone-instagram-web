@@ -20,7 +20,6 @@ export default function useVisibility({ containerRef, innerRef, checkVisible }) 
             threshold: 0.6,
         };
         const observer = new IntersectionObserver(handleVisibility, options);
-        console.log(items[0])
 
         items.forEach(item => observer.observe(item));
         return () => observer.disconnect();

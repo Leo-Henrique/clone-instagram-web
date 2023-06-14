@@ -9,7 +9,7 @@ export default function QueryError({ error, pageError }) {
             initial: { opacity: 0, scale: 0.6 },
             animate: { opacity: 1, scale: 1 },
         },
-        transition: "error"
+        transition: "error",
     });
     const message = error?.data?.error;
     const messageFormatted = () => {
@@ -17,13 +17,11 @@ export default function QueryError({ error, pageError }) {
         const lastLetter = message[message.length - 1];
         const lowercase = firstLetter.toLowerCase() + message.slice(1);
 
-        return `Oops, ${
-            lastLetter === "." ? lowercase.slice(0, -1) : lowercase
-        } :(`;
+        return `Oops, ${lastLetter === "." ? lowercase.slice(0, -1) : lowercase} :(`;
     };
 
     return (
-        <Styled.Wrapper {...motionProps}>
+        <Styled.Wrapper {...motionProps} $pageError={pageError}>
             {pageError && (
                 <Styled.Icon>
                     <SVGWarning />

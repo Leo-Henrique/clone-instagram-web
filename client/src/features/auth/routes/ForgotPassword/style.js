@@ -16,6 +16,6 @@ export const ReturnLink = styled.div`${({ theme }) => (css`
         font-weight: 700;
         text-transform: uppercase;
         color: ${theme.colors.primary};
-        ${theme.mixins.genericLinkStates};
+        ${theme.mixins.genericLinkStates()};
     }        
 `)}`;

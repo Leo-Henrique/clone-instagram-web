@@ -35,7 +35,7 @@ export const AlternateLink = styled(m.div)`${({ theme }) => (css`
         color: ${theme.colors.textSupport1};
         font-weight: 600;
         padding: 1.2rem;
-        ${theme.mixins.genericLinkStates};
+        ${theme.mixins.genericLinkStates()};
     }
 `)}`;
 

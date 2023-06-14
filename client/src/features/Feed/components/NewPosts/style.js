@@ -17,6 +17,6 @@ export const Wrapper = styled(m.div)`${({ theme, $headerHeight }) => (css`
         font-weight: 600;
         cursor: pointer;
         ${theme.mixins.elementAbove};
-        ${theme.mixins.genericLinkStates};
+        ${theme.mixins.genericLinkStates()};
     }
 `)}`;

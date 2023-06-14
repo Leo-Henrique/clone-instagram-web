@@ -3,7 +3,7 @@ import { css, styled } from "styled-components";
 export const Wrapper = styled.div`${({ theme }) => (css`
     a {
         display: block;
-        ${theme.mixins.genericLinkStates};
+        ${theme.mixins.genericLinkStates()};
     }
     svg {
         display: inline-block;

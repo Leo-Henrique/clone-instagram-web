@@ -11,7 +11,7 @@ export const Inner = styled.div`${({ theme }) => (css`
 
     > * {
         max-width: 450px;
-        flex: 1 0 75%;
+        flex: 0 0 75%;
         opacity: .6;
         transform: scale(.85);
         ${theme.mixins.transition(["opacity, transform"], "carousel")};

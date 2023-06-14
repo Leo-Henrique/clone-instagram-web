@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
@@ -9,8 +9,9 @@ import * as Styled from "./style";
 
 export default function Welcome() {
     const { data, isError, error } = useGetUsersQuery();
-    const isBreakpointMd = useSelector(
-        ({ breakpoints }) => breakpoints.isBreakpointMd
+    const { isBreakpointMd, isBreakpointSm } = useSelector(
+        ({ breakpoints }) => breakpoints,
+        shallowEqual
     );
 
     if (isError) return <QueryError error={error} pageError={true} />;
@@ -31,11 +32,22 @@ export default function Welcome() {
 
             {isBreakpointMd ? (
                 <Carousel checkVisible={data} $padding="4rem 0 2rem">
-                    <Suggestions data={data} />
+                    <Suggestions
+                        data={data}
+                        userBadgeProps={{
+                            showName: true,
+                            column: true,
+                            pictureSize: isBreakpointSm ? 90 : 120,
+                        }}
+                        skeletonCount={1}
+                    />
                 </Carousel>
             ) : (
                 <Styled.Suggestions>
-                    <Suggestions data={data} />
+                    <Suggestions
+                        data={data}
+                        userBadgeProps={{ showName: true, pictureSize: 45 }}
+                    />
                 </Styled.Suggestions>
             )}
         </Styled.Wrapper>

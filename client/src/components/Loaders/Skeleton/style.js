@@ -18,6 +18,7 @@ export const Wrapper = styled.span`
         border-radius: ${$circle ? "50%" : "5px"};
         position: relative;
         overflow: hidden;
+        pointer-events: none;
 
         & + & {
             margin-top: 1rem;

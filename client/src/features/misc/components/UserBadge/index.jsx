@@ -3,13 +3,13 @@ import Skeleton from "../../../../components/Loaders/Skeleton/index.jsx";
 import { SERVER_DOMAIN } from "../../../../config/index.js";
 import * as Styled from "./style.js";
 
-export default function UserBadge({ user, showName = false, styles }) {
+export default function UserBadge({ user, showName, column, gap, pictureSize }) {
     const link = { to: `/${user?.username}` };
     const noLink = { as: "div" };
 
     return (
-        <Styled.Wrapper {...(user ? link : noLink)} $styles={styles?.wrapper}>
-            <Styled.Picture $styles={styles?.picture}>
+        <Styled.Wrapper {...(user ? link : noLink)} $column={column} $gap={gap}>
+            <Styled.Picture $size={pictureSize}>
                 {user?.picture ? (
                     <img
                         src={`${SERVER_DOMAIN}/${user.picture}`}
@@ -20,13 +20,13 @@ export default function UserBadge({ user, showName = false, styles }) {
                 )}
             </Styled.Picture>
 
-            <Styled.Infos $styles={styles?.infos}>
+            <Styled.Infos>
                 <div>
-                    {user?.username || <Skeleton $width="80px" />}
+                    <span>{user?.username || <Skeleton $width="90px" />}</span>
                     {user?.verified && <SVGVerified />}
                 </div>
 
-                {showName && <div>{user?.name || <Skeleton $width="80px" />}</div>}
+                {showName && <div>{user?.name || <Skeleton $width="50px" />}</div>}
             </Styled.Infos>
         </Styled.Wrapper>
     );

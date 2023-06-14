@@ -2,18 +2,19 @@ import FollowButton from "../../../misc/components/FollowButton";
 import UserBadge from "../../../misc/components/UserBadge";
 import * as Styled from "./style";
 
-export default function Suggestions({ data, followLink }) {
-    const users = data ? data : Array.from({ length: 6 });
+export default function Suggestions({
+    data,
+    userBadgeProps,
+    followLink,
+    skeletonCount = 5,
+}) {
+    const users = data ? data : Array.from({ length: skeletonCount });
 
     return (
         <>
             {users.map((user, index) => (
                 <Styled.Wrapper key={user?.username || index}>
-                    <UserBadge
-                        user={user}
-                        showName={true}
-                        styles={Styled.customUserStyles}
-                    />
+                    <UserBadge user={user} {...userBadgeProps} />
 
                     <FollowButton user={user} $link={followLink} />
                 </Styled.Wrapper>

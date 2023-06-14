@@ -33,8 +33,10 @@ const FollowButton = memo(({ user: instagramUser, $link }) => {
     if (!instagramUser)
         return (
             <Skeleton
-                {...(isBreakpointSm || { $width: "90px" })}
-                $height={$link ? "2em" : "2.358em"}
+                $height={$link ? "1.3em" : "2.358em"}
+                {...(isBreakpointSm || {
+                    $width: $link ? "60px" : "90px",
+                })}
             />
         );
 

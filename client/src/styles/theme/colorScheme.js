@@ -14,7 +14,7 @@ const colorScheme = {
         strokeFocus: "#A8A8A8",
         spinner: "#C7C7C7",
         skeletonBlock: "#DCDCDC",
-        skeletonAnimate: "#E3E3E3"
+        skeletonAnimate: "#E3E3E3",
     },
     dark: {
         background: "#121212",
@@ -31,7 +31,7 @@ const colorScheme = {
         strokeFocus: "#262626",
         spinner: "#737373",
         skeletonBlock: "#262626",
-        skeletonAnimate: "#363636"
+        skeletonAnimate: "#363636",
     },
     global: {
         messageBackground: "#262626",
@@ -48,6 +48,14 @@ const colorScheme = {
         danger: "#ED4956",
         white: "#FFF",
         black: "#000",
+        gradient: `linear-gradient(
+            45deg, 
+            #f09433 0%,
+            #e6683c 25%,
+            #dc2743 50%,
+            #cc2366 75%,
+            #bc1888 100%
+        )`,
     },
 };
 

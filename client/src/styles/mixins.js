@@ -1,3 +1,4 @@
+import { darken, lighten, transparentize } from "polished";
 import { css } from "styled-components";
 
 export const transition = 
@@ -27,16 +28,16 @@ export const authBlock = ({ theme }) => (css`
     }
 `);
 
-export const genericLinkStates = ({ theme }) => (css`
+export const genericLinkStates = (opacityFactor = 3) => ({ theme }) => (css`
     ${theme.mixins.transition(["opacity"], "button")};
 
     ${theme.queries.desktop} {
         &:hover {
-            opacity: .6;
+            opacity: ${1 - `0.${opacityFactor}`};
         }
     }
     &:active {
-        opacity: .3;
+        opacity: ${1 - `0.${opacityFactor * 2}`};
     }
 `);
 
@@ -51,6 +52,7 @@ export const link = ({ fontSize, primary }) => ({ theme }) => (css`
     ${theme.mixins.transition(["color", "opacity"])};
     ${primary ? (css`
         color: ${theme.colors.primary};
+
         ${theme.queries.desktop} {
             &:hover {
                 color: ${theme.colors.primaryDark1};
@@ -61,6 +63,61 @@ export const link = ({ fontSize, primary }) => ({ theme }) => (css`
         }
     `) : (css`
         color: ${theme.colors.text};
-        ${theme.mixins.genericLinkStates};
+        
+        ${theme.queries.desktop} {
+            &:hover {
+                color: ${transparentize(0.35, theme.colors.text)};
+            }
+        }
+        &:active {
+            color: ${transparentize(0.35 * 2, theme.colors.text)};
+        }
     `)}
 `);
+
+export const customScrollbar = ({ 
+    theme,
+    width = 20,
+    padding = 8,
+    bgColor = "background", 
+}) => {
+    const thumbColor = {
+        func: theme.name === "light" ? darken : lighten,
+        get default() {
+            return this.func(0.15, theme.colors[bgColor]);
+        },
+        get hover() {
+            return this.func(0.05, this.default);
+        },
+        get active() {
+            return this.func(0.1, this.default);
+        }
+    }
+    
+    return css`
+        & {
+            scrollbar-width: auto;
+            scrollbar-color: transparent;
+        }
+        &::-webkit-scrollbar {
+            width: ${width}px;
+        }
+        &::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 12px;
+            border: ${padding}px solid ${theme.colors[bgColor]};
+            background-color: ${thumbColor.default};
+
+            ${theme.queries.desktop} {
+                &:hover {
+                    background-color: ${thumbColor.hover};
+                }
+            }
+            &:active {
+                background-color: ${thumbColor.active};
+            }
+        }
+    `
+}
