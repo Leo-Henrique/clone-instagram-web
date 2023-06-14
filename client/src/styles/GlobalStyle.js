@@ -1,11 +1,16 @@
 import { createGlobalStyle, css } from "styled-components";
 import leoReset from "../../node_modules/leo-reset.css/dist/leo-reset.css?inline";
 
-const GlobalStyle = createGlobalStyle`${({ theme, $isAuthenticated }) => (css`
+const GlobalStyle = createGlobalStyle`${({ theme, $isAuthenticated }) => css`
     ${leoReset};
 
-    :root, body, #root {
-        ${$isAuthenticated && (css` height: 100%;` )}
+    :root,
+    body,
+    #root {
+        ${$isAuthenticated &&
+        css`
+            height: 100%;
+        `}
     }
     body {
         font-size: ${theme.fontSizes.body};
@@ -26,6 +31,6 @@ const GlobalStyle = createGlobalStyle`${({ theme, $isAuthenticated }) => (css`
             font-size: 16px;
         }
     }
-`)}`;
+`}`;
 
 export default GlobalStyle;

@@ -9,15 +9,17 @@ export const Wrapper = styled.div`
     position: relative;
 
     @media (max-width: 875px) {
-        display: none;   
+        display: none;
     }
 `;
 
-export const Item = styled.img`${({ theme, $currentItem }) => (css`
-    position: absolute;
-    top: 27px;
-    right: 21px;
-    opacity: ${$currentItem ? 1 : 0};
-    display: ${$currentItem ? "block" : "none"};
-    ${theme.mixins.transition(["opacity"], "slideshow")};
-`)}`
+export const Item = styled.img`
+    ${({ theme, $currentItem }) => css`
+        position: absolute;
+        top: 27px;
+        right: 21px;
+        opacity: ${$currentItem ? 1 : 0};
+        display: ${$currentItem ? "block" : "none"};
+        ${theme.mixins.transition(["opacity"], "slideshow")};
+    `}
+`;

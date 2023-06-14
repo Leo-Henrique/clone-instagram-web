@@ -12,7 +12,7 @@ export default async function deleteComment(req, res) {
 
         if (!comment) {
             parent = await Comment.findOne({
-                replies: { $elemMatch: { _id: commentId } }
+                replies: { $elemMatch: { _id: commentId } },
             });
             comment = parent.replies.find(({ id }) => id.toString() === commentId);
         }
@@ -24,18 +24,25 @@ export default async function deleteComment(req, res) {
         const isUserPost = post.user.toString() === userId;
 
         if (!isUserComment && !isUserPost)
-            return error("Você não tem permissão para excluir este comentário.", 400, res);
+            return error(
+                "Você não tem permissão para excluir este comentário.",
+                400,
+                res
+            );
 
-        if (comment.replies)
-            await Comment.findByIdAndDelete(commentId);
-        else 
+        if (comment.replies) await Comment.findByIdAndDelete(commentId);
+        else
             await Comment.findByIdAndUpdate(parent.id, {
-                $pull: { replies: { _id: commentId } }
+                $pull: { replies: { _id: commentId } },
             });
 
         res.send();
     } catch (err) {
-        console.log(err)
-        return error("Não foi possível excluir o comentário. Tente novamente.", 500, res);
+        console.log(err);
+        return error(
+            "Não foi possível excluir o comentário. Tente novamente.",
+            500,
+            res
+        );
     }
 }

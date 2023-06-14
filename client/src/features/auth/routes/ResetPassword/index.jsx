@@ -46,13 +46,9 @@ export default function ResetPassword() {
             <Layout.FormBlock>
                 <PNGIcon $src={IMGForgotPassword} $size={96} $center />
 
-                <Layout.Title $marginTop="1.5rem">
-                    Crie uma nova senha
-                </Layout.Title>
+                <Layout.Title $marginTop="1.5rem">Crie uma nova senha</Layout.Title>
 
-                <Layout.Text>
-                    Sua senha deve ter no mínimo 3 caracteres.
-                </Layout.Text>
+                <Layout.Text>Sua senha deve ter no mínimo 3 caracteres.</Layout.Text>
 
                 <form onSubmit={submit}>
                     <Layout.Input

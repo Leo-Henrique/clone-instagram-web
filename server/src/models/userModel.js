@@ -43,7 +43,7 @@ const UserSchema = new mongoose.Schema({
     },
     verified: {
         type: Boolean,
-        default: false
+        default: false,
     },
     bio: {
         type: String,
@@ -51,19 +51,23 @@ const UserSchema = new mongoose.Schema({
     },
     picture: {
         type: String,
-        default: defaultPicture
+        default: defaultPicture,
     },
-    followers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
-    }],
-    following: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
-    }]
+    followers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users",
+        },
+    ],
+    following: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users",
+        },
+    ],
 });
 
-UserSchema.pre("save", async function(next) {
+UserSchema.pre("save", async function (next) {
     if (this.password) {
         const hash = await bcrypt.hash(this.password, 10);
 
@@ -72,14 +76,14 @@ UserSchema.pre("save", async function(next) {
     } else next();
 });
 
-UserSchema.pre("findOneAndDelete", async function(next) {
+UserSchema.pre("findOneAndDelete", async function (next) {
     const userId = this._conditions._id;
     const user = await User.findById(userId);
     const referencedUsers = [...user.followers, ...user.following];
 
     await User.updateMany(
         { _id: { $in: referencedUsers } },
-        { 
+        {
             $pull: { followers: userId, following: userId },
         }
     );
@@ -92,12 +96,12 @@ UserSchema.pre("findOneAndDelete", async function(next) {
 
     comments.forEach(comment => {
         comment.likes = comment.likes.filter(id => id.toString() !== userId);
-        comment.replies = comment.replies.filter(({ user }) => 
-            user.toString() !== userId
+        comment.replies = comment.replies.filter(
+            ({ user }) => user.toString() !== userId
         );
         comment.replies.forEach(reply => {
             reply.likes = reply.likes.filter(user => user.toString() !== userId);
-        })
+        });
 
         comment.save();
     });

@@ -14,7 +14,7 @@ export default async function getAuthenticatedUser(req, res) {
 
         res.send({
             ...user._doc,
-            hasContentInFeed: !!feed
+            hasContentInFeed: !!feed,
         });
     } catch (err) {
         console.log(err);

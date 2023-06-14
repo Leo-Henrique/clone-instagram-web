@@ -10,8 +10,7 @@ export default function useHead({ title = appName, desc = "", index = false }) {
 
     useEffect(() => {
         const descriptions = [getMeta("description"), getMetaOG("description")];
-        const titleFormatted =
-            title !== appName ? `${title} | ${appName}` : appName;
+        const titleFormatted = title !== appName ? `${title} | ${appName}` : appName;
 
         document.title = titleFormatted;
         getMetaOG("title")?.setAttribute("content", titleFormatted);

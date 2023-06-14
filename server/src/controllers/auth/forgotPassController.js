@@ -20,17 +20,12 @@ export default async function forgotPassword(req, res) {
             User.findOne({ username: userIdentify }).select("+email"),
         ]);
 
-        const userExists = user.filter((item) => !!item);
+        const userExists = user.filter(item => !!item);
 
-        if (!userExists.length)
-            return error("Usuário não encontrado.", 404, res);
+        if (!userExists.length) return error("Usuário não encontrado.", 404, res);
 
         if (!URLToReset)
-            return error(
-                "URL para redefinição de senha não fornecida.",
-                400,
-                res
-            );
+            return error("URL para redefinição de senha não fornecida.", 400, res);
 
         user = userExists[0];
         const token = crypto.randomBytes(20).toString("hex");
@@ -64,8 +59,7 @@ export default async function forgotPassword(req, res) {
                 const start = email[0].slice(0, 3);
 
                 if (length >= 6) return `${start}${"*".repeat(7)}`;
-                else if (length >= 4)
-                    return `${email[0][0]}${"*".repeat(3)}`;
+                else if (length >= 4) return `${email[0][0]}${"*".repeat(3)}`;
                 else return "*".repeat(3);
             };
             const domain = email[1];

@@ -12,13 +12,9 @@ export const updateInfos = async (req, res) => {
 
     try {
         if (!values.length)
-            return error(
-                "Forneça alguma informação para ser alterada.",
-                400,
-                res
-            );
+            return error("Forneça alguma informação para ser alterada.", 400, res);
 
-        if (values.filter((value) => !value).length)
+        if (values.filter(value => !value).length)
             return error(
                 "Um campo não pode estar vazio para ser alterado.",
                 400,
@@ -54,18 +50,10 @@ export const updatePassword = async (req, res) => {
         const user = await User.findById(req.userId).select("+password");
 
         if (!(await bcrypt.compare(old, user.password)))
-            return error(
-                "Sua senha antiga foi inserida incorretamente.",
-                400,
-                res
-            );
+            return error("Sua senha antiga foi inserida incorretamente.", 400, res);
 
         if (old === current)
-            return error(
-                "Crie uma nova senha diferente da atual.",
-                400,
-                res
-            );
+            return error("Crie uma nova senha diferente da atual.", 400, res);
 
         if (!current.match(types.password.regex)) {
             const msg = types.password.message;

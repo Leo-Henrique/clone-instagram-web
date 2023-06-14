@@ -15,7 +15,11 @@ export const like = async (req, res) => {
         post.save();
         res.send();
     } catch (err) {
-        return error("Não foi possível curtir a publicação. Tente novamente.", 500, res);
+        return error(
+            "Não foi possível curtir a publicação. Tente novamente.",
+            500,
+            res
+        );
     }
 };
 
@@ -30,7 +34,7 @@ export const getLikes = async (req, res) => {
     } catch (err) {
         return error("Não foi possível obter as curtidas.", 500, res);
     }
-}
+};
 
 export const unlike = async (req, res) => {
     const { postId } = req.params;
@@ -38,9 +42,7 @@ export const unlike = async (req, res) => {
 
     try {
         const post = await Post.findById(postId);
-        const index = post.likes.findIndex(id => 
-            id.toString() === userId
-        );
+        const index = post.likes.findIndex(id => id.toString() === userId);
 
         if (index === -1) throw new Error();
         else post.likes.splice(index, 1);

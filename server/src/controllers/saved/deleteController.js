@@ -7,7 +7,9 @@ export const deleteSave = async (req, res) => {
     try {
         const userSaves = await Saved.findOne({ user: req.userId });
         const { albums } = userSaves;
-        const hasPost = albums[0].posts.some(({ post }) => post.toString() === postId);
+        const hasPost = albums[0].posts.some(
+            ({ post }) => post.toString() === postId
+        );
 
         if (!hasPost) return error("A publicação não está salva.", 400, res);
 
@@ -53,7 +55,11 @@ export const deleteCollection = async (req, res) => {
 
         res.send({ success: "Sua coleção foi excluída." });
     } catch (err) {
-        return error("Não foi possível excluir sua coleção. Tente novamente.", 500, res);
+        return error(
+            "Não foi possível excluir sua coleção. Tente novamente.",
+            500,
+            res
+        );
     }
 };
 

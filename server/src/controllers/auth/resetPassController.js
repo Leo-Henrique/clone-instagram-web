@@ -6,8 +6,7 @@ export default async function resetPassword(req, res) {
     const { userId, token, password } = req.body;
 
     try {
-        const getToken =
-            "+passwordResetToken +passwordResetTokenExpiration";
+        const getToken = "+passwordResetToken +passwordResetTokenExpiration";
         const user = await User.findById(userId).select(getToken);
 
         if (!user)
@@ -18,7 +17,11 @@ export default async function resetPassword(req, res) {
             );
 
         if (!user.passwordResetToken)
-            return error("Solicite a redefinição de senha novamente na página de login.", 400, res);
+            return error(
+                "Solicite a redefinição de senha novamente na página de login.",
+                400,
+                res
+            );
 
         if (token !== user.passwordResetToken)
             return error(
@@ -35,11 +38,7 @@ export default async function resetPassword(req, res) {
             );
 
         if (!password)
-            return error(
-                "Digite uma nova senha para redefini-la.",
-                400,
-                res
-            );
+            return error("Digite uma nova senha para redefini-la.", 400, res);
 
         if (!password.match(types.password.regex))
             return error(types.password.message, 400, res);

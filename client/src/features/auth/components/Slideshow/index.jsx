@@ -34,8 +34,7 @@ export default function Slideshow() {
     useEffect(() => {
         const elements = Array.from(container.current.children);
         const current = elements[currentItem];
-        const nextItem =
-            currentItem !== elements.length - 1 ? currentItem + 1 : 0;
+        const nextItem = currentItem !== elements.length - 1 ? currentItem + 1 : 0;
         const nextElement = elements[nextItem];
 
         setTimeout(() => {

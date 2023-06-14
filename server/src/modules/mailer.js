@@ -11,4 +11,4 @@ export default function transporter() {
     };
 
     return nodemailer.createTransport(transport);
-};
+}

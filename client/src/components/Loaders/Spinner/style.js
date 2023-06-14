@@ -11,13 +11,7 @@ const spin = keyframes`
 `;
 
 export const Wrapper = styled(m.div)`
-    ${({
-        theme,
-        $size,
-        $themeColor = "spinner",
-        $padding = 0,
-        $pageLoading,
-    }) => (css`
+    ${({ theme, $size, $themeColor = "spinner", $padding = 0, $pageLoading }) => css`
         padding: ${$padding};
 
         svg {
@@ -31,21 +25,23 @@ export const Wrapper = styled(m.div)`
                 fill: ${theme.colors[$themeColor]};
             }
         }
-        ${$pageLoading ? (css`
-            min-height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        ${$pageLoading
+            ? css`
+                  min-height: 100%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
 
-            svg {
-                width: ${$size ? $size : 26}px;
-            }
-        `) : (css`
-            display: inline-block;
+                  svg {
+                      width: ${$size ? $size : 26}px;
+                  }
+              `
+            : css`
+                  display: inline-block;
 
-            svg {
-                width: ${$size ? $size : 18}px;
-            }
-        `)}
-    `)}
+                  svg {
+                      width: ${$size ? $size : 18}px;
+                  }
+              `}
+    `}
 `;

@@ -10,12 +10,14 @@ export const getUsers = async (req, res) => {
         const newUsers = users.filter(({ id }) => id !== req.userId);
         const usersWithPosts = newUsers.map(user => {
             const userPosts = posts.filter(post => post.user.toString() === user.id);
-            const reorderedPosts = userPosts.sort((a, b) => b.createdAt - a.createdAt);
+            const reorderedPosts = userPosts.sort(
+                (a, b) => b.createdAt - a.createdAt
+            );
             const threePosts = reorderedPosts.filter((post, index) => index < 3);
-            
+
             return {
                 ...user._doc,
-                posts: threePosts
+                posts: threePosts,
             };
         });
 

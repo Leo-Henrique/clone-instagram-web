@@ -9,10 +9,7 @@ export default function SentEmail({ email }) {
     const motionProps = useMotion({ variants: "blockNew" });
 
     return (
-        <Layout.FormBlock
-            $paddingBottom="calc(4.5rem - 1.2rem)"
-            {...motionProps}
-        >
+        <Layout.FormBlock $paddingBottom="calc(4.5rem - 1.2rem)" {...motionProps}>
             <Styled.Icon>
                 <SVGSent />
             </Styled.Icon>
@@ -20,8 +17,8 @@ export default function SentEmail({ email }) {
             <Layout.Title $marginTop="1.5rem">E-mail enviado</Layout.Title>
 
             <Layout.Text>
-                Um e-mail foi enviado para <strong>{email}</strong> contendo um
-                link para que você possa redefinir sua senha.
+                Um e-mail foi enviado para <strong>{email}</strong> contendo um link
+                para que você possa redefinir sua senha.
             </Layout.Text>
 
             <Styled.ReturnLink>

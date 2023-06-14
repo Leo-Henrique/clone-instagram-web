@@ -36,8 +36,8 @@ const theme = {
         },
         carousel: {
             duration: 200,
-            timingFunction: "ease"
-        }
+            timingFunction: "ease",
+        },
     },
     zIndexes: {
         navbar: 5,

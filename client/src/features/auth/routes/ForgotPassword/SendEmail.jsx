@@ -32,8 +32,8 @@ export default function SendEmail({
                 </Layout.Title>
 
                 <Layout.Text>
-                    Insira seu e-mail ou nome de usuário que lhe enviaremos um
-                    link por e-mail para que você possa redefinir sua senha.
+                    Insira seu e-mail ou nome de usuário que lhe enviaremos um link
+                    por e-mail para que você possa redefinir sua senha.
                 </Layout.Text>
 
                 <form onSubmit={submit}>
@@ -54,11 +54,7 @@ export default function SendEmail({
                     />
                 </form>
 
-                <Layout.Error
-                    isError={isError}
-                    error={error}
-                    $padding="2rem 0 0"
-                />
+                <Layout.Error isError={isError} error={error} $padding="2rem 0 0" />
 
                 <Layout.Separator $margin="2rem 0 calc(2rem - 1.2rem)">
                     ou

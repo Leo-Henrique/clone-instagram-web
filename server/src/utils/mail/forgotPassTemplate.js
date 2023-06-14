@@ -1,16 +1,22 @@
-export default function forgotPassTemplate({ name, websiteName, URLToReset, userId, token }) {
+export default function forgotPassTemplate({
+    name,
+    websiteName,
+    URLToReset,
+    userId,
+    token,
+}) {
     const firstName = name.split(" ")[0];
     const css = styles => styles;
-    const containerStyles = (css`
-        max-width: 430px; 
-        padding: 30px 15px; 
-        margin: 0 auto; 
-        text-align: left; 
+    const containerStyles = css`
+        max-width: 430px;
+        padding: 30px 15px;
+        margin: 0 auto;
+        text-align: left;
         font-size: 16px;
         line-height: 1.5;
         color: rgb(86, 90, 92);
-    `);
-    const btnStyles = (css`
+    `;
+    const btnStyles = css`
         width: 100%;
         min-width: 80px;
         display: block;
@@ -22,14 +28,14 @@ export default function forgotPassTemplate({ name, websiteName, URLToReset, user
         border-radius: 5px;
         background-color: rgb(71, 162, 234);
         color: #fff;
-    `);
-    const footerStyles = (css`
+    `;
+    const footerStyles = css`
         font-size: 12px;
         color: rgb(171, 173, 174);
         text-align: center;
-    `);
+    `;
 
-    return /*html*/`
+    return /*html*/ `
         <div style="${containerStyles}">
             <div style="margin-bottom: 30px">
                 <img style="height: 30px"
@@ -42,7 +48,9 @@ export default function forgotPassTemplate({ name, websiteName, URLToReset, user
                 </p>
 
                 <p style="margin-bottom: 20px">
-                    Você nos informou que esqueceu sua senha através do nosso site<b style="color: #000">${websiteName ? ` ${websiteName}` : ""}</b>. Clique no botão abaixo para redefini-la.
+                    Você nos informou que esqueceu sua senha através do nosso site<b style="color: #000">${
+                        websiteName ? ` ${websiteName}` : ""
+                    }</b>. Clique no botão abaixo para redefini-la.
                 </p>
 
                 <a 
@@ -59,16 +67,20 @@ export default function forgotPassTemplate({ name, websiteName, URLToReset, user
             </div>
 
             <div style="${footerStyles}">
-                ${websiteName ? /*html*/`
+                ${
+                    websiteName
+                        ? /*html*/ `
                     <b style="display: block;">
                         ${websiteName}
                     </b>
-                ` : ""}
+                `
+                        : ""
+                }
 
                 <p style="margin: 4px 0 0 0">
                     Por Leonardo Henrique.
                 </p>
             </div>
         </div>
-    `
+    `;
 }

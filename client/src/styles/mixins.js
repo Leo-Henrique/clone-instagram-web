@@ -1,21 +1,22 @@
 import { darken, lighten, transparentize } from "polished";
 import { css } from "styled-components";
 
-export const transition = 
-    (properties, type = "button") => 
-    ({ theme }) => (css`
-        transition-property: ${properties.join(", ")};
-        transition-duration: ${theme.transitions[type].duration}ms;
-        transition-timing-function: ${theme.transitions[type].timingFunction};
-`);
+export const transition =
+    (properties, type = "button") =>
+    ({ theme }) =>
+        css`
+            transition-property: ${properties.join(", ")};
+            transition-duration: ${theme.transitions[type].duration}ms;
+            transition-timing-function: ${theme.transitions[type].timingFunction};
+        `;
 
-export const SVGResponsive = (css`
+export const SVGResponsive = css`
     display: block;
     max-width: 100%;
     height: auto;
-`);
+`;
 
-export const authBlock = ({ theme }) => (css`
+export const authBlock = ({ theme }) => css`
     max-width: 350px;
     padding-left: 4rem;
     padding-right: 4rem;
@@ -26,60 +27,68 @@ export const authBlock = ({ theme }) => (css`
         padding-right: 1.5rem;
         border: none;
     }
-`);
+`;
 
-export const genericLinkStates = (opacityFactor = 3) => ({ theme }) => (css`
-    ${theme.mixins.transition(["opacity"], "button")};
+export const genericLinkStates =
+    (opacityFactor = 3) =>
+    ({ theme }) =>
+        css`
+            ${theme.mixins.transition(["opacity"], "button")};
 
-    ${theme.queries.desktop} {
-        &:hover {
-            opacity: ${1 - `0.${opacityFactor}`};
-        }
-    }
-    &:active {
-        opacity: ${1 - `0.${opacityFactor * 2}`};
-    }
-`);
-
-export const elementAbove = (css`
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, .0975));
-    box-shadow: -5px 7px 25px 5px rgba(0, 0, 0, .14);
-`);
-
-export const link = ({ fontSize, primary }) => ({ theme }) => (css`
-    font-size: ${theme.fontSizes[fontSize]};
-    font-weight: 600;
-    ${theme.mixins.transition(["color", "opacity"])};
-    ${primary ? (css`
-        color: ${theme.colors.primary};
-
-        ${theme.queries.desktop} {
-            &:hover {
-                color: ${theme.colors.primaryDark1};
+            ${theme.queries.desktop} {
+                &:hover {
+                    opacity: ${1 - `0.${opacityFactor}`};
+                }
             }
-        }
-        &:active {
-            color: ${theme.colors.primaryLight1};
-        }
-    `) : (css`
-        color: ${theme.colors.text};
-        
-        ${theme.queries.desktop} {
-            &:hover {
-                color: ${transparentize(0.35, theme.colors.text)};
+            &:active {
+                opacity: ${1 - `0.${opacityFactor * 2}`};
             }
-        }
-        &:active {
-            color: ${transparentize(0.35 * 2, theme.colors.text)};
-        }
-    `)}
-`);
+        `;
 
-export const customScrollbar = ({ 
+export const elementAbove = css`
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.0975));
+    box-shadow: -5px 7px 25px 5px rgba(0, 0, 0, 0.14);
+`;
+
+export const link =
+    ({ fontSize, primary }) =>
+    ({ theme }) =>
+        css`
+            font-size: ${theme.fontSizes[fontSize]};
+            font-weight: 600;
+            ${theme.mixins.transition(["color", "opacity"])};
+            ${primary
+                ? css`
+                      color: ${theme.colors.primary};
+
+                      ${theme.queries.desktop} {
+                          &:hover {
+                              color: ${theme.colors.primaryDark1};
+                          }
+                      }
+                      &:active {
+                          color: ${theme.colors.primaryLight1};
+                      }
+                  `
+                : css`
+                      color: ${theme.colors.text};
+
+                      ${theme.queries.desktop} {
+                          &:hover {
+                              color: ${transparentize(0.35, theme.colors.text)};
+                          }
+                      }
+                      &:active {
+                          color: ${transparentize(0.35 * 2, theme.colors.text)};
+                      }
+                  `}
+        `;
+
+export const customScrollbar = ({
     theme,
     width = 20,
     padding = 8,
-    bgColor = "background", 
+    bgColor = "background",
 }) => {
     const thumbColor = {
         func: theme.name === "light" ? darken : lighten,
@@ -91,9 +100,9 @@ export const customScrollbar = ({
         },
         get active() {
             return this.func(0.1, this.default);
-        }
-    }
-    
+        },
+    };
+
     return css`
         & {
             scrollbar-width: auto;
@@ -119,5 +128,5 @@ export const customScrollbar = ({
                 background-color: ${thumbColor.active};
             }
         }
-    `
-}
+    `;
+};

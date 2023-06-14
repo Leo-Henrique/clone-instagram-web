@@ -11,27 +11,31 @@ export default async function updatePost(req, res) {
         const post = await Post.findById(postId);
 
         if (post.user.toString() !== req.userId)
-            return error("Você não tem permissão para editar essa publicação.", 400, res);
+            return error(
+                "Você não tem permissão para editar essa publicação.",
+                400,
+                res
+            );
 
         keys.forEach(key => {
             if (key !== "persons" && post[key]) post[key] = req.body[key];
-        })
+        });
 
         if (persons) {
-            const eachPerson = persons.map(({ users }) => 
-                users.map(({ username }) => username)
-            ).flat();
-            const eachUser = await User.find({ username: { $in: eachPerson }});
+            const eachPerson = persons
+                .map(({ users }) => users.map(({ username }) => username))
+                .flat();
+            const eachUser = await User.find({ username: { $in: eachPerson } });
 
             persons.forEach(({ media, users }) => {
                 post.media[media].persons = users.map(
                     ({ username, offsetX, offsetY }) => ({
-                        user: eachUser.filter(user => 
-                            user.username === username
-                        )[0].id,
+                        user: eachUser.filter(user => user.username === username)[0]
+                            .id,
                         offsetX,
-                        offsetY
-                    }));
+                        offsetY,
+                    })
+                );
             });
         }
 
@@ -39,8 +43,8 @@ export default async function updatePost(req, res) {
         res.send(post);
     } catch (err) {
         return error(
-            "Não foi possível atualizar sua publicação. Tente novamente.", 
-            500, 
+            "Não foi possível atualizar sua publicação. Tente novamente.",
+            500,
             res
         );
     }

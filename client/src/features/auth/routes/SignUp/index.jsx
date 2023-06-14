@@ -15,25 +15,25 @@ export default function SignUp() {
             id: "email",
             type: "text",
             label: "E-mail",
-            autoComplete: "email"
+            autoComplete: "email",
         },
         {
             id: "username",
             type: "text",
             label: "Nome de usuário",
-            autoComplete: "username"
+            autoComplete: "username",
         },
         {
             id: "name",
             type: "text",
             label: "Nome completo",
-            autoComplete: "name"
+            autoComplete: "name",
         },
         {
             id: "password",
             type: "password",
             label: "Senha",
-            autoComplete: "new-password"
+            autoComplete: "new-password",
         },
     ];
     const [form, setForm] = useState(() => {
@@ -95,11 +95,7 @@ export default function SignUp() {
                         identificação.
                     </Styled.Text>
 
-                    <Button
-                        isLoading={isLoading}
-                        text="Cadastre-se"
-                        form={form}
-                    />
+                    <Button isLoading={isLoading} text="Cadastre-se" form={form} />
                 </form>
 
                 <Layout.Error

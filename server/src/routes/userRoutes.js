@@ -4,10 +4,17 @@ import {
     updateInfos,
     updatePassword,
 } from "../controllers/user/updateController.js";
-import { follow, getFriends, unfollow } from "../controllers/user/followController.js";
+import {
+    follow,
+    getFriends,
+    unfollow,
+} from "../controllers/user/followController.js";
 import deleteUser from "../controllers/user/deleteController.js";
 import { getUser, getUsers } from "../controllers/user/readController.js";
-import { deleteProfilePicture, newProfilePicture } from "../controllers/user/pictureController.js";
+import {
+    deleteProfilePicture,
+    newProfilePicture,
+} from "../controllers/user/pictureController.js";
 
 const router = express.Router();
 

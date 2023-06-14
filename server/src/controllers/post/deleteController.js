@@ -8,10 +8,14 @@ export default async function deletePost(req, res) {
         const post = await Post.findById(postId);
 
         if (post.user.toString() !== req.userId)
-            return error("Você não tem permissão para excluir essa publicação.", 400, res);
+            return error(
+                "Você não tem permissão para excluir essa publicação.",
+                400,
+                res
+            );
 
         await Post.findByIdAndDelete(postId);
-        
+
         res.send({ success: "Sua publicação foi excluída." });
     } catch (err) {
         return error(

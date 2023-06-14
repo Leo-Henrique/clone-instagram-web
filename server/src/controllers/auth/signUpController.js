@@ -20,8 +20,7 @@ export default async function signUp(req, res) {
         ]);
 
         if (emailExists) return error("E-mail já existente.", 400, res);
-        if (usernameExists)
-            return error("Nome de usuário já existente.", 400, res);
+        if (usernameExists) return error("Nome de usuário já existente.", 400, res);
 
         const validate = validateFields(req, res);
 

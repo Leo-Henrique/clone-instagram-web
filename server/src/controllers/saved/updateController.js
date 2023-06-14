@@ -32,7 +32,8 @@ export default async function updateCollection(req, res) {
                 ({ name }) => name.toString() === rename.toString()
             );
 
-            if (hasName) return error("Uma coleção com este nome já existe.", 400, res);
+            if (hasName)
+                return error("Uma coleção com este nome já existe.", 400, res);
 
             album.name = rename;
         }

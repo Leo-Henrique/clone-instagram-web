@@ -6,17 +6,17 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 
 export const Content = styled(m.div)`
-    ${({ theme, $position = "top", $gap = "5px" }) => (css`
+    ${({ theme, $position = "top", $gap = "5px" }) => css`
         position: absolute;
         z-index: ${theme.zIndexes.tooltip};
         display: flex;
         justify-content: center;
         align-items: center;
         max-width: 320px;
-        padding: .6rem 1.2rem;
+        padding: 0.6rem 1.2rem;
         font-size: 1.4rem;
         white-space: nowrap;
         color: ${theme.colors.text};
@@ -31,7 +31,7 @@ export const Content = styled(m.div)`
         }
 
         ${() => {
-            const setStyles = (property) => (css` 
+            const setStyles = property => css` 
                 ${property}: 100%;
                 margin-${property}: ${$gap};
 
@@ -39,7 +39,7 @@ export const Content = styled(m.div)`
                     ${$position}: 100%;
                     border-${$position}-color: ${theme.colors.blockSupport1};
                 }
-            `);
+            `;
 
             switch ($position) {
                 case "top":
@@ -54,5 +54,5 @@ export const Content = styled(m.div)`
                     return setStyles("top");
             }
         }}
-    `)}
+    `}
 `;

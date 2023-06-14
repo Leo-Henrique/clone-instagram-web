@@ -10,7 +10,7 @@ const skeleton = keyframes`
 `;
 
 export const Wrapper = styled.span`
-    ${({ theme, $width = "100%", $height = "1em", $circle, $computedWidth }) => (css`
+    ${({ theme, $width = "100%", $height = "1em", $circle, $computedWidth }) => css`
         display: inline-block;
         width: ${$width};
         height: ${$circle ? $computedWidth : $height};
@@ -36,5 +36,5 @@ export const Wrapper = styled.span`
             );
             animation: ${skeleton} 1.3s ease-in-out infinite;
         }
-    `)}
+    `}
 `;

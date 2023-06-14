@@ -1,43 +1,44 @@
 export const types = {
     email: {
         regex: /^[\w\-.]+@[a-z0-9\-]+\.[a-z]+(\.[a-z]+)?$/,
-        message: "Digite um e-mail válido."
+        message: "Digite um e-mail válido.",
     },
     name: {
         regex: /^[a-zÀ-öù-Ź ]{2,}$/i,
-        message: "Digite um nome válido."
+        message: "Digite um nome válido.",
     },
     username: {
         regex: /^[\w.]+$/,
-        message: "Nomes de usuário só podem conter letras, números, sublinhados e pontos."
+        message:
+            "Nomes de usuário só podem conter letras, números, sublinhados e pontos.",
     },
     password: {
         regex: /^.{3,}$/,
-        message: "Sua senha deve ter no mínimo 3 caracteres."
+        message: "Sua senha deve ter no mínimo 3 caracteres.",
     },
     bio: {
         regex: /^.{1,150}$/m,
-        message: "Sua biografia deve ter no máximo 150 caracteres."
+        message: "Sua biografia deve ter no máximo 150 caracteres.",
     },
     comment: {
         regex: /^.{1,1000}$/m,
-        message: "Seu comentário deve ter no máximo 1000 caracteres."
-    }
-}
+        message: "Seu comentário deve ter no máximo 1000 caracteres.",
+    },
+};
 
 export const error = (msg, status, res) => {
     return res.status(status).send({ error: msg });
-}
+};
 
 export const requiredFields = ({ body }, res) => {
-    const values =  Object.values(body)
+    const values = Object.values(body);
     let message;
 
     if (values.filter(value => !value).length)
         message = () => error("Todos os campos são obrigatórios.", 400, res);
 
-    return message
-}
+    return message;
+};
 
 export const validateFields = ({ body }, res) => {
     const keys = Object.keys(body);
@@ -51,4 +52,4 @@ export const validateFields = ({ body }, res) => {
     });
 
     return message;
-}
+};

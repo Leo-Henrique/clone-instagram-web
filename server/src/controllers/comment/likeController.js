@@ -1,14 +1,16 @@
 import Comment from "../../models/commentModel.js";
 import { error } from "../../utils/helpers/validations.js";
 
-const getReply = async (id) => {
-    const parent = await Comment.findOne({ replies: {
-        $elemMatch: { _id: id }
-    } });
+const getReply = async id => {
+    const parent = await Comment.findOne({
+        replies: {
+            $elemMatch: { _id: id },
+        },
+    });
     const comment = parent.replies.find(reply => reply.id.toString() === id);
 
     return { parent, comment };
-}
+};
 
 export const like = async (req, res) => {
     const { commentId } = req.params;
@@ -28,11 +30,15 @@ export const like = async (req, res) => {
 
         if (hasLike) return error("Você já curtiu o comentário.", 400, res);
 
-        comment.likes.push(req.userId)
+        comment.likes.push(req.userId);
         doc.save();
         res.send();
     } catch (err) {
-        return error("Não foi possível curtir o comentário. Tente novamente.", 500, res);
+        return error(
+            "Não foi possível curtir o comentário. Tente novamente.",
+            500,
+            res
+        );
     }
 };
 
@@ -58,7 +64,7 @@ export const getLikes = async (req, res) => {
     } catch (err) {
         return error("Não foi possível obter as curtidas.", 500, res);
     }
-}
+};
 
 export const unlike = async (req, res) => {
     const { commentId } = req.params;
@@ -75,9 +81,7 @@ export const unlike = async (req, res) => {
         }
 
         const { likes } = comment;
-        const likeIndex = likes.findIndex(id =>
-            id.toString() === req.userId
-        );
+        const likeIndex = likes.findIndex(id => id.toString() === req.userId);
 
         if (likeIndex === -1) throw new Error();
         else likes.splice(likeIndex, 1);
@@ -86,9 +90,9 @@ export const unlike = async (req, res) => {
         res.send();
     } catch (err) {
         return error(
-            "Não foi possível deixar de curtir o comentário. Tente novamente.", 
-            500, 
+            "Não foi possível deixar de curtir o comentário. Tente novamente.",
+            500,
             res
         );
     }
-}
+};

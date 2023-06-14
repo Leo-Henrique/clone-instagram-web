@@ -3,12 +3,12 @@ import { storage, filter, handleErrors } from "./config.js";
 
 const imagesFormat = ["bmp", "jpeg", "png"];
 const videosFormat = [
-    "mp4", 
-    "quicktime", 
-    "x-ms-wmv", 
-    "x-msvideo", 
-    "video/mpeg", 
-    "video/ogg"
+    "mp4",
+    "quicktime",
+    "x-ms-wmv",
+    "x-msvideo",
+    "video/mpeg",
+    "video/ogg",
 ];
 
 export const uploadUserPicture = (fieldName, req, res) => {
@@ -16,12 +16,12 @@ export const uploadUserPicture = (fieldName, req, res) => {
     const config = multer({
         storage,
         fileFilter: filter("image", imagesFormat),
-        limits: { fileSize: MBLimit * 1024 * 1024 }
+        limits: { fileSize: MBLimit * 1024 * 1024 },
     }).single(fieldName);
     const messages = { fileSize: `Envie uma imagem com menos de ${MBLimit}MB.` };
 
     return handleErrors(config, req, res, messages);
-}
+};
 
 export const uploadPost = (fieldName, req, res) => {
     const filters = () => {
@@ -29,21 +29,21 @@ export const uploadPost = (fieldName, req, res) => {
         const videosMimes = videosFormat.map(item => `video/${item}`);
 
         return [...imagesMimes, ...videosMimes];
-    }
+    };
     const MBLimit = 100;
     const fileLimit = 10;
     const config = multer({
         storage,
         fileFilter: filter(null, filters()),
-        limits: { 
+        limits: {
             fileSize: MBLimit * 1024 * 1024,
             files: fileLimit,
-        }
+        },
     }).array(fieldName);
-    const messages = { 
+    const messages = {
         fileSize: `Um único arquivo pode ter no máximo ${MBLimit}MB.`,
-        fileLimit: `Você só pode enviar no máximo ${fileLimit} arquivos.`
+        fileLimit: `Você só pode enviar no máximo ${fileLimit} arquivos.`,
     };
 
     return handleErrors(config, req, res, messages);
-}
+};

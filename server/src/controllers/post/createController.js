@@ -47,7 +47,7 @@ export default async function createPost(req, res) {
 
         res.send(post);
     } catch (err) {
-        console.log(err)
+        console.log(err);
         if (typeof err === "string") return error(err, 400, res);
         else
             return error(

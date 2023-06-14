@@ -7,7 +7,11 @@ export default async function createCollection(req, res) {
 
     try {
         if (collection.toLowerCase() === "*all*")
-            return error("Infelizmente, a coleção não pode ter este nome.", 400, res);
+            return error(
+                "Infelizmente, a coleção não pode ter este nome.",
+                400,
+                res
+            );
 
         let userSaves = await Saved.findOne({ user });
         if (!userSaves) userSaves = await Saved.create({ user });
@@ -17,7 +21,8 @@ export default async function createCollection(req, res) {
             ({ name }) => name.toString() === collection.toString()
         );
 
-        if (hasCollection) return error("Uma coleção com este nome já existe.", 400, res);
+        if (hasCollection)
+            return error("Uma coleção com este nome já existe.", 400, res);
 
         albums.push({ name: collection });
 
@@ -32,6 +37,10 @@ export default async function createCollection(req, res) {
             posts: album.posts.map(({ post }) => post),
         });
     } catch (err) {
-        return error("Não foi possível criar sua coleção. Tente novamente.", 400, res);
+        return error(
+            "Não foi possível criar sua coleção. Tente novamente.",
+            400,
+            res
+        );
     }
 }

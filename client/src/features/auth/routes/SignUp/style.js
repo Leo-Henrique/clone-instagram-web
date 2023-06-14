@@ -1,9 +1,9 @@
 import { css, styled } from "styled-components";
 
-const text = ({ theme }) => (css`
+const text = ({ theme }) => css`
     color: ${theme.colors.textSupport2};
     text-align: center;
-`);
+`;
 
 export const Title = styled.h1`
     ${text};

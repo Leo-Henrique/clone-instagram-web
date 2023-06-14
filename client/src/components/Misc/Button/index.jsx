@@ -3,14 +3,7 @@ import { useEffect, useState } from "react";
 import Spinner from "../../Loaders/Spinner";
 import * as Styled from "./style";
 
-export default function Button({
-    text,
-    isLoading,
-    form,
-    expand,
-    primary,
-    ...rest
-}) {
+export default function Button({ text, isLoading, form, expand, primary, ...rest }) {
     const [filledFields, setFilledFields] = useState(form ? false : true);
 
     useEffect(() => {
@@ -28,11 +21,7 @@ export default function Button({
             $primary={primary}
             {...rest}
         >
-            {isLoading ? (
-                <Spinner $themeColor="white" $padding="1.5px 0" />
-            ) : (
-                text
-            )}
+            {isLoading ? <Spinner $themeColor="white" $padding="1.5px 0" /> : text}
         </Styled.Button>
     );
 }

@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 
 import useHead from "../../../../hooks/useHead";
 import useForgotPasswordMutation from "../../api/forgotPassword";
-import Layout from "../../components/Layout"
+import Layout from "../../components/Layout";
 import SendEmail from "./SendEmail";
 import SentEmail from "./SentEmail";
 

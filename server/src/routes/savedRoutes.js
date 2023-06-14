@@ -3,8 +3,15 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 import savePost from "../controllers/saved/saveController.js";
 import createCollection from "../controllers/saved/createController.js";
 import updateCollection from "../controllers/saved/updateController.js";
-import { getCollections, getCollection } from "../controllers/saved/readController.js";
-import { deleteCollection, deleteCollections, deleteSave } from "../controllers/saved/deleteController.js";
+import {
+    getCollections,
+    getCollection,
+} from "../controllers/saved/readController.js";
+import {
+    deleteCollection,
+    deleteCollections,
+    deleteSave,
+} from "../controllers/saved/deleteController.js";
 
 const router = express.Router();
 

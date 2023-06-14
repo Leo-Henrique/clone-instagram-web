@@ -15,9 +15,12 @@ export default async function savePost(req, res) {
         if (!albums.length || albums[0].name !== "*all*")
             albums.unshift({ name: "*all*" });
 
-        const hasPost = albums[0].posts.some(({ post }) => post.toString() === postId);
+        const hasPost = albums[0].posts.some(
+            ({ post }) => post.toString() === postId
+        );
 
-        if (hasPost && !collection) return error("A publicação já está salva.", 400, res);
+        if (hasPost && !collection)
+            return error("A publicação já está salva.", 400, res);
 
         if (!hasPost) albums[0].posts.unshift({ post: postId });
 
@@ -45,6 +48,10 @@ export default async function savePost(req, res) {
                 : "A publicação foi salva.",
         });
     } catch (err) {
-        return error("Não foi possível salvar a publicação. Tente novamente.", 500, res);
+        return error(
+            "Não foi possível salvar a publicação. Tente novamente.",
+            500,
+            res
+        );
     }
 }

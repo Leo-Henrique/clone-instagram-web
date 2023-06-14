@@ -16,10 +16,9 @@ export default async function signIn(req, res) {
             User.findOne({ username: userIdentify }).select("+password"),
         ]);
 
-        const userExists = user.filter((item) => !!item);
+        const userExists = user.filter(item => !!item);
 
-        if (!userExists.length)
-            return error("Usuário não encontrado.", 404, res);
+        if (!userExists.length) return error("Usuário não encontrado.", 404, res);
 
         user = userExists[0];
 
@@ -32,10 +31,6 @@ export default async function signIn(req, res) {
             token: generateToken(user.id),
         });
     } catch (err) {
-        return error(
-            "Não foi possível fazer o login. Tente novamente.",
-            500,
-            res
-        );
+        return error("Não foi possível fazer o login. Tente novamente.", 500, res);
     }
 }

@@ -19,16 +19,19 @@ export default async function createComment(req, res) {
             comment = await Comment.create({ ...schema, post: postId });
 
             await Post.findByIdAndUpdate(postId, {
-                $push: { comments: comment.id }
+                $push: { comments: comment.id },
             });
-
         } else {
-            const parent = await Comment.findByIdAndUpdate(replyTo, {
-                $push: { replies: schema }
-            }, { new: true });
+            const parent = await Comment.findByIdAndUpdate(
+                replyTo,
+                {
+                    $push: { replies: schema },
+                },
+                { new: true }
+            );
             const { replies } = parent;
 
-           comment = replies[replies.length - 1];
+            comment = replies[replies.length - 1];
         }
 
         res.send(comment);

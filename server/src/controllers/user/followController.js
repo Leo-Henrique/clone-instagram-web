@@ -13,7 +13,7 @@ export const follow = async (req, res) => {
             User.findById(req.userId),
             User.findOne({ username }),
         ]);
-        const youFollow = user.following.includes(follow.id)
+        const youFollow = user.following.includes(follow.id);
         const followed = follow.followers.includes(req.userId);
 
         if (youFollow || followed)
