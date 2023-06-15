@@ -2,12 +2,16 @@ import Skeleton from "../../../../components/Loaders/Skeleton";
 import Image from "../../../../components/Misc/Image";
 import Video from "../../../../components/Misc/Video";
 import { SERVER_DOMAIN } from "../../../../config";
+import useSize from "../../../../hooks/useSize";
+import * as Styled from "./style.js";
 
-export default function EachMedia({ data, post }) {
+export default function Media({ data, post, tag }) {
+    const { element, width } = useSize();
+
     return (
-        <div>
+        <>
             {data ? (
-                <div>
+                <Styled.Media as={tag} ref={element} $width={width}>
                     {data.type === "image" ? (
                         <Image
                             src={`${SERVER_DOMAIN}/${data.source}`}
@@ -18,10 +22,10 @@ export default function EachMedia({ data, post }) {
                             <Video src={`${SERVER_DOMAIN}/${data.source}`} />
                         )
                     )}
-                </div>
+                </Styled.Media>
             ) : (
                 <Skeleton />
             )}
-        </div>
+        </>
     );
 }

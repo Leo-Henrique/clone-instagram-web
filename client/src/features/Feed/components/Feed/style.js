@@ -6,15 +6,15 @@ export const Wrapper = styled.div`
         justify-content: center;
         column-gap: 3rem;
         padding-top: 2rem;
-
-        ${theme.breakpoints.lg} {
-            padding-top: 0;
-        }
     `}
 `;
 
 export const Posts = styled.div`
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+    
     ${({ theme }) => css`
         ${theme.breakpoints.lg} {
             max-width: 585px;
@@ -30,7 +30,7 @@ export const Infos = styled.div`
 export const UsersTitle = styled.p`
     color: ${({ theme }) => theme.colors.textSupport2};
     font-weight: 600;
-    margin: 1rem 0 1.5rem;
+    margin: 1.5rem 0;
 `;
 
 export const UsersList = styled.ul`

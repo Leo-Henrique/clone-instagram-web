@@ -13,7 +13,7 @@ const extendApi = api.injectEndpoints({
         }),
         auth: build.query({
             query: () => "auth",
-            transformResponse: convertId,
+            transformResponse: res => convertId(res),
         }),
     }),
 });

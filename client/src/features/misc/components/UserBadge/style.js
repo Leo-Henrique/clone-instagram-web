@@ -12,6 +12,9 @@ export const Wrapper = styled(Link)`
         css`
             flex-direction: column;
             width: 100%;
+            ${theme.queries.desktop} {
+                width: initial;
+            }
         `}
 
         ${to &&

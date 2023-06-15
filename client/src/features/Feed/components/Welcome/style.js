@@ -59,7 +59,7 @@ export const Text = styled.p`
     `}
 `;
 
-export const Suggestions = styled.ul`
+export const DesktopSuggestions = styled.ul`
     ${({ theme }) => css`
         display: flex;
         flex-direction: column;
@@ -69,4 +69,16 @@ export const Suggestions = styled.ul`
         border: 1px solid ${theme.colors.stroke};
         border-radius: 5px;
     `}
+`;
+
+export const mobileSuggestionsItem = css`
+    max-width: 450px;
+    flex: 0 0 75%;
+    flex-direction: column;
+    row-gap: 2rem;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 32px 2px rgba(0, 0, 0, 0.16);
+    background-color: ${({ theme }) => theme.colors.block};
 `;

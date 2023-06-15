@@ -8,7 +8,7 @@ import useMotion from "../../../../hooks/useMotion";
 import Follow from "./Follow/Follow";
 import Unfollow from "./Unfollow/Unfollow";
 
-const FollowButton = memo(({ user: instagramUser, $link }) => {
+const FollowButton = memo(({ user: instagramUser, $link, $linkStyles }) => {
     const userId = useSelector(({ auth }) => auth.user.id);
     const isBreakpointSm = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointSm
@@ -21,14 +21,16 @@ const FollowButton = memo(({ user: instagramUser, $link }) => {
             expand: isBreakpointSm,
             primary: !following,
             $link,
+            $linkStyles,
             ...motionProps,
         },
         instagramUser: {
             ...instagramUser,
-            postsCount: instagramUser.posts.length,
+            // postsCount: instagramUser.posts.length,
         },
-        handlePostAlert: instagramUser.posts.length && pathname === "/",
+        // handlePostAlert: instagramUser.posts.length && pathname === "/",
     });
+
 
     if (!instagramUser)
         return (

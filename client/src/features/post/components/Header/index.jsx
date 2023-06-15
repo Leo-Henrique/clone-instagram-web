@@ -1,17 +1,24 @@
+import { useSelector } from "react-redux";
+
 import SVGViewMore from "../../../../assets/icons/vectors/view-more.svg";
 import FollowButton from "../../../misc/components/FollowButton";
 import UserBadge from "../../../misc/components/UserBadge";
+import * as Styled from "./style.js";
 
 export default function Header({ post, showFollowButton }) {
+    const authUserId = useSelector(({ auth }) => auth.user.id);
+
     return (
-        <header>
+        <Styled.Wrapper>
             <UserBadge user={post?.user} />
 
-            {showFollowButton && <FollowButton user={post?.user} $link={true} />}
+            {showFollowButton && post?.user?.id !== authUserId && (
+                <FollowButton user={post?.user} $link={true} />
+            )}
 
-            <button type="button">
+            <Styled.ViewMore type="button">
                 <SVGViewMore aria-label="Ver mais" />
-            </button>
-        </header>
+            </Styled.ViewMore>
+        </Styled.Wrapper>
     );
 }

@@ -7,16 +7,21 @@ export default function Suggestions({
     userBadgeProps,
     followLink,
     skeletonCount = 5,
+    styles,
 }) {
     const users = data ? data : Array.from({ length: skeletonCount });
 
     return (
         <>
             {users.map((user, index) => (
-                <Styled.Wrapper key={user?.username || index}>
+                <Styled.Wrapper key={user?.username || index} $styles={styles}>
                     <UserBadge user={user} {...userBadgeProps} />
 
-                    <FollowButton user={user} $link={followLink} />
+                    <FollowButton
+                        user={user}
+                        $link={followLink}
+                        $linkStyles={Styled.customFollowButton}
+                    />
                 </Styled.Wrapper>
             ))}
         </>

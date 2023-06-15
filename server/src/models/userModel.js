@@ -65,6 +65,10 @@ const UserSchema = new mongoose.Schema({
             ref: "users",
         },
     ],
+    hasPosts: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 UserSchema.pre("save", async function (next) {

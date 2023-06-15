@@ -1,11 +1,20 @@
-export default function convertId(response) {
-    const convert = data => {
-        const id = data._id;
+export default function convertId(response, ...keys) {
+    const modifyId = obj => {
+        const { _id } = obj;
 
-        delete data._id;
-        return { id, ...data };
+        delete obj._id;
+        obj.id = _id;
+    };
+    const handleArray = (data, callback) => {
+        if (Array.isArray(data)) data.forEach(obj => callback(obj));
+        else callback(data);
+    };
+    const modifyObjects = obj => {
+        modifyId(obj);
+        keys.forEach(key => handleArray(obj[key], modifyId));
     };
 
-    if (Array.isArray(response)) return response.map(convert);
-    else return convert(response);
+    handleArray(response, modifyObjects);
+
+    return response;
 }

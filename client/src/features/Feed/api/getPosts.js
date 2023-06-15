@@ -5,7 +5,7 @@ const { useGetPostsQuery } = api.injectEndpoints({
     endpoints: build => ({
         getPosts: build.query({
             query: () => "posts",
-            transformResponse: convertId,
+            transformResponse: res => convertId(res, "user", "comments"),
         }),
     }),
 });

@@ -2,17 +2,15 @@ import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
     overflow: hidden;
-    cursor: grab;
     padding: ${({ $padding = 0 }) => $padding};
 `;
 
-export const Inner = styled.div`
+export const Inner = styled.ul`
     ${({ theme }) => css`
         display: flex;
 
         > * {
-            max-width: 450px;
-            flex: 0 0 75%;
+            list-style: none;
             opacity: 0.6;
             transform: scale(0.85);
             ${theme.mixins.transition(["opacity, transform"], "carousel")};

@@ -40,15 +40,16 @@ export default function Welcome() {
                             pictureSize: isBreakpointSm ? 90 : 120,
                         }}
                         skeletonCount={1}
+                        styles={Styled.mobileSuggestionsItem}
                     />
                 </Carousel>
             ) : (
-                <Styled.Suggestions>
+                <Styled.DesktopSuggestions>
                     <Suggestions
                         data={data}
                         userBadgeProps={{ showName: true, pictureSize: 45 }}
                     />
-                </Styled.Suggestions>
+                </Styled.DesktopSuggestions>
             )}
         </Styled.Wrapper>
     );
