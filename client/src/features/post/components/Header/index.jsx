@@ -16,9 +16,11 @@ export default function Header({ post, showFollowButton }) {
                 <FollowButton user={post?.user} $link={true} />
             )}
 
-            <Styled.ViewMore type="button">
-                <SVGViewMore aria-label="Ver mais" />
-            </Styled.ViewMore>
+            {post && (
+                <Styled.ViewMore type="button">
+                    <SVGViewMore aria-label="Ver mais" />
+                </Styled.ViewMore>
+            )}
         </Styled.Wrapper>
     );
 }

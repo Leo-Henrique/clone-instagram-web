@@ -17,4 +17,8 @@ export const Navigation = styled(CloneNavigation)`
     margin: initial !important;
     padding: initial !important;
     flex: initial !important;
+
+    a {
+        padding-right: 0;
+    }
 `;

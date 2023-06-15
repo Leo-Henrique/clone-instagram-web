@@ -9,23 +9,17 @@ export default function Media({ data, post, tag }) {
     const { element, width } = useSize();
 
     return (
-        <>
-            {data ? (
-                <Styled.Media as={tag} ref={element} $width={width}>
-                    {data.type === "image" ? (
-                        <Image
-                            src={`${SERVER_DOMAIN}/${data.source}`}
-                            alt={`Imagem postada por ${post.user.name}`}
-                        />
-                    ) : (
-                        data.type === "video" && (
-                            <Video src={`${SERVER_DOMAIN}/${data.source}`} />
-                        )
-                    )}
-                </Styled.Media>
+        <Styled.Media as={tag} ref={element} $width={width}>
+            {data?.type === "image" ? (
+                <Image
+                    src={`${SERVER_DOMAIN}/${data.source}`}
+                    alt={`Imagem postada por ${post.user.name}`}
+                />
+            ) : data?.type === "video" ? (
+                <Video src={`${SERVER_DOMAIN}/${data.source}`} />
             ) : (
-                <Skeleton />
+                <Skeleton $height={width} $borderRadius={false} />
             )}
-        </>
+        </Styled.Media>
     );
 }

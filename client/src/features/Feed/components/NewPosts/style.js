@@ -16,7 +16,6 @@ export const Wrapper = styled(m.div)`
             background-color: ${theme.colors.blockSupport1};
             color: ${theme.colors.text};
             font-weight: 600;
-            cursor: pointer;
             ${theme.mixins.elementAbove};
             ${theme.mixins.genericLinkStates()};
         }

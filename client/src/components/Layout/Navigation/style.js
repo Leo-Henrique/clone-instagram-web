@@ -94,6 +94,7 @@ export const Action = styled.div`
         ${theme.breakpoints.md} {
             width: initial;
             column-gap: initial;
+            border-radius: 0;
             padding: 1.4rem 1.2rem;
             margin: 0;
             background-color: transparent !important;

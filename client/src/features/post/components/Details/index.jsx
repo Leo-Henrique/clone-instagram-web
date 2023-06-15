@@ -1,12 +1,37 @@
-import { useSelector } from "react-redux";
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import SVGComments from "../../../../assets/icons/vectors/comments.svg";
 import SVGLike from "../../../../assets/icons/vectors/heart.svg";
 import SVGSave from "../../../../assets/icons/vectors/save.svg";
 import SVGShare from "../../../../assets/icons/vectors/share.svg";
-import Skeleton from "../../../../components/Loaders/Skeleton";
+import Likes from "../Likes";
 import * as Styled from "./style";
+
+const FeedInfos = ({ post: { user, legend, showComments, comments } }) => {
+    const totalComments = comments?.length;
+    const totalCommentsFormatted = totalComments.toLocaleString("pt-BR");
+
+    return (
+        <>
+            {legend && (
+                <Styled.Legend>
+                    <Link to={`/${user.username}`}>{user.username}</Link>
+
+                    <p>{legend}</p>
+                </Styled.Legend>
+            )}
+
+            {showComments && totalComments > 0 && (
+                <Styled.ViewComments>
+                    {totalComments > 1
+                        ? `Ver todos os ${totalCommentsFormatted} comentários`
+                        : "Ver 1 comentário"}
+                </Styled.ViewComments>
+            )}
+        </>
+    );
+};
 
 export default function Details({ post, highlight }) {
     const actions = [
@@ -31,56 +56,30 @@ export default function Details({ post, highlight }) {
             show: true,
         },
     ];
-    const authUserId = useSelector(({ auth }) => auth.user.id);
-    const likes = post?.likes?.length;
-    const likesFormatted = likes?.toLocaleString("pt-BR");
-    const createdAt = post?.createdAt && new Date(post.createdAt).toString();
-    const tempDate =
-        createdAt && createdAt.replace(" GMT-0300 (Horário Padrão de Brasília)", "");
-
-    if (!post) return <Skeleton count={2} />;
+    const createdAt = new Date(post.createdAt).toString();
+    const tempDate = createdAt.replace(" GMT-0300 (Horário Padrão de Brasília)", "");
 
     return (
         <Styled.Wrapper $highlight={highlight}>
             <Styled.Actions>
                 {actions.map(({ desc, icon, show }) => (
-                    <>
+                    <Fragment key={desc}>
                         {show && (
-                            <Styled.Action key={desc}>
+                            <Styled.Action>
                                 <button type="button" aria-label={desc}>
                                     {icon}
                                 </button>
                             </Styled.Action>
                         )}
-                    </>
+                    </Fragment>
                 ))}
             </Styled.Actions>
 
-            {post.showLikes && (
-                <>
-                    {likes > 0 ? (
-                        <Styled.Likes type="button">
-                            {likesFormatted} {likes > 1 ? "curtidas" : "curtida"}
-                        </Styled.Likes>
-                    ) : (
-                        post.user.id !== authUserId && (
-                            <Styled.LikeWarning>
-                                Seja a primeira pessoa a curtir essa publicação
-                            </Styled.LikeWarning>
-                        )
-                    )}
-                </>
-            )}
+            {post.showLikes && <Likes post={post} />}
+
+            {!highlight && <FeedInfos post={post} />}
 
             <Styled.Date dateTime={post.createdAt}>{tempDate}</Styled.Date>
-
-            {!highlight && post.legend && (
-                <Styled.Legend>
-                    <Link to={`/${post.user.username}`}>{post.user.username}</Link>
-
-                    <p>{post.legend}</p>
-                </Styled.Legend>
-            )}
         </Styled.Wrapper>
     );
 }

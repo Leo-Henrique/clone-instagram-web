@@ -8,7 +8,6 @@ const button = ({ theme }) => css`
         display: block;
         padding: 1.3rem 3rem;
         text-align: center;
-        cursor: pointer;
         ${theme.mixins.genericLinkStates()};
         ${theme.breakpoints.md} {
             padding: 1.5rem 2rem;

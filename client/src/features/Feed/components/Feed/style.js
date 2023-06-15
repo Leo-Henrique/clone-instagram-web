@@ -1,12 +1,10 @@
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
-    ${({ theme }) => css`
-        display: flex;
-        justify-content: center;
-        column-gap: 3rem;
-        padding-top: 2rem;
-    `}
+    display: flex;
+    justify-content: center;
+    column-gap: 3rem;
+    padding-top: 2rem;
 `;
 
 export const Posts = styled.div`
@@ -14,7 +12,7 @@ export const Posts = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 1.5rem;
-    
+
     ${({ theme }) => css`
         ${theme.breakpoints.lg} {
             max-width: 585px;

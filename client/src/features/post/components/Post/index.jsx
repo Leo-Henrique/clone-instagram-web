@@ -1,7 +1,6 @@
 import { memo, useState } from "react";
 
 import Carousel from "../../../../components/Features/Carousel";
-import AddComment from "../../../comments/components/AddComment";
 import Comments from "../../../comments/components/Comments";
 import CarouselControls from "../CarouselControls";
 import Details from "../Details";
@@ -11,24 +10,22 @@ import * as Styled from "./style";
 
 const Post = memo(({ post, highlight }) => {
     const [currentMedia, setCurrentMedia] = useState(0);
-    const media = post?.media || Array.from({ length: 1 });
-    const hasMultipleMedia = post?.media?.length > 1;
 
     return (
         <Styled.Wrapper>
             {highlight || <Header post={post} />}
 
-            {hasMultipleMedia ? (
+            {post?.media?.length > 1 ? (
                 <Styled.CarouselWrapper>
                     <Carousel mouseDrag={false}>
-                        {media.map((data, index) => (
+                        {post.media.map((data, index) => (
                             <Media key={index} tag="li" data={data} post={post} />
                         ))}
                     </Carousel>
 
                     <CarouselControls
                         currentMedia={currentMedia}
-                        totalMedia={post?.media?.length}
+                        totalMedia={post.media.length}
                     />
                 </Styled.CarouselWrapper>
             ) : (
@@ -40,14 +37,9 @@ const Post = memo(({ post, highlight }) => {
             <Styled.Infos>
                 {highlight && <Header post={post} showFollowButton={true} />}
 
-                <Details post={post} />
+                {highlight && post?.showComments && <Comments />}
 
-                {post?.showComments && (
-                    <>
-                        <Comments comments={post.comments} />
-                        <AddComment />
-                    </>
-                )}
+                {post && <Details post={post} highlight={highlight} />}
             </Styled.Infos>
         </Styled.Wrapper>
     );

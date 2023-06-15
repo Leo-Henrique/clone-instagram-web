@@ -1,3 +1,5 @@
+import { darken, lighten } from "polished";
+
 const colorScheme = {
     light: {
         background: "#FAFAFA",
@@ -8,6 +10,9 @@ const colorScheme = {
         text: "#000",
         textSupport1: "#262626",
         textSupport2: "#737373",
+        get textSupport3() {
+            return lighten(0.15, this.textSupport2);
+        },
         footer: "#C7C7C7",
         separator: "#DBDBDB",
         stroke: "#DBDBDB",
@@ -25,6 +30,9 @@ const colorScheme = {
         text: "#F5F5F5",
         textSupport1: "#FAFAFA",
         textSupport2: "#A8A8A8",
+        get textSupport3() {
+            return darken(0.17, this.textSupport2);
+        },
         footer: "#737373",
         separator: "#1B1B1B",
         stroke: "#262626",

@@ -59,7 +59,7 @@ export const Container = styled.div`
     height: 100%;
 `;
 
-export const Content = styled.div`
+export const Content = styled.main`
     ${({ theme }) => css`
         height: 100%;
         max-width: calc(935px + ${theme.global.containerPaddingY} * 2);

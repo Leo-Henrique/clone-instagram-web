@@ -41,7 +41,7 @@ export default function Feed() {
         ({ breakpoints }) => breakpoints.isBreakpointLg
     );
     const { data, isError, error } = useGetPostsQuery();
-    const posts = data || Array.from({ length: 1 });
+    const posts = data || Array.from({ length: 4 });
 
     return (
         <Styled.Wrapper>

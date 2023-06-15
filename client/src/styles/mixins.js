@@ -33,6 +33,7 @@ export const genericLinkStates =
     (opacityFactor = 3) =>
     ({ theme }) =>
         css`
+            cursor: pointer;
             ${theme.mixins.transition(["opacity"], "button")};
 
             ${theme.queries.desktop} {

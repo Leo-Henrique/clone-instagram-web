@@ -17,7 +17,6 @@ export const Wrapper = styled.header`
 export const ViewMore = styled.button`
     ${({ theme }) => css`
         margin-left: auto;
-        cursor: pointer;
         ${theme.mixins.genericLinkStates()};
 
         path {
