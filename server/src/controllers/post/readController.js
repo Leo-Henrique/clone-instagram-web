@@ -1,12 +1,14 @@
 import auth from "../../middlewares/authMiddleware.js";
 import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js";
-import { error } from "../../utils/helpers/validations.js";
 import filteredContent from "../../utils/helpers/filteredContent.js";
+import { error } from "../../utils/helpers/validations.js";
 
 const reorder = posts => posts.sort((a, b) => b.createdAt - a.createdAt);
-const reorderComments = comments =>
-    comments.sort((a, b) => b.likes.length - a.likes.length);
+const fieldHiding = post => {
+    if (!post.showComments) post.comments = undefined;
+    if (!post.showLikes) post.likes = undefined;
+};
 
 export const getPost = async (req, res) => {
     const { postId } = req.params;
@@ -16,8 +18,12 @@ export const getPost = async (req, res) => {
             .populate("user comments")
             .populate({ path: "comments", populate: { path: "user" } });
 
-        reorderComments(post.comments);
-        return res.send(post);
+        fieldHiding(post);
+
+        if (post.showComments)
+            post.comments.sort((a, b) => b.likes.length - a.likes.length);
+
+        res.send(post);
     } catch (err) {
         return error("Não foi possível carregar a publicação.", 500, res);
     }
@@ -40,6 +46,7 @@ export const getPosts = async (req, res) => {
             }).populate("user");
             const posts = allPosts.filter(({ user }) => user.username === username);
 
+            posts.forEach(fieldHiding);
             reorder(posts);
             res.send(filteredContent(posts, req.query));
         } else {
@@ -49,11 +56,9 @@ export const getPosts = async (req, res) => {
             const feed = await Post.find({
                 ...(getReels || { user: { $in: [req.userId, ...user.following] } }),
                 ...(getReels && { isReel: true }),
-            })
-                .populate("user media.persons.user")
-                .populate({ path: "comments", populate: { path: "user" } });
+            }).populate("user media.persons.user");
 
-            feed.forEach(({ comments }) => reorderComments(comments));
+            feed.forEach(fieldHiding);
             reorder(feed);
             res.send(filteredContent(feed, req.query));
         }
