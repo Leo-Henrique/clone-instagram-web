@@ -58,8 +58,6 @@ export const Logo = styled(CloneLogo)`
 export const Content = styled.div`
     ${({ theme }) => css`
         display: flex;
-        justify-content: center;
-        align-items: center;
         min-height: 100vh;
         max-width: calc(935px + ${theme.global.containerPaddingY} * 2);
         margin-left: auto;

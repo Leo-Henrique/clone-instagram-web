@@ -2,9 +2,8 @@ import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
     ${({ theme }) => css`
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        align-self: center;
+        width: 100%;
         max-width: 500px;
         margin: 0 auto;
         padding: 4rem 0;
