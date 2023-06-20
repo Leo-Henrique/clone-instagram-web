@@ -50,9 +50,11 @@ export default function Feed() {
                     <QueryError error={error} />
                 ) : (
                     <>
-                        {posts.map((post, index) => (
+                        {/* {posts.map((post, index) => (
                             <Post key={post?.id || index} post={post} />
-                        ))}
+                        ))} */}
+                            <Post key={posts[0]?.id} post={posts[0]} />
+
                     </>
                 )}
             </Styled.Posts>

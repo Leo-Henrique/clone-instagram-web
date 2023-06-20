@@ -14,11 +14,7 @@ export const Wrapper = styled.article`
     `}
 `;
 
-export const CarouselWrapper = styled.div`
-    position: relative;
-`;
-
-export const SingleMediaWrapper = styled.div`
+export const SingleMedia = styled.div`
     display: flex;
 `;
 

@@ -1,3 +1,4 @@
+import { darken, lighten } from "polished";
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
@@ -80,5 +81,5 @@ export const mobileSuggestionsItem = css`
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 0 32px 2px rgba(0, 0, 0, 0.16);
-    background-color: ${({ theme }) => theme.colors.block};
+    background-color: ${({ theme }) => theme.colors.background};
 `;

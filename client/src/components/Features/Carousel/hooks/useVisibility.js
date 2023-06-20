@@ -1,29 +1,71 @@
 import { useEffect } from "react";
 
-export default function useVisibility({ containerRef, innerRef, checkVisible }) {
-    const visibleClass = "visible";
+export default function useVisibility({
+    wrapperRef,
+    innerRef,
+    children,
+    externalCurrentItem,
+    items,
+    setItems,
+    currentItem,
+    setCurrentItem,
+    displacement,
+    setDisplacement,
+    pressed,
+}) {
+    const centerCurrentItem = () => setDisplacement(items[currentItem].center);
 
     useEffect(() => {
-        const items = Array.from(innerRef.current.children);
-        const handleVisibility = entries => {
-            const callback = ({ isIntersecting, target }) => {
-                if (isIntersecting) {
-                    items.forEach(item => item.classList.remove(visibleClass));
-                    target.classList.add(visibleClass);
-                }
-            };
+        const elements = Array.from(innerRef.current.children);
 
-            entries.forEach(callback);
-        };
-        const options = {
-            root: containerRef.current,
-            threshold: 0.6,
-        };
-        const observer = new IntersectionObserver(handleVisibility, options);
+        if (elements.length <= 1) return;
 
-        items.forEach(item => observer.observe(item));
+        const definePositions = () => {
+            const getPositions = element => ({
+                element,
+                get center() {
+                    const wrapperWidth = wrapperRef.current.offsetWidth;
+                    const leftover = wrapperWidth - element.offsetWidth;
+
+                    return -(element.offsetLeft - leftover / 2);
+                },
+            });
+            const elementsWithPosition = elements.map(getPositions);
+
+            setItems(elementsWithPosition);
+        };
+        const observer = new ResizeObserver(definePositions);
+
+        observer.observe(wrapperRef.current);
         return () => observer.disconnect();
-    }, [checkVisible && checkVisible]);
+    }, [children]);
 
-    return visibleClass;
+    useEffect(() => {
+        if (!items) return;
+
+        const positions = items.map(({ center }) => center);
+        const nearestPosition = positions.reduce((acc, position) =>
+            Math.abs(position - displacement) < Math.abs(acc - displacement)
+                ? position
+                : acc
+        );
+        const nearestIndex = positions.findIndex(
+            position => position === nearestPosition
+        );
+
+        if (nearestIndex !== currentItem) setCurrentItem(nearestIndex);
+        if (!pressed) centerCurrentItem();
+    }, [items, displacement]);
+
+    useEffect(() => {
+        if (!items) return;
+
+        const highlightClass = "visible";
+
+        items.forEach(({ element }) => element.classList.remove(highlightClass));
+        items[currentItem].element.classList.add(highlightClass);
+        centerCurrentItem();
+        
+        if (externalCurrentItem) externalCurrentItem[1](currentItem);
+    }, [items, currentItem]);
 }

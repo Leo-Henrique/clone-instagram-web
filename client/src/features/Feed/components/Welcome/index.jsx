@@ -31,7 +31,7 @@ export default function Welcome() {
             </Styled.Text>
 
             {isBreakpointMd ? (
-                <Carousel checkVisible={data} $padding="4rem 0 2rem">
+                <Carousel transition="scale" padding="4rem 0 2rem">
                     <Suggestions
                         data={data}
                         userBadgeProps={{

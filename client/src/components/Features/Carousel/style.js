@@ -1,24 +1,52 @@
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
-    overflow: hidden;
-    padding: ${({ $padding = 0 }) => $padding};
+    ${({ $grab, $pressed, $padding }) => css`
+        overflow: hidden;
+        padding: ${$padding};
+        position: relative;
+
+        ${$grab &&
+        css`
+            cursor: ${$pressed ? "grabbing" : "grab"};
+        `}
+    `}
 `;
 
-export const Inner = styled.ul`
-    ${({ theme }) => css`
-        display: flex;
+export const Inner = styled.ul.attrs(({ $displacement }) => ({
+    style: {
+        transform: `translate3d(${$displacement}px, 0, 0)`,
+    },
+}))`
+    ${({ theme, $direction, $transition, $droppedDrag }) => {
+        const transitions = {
+            opacity: css`
+                opacity: 0;
+            `,
+            scale: css`
+                opacity: 0.5;
+                transform: scale(0.85);
+            `,
+        };
 
-        > * {
-            list-style: none;
-            opacity: 0.6;
-            transform: scale(0.85);
-            ${theme.mixins.transition(["opacity, transform"], "carousel")};
+        return css`
+            display: flex;
 
-            &.visible {
-                opacity: 1;
-                transform: none;
+            ${$droppedDrag &&
+            css`
+                ${theme.mixins.transition(["transform"], "carousel")};
+            `}
+
+            > li {
+                list-style: none;
+                ${$transition && transitions[$transition]};
+                ${theme.mixins.transition(["opacity", "transform"], "carousel")};
+
+                &.visible {
+                    transform: none;
+                    opacity: 1;
+                }
             }
-        }
-    `}
+        `;
+    }}
 `;

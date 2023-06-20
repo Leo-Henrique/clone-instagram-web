@@ -2,36 +2,33 @@ import { memo, useState } from "react";
 
 import Carousel from "../../../../components/Features/Carousel";
 import Comments from "../../../comments/components/Comments";
-import CarouselControls from "../CarouselControls";
 import Details from "../Details";
 import Header from "../Header";
 import Media from "../Media";
 import * as Styled from "./style";
 
 const Post = memo(({ post, highlight }) => {
-    const [currentMedia, setCurrentMedia] = useState(0);
+    const currentMedia = useState(0);
 
     return (
         <Styled.Wrapper>
             {highlight || <Header post={post} />}
 
             {post?.media?.length > 1 ? (
-                <Styled.CarouselWrapper>
-                    <Carousel mouseDrag={false}>
-                        {post.media.map((data, index) => (
-                            <Media key={index} tag="li" data={data} post={post} />
-                        ))}
-                    </Carousel>
-
-                    <CarouselControls
-                        currentMedia={currentMedia}
-                        totalMedia={post.media.length}
-                    />
-                </Styled.CarouselWrapper>
+                <Carousel
+                    currentItem={currentMedia}
+                    drag={{ mouse: false }}
+                    controls={true}
+                    dots={true}
+                >
+                    {post.media.map((data, index) => (
+                        <Media key={index} tag="li" data={data} post={post} />
+                    ))}
+                </Carousel>
             ) : (
-                <Styled.SingleMediaWrapper>
+                <Styled.SingleMedia>
                     <Media tag="div" data={post?.media[0]} post={post} />
-                </Styled.SingleMediaWrapper>
+                </Styled.SingleMedia>
             )}
 
             <Styled.Infos>
