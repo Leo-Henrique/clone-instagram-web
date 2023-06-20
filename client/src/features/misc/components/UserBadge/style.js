@@ -55,7 +55,7 @@ export const Infos = styled.div`
             column-gap: 0.6rem;
 
             span {
-                max-width: 155px;
+                max-width: 140px;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 font-weight: 600;

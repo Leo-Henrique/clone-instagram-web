@@ -24,7 +24,7 @@ export default function StylesProvider({ children }) {
 
     return (
         <ThemeProvider theme={{ name: themeName, colors, ...theme }}>
-            <GlobalStyle $isAuthenticated={isAuthenticated} />
+            <GlobalStyle />
 
             {children}
         </ThemeProvider>

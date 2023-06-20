@@ -6,7 +6,7 @@ import UserBadge from "../../../misc/components/UserBadge";
 import Post from "../../../post/components/Post";
 import useGetPostsQuery from "../../api/getPosts";
 import useGetUsersQuery from "../../api/getUsers";
-import Suggestions from "../Suggestions";
+import Users from "../Users";
 import * as Styled from "./style";
 
 export const Infos = () => {
@@ -15,7 +15,12 @@ export const Infos = () => {
 
     return (
         <Styled.Infos>
-            <UserBadge user={authUser} showName={true} gap="2rem" pictureSize={55} />
+            <UserBadge
+                user={authUser}
+                showName={true}
+                gap="1.2rem"
+                pictureSize={45}
+            />
 
             <div>
                 {isError ? (
@@ -25,7 +30,11 @@ export const Infos = () => {
                         <Styled.UsersTitle>Usuários do Instagram</Styled.UsersTitle>
 
                         <Styled.UsersList $skeleton={!users}>
-                            <Suggestions data={users} followLink={true} />
+                            <Users
+                                data={users}
+                                followLink={true}
+                                userBadgeProps={{ pictureSize: 45, gap: "1.2rem" }}
+                            />
                         </Styled.UsersList>
                     </>
                 )}
@@ -50,11 +59,9 @@ export default function Feed() {
                     <QueryError error={error} />
                 ) : (
                     <>
-                        {/* {posts.map((post, index) => (
+                        {posts.map((post, index) => (
                             <Post key={post?.id || index} post={post} />
-                        ))} */}
-                            <Post key={posts[0]?.id} post={posts[0]} />
-
+                        ))}
                     </>
                 )}
             </Styled.Posts>

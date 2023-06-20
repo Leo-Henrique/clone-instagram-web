@@ -1,17 +1,9 @@
 import { createGlobalStyle, css } from "styled-components";
 import leoReset from "../../node_modules/leo-reset.css/dist/leo-reset.css?inline";
 
-const GlobalStyle = createGlobalStyle`${({ theme, $isAuthenticated }) => css`
+const GlobalStyle = createGlobalStyle`${({ theme }) => css`
     ${leoReset};
 
-    :root,
-    body,
-    #root {
-        ${$isAuthenticated &&
-        css`
-            height: 100%;
-        `}
-    }
     body {
         font-size: ${theme.fontSizes.body};
         line-height: 1.5;
@@ -19,12 +11,6 @@ const GlobalStyle = createGlobalStyle`${({ theme, $isAuthenticated }) => css`
         font-family: ${theme.fontFamily};
         color: ${theme.colors.text};
         background-color: ${theme.colors.background};
-
-        ${theme.name === "dark" && css`
-            ${theme.breakpoints.md} {
-                background-color: ${theme.colors.black};
-            }
-        `}
 
         &.hide-scrollbar {
             position: fixed;

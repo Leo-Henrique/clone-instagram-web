@@ -1,9 +1,7 @@
-import { darken, lighten } from "polished";
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
     ${({ theme }) => css`
-        min-height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -60,19 +58,19 @@ export const Text = styled.p`
     `}
 `;
 
-export const DesktopSuggestions = styled.ul`
+export const DesktopUsers = styled.ul`
     ${({ theme }) => css`
         display: flex;
         flex-direction: column;
         row-gap: 2rem;
         padding: 2rem;
         background-color: ${theme.colors.block};
-        border: 1px solid ${theme.colors.stroke};
+        border: 1px solid ${theme.colors.separator};
         border-radius: 5px;
     `}
 `;
 
-export const mobileSuggestionsItem = css`
+export const mobileUsersItem = css`
     max-width: 450px;
     flex: 0 0 75%;
     flex-direction: column;

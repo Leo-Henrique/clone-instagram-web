@@ -20,38 +20,18 @@ export const Wrapper = styled.span`
         $computedWidth,
     }) => {
         const colors = {
-            func: theme.name === "light" ? darken : lighten,
-            factor: theme.name === "light" ? 0.13 : 0.04,
+            factor: theme.name === "light" ? 0.13 : 0.07,
             get background() {
-                return this.func(this.factor, theme.colors.background);
+                const func = theme.name === "light" ? darken : lighten;
+
+                return func(this.factor, theme.colors.background);
             },
             get run() {
-                const func = theme.name === "light" ? lighten : this.func;
+                const func = theme.name === "light" ? lighten : darken;
 
                 return func(this.factor / 2, this.background);
             },
-            customDark: {
-                factor: 0.06,
-                get background() {
-                    return lighten(this.factor, theme.colors.black);
-                },
-                get run() {
-                    return lighten(this.factor / 2, theme.colors.black);
-                },
-            },
         };
-        const customDarkColorInMobile = css`
-            background-color: ${colors.customDark.background};
-
-            &::after {
-                background-image: linear-gradient(
-                    90deg,
-                    ${colors.customDark.background},
-                    ${colors.customDark.run},
-                    ${colors.customDark.background}
-                );
-            }
-        `;
 
         return css`
             display: inline-block;
@@ -83,13 +63,6 @@ export const Wrapper = styled.span`
                 );
                 animation: ${skeleton} 1.3s ease-in-out infinite;
             }
-
-            ${theme.name === "dark" &&
-            css`
-                ${theme.breakpoints.md} {
-                    ${customDarkColorInMobile};
-                }
-            `}
         `;
     }}
 `;

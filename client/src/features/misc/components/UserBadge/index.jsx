@@ -1,5 +1,6 @@
 import SVGVerified from "../../../../assets/icons/vectors/verified-blue.svg";
 import Skeleton from "../../../../components/Loaders/Skeleton/index.jsx";
+import Image from "../../../../components/Misc/Image";
 import { SERVER_DOMAIN } from "../../../../config/index.js";
 import * as Styled from "./style.js";
 
@@ -11,7 +12,7 @@ export default function UserBadge({ user, showName, column, gap, pictureSize }) 
         <Styled.Wrapper {...(user ? link : noLink)} $column={column} $gap={gap}>
             <Styled.Picture $size={pictureSize}>
                 {user?.picture ? (
-                    <img
+                    <Image
                         src={`${SERVER_DOMAIN}/${user.picture}`}
                         alt={`Foto de perfil de ${user.name}`}
                     />

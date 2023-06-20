@@ -4,7 +4,7 @@ import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
 import Skeleton from "../../../../components/Loaders/Skeleton";
 import useGetUsersQuery from "../../api/getUsers";
-import Suggestions from "../Suggestions";
+import Users from "../Users";
 import * as Styled from "./style";
 
 export default function Welcome() {
@@ -32,24 +32,24 @@ export default function Welcome() {
 
             {isBreakpointMd ? (
                 <Carousel transition="scale" padding="4rem 0 2rem">
-                    <Suggestions
+                    <Users
                         data={data}
                         userBadgeProps={{
                             showName: true,
                             column: true,
                             pictureSize: isBreakpointSm ? 90 : 120,
                         }}
-                        skeletonCount={1}
-                        styles={Styled.mobileSuggestionsItem}
+                        skeletonCount={2}
+                        styles={Styled.mobileUsersItem}
                     />
                 </Carousel>
             ) : (
-                <Styled.DesktopSuggestions>
-                    <Suggestions
+                <Styled.DesktopUsers>
+                    <Users
                         data={data}
                         userBadgeProps={{ showName: true, pictureSize: 45 }}
                     />
-                </Styled.DesktopSuggestions>
+                </Styled.DesktopUsers>
             )}
         </Styled.Wrapper>
     );

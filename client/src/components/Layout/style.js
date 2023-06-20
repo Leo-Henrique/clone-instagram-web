@@ -55,17 +55,16 @@ export const Logo = styled(CloneLogo)`
     `}
 `;
 
-export const Container = styled.div`
-    height: 100%;
-`;
-
-export const Content = styled.main`
+export const Content = styled.div`
     ${({ theme }) => css`
-        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
         max-width: calc(935px + ${theme.global.containerPaddingY} * 2);
-        padding: ${theme.global.containerPaddingY};
         margin-left: auto;
         margin-right: auto;
+        padding: ${theme.global.containerPaddingY};
 
         ${theme.breakpoints.md} {
             padding: 0;

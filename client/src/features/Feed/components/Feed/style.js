@@ -1,10 +1,17 @@
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    column-gap: 3rem;
-    padding-top: 2rem;
+    ${({ theme }) => css`
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        column-gap: 3rem;
+        padding-top: 3rem;
+
+        ${theme.breakpoints.md} {
+            padding-bottom: 2rem;
+        }
+    `}
 `;
 
 export const Posts = styled.div`
@@ -28,12 +35,12 @@ export const Infos = styled.div`
 export const UsersTitle = styled.p`
     color: ${({ theme }) => theme.colors.textSupport2};
     font-weight: 600;
-    margin: 1.5rem 0;
+    margin: 3rem 0 1.5rem;
 `;
 
 export const UsersList = styled.ul`
     ${({ theme, $skeleton }) => css`
-        max-height: 245px;
+        max-height: 310px;
         ${theme.mixins.customScrollbar()};
         ${$skeleton ||
         css`

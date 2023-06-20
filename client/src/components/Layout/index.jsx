@@ -42,17 +42,17 @@ export default function Layout({ children, MobileHeader }) {
 
                 <MoreNavigation />
             </Styled.Navbar>
-            <Styled.Container
+            <main
                 style={{
-                    height:
+                    minHeight:
                         isBreakpointMd &&
-                        `calc(100% - ${navbarHeight} - ${headerHeight})`,
+                        `calc(100vh - ${navbarHeight} - ${headerHeight})`,
                     marginBottom: isBreakpointMd && navbarHeight,
                     marginLeft: !isBreakpointMd && navbarWidth,
                 }}
             >
                 <Styled.Content>{children}</Styled.Content>
-            </Styled.Container>
+            </main>
         </>
     );
 }

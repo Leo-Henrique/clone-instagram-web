@@ -18,7 +18,7 @@ export const Inner = styled.ul.attrs(({ $displacement }) => ({
         transform: `translate3d(${$displacement}px, 0, 0)`,
     },
 }))`
-    ${({ theme, $direction, $transition, $droppedDrag }) => {
+    ${({ theme, $transition, $droppedDrag }) => {
         const transitions = {
             opacity: css`
                 opacity: 0;

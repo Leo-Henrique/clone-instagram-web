@@ -22,7 +22,7 @@ const colorScheme = {
         skeletonAnimate: "#E3E3E3",
     },
     dark: {
-        background: "#121212",
+        background: "#000",
         block: "#000",
         blockSupport1: "#262626",
         blockSupport2: "#414141",
@@ -34,7 +34,7 @@ const colorScheme = {
             return darken(0.17, this.textSupport2);
         },
         footer: "#737373",
-        separator: "#1B1B1B",
+        separator: "#131313",
         stroke: "#262626",
         strokeFocus: "#262626",
         spinner: "#737373",
