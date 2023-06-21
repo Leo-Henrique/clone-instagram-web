@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 
-import useHead from "../../../../hooks/useHead";
+import Head from "../../../../components/Misc/Head";
 import useForgotPasswordMutation from "../../api/forgotPassword";
 import Layout from "../../components/Layout";
 import SendEmail from "./SendEmail";
@@ -10,10 +10,10 @@ export default function ForgotPassword() {
     const [request, result] = useForgotPasswordMutation();
     const { data, isSuccess } = result;
 
-    useHead({ title: "Redefinir senha" });
-
     return (
         <Layout.Template>
+            <Head title="Redefinir senha" />
+
             <AnimatePresence mode="wait">
                 {!isSuccess ? (
                     <SendEmail key="1" request={request} result={result} />

@@ -4,9 +4,9 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 
 import { showMessage } from "../../../../app/slices/message";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
+import Head from "../../../../components/Misc/Head";
 import Button from "../../../../components/misc/Button";
 import PNGIcon from "../../../../components/misc/PNGIcon";
-import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
 import Layout from "../../components/Layout";
 
@@ -39,12 +39,12 @@ export default function ResetPassword() {
         }
     };
 
-    useHead({ title: "Criar nova senha" });
-
     if (!location.search || !userId || !token) return <Navigate to="/" />;
 
     return (
         <Layout.Template>
+            <Head title="Criar nova senha" />
+
             <Layout.FormBlock>
                 <PNGIcon $src={IMGForgotPassword} $size={96} $center />
 

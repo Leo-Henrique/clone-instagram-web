@@ -2,11 +2,11 @@ import { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { showMessage } from "../../../../app/slices/message";
+import Head from "../../../../components/Misc/Head";
 import Button from "../../../../components/misc/Button";
-import useHead from "../../../../hooks/useHead";
 import useSignUpMutation from "../../api/signUp";
-import { signInThunk } from "../../slices/auth";
 import Layout from "../../components/Layout";
+import { signInThunk } from "../../slices/auth";
 import * as Styled from "./style";
 
 export default function SignUp() {
@@ -62,14 +62,14 @@ export default function SignUp() {
         }
     };
 
-    useHead({
-        title: "Cadastre-se",
-        desc: "Crie sua conta para o Clone do Instagram.",
-        index: true,
-    });
-
     return (
         <Layout.Template>
+            <Head
+                title="Cadastre-se"
+                description="Crie sua conta no Clone do Instagram."
+                index={true}
+            />
+
             <Layout.FormBlock $paddingBottom="3.5rem">
                 <Layout.Logo $marginBottom="1.5rem" />
 

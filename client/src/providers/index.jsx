@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
+import { HelmetProvider } from "react-helmet-async";
 import store from "../app/store";
 import HelpersProvider from "./HelpersProvider";
 import MotionProvider from "./MotionProvider";
@@ -14,7 +15,9 @@ export default function AppProvider({ children }) {
                 <BrowserRouter>
                     <MotionProvider>
                         <HelpersProvider>
-                            <AuthProvider>{children}</AuthProvider>
+                            <HelmetProvider>
+                                <AuthProvider>{children}</AuthProvider>
+                            </HelmetProvider>
                         </HelpersProvider>
                     </MotionProvider>
                 </BrowserRouter>

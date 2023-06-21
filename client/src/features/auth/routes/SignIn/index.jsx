@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Footer from "../../../../components/Layout/Footer";
+import Head from "../../../../components/Misc/Head";
 import Button from "../../../../components/misc/Button";
-import useHead from "../../../../hooks/useHead";
 import useMotion from "../../../../hooks/useMotion";
 import { useSignInMutation } from "../../api/signIn";
-import { signInThunk } from "../../slices/auth";
 import Layout from "../../components/Layout";
 import Slideshow from "../../components/Slideshow";
+import { signInThunk } from "../../slices/auth";
 import * as Styled from "./style";
 
 export default function SignIn() {
@@ -33,13 +33,13 @@ export default function SignIn() {
         },
     });
 
-    useHead({
-        desc: "Crie uma conta ou entre no Clone do Instagram, uma simulação completa criada por Leonardo Henrique da versão web do verdadeiro Instagram.",
-        index: true,
-    });
-
     return (
         <Layout.Wrapper>
+            <Head
+                description="Crie uma conta ou entre no Clone do Instagram, uma simulação completa criada por Leonardo Henrique da versão web do verdadeiro Instagram."
+                index={true}
+            />
+
             <Styled.Wrapper {...motionProps}>
                 <Slideshow />
 

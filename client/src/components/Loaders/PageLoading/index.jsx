@@ -1,5 +1,5 @@
 import IMGLogo from "../../../assets/images/logo.png";
-import useHead from "../../../hooks/useHead";
+import Head from "../../../components/Misc/Head";
 import useMotion from "../../../hooks/useMotion";
 import Footer from "../../Layout/Footer";
 import Image from "../../Misc/Image";
@@ -11,10 +11,10 @@ export default function PageLoading() {
         transition: "loading",
     });
 
-    useHead();
-
     return (
         <Styled.Wrapper {...motionProps}>
+            <Head />
+
             <div>
                 <Image src={IMGLogo} alt="Logo do Instagram" />
             </div>
