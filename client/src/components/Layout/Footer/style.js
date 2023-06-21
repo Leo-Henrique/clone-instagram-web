@@ -50,6 +50,11 @@ export const Text = styled.p`
     `}
 `;
 
+export const From = styled.span`
+    display: block;
+    text-align: center;
+`
+
 export const Author = styled.a`
     ${({ theme, $isAuthenticated, $width, $pageLoading }) => css`
         display: inline-block;
@@ -66,7 +71,8 @@ export const Author = styled.a`
             filter: grayscale(15%);
         `};
         ${$pageLoading && css`
-            animation: ${loading($width)} 1.3s linear infinite;
+            animation: ${loading($width)} 1s linear infinite;
+            font-size: ${theme.fontSizes.body};
         `}
 
         ${theme.queries.desktop} {

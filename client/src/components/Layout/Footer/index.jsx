@@ -13,7 +13,14 @@ export default function Footer({ pageLoading }) {
             $pageLoading={pageLoading}
         >
             <Styled.Text>
-                Feito com <span>&hearts;</span> e React por {"\n"}
+                {pageLoading ? (
+                    <Styled.From>from</Styled.From>
+                ) : (
+                    <>
+                        Feito com <span>&hearts;</span> e React por {"\n"}
+                    </>
+                )}
+
                 <Styled.Author
                     href="https://www.linkedin.com/in/leonardo-henrique-/"
                     target="_blank"
@@ -25,7 +32,7 @@ export default function Footer({ pageLoading }) {
                 >
                     Leonardo Henrique
                 </Styled.Author>
-                .
+                {pageLoading || "."}
             </Styled.Text>
         </Styled.Wrapper>
     );
