@@ -18,7 +18,7 @@ const reducer = combineReducers({
     confirmation,
 });
 const middleware = getDefaultMiddleware =>
-    getDefaultMiddleware().concat(api.middleware);
+    getDefaultMiddleware({ serializableCheck: false }).concat(api.middleware);
 const store = configureStore({ reducer, middleware });
 
 export default store;

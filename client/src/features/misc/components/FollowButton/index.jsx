@@ -5,8 +5,8 @@ import { useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Skeleton from "../../../../components/Loaders/Skeleton";
 import useMotion from "../../../../hooks/useMotion";
-import Follow from "./Follow/Follow";
-import Unfollow from "./Unfollow/Unfollow";
+import Follow from "./Follow";
+import Unfollow from "./Unfollow";
 
 const FollowButton = memo(({ user: instagramUser, $link, $linkStyles }) => {
     const authUserId = useSelector(({ auth }) => auth.user.id);

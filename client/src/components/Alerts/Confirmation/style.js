@@ -27,28 +27,7 @@ export const Content = styled.div`
         ${theme.breakpoints.md} {
             padding: 4rem 2rem;
         }
-
-        h2 {
-            display: block;
-            font-size: ${theme.fontSizes.h2};
-        }
-        p {
-            color: ${theme.colors.textSupport2};
-        }
     `}
-`;
-
-export const Image = styled.div`
-    &,
-    img {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        margin: 0 auto;
-    }
-    & + p {
-        margin-top: 2rem;
-    }
 `;
 
 export const Action = styled.div`

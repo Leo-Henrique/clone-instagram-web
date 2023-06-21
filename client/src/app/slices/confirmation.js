@@ -2,40 +2,25 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     show: false,
-    confirmed: false,
-    action: null,
-    content: {
-        show: false,
-        image: null,
-        imageAlt: null,
-        title: null,
-        text: null,
+    action: {
+        name: "Confirmar",
+        callback: null,
     },
+    content: null,
 };
 
 const confirmationSlice = createSlice({
     name: "confirmation",
     initialState,
     reducers: {
-        requireConfirmation: (state, { payload }) => ({
-            ...state,
+        requireConfirmation: (state, { payload: { action, content } }) => ({
             show: true,
-            action: payload.action,
-            content: { ...state.content, ...payload.content, show: true },
+            action: { ...state, ...action },
+            content,
         }),
         cancelConfirmation: () => initialState,
-        confirm: state => {
-            state.confirmed = true;
-        },
     },
 });
 
 export const { requireConfirmation, cancelConfirmation } = confirmationSlice.actions;
-const { confirm } = confirmationSlice.actions;
-
-export const confirmThunk = closeModal => dispatch => {
-    dispatch(confirm());
-    setTimeout(closeModal, 20);
-};
-
 export default confirmationSlice.reducer;
