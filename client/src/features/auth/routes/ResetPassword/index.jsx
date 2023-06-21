@@ -4,11 +4,10 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 
 import { showMessage } from "../../../../app/slices/message";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
-import PNGIcon from "../../../../components/misc/PNGIcon";
 import Button from "../../../../components/misc/Button";
+import PNGIcon from "../../../../components/misc/PNGIcon";
 import useHead from "../../../../hooks/useHead";
 import useResetPasswordMutation from "../../api/resetPassword";
-import { signInThunk } from "../../slices/auth";
 import Layout from "../../components/Layout";
 
 export default function ResetPassword() {
@@ -33,7 +32,10 @@ export default function ResetPassword() {
             const messageTime = 3000;
 
             dispatch(showMessage({ text: success, duration: messageTime }));
-            setTimeout(() => dispatch(signInThunk({ token })), messageTime);
+            setTimeout(() => {
+                localStorage.setItem("token", JSON.stringify(token));
+                window.location.reload();
+            }, messageTime);
         }
     };
 

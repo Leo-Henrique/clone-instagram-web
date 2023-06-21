@@ -1,36 +1,44 @@
-import { AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
+import { AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import PageLoading from "../components/Loaders/PageLoading";
 import { useAuthQuery } from "../features/auth/api/signIn";
-import { signIn } from "../features/auth/slices/auth";
+import { signInThunk } from "../features/auth/slices/auth";
 
 export default function AuthProvider({ children }) {
-    const token = useSelector(({ auth }) => auth.token);
-    const [render, setRender] = useState(!token);
-    const timeLoading = 1000;
+    const dispatch = useDispatch();
+    const { token } = localStorage;
     const {
         data: user,
         isLoading,
         isSuccess,
         isError,
         error,
-    } = useAuthQuery(false, { skip: !token });
-    const dispatch = useDispatch();
+    } = useAuthQuery(null, { skip: !token });
+    const firstRender = useRef(true);
+    const [persistedLoading, setPersistedLoading] = useState(!!token);
 
     useEffect(() => {
-        if (token) setTimeout(() => setRender(true), timeLoading);
-    }, []);
-    useEffect(() => {
-        if (isSuccess) dispatch(signIn({ user }));
-    }, [isSuccess]);
+        if (firstRender.current) {
+            if (token) setTimeout(() => setPersistedLoading(false), 1000);
 
-    if (isError && error.status === 401) localStorage.removeItem("token");
+            firstRender.current = false;
+            return;
+        }
+
+        if (isError && error.status === 401) localStorage.removeItem("token");
+
+        if (isSuccess) dispatch(signInThunk({ user }));
+    }, [isError, isSuccess]);
 
     return (
         <AnimatePresence mode="wait">
-            {isLoading || !render ? <PageLoading key="loading" /> : children}
+            {isLoading || persistedLoading ? (
+                <PageLoading key="loading" />
+            ) : (
+                children
+            )}
         </AnimatePresence>
     );
 }

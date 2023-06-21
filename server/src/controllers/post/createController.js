@@ -45,7 +45,10 @@ export default async function createPost(req, res) {
             isReel: files.length === 1 && files[0].mimetype.includes("video"),
         });
 
-        await User.findByIdAndUpdate(req.userId, { hasPosts: true });
+        await User.findByIdAndUpdate(req.userId, {
+            hasPosts: true,
+            hasContentInFeed: true,
+        });
 
         res.send(post);
     } catch (err) {

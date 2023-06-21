@@ -9,6 +9,7 @@ const { useSignUpMutation } = api.injectEndpoints({
                 headers: { "Content-Type": "application/json" },
                 body,
             }),
+            transformResponse: res => convertId(res, ["user"]),
         }),
     }),
 });

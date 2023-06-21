@@ -24,15 +24,17 @@ const authSlice = createSlice({
     },
 });
 
-export const { signIn, logout, update } = authSlice.actions;
+const { signIn, logout, update } = authSlice.actions;
 
 export const signInThunk = data => dispatch => {
     dispatch(signIn(data));
-    localStorage.setItem("token", JSON.stringify(data.token));
+
+    if (data.token) localStorage.setItem("token", JSON.stringify(data.token));
 };
 
 export const logoutThunk = () => dispatch => {
     dispatch(logout());
+    dispatch(api.util.resetApiState());
     localStorage.removeItem("token");
 };
 

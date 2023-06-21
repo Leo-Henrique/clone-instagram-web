@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";

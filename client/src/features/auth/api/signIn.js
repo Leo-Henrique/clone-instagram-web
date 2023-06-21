@@ -10,6 +10,7 @@ const extendApi = api.injectEndpoints({
                 headers: { "Content-Type": "application/json" },
                 body,
             }),
+            transformResponse: res => convertId(res, ["user"]),
         }),
         auth: build.query({
             query: () => "auth",

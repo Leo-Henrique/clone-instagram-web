@@ -25,9 +25,15 @@ export default async function deletePost(req, res) {
 
         if (!hasPosts) await User.findByIdAndUpdate(req.userId, { hasPosts: false });
 
+        const user = await User.findById(req.userId);
+        const feed = await Post.find({
+            user: { $in: [req.userId, ...user.following] },
+        });
+
+        if (!feed.length) await User.findByIdAndUpdate(req.userId, { hasContentInFeed: false });
+
         res.send({ success: "Sua publicação foi excluída." });
     } catch (err) {
-        console.log(err);
         return error(
             "Não foi possível excluir sua publicação. Tente novamente.",
             500,

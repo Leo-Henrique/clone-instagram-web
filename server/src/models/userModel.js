@@ -68,6 +68,10 @@ const UserSchema = new mongoose.Schema({
     hasPosts: {
         type: Boolean,
         default: false,
+    },
+    hasContentInFeed: {
+        type: Boolean,
+        default: false,
     }
 });
 

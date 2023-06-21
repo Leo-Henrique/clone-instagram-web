@@ -1,3 +1,4 @@
+import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js";
 import { error } from "../../utils/helpers/validations.js";
 
@@ -14,6 +15,8 @@ export const follow = async (req, res) => {
 
         if (youFollow || followed)
             return error("Você já está seguindo este usuário.", 400, res);
+
+        if (instagramUser.hasPosts) authUser.hasContentInFeed = true;
 
         authUser.following.push(instagramUser.id);
         instagramUser.followers.push(req.userId);
@@ -55,6 +58,12 @@ export const unfollow = async (req, res) => {
         );
         authUser.save();
         instagramUser.save();
+
+        const feed = await Post.find({
+            user: { $in: [req.userId, ...authUser.following] },
+        });
+
+        if (!feed.length) await User.findByIdAndUpdate(req.userId, { hasContentInFeed: false });
         res.send();
     } catch (err) {
         return error(
