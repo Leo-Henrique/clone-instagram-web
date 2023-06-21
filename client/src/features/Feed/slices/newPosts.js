@@ -1,49 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
-import api from "../../../app/api";
-import { updateUser } from "../../auth/slices/auth";
+
+const initialState = {
+    show: false,
+    newFollowers: 0,
+};
 
 const newPostsSlice = createSlice({
     name: "newPosts",
-    initialState: {
-        show: false,
-        postCount: 0,
-    },
+    initialState,
     reducers: {
         warn: state => ({ ...state, show: true }),
         notWarn: state => ({ ...state, show: false }),
-        incrementPosts: (state, { payload }) => {
-            state.postCount = state.postCount + payload;
+        incrementNewFollowers: state => {
+            state.newFollowers = state.newFollowers + 1;
         },
-        decrementPosts: (state, { payload }) => {
-            state.postCount = state.postCount - payload;
+        decrementNewFollowers: state => {
+            state.newFollowers = state.newFollowers - 1;
         },
-        resetPosts: () => ({ show: false, postCount: 0 }),
+        resetNewPosts: () => initialState,
     },
 });
 
-export const { warn, notWarn, incrementPosts, decrementPosts } =
+const { warn, notWarn, incrementNewFollowers, decrementNewFollowers } =
     newPostsSlice.actions;
-const { resetPosts } = newPostsSlice.actions;
 
-export const warnThunk = addCount => dispatch => {
+export const { resetNewPosts } = newPostsSlice.actions;
+
+export const warnNewPosts = () => dispatch => {
     dispatch(warn());
-    dispatch(incrementPosts(addCount));
+    dispatch(incrementNewFollowers());
 };
 
-export const showFeed = () => (dispatch, getState) => {
-    const { hasContentInFeed } = getState().auth.user;
+export const notWarnNewPosts = () => (dispatch, getState) => {
+    dispatch(decrementNewFollowers());
 
-    dispatch(resetPosts());
-
-    if (!hasContentInFeed) {
-        dispatch(
-            api.util.updateQueryData("auth", false, draft => ({
-                ...draft,
-                hasContentInFeed: true,
-            }))
-        );
-        dispatch(updateUser({ hasContentInFeed: true }));
-    }
+    if (getState().newPosts.newFollowers === 0) dispatch(notWarn());
 };
 
 export default newPostsSlice.reducer;

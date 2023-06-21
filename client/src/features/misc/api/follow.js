@@ -1,39 +1,51 @@
 import api from "../../../app/api";
+import { updateUser } from "../../auth/slices/auth";
 
-const updateCache = async (arg, { dispatch, getState, queryFulfilled }) => {
-    const update = draft => {
-        const authenticatedUserId = getState().auth.user.id;
-        const user = draft.find(({ username }) => username === arg.username);
-        const { followers } = user;
+const updateCache = async (
+    instagramUserId,
+    { dispatch, getState, queryFulfilled }
+) => {
+    const authUser = getState().auth.user;
+    const updateAuthUser = () => {
+        const { following } = authUser;
+        let newFollowing;
 
-        if (followers.includes(authenticatedUserId))
-            user.followers = followers.filter(id => id !== authenticatedUserId);
-        else followers.push(authenticatedUserId);
+        if (following.includes(instagramUserId)) 
+            newFollowing = following.filter(id => id !== instagramUserId);
+        else newFollowing = [...following, instagramUserId];
+
+        dispatch(updateUser({ following: newFollowing }));
     };
+    const updateInstagramUser = draft => {
+        const instagramUser = draft.find(({ id }) => id === instagramUserId);
+        const { followers } = instagramUser;
+
+        if (followers.includes(authUser.id))
+            instagramUser.followers = followers.filter(id => id !== authUser.id);
+        else followers.push(authUser.id)
+    }
 
     try {
         await queryFulfilled;
-        dispatch(api.util.updateQueryData("getUsers", undefined, update));
+
+        updateAuthUser();
+        dispatch(api.util.updateQueryData("getUsers", undefined, updateInstagramUser));
     } catch {}
 };
 
 const extendApi = api.injectEndpoints({
     endpoints: build => ({
         follow: build.mutation({
-            query: body => ({
-                url: "users/follow",
+            query: instagramUserId => ({
+                url: `users/follow/${instagramUserId}`,
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body,
             }),
             onQueryStarted: updateCache,
         }),
         unfollow: build.mutation({
-            query: body => ({
-                url: "users/unfollow",
+            query: instagramUserId => ({
+                url: `users/unfollow/${instagramUserId}`,
                 method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-                body,
             }),
             onQueryStarted: updateCache,
         }),

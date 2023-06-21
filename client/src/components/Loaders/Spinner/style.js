@@ -12,7 +12,14 @@ const spin = keyframes`
 
 export const Wrapper = styled(m.div)`
     ${({ theme, $size, $themeColor = "spinner", $padding = 0, $pageLoading }) => css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: ${$padding};
+
+        ${$pageLoading && css`
+            min-height: 100vh;
+        `}
 
         svg {
             animation-name: ${spin};
@@ -20,28 +27,17 @@ export const Wrapper = styled(m.div)`
             animation-iteration-count: infinite;
             animation-timing-function: steps(8, end);
             ${theme.mixins.SVGResponsive};
+            ${$pageLoading
+                ? css`
+                      width: ${$size ? $size : 26}px;
+                  `
+                : css`
+                      width: ${$size ? $size : 18}px;
+                  `}
 
             path {
                 fill: ${theme.colors[$themeColor]};
             }
         }
-        ${$pageLoading
-            ? css`
-                  min-height: 100%;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-
-                  svg {
-                      width: ${$size ? $size : 26}px;
-                  }
-              `
-            : css`
-                  display: inline-block;
-
-                  svg {
-                      width: ${$size ? $size : 18}px;
-                  }
-              `}
     `}
 `;

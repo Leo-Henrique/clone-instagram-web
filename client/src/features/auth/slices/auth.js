@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import api from "../../../app/api";
 
 const initialState = {
     isAuthenticated: false,
@@ -16,14 +17,14 @@ const authSlice = createSlice({
             isAuthenticated: true,
         }),
         logout: () => initialState,
-        updateUser: (state, { payload }) => ({
+        update: (state, { payload }) => ({
             ...state,
             user: { ...state.user, ...payload },
         }),
     },
 });
 
-export const { signIn, logout, updateUser } = authSlice.actions;
+export const { signIn, logout, update } = authSlice.actions;
 
 export const signInThunk = data => dispatch => {
     dispatch(signIn(data));
@@ -34,4 +35,15 @@ export const logoutThunk = () => dispatch => {
     dispatch(logout());
     localStorage.removeItem("token");
 };
+
+export const updateUser = updatedData => dispatch => {
+    dispatch(update(updatedData));
+    dispatch(
+        api.util.updateQueryData("auth", false, draft => ({
+            ...draft,
+            ...updatedData,
+        }))
+    );
+};
+
 export default authSlice.reducer;

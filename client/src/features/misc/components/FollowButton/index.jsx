@@ -9,14 +9,14 @@ import Follow from "./Follow/Follow";
 import Unfollow from "./Unfollow/Unfollow";
 
 const FollowButton = memo(({ user: instagramUser, $link, $linkStyles }) => {
-    const userId = useSelector(({ auth }) => auth.user.id);
+    const authUserId = useSelector(({ auth }) => auth.user.id);
     const isBreakpointSm = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointSm
     );
     const { pathname } = useLocation();
     const motionProps = useMotion({ transition: "button" });
-    const following = instagramUser?.followers?.includes(userId);
-    const props = () => ({
+    const following = instagramUser?.followers?.includes(authUserId);
+    const props = {
         buttonConfig: {
             expand: isBreakpointSm,
             primary: !following,
@@ -24,13 +24,9 @@ const FollowButton = memo(({ user: instagramUser, $link, $linkStyles }) => {
             $linkStyles,
             ...motionProps,
         },
-        instagramUser: {
-            ...instagramUser,
-            // postsCount: instagramUser.posts.length,
-        },
-        // handlePostAlert: instagramUser.posts.length && pathname === "/",
-    });
-
+        instagramUser,
+        handlePostAlert: instagramUser?.hasPosts && pathname === "/",
+    };
 
     if (!instagramUser)
         return (
@@ -45,9 +41,9 @@ const FollowButton = memo(({ user: instagramUser, $link, $linkStyles }) => {
     return (
         <AnimatePresence mode="wait">
             {following ? (
-                <Unfollow {...props()} key="unfollow" />
+                <Unfollow {...props} key="unfollow" />
             ) : (
-                <Follow {...props()} key="follow" />
+                <Follow {...props} key="follow" />
             )}
         </AnimatePresence>
     );

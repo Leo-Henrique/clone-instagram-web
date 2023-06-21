@@ -1,28 +1,24 @@
 import User from "../../models/userModel.js";
 import { error } from "../../utils/helpers/validations.js";
 
-const emptyField = res => error("Usuário não especificado.", 400, res);
-
 export const follow = async (req, res) => {
-    const { username } = req.body;
+    const { instagramUserId } = req.params;
 
     try {
-        if (!username) emptyField(res);
-
-        const [user, follow] = await Promise.all([
+        const [authUser, instagramUser] = await Promise.all([
             User.findById(req.userId),
-            User.findOne({ username }),
+            User.findById(instagramUserId),
         ]);
-        const youFollow = user.following.includes(follow.id);
-        const followed = follow.followers.includes(req.userId);
+        const youFollow = authUser.following.includes(instagramUser.id);
+        const followed = instagramUser.followers.includes(req.userId);
 
         if (youFollow || followed)
             return error("Você já está seguindo este usuário.", 400, res);
 
-        user.following.push(follow.id);
-        follow.followers.push(user.id);
-        user.save();
-        follow.save();
+        authUser.following.push(instagramUser.id);
+        instagramUser.followers.push(req.userId);
+        authUser.save();
+        instagramUser.save();
         res.send();
     } catch (err) {
         return error(
@@ -34,17 +30,15 @@ export const follow = async (req, res) => {
 };
 
 export const unfollow = async (req, res) => {
-    const { username } = req.body;
+    const { instagramUserId } = req.params;
 
     try {
-        if (!username) emptyField(res);
-
-        const [user, unfollow] = await Promise.all([
-            User.findById(req.userId).populate("following"),
-            User.findOne({ username }).populate("followers"),
+        const [authUser, instagramUser] = await Promise.all([
+            User.findById(req.userId),
+            User.findById(instagramUserId),
         ]);
-        const youFollow = user.following.some(({ id }) => id === unfollow.id);
-        const followed = unfollow.followers.some(({ id }) => id === req.userId);
+        const youFollow = authUser.following.includes(instagramUser.id);
+        const followed = instagramUser.followers.includes(req.userId);
 
         if (!youFollow && !followed)
             return error(
@@ -53,10 +47,14 @@ export const unfollow = async (req, res) => {
                 res
             );
 
-        user.following = user.following.filter(({ id }) => id !== unfollow.id);
-        unfollow.followers = unfollow.followers.filter(({ id }) => id !== user.id);
-        user.save();
-        unfollow.save();
+        authUser.following = authUser.following.filter(
+            id => id.toString() !== instagramUserId
+        );
+        instagramUser.followers = instagramUser.followers.filter(
+            id => id.toString() !== req.userId
+        );
+        authUser.save();
+        instagramUser.save();
         res.send();
     } catch (err) {
         return error(

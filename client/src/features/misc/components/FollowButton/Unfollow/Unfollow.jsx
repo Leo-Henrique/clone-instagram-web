@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { requireConfirmation } from "../../../../../app/slices/confirmation";
 import { showError } from "../../../../../app/slices/message";
 import { SERVER_DOMAIN } from "../../../../../config";
-import { decrementPosts, notWarn } from "../../../../feed/slices/newPosts";
+import { notWarnNewPosts } from "../../../../feed/slices/newPosts";
 import { useUnfollowMutation } from "../../../api/follow";
 import * as Styled from "../style";
 
@@ -28,23 +28,20 @@ export default function Unfollow({ buttonConfig, instagramUser, handlePostAlert 
         setUnfollowPending(instagramUser.username);
     };
     const unfollow = async () => {
-        const { username, postsCount } = instagramUser;
-
         try {
-            await request({ username }).unwrap();
+            await request(instagramUser.id).unwrap();
 
-            if (handlePostAlert) dispatch(decrementPosts(postsCount));
-            if (newPosts.postCount - postsCount === 0) dispatch(notWarn());
+            if (handlePostAlert) dispatch(notWarnNewPosts());
         } catch (error) {
             dispatch(showError({ error }));
         }
     };
 
-    useEffect(() => {
-        const unfollowUsername = unfollowPending === instagramUser.username;
+    // useEffect(() => {
+    //     const unfollowUsername = unfollowPending === instagramUser.username;
 
-        if (confirmed && unfollowUsername) unfollow();
-    }, [confirmed]);
+    //     if (confirmed && unfollowUsername) unfollow();
+    // }, [confirmed]);
 
-    return <Styled.Button {...buttonConfig} text="Seguindo" onClick={confirm} />;
+    return <Styled.Button {...buttonConfig} text="Seguindo" onClick={unfollow} />;
 }

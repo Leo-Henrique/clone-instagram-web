@@ -6,22 +6,8 @@ import { error } from "../../utils/helpers/validations.js";
 export const getUsers = async (req, res) => {
     try {
         const users = await User.find();
-        const posts = await Post.find();
-        const newUsers = users.filter(({ id }) => id !== req.userId);
-        const usersWithPosts = newUsers.map(user => {
-            const userPosts = posts.filter(post => post.user.toString() === user.id);
-            const reorderedPosts = userPosts.sort(
-                (a, b) => b.createdAt - a.createdAt
-            );
-            const threePosts = reorderedPosts.filter((post, index) => index < 3);
 
-            return {
-                ...user._doc,
-                posts: threePosts,
-            };
-        });
-
-        res.send(usersWithPosts);
+        res.send(users.filter(({ id }) => id !== req.userId));
     } catch (err) {
         return error("Não foi possível carregar os usuários.", 500, res);
     }

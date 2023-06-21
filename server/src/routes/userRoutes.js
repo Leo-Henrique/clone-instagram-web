@@ -23,13 +23,13 @@ router.get("/:username", getUser);
 router.use(authMiddleware);
 
 router.post("/picture", newProfilePicture);
-router.post("/follow", follow);
+router.post("/follow/:instagramUserId", follow);
 router.patch("/", updateInfos);
 router.patch("/password", updatePassword);
 router.get("/", getUsers);
 router.get("/:username/:friends", getFriends);
 router.delete("/picture", deleteProfilePicture);
-router.delete("/unfollow", unfollow);
+router.delete("/unfollow/:instagramUserId", unfollow);
 router.delete("/", deleteUser);
 
 export default router;
