@@ -82,6 +82,7 @@ export const link =
         return css`
             font-size: ${theme.fontSizes[fontSize]};
             font-weight: 600;
+            cursor: pointer;
             ${theme.mixins.transition(["color", "opacity"])};
             ${primary ? primaryStyles : defaultStyles};
         `;

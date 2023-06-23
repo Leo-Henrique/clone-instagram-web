@@ -15,7 +15,6 @@ const extendApi = api.injectEndpoints({
         auth: build.query({
             query: () => "auth",
             transformResponse: res => convertId(res),
-            providesTags: ["Users"],
         }),
     }),
 });

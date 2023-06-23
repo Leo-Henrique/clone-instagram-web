@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { showMessage, showErrorMessage } from "../../../../../app/slices/message";
+import { showErrorMessage, showMessage } from "../../../../../app/slices/message";
 import { requireConfirmation, showOptions } from "../../../../../app/slices/modal";
 import SVGViewMore from "../../../../../assets/icons/vectors/view-more.svg";
 import useDeletePostMutation from "../../../api/deletePost";

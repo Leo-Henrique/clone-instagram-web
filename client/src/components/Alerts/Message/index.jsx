@@ -16,6 +16,7 @@ export default function Message() {
         transition,
     });
     const text = useSelector(({ message }) => message.text);
+    const suggestReload = useSelector(({ message }) => message.suggestReload);
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
     );
@@ -37,6 +38,12 @@ export default function Message() {
             $navbarHeight={navbarHeight}
         >
             <p>{text}</p>
+
+            {suggestReload && (
+                <Styled.Button onClick={() => location.reload()}>
+                    Atualizar a página
+                </Styled.Button>
+            )}
         </Styled.Wrapper>
     );
 }

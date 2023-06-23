@@ -5,17 +5,18 @@ const initialState = {
     show: false,
     text: null,
     duration: null,
+    suggestReload: false,
 };
 
 const messageSlice = createSlice({
     name: "message",
     initialState,
     reducers: {
-        show: (state, { payload: { text, duration } }) => {
-            state.show = true;
-            state.text = text;
-            state.duration = duration;
-        },
+        show: (state, { payload }) => ({
+            ...state,
+            ...payload,
+            show: true,
+        }),
         hide: state => ({ ...state, show: false }),
         defineIntervals: (state, { payload }) => {
             state.intervals.push(payload);
@@ -53,7 +54,7 @@ export const showMessage =
     };
 
 export const showErrorMessage =
-    ({ error, duration = 6000 }) =>
+    ({ error, duration, suggestReload = false }) =>
     dispatch => {
         const defaultError = "Um erro inesperado ocorreu. Tente novamente.";
         const resError = error?.data?.error;
@@ -61,7 +62,8 @@ export const showErrorMessage =
         dispatch(
             showMessage({
                 text: resError ? resError : defaultError,
-                duration,
+                duration: duration ? duration : suggestReload ? 8000 : 6000,
+                suggestReload,
             })
         );
     };

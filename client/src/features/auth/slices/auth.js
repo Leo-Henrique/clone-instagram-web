@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import api from "../../../app/api";
+import { showErrorMessage } from "../../../app/slices/message";
 
 const initialState = {
     isAuthenticated: false,
@@ -38,14 +39,32 @@ export const logoutThunk = () => dispatch => {
     localStorage.removeItem("token");
 };
 
-export const updateUser = updatedData => dispatch => {
-    dispatch(update(updatedData));
-    dispatch(
-        api.util.updateQueryData("auth", null, draft => ({
-            ...draft,
-            ...updatedData,
-        }))
-    );
+export const updateUser = updatedData => async dispatch => {
+    if (updatedData) {
+        dispatch(update(updatedData));
+        dispatch(
+            api.util.updateQueryData("auth", null, draft => ({
+                ...draft,
+                ...updatedData,
+            }))
+        );
+        return;
+    }
+
+    try {
+        const { data } = await dispatch(
+            api.endpoints.auth.initiate(null, { forceRefetch: true })
+        );
+
+        dispatch(update(data));
+    } catch (error) {
+        dispatch(
+            showErrorMessage({
+                text: "Não foi possível atualizar as informações.",
+                suggestReload: true,
+            })
+        );
+    }
 };
 
 export default authSlice.reducer;

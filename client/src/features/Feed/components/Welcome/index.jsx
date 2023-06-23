@@ -8,7 +8,7 @@ import Users from "../Users";
 import * as Styled from "./style";
 
 export default function Welcome() {
-    const { data, isError, error } = useGetUsersQuery();
+    const { data, isError, error, isFetching } = useGetUsersQuery();
     const { isBreakpointMd, isBreakpointSm } = useSelector(
         ({ breakpoints }) => breakpoints,
         shallowEqual

@@ -1,4 +1,5 @@
 import api from "../../../app/api";
+import { updateUser } from "../../auth/slices/auth";
 
 const { useDeletePostMutation } = api.injectEndpoints({
     endpoints: build => ({
@@ -9,8 +10,13 @@ const { useDeletePostMutation } = api.injectEndpoints({
             }),
             invalidatesTags: (result, error, postId) => [
                 { type: "Posts", id: postId },
-                "Users"
             ],
+            onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
+                try {
+                    await queryFulfilled;
+                    dispatch(updateUser());
+                } catch {}
+            },
         }),
     }),
 });

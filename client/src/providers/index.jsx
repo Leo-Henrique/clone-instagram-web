@@ -14,11 +14,11 @@ export default function AppProvider({ children }) {
             <StylesProvider>
                 <BrowserRouter>
                     <MotionProvider>
-                        <HelpersProvider>
-                            <HelmetProvider>
-                                <AuthProvider>{children}</AuthProvider>
-                            </HelmetProvider>
-                        </HelpersProvider>
+                        <HelmetProvider>
+                            <AuthProvider>
+                                <HelpersProvider>{children}</HelpersProvider>
+                            </AuthProvider>
+                        </HelmetProvider>
                     </MotionProvider>
                 </BrowserRouter>
             </StylesProvider>
