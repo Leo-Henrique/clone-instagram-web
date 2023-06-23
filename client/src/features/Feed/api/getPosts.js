@@ -6,6 +6,10 @@ const { useGetPostsQuery } = api.injectEndpoints({
         getPosts: build.query({
             query: () => "posts",
             transformResponse: res => convertId(res, "user"),
+            providesTags: result =>
+                result
+                    ? ["Posts", ...result.map(({ id }) => ({ type: "Posts", id }))]
+                    : ["Posts"],
         }),
     }),
 });

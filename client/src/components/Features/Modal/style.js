@@ -2,13 +2,13 @@ import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled(m.div)`
-    ${({ theme }) => css`
+    ${({ theme, $zIndex }) => css`
         display: flex;
         align-items: center;
         justify-content: center;
         position: fixed;
         inset: 0;
-        z-index: ${theme.zIndexes.modal};
+        z-index: ${theme.zIndexes.modal[$zIndex]};
         padding: ${theme.global.containerPaddingY} ${theme.global.containerPaddingX};
         background-color: rgba(0, 0, 0, 0.65);
 

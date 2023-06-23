@@ -38,13 +38,20 @@ const theme = {
             duration: 200,
             timingFunction: "ease",
         },
+        modal: {
+            duration: 250,
+            timingFunction: "ease-in-out"
+        }
     },
     zIndexes: {
         navbar: 5,
         tooltip: 10,
         newPosts: 15,
-        modal: 20,
-        message: 25,
+        modal: {
+            options: 20,
+            confirmation: 25,
+        },
+        message: 30,
     },
     global: {
         containerPaddingX: "15px",

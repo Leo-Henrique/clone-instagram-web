@@ -13,14 +13,3 @@ export const Wrapper = styled.header`
         }
     `}
 `;
-
-export const ViewMore = styled.button`
-    ${({ theme }) => css`
-        margin-left: auto;
-        ${theme.mixins.genericLinkStates()};
-
-        path {
-            fill: ${theme.colors.text};
-        }
-    `}
-`;

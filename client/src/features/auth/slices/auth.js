@@ -41,7 +41,7 @@ export const logoutThunk = () => dispatch => {
 export const updateUser = updatedData => dispatch => {
     dispatch(update(updatedData));
     dispatch(
-        api.util.updateQueryData("auth", false, draft => ({
+        api.util.updateQueryData("auth", null, draft => ({
             ...draft,
             ...updatedData,
         }))

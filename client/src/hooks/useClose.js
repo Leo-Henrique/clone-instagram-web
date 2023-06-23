@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useRef } from "react";
 
-export default function useClose(state, setState) {
+export default function useClose({
+    state = null,
+    callback,
+    clickOnAnyElement,
+}) {
     const notCloseIn = useRef();
     const clickOutside = useCallback(({ target }) => {
-        if (!notCloseIn.current.contains(target)) setState(false);
+        if (clickOnAnyElement) callback();
+        else if (!notCloseIn.current.contains(target)) callback();
     });
     const escapeKey = useCallback(({ key }) => {
-        if (key === "Escape") setState(false);
+        if (key === "Escape") callback();
     });
 
     useEffect(() => {
@@ -24,7 +29,9 @@ export default function useClose(state, setState) {
             document.removeEventListener("keydown", escapeKey);
         };
 
-        state ? addEvents() : removeEvents();
+        if (state !== null) state ? addEvents() : removeEvents();
+        else addEvents();
+
         return () => removeEvents();
     }, [state]);
 

@@ -1,4 +1,3 @@
-import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -10,7 +9,6 @@ import * as Styled from "./style";
 
 export default function NewPosts() {
     const dispatch = useDispatch();
-    const show = useSelector(({ newPosts }) => newPosts.show);
     const hasContentInFeed = useSelector(({ auth }) => auth.user.hasContentInFeed);
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
@@ -23,7 +21,9 @@ export default function NewPosts() {
     });
     const showUpdatedFeed = () => {
         if (hasContentInFeed)
-            dispatch(api.endpoints.getPosts.initiate(undefined, { forceRefetch: true }));
+            dispatch(
+                api.endpoints.getPosts.initiate(undefined, { forceRefetch: true })
+            );
         else dispatch(updateUser({ hasContentInFeed: true }));
 
         dispatch(resetNewPosts());
@@ -40,14 +40,10 @@ export default function NewPosts() {
     }, [isBreakpointMd]);
 
     return (
-        <AnimatePresence>
-            {show && (
-                <Styled.Wrapper {...motionProps} $headerHeight={headerHeight}>
-                    <button type="button" onClick={showUpdatedFeed}>
-                        Novas publicações
-                    </button>
-                </Styled.Wrapper>
-            )}
-        </AnimatePresence>
+        <Styled.Wrapper {...motionProps} $headerHeight={headerHeight}>
+            <button type="button" onClick={showUpdatedFeed}>
+                Novas publicações
+            </button>
+        </Styled.Wrapper>
     );
 }

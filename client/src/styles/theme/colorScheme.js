@@ -42,7 +42,7 @@ const colorScheme = {
         skeletonAnimate: "#363636",
     },
     global: {
-        messageBackground: "#262626",
+        messageBackground: "#171717",
         messageText: "#F5F5F5",
         postConfig: "rgba(26, 26, 26, .8)",
         postMarked: "rgba(0, 0, 0, .85)",

@@ -44,7 +44,10 @@ export default function MoreNavigation() {
         },
     });
     const [menuOpen, setMenuOpen] = useState(false);
-    const { notClose } = useClose(menuOpen, setMenuOpen);
+    const { notClose } = useClose({
+        state: menuOpen,
+        callback: () => setMenuOpen(false),
+    });
 
     return (
         <Styled.Wrapper ref={notClose}>

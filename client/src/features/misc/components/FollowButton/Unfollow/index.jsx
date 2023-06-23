@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 
-import { requireConfirmation } from "../../../../../app/slices/confirmation";
-import { showError } from "../../../../../app/slices/message";
+import { showErrorMessage } from "../../../../../app/slices/message";
+import { requireConfirmation } from "../../../../../app/slices/modal";
 import { notWarnNewPosts } from "../../../../feed/slices/newPosts";
 import { useUnfollowMutation } from "../../../api/follow";
 import ConfirmationUnfollow from "../ConfirmationUnfollow";
@@ -16,7 +16,7 @@ export default function Unfollow({ buttonConfig, instagramUser, handlePostAlert 
 
             if (handlePostAlert) dispatch(notWarnNewPosts());
         } catch (error) {
-            dispatch(showError({ error }));
+            dispatch(showErrorMessage({ error }));
         }
     };
     const confirm = () => {

@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 
-import SVGViewMore from "../../../../assets/icons/vectors/view-more.svg";
 import FollowButton from "../../../misc/components/FollowButton";
 import UserBadge from "../../../misc/components/UserBadge";
+import ViewMore from "./ViewMore";
 import * as Styled from "./style.js";
 
 export default function Header({ post, showFollowButton }) {
@@ -16,11 +16,7 @@ export default function Header({ post, showFollowButton }) {
                 <FollowButton user={post?.user} $link={true} />
             )}
 
-            {post && (
-                <Styled.ViewMore type="button">
-                    <SVGViewMore aria-label="Ver mais" />
-                </Styled.ViewMore>
-            )}
+            {post && <ViewMore post={post} />}
         </Styled.Wrapper>
     );
 }

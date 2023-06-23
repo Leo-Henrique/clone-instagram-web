@@ -12,6 +12,7 @@ const api = createApi({
             return headers;
         },
     }),
+    tagTypes: ["Users", "Posts"],
     endpoints: () => ({}),
 });
 

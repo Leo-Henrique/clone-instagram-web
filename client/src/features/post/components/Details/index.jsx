@@ -10,7 +10,7 @@ import * as Styled from "./style";
 
 const FeedInfos = ({ post: { user, legend, showComments, comments } }) => {
     const totalComments = comments?.length;
-    const totalCommentsFormatted = totalComments.toLocaleString("pt-BR");
+    const totalCommentsFormatted = totalComments?.toLocaleString("pt-BR");
 
     return (
         <>

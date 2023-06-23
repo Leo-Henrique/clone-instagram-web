@@ -4,8 +4,8 @@ import newPosts from "../features/Feed/slices/newPosts";
 import auth from "../features/auth/slices/auth";
 import api from "./api";
 import breakpoints from "./slices/breakpoints";
-import confirmation from "./slices/confirmation";
 import message from "./slices/message";
+import modal from "./slices/modal";
 import theme from "./slices/theme";
 
 const reducer = combineReducers({
@@ -15,7 +15,7 @@ const reducer = combineReducers({
     theme,
     breakpoints,
     newPosts,
-    confirmation,
+    modal,
 });
 const middleware = getDefaultMiddleware =>
     getDefaultMiddleware({ serializableCheck: false }).concat(api.middleware);
