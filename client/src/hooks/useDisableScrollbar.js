@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function useDisableScrollbar(state) {
     const { documentElement: root, body } = document;
     const hasScrollbar = root.scrollHeight > root.clientHeight;
-    const scrolling = root.scrollTop;
+    const [scrolling, setScrolling] = useState(root.scrollTop);
     const styles = {
         position: "fixed",
         inlineSize: "100%",
@@ -16,8 +16,12 @@ export default function useDisableScrollbar(state) {
     useEffect(() => {
         const properties = Object.keys(styles);
 
-        if (state) properties.forEach(key => (body.style[key] = styles[key]));
-        else {
+        if (state) {
+            setScrolling(root.scrollTop);
+            setTimeout(() => {
+                properties.forEach(key => (body.style[key] = styles[key]));
+            });
+        } else {
             properties.forEach(key => {
                 const propertyName = key.replace(
                     /[A-Z]/,
@@ -26,6 +30,7 @@ export default function useDisableScrollbar(state) {
 
                 body.style.removeProperty(propertyName);
             });
+
             scrollTo({ top: scrolling, behavior: "instant" });
         }
     }, [state]);

@@ -1,76 +1,74 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { showErrorMessage, showMessage } from "../../../../../app/slices/message";
-import { requireConfirmation, showOptions } from "../../../../../app/slices/modal";
+import { showOptions } from "../../../../../app/slices/modal";
 import SVGViewMore from "../../../../../assets/icons/vectors/view-more.svg";
-import useDeletePostMutation from "../../../api/deletePost";
+import useCopy from "../../../../../hooks/useCopy";
+import useDeletePost from "../../../api/deletePost";
+import { useToggleShowComments, useToggleShowLikes } from "../../../api/updatePost";
 import * as Styled from "./style";
 
 export default function ViewMore({ post }) {
     const dispatch = useDispatch();
     const authUserId = useSelector(({ auth }) => auth.user.id);
-    const [deletePost] = useDeletePostMutation();
-    const userMasterOptions = () => {
-        const options = [
-            {
-                name: "Excluir",
-                danger: true,
-                callback: () => {
-                    const deleteCallback = async () => {
-                        try {
-                            const { success } = await deletePost(post.id).unwrap();
+    const deletePost = useDeletePost(post.id);
+    const toggleShowLikes = useToggleShowLikes(post.id, post.showLikes);
+    const toggleShowComments = useToggleShowComments(post.id, post.showComments);
+    const postLink = `/post/${post.id}`;
+    const copyPostLink = useCopy({
+        text: location.origin + postLink,
+        success: "O link da publicação foi copiado para a área de transferência.",
+        error: "Não foi possível copiar o link da publicação.",
+    });
+    const globalOptions = [
+        {
+            name: "Ir para a publicação",
+            callback: postLink,
+        },
+        {
+            name: "Copiar link",
+            callback: copyPostLink,
+        },
+    ];
+    const authUserOptions = [
+        {
+            name: "Excluir",
+            danger: true,
+            callback: deletePost,
+        },
+        {
+            name: "Editar",
+            callback: () => {},
+        },
+        {
+            name: post.showLikes
+                ? "Ocultar número de curtidas"
+                : "Exibir número de curtidas",
+            callback: toggleShowLikes,
+        },
+        {
+            name: post.showComments ? "Desativar comentários" : "Ativar comentários",
+            callback: toggleShowComments,
+        },
+        ...globalOptions,
+    ];
+    const instagramUserOptions = [
+        {
+            name: "Deixar de seguir",
+            danger: true,
+            callback: () => {},
+        },
+        ...globalOptions,
+    ];
+    const viewOptions = () => {
+        const isAuthUserPost = post.user.id === authUserId;
 
-                            dispatch(showMessage({ text: success }));
-                        } catch (error) {
-                            dispatch(showErrorMessage({ error }));
-                        }
-                    };
-                    const confirmationOptions = {
-                        action: { name: "Excluir", callback: deleteCallback },
-                        content: "DELETE",
-                        template: {
-                            title: "Excluir publicação",
-                            description:
-                                "Tem certeza que deseja excluir essa publicação?",
-                        },
-                    };
-
-                    dispatch(requireConfirmation(confirmationOptions));
-                },
-            },
-            {
-                name: "Editar",
-                callback: null,
-            },
-            {
-                name: "Ocultar número de curtidas",
-                callback: null,
-            },
-            {
-                name: "Desativar comentários",
-                callback: null,
-            },
-            {
-                name: "Ir para a publicação",
-                callback: null,
-            },
-            {
-                name: "Copiar link",
-                callback: null,
-            },
-        ];
-
-        dispatch(showOptions(options));
+        dispatch(
+            showOptions(isAuthUserPost ? authUserOptions : instagramUserOptions)
+        );
     };
-    const userCommonOptions = () => {};
 
     return (
-        <Styled.Wrapper
-            type="button"
-            onClick={
-                post.user.id === authUserId ? userMasterOptions : userCommonOptions
-            }
-        >
+        <Styled.Wrapper type="button" onClick={viewOptions}>
             <SVGViewMore aria-label="Ver mais" />
         </Styled.Wrapper>
     );

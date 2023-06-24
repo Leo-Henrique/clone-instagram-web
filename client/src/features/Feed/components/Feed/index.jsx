@@ -17,7 +17,7 @@ export default function Feed() {
     return (
         <Styled.Wrapper>
             <Styled.Posts>
-                {data && isFetching && <Spinner $size={26} />}
+                {/* {data && isFetching && <Spinner $size={26} />} */}
 
                 {isError ? (
                     <QueryError error={error} />
@@ -29,7 +29,7 @@ export default function Feed() {
                     </>
                 )}
 
-                {data && isFetching && <Spinner $size={26} />}
+                {/* {data && isFetching && <Spinner $size={26} />} */}
             </Styled.Posts>
 
             {isBreakpointLg || <Infos />}

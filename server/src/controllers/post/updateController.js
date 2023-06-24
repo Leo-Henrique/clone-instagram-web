@@ -18,7 +18,7 @@ export default async function updatePost(req, res) {
             );
 
         keys.forEach(key => {
-            if (key !== "persons" && post[key]) post[key] = req.body[key];
+            if (key !== "persons") post[key] = req.body[key];
         });
 
         if (persons) {

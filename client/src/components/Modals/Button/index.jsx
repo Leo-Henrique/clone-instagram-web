@@ -1,11 +1,15 @@
 import * as Styled from "./style";
 
-export default function Button({ text, $danger, ...rest }) {
+export default function Button({ text, as: tagName = "button", ...rest }) {
     return (
-        <Styled.Wrapper $danger={$danger}>
-            <button type="button" {...rest}>
+        <Styled.Wrapper>
+            <Styled.Button
+                as={tagName}
+                {...(tagName === "button" && { type: "button" })}
+                {...rest}
+            >
                 {text}
-            </button>
+            </Styled.Button>
         </Styled.Wrapper>
     );
 }

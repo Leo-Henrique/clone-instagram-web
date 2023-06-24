@@ -1,4 +1,7 @@
+import { useDispatch } from "react-redux";
 import api from "../../../app/api";
+import { showErrorMessage, showMessage } from "../../../app/slices/message";
+import { requireConfirmation } from "../../../app/slices/modal";
 import { updateUser } from "../../auth/slices/auth";
 
 const { useDeletePostMutation } = api.injectEndpoints({
@@ -9,7 +12,7 @@ const { useDeletePostMutation } = api.injectEndpoints({
                 method: "DELETE",
             }),
             invalidatesTags: (result, error, postId) => [
-                { type: "Posts", id: postId },
+                { type: "Post", id: postId },
             ],
             onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
                 try {
@@ -21,4 +24,29 @@ const { useDeletePostMutation } = api.injectEndpoints({
     }),
 });
 
-export default useDeletePostMutation;
+export default function useDeletePost(postId) {
+    const dispatch = useDispatch();
+    const [request] = useDeletePostMutation();
+
+    return () => {
+        const deleteCallback = async () => {
+            try {
+                const { success } = await request(postId).unwrap();
+
+                dispatch(showMessage({ text: success }));
+            } catch (error) {
+                dispatch(showErrorMessage({ error }));
+            }
+        };
+        const confirmationOptions = {
+            action: { name: "Excluir", callback: deleteCallback },
+            content: "DELETE",
+            template: {
+                title: "Excluir publicação",
+                description: "Tem certeza que deseja excluir essa publicação?",
+            },
+        };
+        
+        dispatch(requireConfirmation(confirmationOptions));
+    };
+}

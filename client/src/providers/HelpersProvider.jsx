@@ -12,11 +12,15 @@ export default function HelpersProvider({ children }) {
 
     return (
         <>
+            <AnimatePresence>
+                {showMessage && <Message />}
+            </AnimatePresence>
+
             <AnimatePresence mode="wait">
-                {showMessage && <Message key="message" />}
                 {showConfirmation && <Confirmation key="confirmation" />}
                 {showOptions && <Options key="options" />}
             </AnimatePresence>
+            
             {children}
         </>
     );

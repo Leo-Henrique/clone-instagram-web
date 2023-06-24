@@ -8,8 +8,8 @@ const { useGetPostsQuery } = api.injectEndpoints({
             transformResponse: res => convertId(res, "user"),
             providesTags: result =>
                 result
-                    ? ["Posts", ...result.map(({ id }) => ({ type: "Posts", id }))]
-                    : ["Posts"],
+                    ? ["Post", ...result.map(({ id }) => ({ type: "Post", id }))]
+                    : ["Post"],
         }),
     }),
 });

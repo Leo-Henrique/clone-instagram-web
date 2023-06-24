@@ -3,7 +3,7 @@ import { showErrorMessage } from "../../../app/slices/message";
 import { updateUser } from "../../auth/slices/auth";
 
 const invalidatesTags = (result, error, instagramUserId) => [
-    { type: "Users", id: instagramUserId },
+    { type: "User", id: instagramUserId },
 ];
 
 const onQueryStarted = async (

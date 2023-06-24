@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { closeModal } from "../../../app/slices/modal";
 import Modal from "../../Features/Modal";
@@ -14,11 +15,15 @@ export default function Options() {
                 <Button
                     key={name}
                     text={name}
-                    onClick={() => {
-                        dispatch(closeModal("options"));
-                        callback();
-                    }}
                     $danger={danger}
+                    {...(typeof callback === "string"
+                        ? { as: Link, to: callback }
+                        : {
+                              onClick: () => {
+                                  dispatch(closeModal("options"));
+                                  callback();
+                              }, 
+                          })}
                 />
             ))}
         </Modal>
