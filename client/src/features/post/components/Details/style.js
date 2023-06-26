@@ -1,4 +1,3 @@
-import { darken } from "polished";
 import { css, styled } from "styled-components";
 
 const gap = "1.5rem";
@@ -16,37 +15,6 @@ export const Wrapper = styled.div`
         }
         > *:last-child {
             padding-bottom: 0;
-        }
-    `}
-`;
-
-export const Actions = styled.ul`
-    display: flex;
-    align-items: center;
-`;
-
-export const Action = styled.li`
-    ${({ theme }) => css`
-        &:first-child button {
-            padding-left: 0;
-        }
-        &:last-child {
-            margin-left: auto;
-
-            button {
-                padding-right: 0;
-            }
-        }
-        button {
-            padding: 1.5rem calc(1.8rem / 2) calc(${gap} / 2);
-            ${theme.mixins.genericLinkStates()};
-
-            path[fill] {
-                fill: ${theme.colors.text};
-            }
-            path[stroke] {
-                stroke: ${theme.colors.text};
-            }
         }
     `}
 `;

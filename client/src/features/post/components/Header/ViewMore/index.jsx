@@ -1,18 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-
-import { showOptions } from "../../../../../app/slices/modal";
-import SVGViewMore from "../../../../../assets/icons/vectors/view-more.svg";
+import { useSelector } from "react-redux";
 import useCopy from "../../../../../hooks/useCopy";
-import useDeletePost from "../../../api/deletePost";
-import { useToggleShowComments, useToggleShowLikes } from "../../../api/updatePost";
-import * as Styled from "./style";
+import AuthUserOptions from "./AuthUserOptions";
+import InstagramUserOptions from "./InstagramUserOptions";
 
 export default function ViewMore({ post }) {
-    const dispatch = useDispatch();
     const authUserId = useSelector(({ auth }) => auth.user.id);
-    const [deletePost] = useDeletePost(post.id);
-    const toggleShowLikes = useToggleShowLikes(post.id, post.showLikes);
-    const toggleShowComments = useToggleShowComments(post.id, post.showComments);
     const postLink = `/post/${post.id}`;
     const copyPostLink = useCopy({
         text: location.origin + postLink,
@@ -29,47 +21,8 @@ export default function ViewMore({ post }) {
             callback: copyPostLink,
         },
     ];
-    const authUserOptions = [
-        {
-            name: "Excluir",
-            danger: true,
-            callback: deletePost,
-        },
-        {
-            name: "Editar",
-            callback: () => {},
-        },
-        {
-            name: post.showLikes
-                ? "Ocultar número de curtidas"
-                : "Exibir número de curtidas",
-            callback: toggleShowLikes,
-        },
-        {
-            name: post.showComments ? "Desativar comentários" : "Ativar comentários",
-            callback: toggleShowComments,
-        },
-        ...globalOptions,
-    ];
-    const instagramUserOptions = [
-        {
-            name: "Deixar de seguir",
-            danger: true,
-            callback: () => {},
-        },
-        ...globalOptions,
-    ];
-    const viewOptions = () => {
-        const isAuthUserPost = post.user.id === authUserId;
 
-        dispatch(
-            showOptions(isAuthUserPost ? authUserOptions : instagramUserOptions)
-        );
-    };
-
-    return (
-        <Styled.Wrapper type="button" onClick={viewOptions}>
-            <SVGViewMore aria-label="Ver mais" />
-        </Styled.Wrapper>
-    );
+    if (post.user.id === authUserId)
+        return <AuthUserOptions post={post} globalOptions={globalOptions} />;
+    else return <InstagramUserOptions post={post} globalOptions={globalOptions} />;
 }

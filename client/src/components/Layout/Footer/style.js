@@ -11,7 +11,7 @@ const loading = width => keyframes`
     100% {
         background-position-x: 0;
     }
-`
+`;
 
 export const Wrapper = styled.footer`
     ${({ theme, $isAuthenticated, $pageLoading }) => css`
@@ -28,7 +28,8 @@ export const Wrapper = styled.footer`
                   color: ${theme.colors.textSupport2};
                   padding-top: 5rem ${theme.global.containerPaddingX} 3rem;
               `}
-        ${$pageLoading && css`
+        ${$pageLoading &&
+        css`
             position: absolute;
             bottom: 0;
         `}
@@ -36,24 +37,27 @@ export const Wrapper = styled.footer`
 `;
 
 export const Text = styled.p`
-    ${({ theme }) => css`
+    ${({ theme, $pageLoading }) => css`
         display: inline-block;
 
-        ${theme.queries.desktop} {
-            &:hover > span {
-                color: ${darken(0.07, theme.colors.danger)};
+        ${!$pageLoading &&
+        css`
+            ${theme.queries.desktop} {
+                &:hover > span {
+                    color: ${darken(0.07, theme.colors.danger)};
+                }
             }
-        }
-        > span {
-            ${theme.mixins.transition(["color"])};
-        }
+            > span {
+                ${theme.mixins.transition(["color"])};
+            }
+        `}
     `}
 `;
 
 export const From = styled.span`
     display: block;
     text-align: center;
-`
+`;
 
 export const Author = styled.a`
     ${({ theme, $isAuthenticated, $width, $pageLoading }) => css`
@@ -70,7 +74,8 @@ export const Author = styled.a`
         css`
             filter: grayscale(15%);
         `};
-        ${$pageLoading && css`
+        ${$pageLoading &&
+        css`
             animation: ${loading($width)} 1s linear infinite;
             font-size: ${theme.fontSizes.body};
         `}

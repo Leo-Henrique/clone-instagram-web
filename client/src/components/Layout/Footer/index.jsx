@@ -12,7 +12,7 @@ export default function Footer({ pageLoading }) {
             $isAuthenticated={isAuthenticated}
             $pageLoading={pageLoading}
         >
-            <Styled.Text>
+            <Styled.Text $pageLoading={pageLoading}>
                 {pageLoading ? (
                     <Styled.From>from</Styled.From>
                 ) : (

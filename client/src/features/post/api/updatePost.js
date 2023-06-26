@@ -19,11 +19,11 @@ const { useUpdatePostMutation } = api.injectEndpoints({
 
 export const useToggleShowLikes = (postId, showLikes) => {
     const dispatch = useDispatch();
-    const [request] = useUpdatePostMutation();
-
-    return async () => {
+    const [request, result] = useUpdatePostMutation();
+    const toggleShowLikes = async () => {
         const hiddenLikes = "O número de curtidas da sua publicação foi ocultado.";
-        const showingLikes = "O número de curtidas da sua publicação agora é exibido.";
+        const showingLikes =
+            "O número de curtidas da sua publicação agora é exibido.";
 
         try {
             await request({
@@ -40,14 +40,15 @@ export const useToggleShowLikes = (postId, showLikes) => {
         } catch (error) {
             dispatch(showErrorMessage({ error }));
         }
-    }
+    };
+
+    return [toggleShowLikes, result];
 };
 
 export const useToggleShowComments = (postId, showComments) => {
     const dispatch = useDispatch();
-    const [request] = useUpdatePostMutation();
-
-    return async () => {
+    const [request, result] = useUpdatePostMutation();
+    const toggleShowComments = async () => {
         const hiddenComments = "Os comentários da sua publicação foram desativados.";
         const showingComments = "Os comentários da sua publicação foram ativados.";
 
@@ -66,5 +67,7 @@ export const useToggleShowComments = (postId, showComments) => {
         } catch (error) {
             dispatch(showErrorMessage({ error }));
         }
-    }
+    };
+
+    return [toggleShowComments, result];
 };

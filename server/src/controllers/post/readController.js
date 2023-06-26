@@ -5,9 +5,14 @@ import filteredContent from "../../utils/helpers/filteredContent.js";
 import { error } from "../../utils/helpers/validations.js";
 
 const reorder = posts => posts.sort((a, b) => b.createdAt - a.createdAt);
-const fieldHiding = post => {
-    if (!post.showComments) post.comments = undefined;
-    if (!post.showLikes) post.likes = undefined;
+const fieldHiding = (post, userId) => {
+    const filter = data => {
+        if (data.user) return data.user.toString() === userId;
+        return data._id.toString() === userId;
+    };
+
+    if (!post.showComments) post.comments = post.comments.filter(filter);
+    if (!post.showLikes) post.likes = post.likes.filter(filter);
 };
 
 export const getPost = async (req, res) => {
@@ -46,7 +51,7 @@ export const getPosts = async (req, res) => {
             }).populate("user");
             const posts = allPosts.filter(({ user }) => user.username === username);
 
-            posts.forEach(fieldHiding);
+            posts.forEach(post => fieldHiding(post));
             reorder(posts);
             res.send(filteredContent(posts, req.query));
         } else {
@@ -58,7 +63,7 @@ export const getPosts = async (req, res) => {
                 ...(getReels && { isReel: true }),
             }).populate("user media.persons.user");
 
-            feed.forEach(fieldHiding);
+            feed.forEach(post => fieldHiding(post, req.userId));
             reorder(feed);
             res.send(filteredContent(feed, req.query));
         }
