@@ -7,6 +7,7 @@ import SVGLike from "../../../../../assets/icons/vectors/heart.svg";
 import SVGLiked from "../../../../../assets/icons/vectors/liked.svg";
 import SVGSave from "../../../../../assets/icons/vectors/save.svg";
 import SVGShare from "../../../../../assets/icons/vectors/share.svg";
+import useDisable from "../../../../../hooks/useDisable";
 import useMotion from "../../../../../hooks/useMotion";
 import useToggleLikePost from "../../../api/likePost";
 import * as Styled from "./style";
@@ -19,7 +20,7 @@ const Like = ({ post }) => {
         variants: {
             initial: { opacity: 0 },
             animate: { opacity: 1, scale: 1 },
-            exit: { opacity: 0, scale: 0.4 }
+            exit: { opacity: 0, scale: 0.4 },
         },
         transition: "button",
     });
@@ -27,7 +28,7 @@ const Like = ({ post }) => {
         variants: {
             initial: { opacity: 0, scale: 0.4 },
             animate: { opacity: 1, scale: 1 },
-            exit: { opacity: 0 }
+            exit: { opacity: 0 },
         },
         transition: "button",
     });
@@ -55,24 +56,28 @@ const Like = ({ post }) => {
 };
 
 export default function Actions({ post }) {
+    const { buttonDisabled } = useDisable();
     const actions = [
         {
             id: "comments",
             description: "Ver comentários da publicação",
             icon: <SVGComments />,
             show: post?.showComments,
+            callback: buttonDisabled,
         },
         {
             id: "share",
             description: "Compartilhar publicação",
             icon: <SVGShare />,
             show: true,
+            callback: buttonDisabled,
         },
         {
             id: "save",
             description: "Salvar a publicação",
             icon: <SVGSave />,
             show: true,
+            callback: buttonDisabled,
         },
     ];
 

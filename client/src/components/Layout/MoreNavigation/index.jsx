@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { toggleTheme } from "../../../app/slices/theme";
@@ -10,31 +10,32 @@ import SVGMode from "../../../assets/icons/vectors/moon.svg";
 import SVGSaved from "../../../assets/icons/vectors/save.svg";
 import { logoutThunk } from "../../../features/auth/slices/auth";
 import useClose from "../../../hooks/useClose";
+import useDisable from "../../../hooks/useDisable";
 import useMotion from "../../../hooks/useMotion";
 import * as Styled from "./style";
 
 export default function MoreNavigation() {
-    const username = useSelector(({ auth }) => auth.user.username);
     const dispatch = useDispatch();
+    const { linkDisabled } = useDisable();
     const menu = [
         {
             name: "Configurações",
-            href: "/accounts",
             icon: <SVGConfig />,
+            callback: linkDisabled,
         },
         {
             name: "Salvos",
-            href: `/${username}/saved`,
             icon: <SVGSaved />,
+            callback: linkDisabled,
         },
         {
             name: "Alterar modo",
             icon: <SVGMode />,
-            onClick: () => dispatch(toggleTheme()),
+            callback: () => dispatch(toggleTheme()),
         },
         {
             name: "Sair",
-            onClick: () => dispatch(logoutThunk()),
+            callback: () => dispatch(logoutThunk()),
         },
     ];
     const motionProps = useMotion({
@@ -67,18 +68,19 @@ export default function MoreNavigation() {
             <AnimatePresence>
                 {menuOpen && (
                     <Styled.Menu {...motionProps}>
-                        {menu.map(({ name, href, icon, onClick }) => (
+                        {menu.map(({ name, callback, icon }) => (
                             <li key={name}>
                                 <Styled.MenuAction
-                                    {...(href
-                                        ? { as: Link, to: href }
+                                    {...(typeof callback === "string"
+                                        ? { as: Link, to: callback }
                                         : {
                                               as: "button",
                                               type: "button",
-                                              onClick,
+                                              onClick: callback,
                                           })}
                                 >
                                     <span>{name}</span>
+
                                     {icon && (
                                         <Styled.MenuIcon>{icon}</Styled.MenuIcon>
                                     )}

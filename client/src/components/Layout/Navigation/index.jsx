@@ -9,19 +9,20 @@ import SVGMessages from "../../../assets/icons/vectors/messages.svg";
 import SVGReels from "../../../assets/icons/vectors/reels.svg";
 import SVGSearch from "../../../assets/icons/vectors/search.svg";
 import { SERVER_DOMAIN } from "../../../config";
+import useDisable from "../../../hooks/useDisable";
 import Tooltip from "../../Features/Tooltip";
 import * as Styled from "./style";
 
-const Action = ({ name, href, icon, ...rest }) => {
+const Action = ({ name, callback, icon, ...rest }) => {
     const userName = useSelector(({ auth }) => auth.user.name);
 
     return (
         <Styled.Action
             {...rest}
             aria-label={name}
-            {...(href
-                ? { as: NavLink, to: href }
-                : { as: "button", type: "button" })}
+            {...(typeof callback === "string"
+                ? { as: NavLink, to: callback }
+                : { as: "button", type: "button", onClick: callback })}
         >
             <Styled.Icon>
                 {typeof icon === "string" ? (
@@ -42,51 +43,55 @@ export default function Navigation({ filter, reorder, ...rest }) {
         ({ breakpoints }) => breakpoints,
         shallowEqual
     );
+    const { linkDisabled, buttonDisabled } = useDisable();
     const links = [
         {
             id: "home",
             name: "Página inicial",
-            href: "/",
             icon: <SVGHome />,
+            callback: "/",
         },
         {
             id: "search",
             name: "Pesquisa",
             icon: <SVGSearch />,
+            callback: buttonDisabled,
         },
         {
             id: "explore",
             name: "Explorar",
-            href: "/explore",
             icon: <SVGExplore />,
+            callback: linkDisabled,
         },
         {
             id: "reels",
             name: "Reels",
-            href: "/reels",
             icon: <SVGReels />,
+            callback: linkDisabled,
         },
         {
             id: "messages",
             name: "Mensagens",
-            href: "/direct",
             icon: <SVGMessages />,
+            callback: linkDisabled,
         },
         {
             id: "notifications",
             name: "Notificações",
             icon: <SVGNotifications />,
+            callback: buttonDisabled,
         },
         {
             id: "create",
             name: "Criar",
             icon: <SVGCreate />,
+            callback: buttonDisabled,
         },
         {
             id: "profile",
             name: "Perfil",
-            href: `/${username}`,
             icon: `${SERVER_DOMAIN}/${userPicture}`,
+            callback: `/${username}`,
         },
     ];
     const renderLinks = filter
