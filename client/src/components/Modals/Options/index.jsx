@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { closeModal } from "../../../app/slices/modal";
 import Modal from "../../Features/Modal";
-import Button from "../Button";
+import Button from "../components/Button";
 
 export default function Options() {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function Options() {
                               onClick: () => {
                                   dispatch(closeModal("options"));
                                   callback();
-                              }, 
+                              },
                           })}
                 />
             ))}

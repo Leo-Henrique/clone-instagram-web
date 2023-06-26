@@ -9,3 +9,8 @@ export const Wrapper = styled(m.div)`
     min-height: 100vh;
     background-color: ${({ theme }) => theme.colors.background};
 `;
+
+export const Logo = styled.div`
+    position: relative;
+    z-index: 1;
+`;

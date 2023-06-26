@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../app/slices/modal";
 import Modal from "../../Features/Modal";
-import Button from "../Button";
+import Button from "../components/Button";
 import Delete from "./Templates/Delete";
 import Unfollow from "./Templates/Unfollow";
 import * as Styled from "./style";

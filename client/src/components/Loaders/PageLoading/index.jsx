@@ -15,9 +15,9 @@ export default function PageLoading() {
         <Styled.Wrapper {...motionProps}>
             <Head />
 
-            <div>
+            <Styled.Logo>
                 <Image src={IMGLogo} alt="Logo do Instagram" />
-            </div>
+            </Styled.Logo>
 
             <Footer pageLoading={true} />
         </Styled.Wrapper>
