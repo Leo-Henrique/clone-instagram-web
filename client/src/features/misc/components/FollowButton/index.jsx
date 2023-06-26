@@ -1,34 +1,51 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
 import Skeleton from "../../../../components/Loaders/Skeleton";
 import useMotion from "../../../../hooks/useMotion";
-import Follow from "./Follow";
-import Unfollow from "./Unfollow";
+import useFollow from "../../api/follow";
+import useUnfollow from "../../api/unfollow";
+import * as Styled from "./style";
 
-const FollowButton = memo(({ user: instagramUser, $link, $linkStyles }) => {
+const Follow = ({ user, ...rest }) => {
+    const [follow] = useFollow(user);
+    const authUserId = useSelector(({ auth }) => auth.user.id);
+
+    return (
+        <Styled.Button
+            key="follow"
+            text={user.following.includes(authUserId) ? "Seguir de volta" : "Seguir"}
+            onClick={follow}
+            primary={true}
+            {...rest}
+        />
+    );
+};
+
+const Unfollow = ({ user, ...rest }) => {
+    const [unfollow] = useUnfollow(user);
+
+    return (
+        <Styled.Button key="unfollow" text="Seguindo" onClick={unfollow} {...rest} />
+    );
+};
+
+const FollowButton = memo(({ user, $link, $linkStyles }) => {
     const authUserId = useSelector(({ auth }) => auth.user.id);
     const isBreakpointSm = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointSm
     );
-    const { pathname } = useLocation();
     const motionProps = useMotion({ transition: "button" });
-    const following = instagramUser?.followers?.includes(authUserId);
     const props = {
-        buttonConfig: {
-            expand: isBreakpointSm,
-            primary: !following,
-            $link,
-            $linkStyles,
-            ...motionProps,
-        },
-        instagramUser,
-        handlePostAlert: instagramUser?.hasPosts && pathname === "/",
+        user,
+        expand: isBreakpointSm,
+        $link,
+        $linkStyles,
+        ...motionProps,
     };
 
-    if (!instagramUser)
+    if (!user)
         return (
             <Skeleton
                 $height={$link ? "1.3em" : "2.358em"}
@@ -40,10 +57,10 @@ const FollowButton = memo(({ user: instagramUser, $link, $linkStyles }) => {
 
     return (
         <AnimatePresence mode="wait">
-            {following ? (
-                <Unfollow {...props} key="unfollow" />
+            {user.followers.includes(authUserId) ? (
+                <Unfollow key="unfollow" {...props} />
             ) : (
-                <Follow {...props} key="follow" />
+                <Follow key="follow" {...props} />
             )}
         </AnimatePresence>
     );

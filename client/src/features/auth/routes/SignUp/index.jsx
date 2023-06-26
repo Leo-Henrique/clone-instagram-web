@@ -1,12 +1,9 @@
 import { useState } from "react";
 
-import { useDispatch } from "react-redux";
-import { showMessage } from "../../../../app/slices/message";
 import Head from "../../../../components/Misc/Head";
 import Button from "../../../../components/misc/Button";
-import useSignUpMutation from "../../api/signUp";
+import useSignUp from "../../api/signUp";
 import Layout from "../../components/Layout";
-import { signInThunk } from "../../slices/auth";
 import * as Styled from "./style";
 
 export default function SignUp() {
@@ -42,25 +39,7 @@ export default function SignUp() {
         fields.forEach(({ id }) => (obj[id] = ""));
         return obj;
     });
-    const [request, { isLoading, isError, error }] = useSignUpMutation();
-    const dispatch = useDispatch();
-    const submit = async event => {
-        event.preventDefault();
-
-        const { data } = await request(form);
-
-        if (data) {
-            const messageTime = 2000;
-
-            dispatch(
-                showMessage({
-                    text: `Bem-vindo, ${data.user.name.split(" ")[0]}!`,
-                    duration: messageTime,
-                })
-            );
-            setTimeout(() => dispatch(signInThunk(data)), messageTime);
-        }
-    };
+    const [signUp, { isLoading, isError, error }] = useSignUp(form);
 
     return (
         <Layout.Template>
@@ -79,7 +58,7 @@ export default function SignUp() {
 
                 <Layout.Separator />
 
-                <form onSubmit={submit}>
+                <form onSubmit={signUp}>
                     {fields.map((field, index) => (
                         <Layout.Input
                             {...field}

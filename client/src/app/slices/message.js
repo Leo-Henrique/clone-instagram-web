@@ -1,10 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     intervals: [],
     show: false,
     text: null,
     duration: null,
+    loading: false,
     suggestReload: false,
 };
 
@@ -26,35 +27,45 @@ const messageSlice = createSlice({
 });
 
 const { show, hide, defineIntervals, reset } = messageSlice.actions;
-export const showMessage =
-    ({ text, duration = 3000 }) =>
-    async (dispatch, getState) => {
-        const state = getState().message;
-        const hideMessage = () =>
-            new Promise(resolve => {
+
+export const showMessage = createAsyncThunk(
+    "message/showMessage",
+    async ({ duration = 3000, ...rest }, { dispatch, getState }) => {
+        const handleShow = async resolveShow => {
+            const state = getState().message;
+            const handleHide = (resolveHide, end) => {
                 const element = document.getElementById("message");
                 const transitionDuration = +element.dataset.transition;
-
-                dispatch(hide());
-
                 const resetState = setTimeout(() => {
                     dispatch(reset());
-                    resolve();
+                    resolveHide();
+
+                    if (end) resolveShow();
                 }, transitionDuration);
 
+                dispatch(hide());
                 dispatch(defineIntervals(resetState));
-            });
+            };
+            const hideMessage = end => {
+                return new Promise(resolve => handleHide(resolve, end));
+            };
 
-        state.intervals.forEach(id => clearInterval(id));
+            state.intervals.forEach(id => clearInterval(id));
 
-        if (state.show) await hideMessage();
+            if (state.show) await hideMessage();
 
-        dispatch(show({ text, duration }));
-        dispatch(defineIntervals(setTimeout(hideMessage, duration)));
-    };
+            const endHide = setTimeout(() => hideMessage(true), duration);
+
+            dispatch(show({ duration, ...rest }));
+            dispatch(defineIntervals(endHide));
+        };
+
+        return new Promise(handleShow);
+    }
+);
 
 export const showErrorMessage =
-    ({ error, duration, suggestReload = false }) =>
+    ({ error, duration, suggestReload = false, ...rest }) =>
     dispatch => {
         const defaultError = "Um erro inesperado ocorreu. Tente novamente.";
         const resError = error?.data?.error;
@@ -64,6 +75,7 @@ export const showErrorMessage =
                 text: resError ? resError : defaultError,
                 duration: duration ? duration : suggestReload ? 8000 : 6000,
                 suggestReload,
+                ...rest
             })
         );
     };

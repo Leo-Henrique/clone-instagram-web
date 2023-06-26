@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import api from "../../../app/api";
 
 const { useForgotPasswordMutation } = api.injectEndpoints({
@@ -13,4 +14,15 @@ const { useForgotPasswordMutation } = api.injectEndpoints({
     }),
 });
 
-export default useForgotPasswordMutation;
+export default function useForgotPassword() {
+    const [request, result] = useForgotPasswordMutation();
+    const sendEmailToLogin = form => {
+        request({
+            user: form.user,
+            websiteName: "Clone Instagram Web",
+            URLToReset: `${location.origin}/auth/reset_password`,
+        });
+    }
+
+    return [sendEmailToLogin, result];
+}

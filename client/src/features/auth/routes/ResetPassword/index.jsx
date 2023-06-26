@@ -9,6 +9,7 @@ import Button from "../../../../components/misc/Button";
 import PNGIcon from "../../../../components/misc/PNGIcon";
 import useResetPasswordMutation from "../../api/resetPassword";
 import Layout from "../../components/Layout";
+import useResetPassword from "../../api/resetPassword";
 
 export default function ResetPassword() {
     const [form, setForm] = useState({ password: "" });
@@ -16,28 +17,11 @@ export default function ResetPassword() {
     const params = new URLSearchParams(location.search);
     const userId = params.get("user");
     const token = params.get("token");
-    const [request, { isLoading, isError, error }] = useResetPasswordMutation();
-    const dispatch = useDispatch();
-    const submit = async event => {
-        event.preventDefault();
-
-        const { data } = await request({
-            userId,
-            token,
-            password: form.password,
-        });
-
-        if (data) {
-            const { token, success } = data;
-            const messageTime = 3000;
-
-            dispatch(showMessage({ text: success, duration: messageTime }));
-            setTimeout(() => {
-                localStorage.setItem("token", JSON.stringify(token));
-                window.location.reload();
-            }, messageTime);
-        }
-    };
+    const [resetPassword, { isLoading, isError, error }] = useResetPassword({
+        userId,
+        token,
+        password: form.password
+    });
 
     if (!location.search || !userId || !token) return <Navigate to="/" />;
 
@@ -52,7 +36,7 @@ export default function ResetPassword() {
 
                 <Layout.Text>Sua senha deve ter no mínimo 3 caracteres.</Layout.Text>
 
-                <form onSubmit={submit}>
+                <form onSubmit={resetPassword}>
                     <Layout.Input
                         id="password"
                         type="password"

@@ -1,14 +1,14 @@
 import { AnimatePresence } from "framer-motion";
 
 import Head from "../../../../components/Misc/Head";
-import useForgotPasswordMutation from "../../api/forgotPassword";
+import useForgotPassword from "../../api/forgotPassword";
 import Layout from "../../components/Layout";
 import SendEmail from "./SendEmail";
 import SentEmail from "./SentEmail";
 
 export default function ForgotPassword() {
-    const [request, result] = useForgotPasswordMutation();
-    const { data, isSuccess } = result;
+    const [sendEmailToLogin, { data, isLoading, isSuccess, isError, error }] =
+        useForgotPassword();
 
     return (
         <Layout.Template>
@@ -16,7 +16,13 @@ export default function ForgotPassword() {
 
             <AnimatePresence mode="wait">
                 {!isSuccess ? (
-                    <SendEmail key="1" request={request} result={result} />
+                    <SendEmail
+                        key="1"
+                        sendEmailToLogin={sendEmailToLogin}
+                        isLoading={isLoading}
+                        isError={isError}
+                        error={error}
+                    />
                 ) : (
                     <SentEmail key="2" email={data.email} />
                 )}

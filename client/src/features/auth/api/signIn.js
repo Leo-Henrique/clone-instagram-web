@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux";
 import api from "../../../app/api";
 import convertId from "../../../utils/convertId";
+import { signInThunk } from "../slices/auth";
 
 const extendApi = api.injectEndpoints({
     endpoints: build => ({
@@ -19,4 +21,21 @@ const extendApi = api.injectEndpoints({
     }),
 });
 
-export const { useSignInMutation, useAuthQuery } = extendApi;
+const { useSignInMutation } = extendApi;
+export const { useAuthQuery } = extendApi;
+
+export const useSignIn = form => {
+    const dispatch = useDispatch();
+    const [request, result] = useSignInMutation();
+    const signIn = async event => {
+        if (event) event.preventDefault();
+
+        try {
+            const data = await request(form).unwrap();
+
+            dispatch(signInThunk(data));
+        } catch {}
+    };
+
+    return [signIn, result];
+};

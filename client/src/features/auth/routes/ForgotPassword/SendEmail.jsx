@@ -2,23 +2,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
-import PNGIcon from "../../../../components/misc/PNGIcon";
 import Button from "../../../../components/misc/Button";
+import PNGIcon from "../../../../components/misc/PNGIcon";
 import useMotion from "../../../../hooks/useMotion";
 import Layout from "../../components/Layout";
 
-export default function SendEmail({
-    request,
-    result: { isLoading, isError, error },
-}) {
+export default function SendEmail({ sendEmailToLogin, isLoading, isError, error }) {
     const [form, setForm] = useState({ user: "" });
     const submit = event => {
         event.preventDefault();
-        request({
-            user: form.user,
-            websiteName: "Clone Instagram Web",
-            URLToReset: `${location.origin}/auth/reset_password`,
-        });
+        sendEmailToLogin(form);
     };
     const motionProps = useMotion({ variants: "blockOld" });
 

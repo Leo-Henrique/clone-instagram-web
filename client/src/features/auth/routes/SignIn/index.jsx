@@ -1,31 +1,22 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Footer from "../../../../components/Layout/Footer";
 import Head from "../../../../components/Misc/Head";
 import Button from "../../../../components/misc/Button";
 import useMotion from "../../../../hooks/useMotion";
-import { useSignInMutation } from "../../api/signIn";
+import { useSignIn } from "../../api/signIn";
 import Layout from "../../components/Layout";
 import Slideshow from "../../components/Slideshow";
-import { signInThunk } from "../../slices/auth";
 import * as Styled from "./style";
+import { useEffect } from "react";
 
 export default function SignIn() {
     const [form, setForm] = useState({
         user: "",
         password: "",
     });
-    const [request, { isLoading, isError, error }] = useSignInMutation();
-    const dispatch = useDispatch();
-    const submit = async event => {
-        event.preventDefault();
-
-        const { data } = await request(form);
-
-        if (data) dispatch(signInThunk(data));
-    };
+    const [signIn, { isLoading, isError, error }] = useSignIn(form);
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, x: -15 },
@@ -47,7 +38,7 @@ export default function SignIn() {
                     <Layout.FormBlock $paddingBottom="calc(2rem - 1.2rem)">
                         <Layout.Logo />
 
-                        <form onSubmit={submit}>
+                        <form onSubmit={signIn}>
                             <Layout.Input
                                 id="user"
                                 label="Nome de usuário ou e-mail"

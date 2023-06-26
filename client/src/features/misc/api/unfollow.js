@@ -2,15 +2,16 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import api from "../../../app/api";
 import { showErrorMessage } from "../../../app/slices/message";
+import { requireConfirmation } from "../../../app/slices/modal";
 import { updateUser } from "../../auth/slices/auth";
-import { warnNewPosts } from "../../feed/slices/newPosts";
+import { notWarnNewPosts } from "../../feed/slices/newPosts";
 
-const { useFollowMutation } = api.injectEndpoints({
+const { useUnfollowMutation } = api.injectEndpoints({
     endpoints: build => ({
-        follow: build.mutation({
+        unfollow: build.mutation({
             query: userId => ({
-                url: `users/follow/${userId}`,
-                method: "POST",
+                url: `users/unfollow/${userId}`,
+                method: "DELETE",
             }),
             invalidatesTags: (result, error, userId) => [
                 { type: "User", id: userId },
@@ -24,8 +25,12 @@ const { useFollowMutation } = api.injectEndpoints({
                 try {
                     await queryFulfilled;
 
-                    if (!following.includes(userId))
-                        dispatch(updateUser({ following: [...following, userId] }));
+                    if (following.includes(userId))
+                        dispatch(
+                            updateUser({
+                                following: following.filter(id => id !== userId),
+                            })
+                        );
                 } catch {
                     dispatch(
                         showErrorMessage({
@@ -39,19 +44,33 @@ const { useFollowMutation } = api.injectEndpoints({
     }),
 });
 
-export default function useFollow({ id, hasPosts }) {
+export default function useUnfollow(user) {
     const dispatch = useDispatch();
-    const [request, result] = useFollowMutation();
+    const [request, result] = useUnfollowMutation();
     const { pathname } = useLocation();
-    const follow = async () => {
+    const unfollow = async () => {
         try {
-            await request(id).unwrap();
+            await request(user.id).unwrap();
 
-            if (pathname === "/" && hasPosts) dispatch(warnNewPosts());
+            if (pathname === "/" && user.hasPosts) dispatch(notWarnNewPosts());
         } catch (error) {
             dispatch(showErrorMessage({ error }));
         }
     };
+    const confirm = () => {
+        const options = {
+            action: {
+                name: "Deixar de seguir",
+                callback: unfollow,
+            },
+            template: {
+                name: "UNFOLLOW",
+                props: user,
+            },
+        };
 
-    return [follow, result];
+        dispatch(requireConfirmation(options));
+    };
+
+    return [confirm, result];
 }

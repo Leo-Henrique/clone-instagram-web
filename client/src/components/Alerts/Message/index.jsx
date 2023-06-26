@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { useTheme } from "styled-components";
 
 import useMotion from "../../../hooks/useMotion";
@@ -15,12 +15,15 @@ export default function Message() {
         },
         transition,
     });
-    const text = useSelector(({ message }) => message.text);
-    const suggestReload = useSelector(({ message }) => message.suggestReload);
+    const { text, loading, suggestReload } = useSelector(
+        ({ message }) => message,
+        shallowEqual
+    );
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
     );
     const [navbarHeight, setNavbarHeight] = useState("0px");
+    const [dots, setDots] = useState("");
 
     useEffect(() => {
         if (isBreakpointMd) {
@@ -30,6 +33,13 @@ export default function Message() {
         } else setNavbarHeight("0px");
     }, [isBreakpointMd]);
 
+    useEffect(() => {
+        if (loading)
+            setTimeout(() => {
+                dots.length < 3 ? setDots(dots + ".") : setDots("");
+            }, 400);
+    }, [dots]);
+
     return (
         <Styled.Wrapper
             {...motionProps}
@@ -37,7 +47,10 @@ export default function Message() {
             data-transition={theme.transitions[transition].duration}
             $navbarHeight={navbarHeight}
         >
-            <p>{text}</p>
+            <p>
+                {text}
+                {loading && dots}
+            </p>
 
             {suggestReload && (
                 <Styled.Button onClick={() => location.reload()}>

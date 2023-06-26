@@ -26,27 +26,33 @@ const { useDeletePostMutation } = api.injectEndpoints({
 
 export default function useDeletePost(postId) {
     const dispatch = useDispatch();
-    const [request] = useDeletePostMutation();
+    const [request, result] = useDeletePostMutation();
+    const deletePost = async () => {
+        try {
+            const { success } = await request(postId).unwrap();
 
-    return () => {
-        const deleteCallback = async () => {
-            try {
-                const { success } = await request(postId).unwrap();
-
-                dispatch(showMessage({ text: success }));
-            } catch (error) {
-                dispatch(showErrorMessage({ error }));
-            }
-        };
-        const confirmationOptions = {
-            action: { name: "Excluir", callback: deleteCallback },
-            content: "DELETE",
+            dispatch(showMessage({ text: success }));
+        } catch (error) {
+            dispatch(showErrorMessage({ error }));
+        }
+    };
+    const confirm = () => {
+        const options = {
+            action: {
+                name: "Excluir",
+                callback: deletePost,
+            },
             template: {
-                title: "Excluir publicação",
-                description: "Tem certeza que deseja excluir essa publicação?",
+                name: "DELETE",
+                props: {
+                    title: "Excluir publicação",
+                    description: "Tem certeza que deseja excluir essa publicação?",
+                },
             },
         };
-        
-        dispatch(requireConfirmation(confirmationOptions));
+
+        dispatch(requireConfirmation(options));
     };
+
+    return [confirm, result];
 }

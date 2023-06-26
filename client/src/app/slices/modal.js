@@ -7,8 +7,10 @@ const initialState = {
             name: "Confirmar",
             callback: null,
         },
-        content: null,
-        template: null,
+        template: {
+            name: null,
+            props: {},
+        },
     },
     options: {
         show: false,
@@ -23,10 +25,9 @@ const modalSlice = createSlice({
         requireConfirmation: (state, { payload }) => ({
             ...state,
             confirmation: {
-                ...state.confirmation,
-                ...payload,
                 show: true,
-                action: { ...state.confirmation.action, ...payload.action },
+                action: { ...state.action, ...payload.action },
+                template: { ...state.template, ...payload.template },
             },
         }),
         showOptions: (state, { payload }) => {

@@ -10,7 +10,7 @@ import * as Styled from "./style";
 export default function ViewMore({ post }) {
     const dispatch = useDispatch();
     const authUserId = useSelector(({ auth }) => auth.user.id);
-    const deletePost = useDeletePost(post.id);
+    const [deletePost] = useDeletePost(post.id);
     const toggleShowLikes = useToggleShowLikes(post.id, post.showLikes);
     const toggleShowComments = useToggleShowComments(post.id, post.showComments);
     const postLink = `/post/${post.id}`;
