@@ -7,6 +7,7 @@ export const Button = styled(CloneButton)`
         ${$link &&
         css`
             background-color: transparent !important;
+            white-space: nowrap;
             ${$linkStyles && $linkStyles};
             ${theme.mixins.link({ fontSize: "small", primary })};
         `}

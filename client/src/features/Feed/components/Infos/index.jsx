@@ -31,7 +31,7 @@ export default function Infos() {
                             <Users
                                 data={users}
                                 followLink={true}
-                                userBadgeProps={{ pictureSize: 45, gap: "1.2rem" }}
+                                userBadgeProps={{ pictureSize: 45, gap: "1.2rem", showName: true }}
                             />
                         </Styled.UsersList>
                     </>

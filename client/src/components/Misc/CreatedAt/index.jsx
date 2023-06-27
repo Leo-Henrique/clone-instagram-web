@@ -83,7 +83,7 @@ export default function CreatedAt({ ISODate, ...rest }) {
 
     return (
         <Styled.Wrapper dateTime={ISODate} {...rest}>
-            há {time} {periodName} atrás
+            há {time} {periodName}
         </Styled.Wrapper>
     );
 }

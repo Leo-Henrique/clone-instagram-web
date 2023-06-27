@@ -50,17 +50,20 @@ export const Infos = styled.div`
         ${theme.mixins.transition(["opacity"])};
 
         > div:nth-child(1) {
-            display: flex;
+            max-width: 200px;
+            display: inline-grid;
+            grid-template-columns: 1fr 1fr;
             align-items: center;
             column-gap: 0.6rem;
-
+            
             span {
-                max-width: 140px;
+                grid-column: 1 / 3;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 font-weight: 600;
             }
             svg {
+                grid-column: 3;
                 display: inline-block;
                 width: 12px;
                 height: auto;
