@@ -63,11 +63,7 @@ const PostSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-    },
-});
+}, { timestamps: true });
 
 PostSchema.pre(["findOneAndDelete", "deleteMany"], async function (next) {
     const posts = await Post.find(this._conditions);

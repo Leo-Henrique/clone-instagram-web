@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import CreatedAt from "../../../../components/Misc/CreatedAt";
 import Actions from "./Actions";
 import Likes from "./Likes";
 import * as Styled from "./style";
@@ -30,9 +30,6 @@ const FeedInfos = ({ post: { user, legend, showComments, comments } }) => {
 };
 
 export default function Details({ post, highlight }) {
-    const createdAt = new Date(post.createdAt).toString();
-    const tempDate = createdAt.replace(" GMT-0300 (Horário Padrão de Brasília)", "");
-
     return (
         <Styled.Wrapper $highlight={highlight}>
             <Actions post={post} />
@@ -41,7 +38,7 @@ export default function Details({ post, highlight }) {
 
             {!highlight && <FeedInfos post={post} />}
 
-            <Styled.Date dateTime={post.createdAt}>{tempDate}</Styled.Date>
+            <CreatedAt ISODate={post.createdAt} $styles={Styled.dateStyles} />
         </Styled.Wrapper>
     );
 }

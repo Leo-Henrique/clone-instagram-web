@@ -40,11 +40,9 @@ export const ViewComments = styled.button`
     `}
 `;
 
-export const Date = styled.time`
-    ${({ theme }) => css`
-        display: block;
-        font-size: calc(${theme.fontSizes.small} - 1px);
-        color: ${theme.colors.textSupport3};
-        text-transform: uppercase;
-    `}
+export const dateStyles = ({ theme }) => css`
+    display: block;
+    font-size: calc(${theme.fontSizes.small} - 1px);
+    color: ${theme.colors.textSupport3};
+    text-transform: uppercase;
 `;

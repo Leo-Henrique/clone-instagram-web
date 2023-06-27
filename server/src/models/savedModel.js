@@ -22,20 +22,12 @@ const SavedSchema = new mongoose.Schema({
                                 ref: "posts",
                                 required: true,
                             },
-                            addedAt: {
-                                type: Date,
-                                default: Date.now(),
-                            },
                         },
-                        { _id: false }
+                        { _id: false, timestamps: true }
                     ),
                 ],
-                createdAt: {
-                    type: Date,
-                    default: Date.now(),
-                },
             },
-            { _id: false }
+            { _id: false, timestamps: true }
         ),
     ],
 });

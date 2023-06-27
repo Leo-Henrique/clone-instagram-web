@@ -18,10 +18,6 @@ const schema = {
             ref: "users",
         },
     ],
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-    },
 };
 
 const CommentSchema = new mongoose.Schema({
@@ -31,7 +27,7 @@ const CommentSchema = new mongoose.Schema({
         required: true,
     },
     ...schema,
-    replies: [new mongoose.Schema(schema)],
+    replies: [new mongoose.Schema(schema, { timestamps: true })],
 });
 
 CommentSchema.pre(["findOneAndDelete", "deleteMany"], async function (next) {
