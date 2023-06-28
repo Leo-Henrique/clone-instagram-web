@@ -18,11 +18,13 @@ const initialState = {
     },
     users: {
         show: false,
+        name: "Usuários",
         expectedAmount: 1,
         endpoint: {
             name: null,
             args: undefined,
         },
+        data: null,
     },
 };
 
@@ -42,11 +44,17 @@ const modalSlice = createSlice({
             state.options.show = true;
             state.options.actions = payload;
         },
-        showUsers: (state, { payload }) => {
-            state.users.show = true;
-            state.users.expectedAmount = payload.expectedAmount;
-            state.users.endpoint = { ...state.users.endpoint, ...payload.endpoint };
-        },
+        showUsers: (state, { payload }) => ({
+            ...state,
+            users: {
+                ...state.users,
+                ...payload,
+                show: true,
+                ...(payload.endpoint && {
+                    endpoint: { ...state.users.endpoint, ...payload.endpoint },
+                }),
+            },
+        }),
         close: (state, { payload: name }) => {
             state[name].show = false;
         },

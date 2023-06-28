@@ -3,8 +3,6 @@ import { css, styled } from "styled-components";
 const paddingY = "1.2rem";
 
 export const dialog = css`
-    height: 100%;
-    max-height: 400px;
     display: flex;
     flex-direction: column;
     overflow-y: hidden;

@@ -13,7 +13,9 @@ export default function Users() {
     const usersRef = useRef(null);
     const [hasScrollbar, setHasScrollbar] = useState(null);
     const [result, setResult] = useState(null);
-    const { expectedAmount, endpoint } = useSelector(({ modal }) => modal.users);
+    const { name, expectedAmount, endpoint, data } = useSelector(
+        ({ modal }) => modal.users
+    );
 
     useEffect(() => {
         const { current } = usersRef;
@@ -26,13 +28,13 @@ export default function Users() {
         };
 
         setHasScrollbar(current?.scrollHeight > current?.clientHeight);
-        getUsers();
+        data ? setResult({ data }) : getUsers();
     }, []);
 
     return (
         <Modal name="users" dialogStyles={Styled.dialog}>
             <Styled.Header>
-                <h1>Curtidas</h1>
+                <h1>{name}</h1>
 
                 <Styled.Close onClick={() => dispatch(closeModal("users"))}>
                     <SVGClose aria-label="Fechar janela" />

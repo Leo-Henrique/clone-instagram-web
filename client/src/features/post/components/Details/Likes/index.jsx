@@ -11,6 +11,7 @@ export default function Likes({ post: { id, likes, user } }) {
     const getLikes = () => {
         dispatch(
             showUsers({
+                name: "Curtidas",
                 expectedAmount: totalLikes,
                 endpoint: {
                     name: getPostLikesName,

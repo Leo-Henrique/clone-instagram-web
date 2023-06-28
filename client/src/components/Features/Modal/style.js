@@ -23,7 +23,6 @@ export const Dialog = styled(m.div)`
     ${({ theme, $styles }) => css`
         width: 100%;
         max-width: 400px;
-        height: max-content;
         max-height: 100%;
         background-color: ${theme.colors.blockSupport1};
         border-radius: 15px;

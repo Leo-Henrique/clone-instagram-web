@@ -1,9 +1,11 @@
-export default function convertId(response, ...keys) {
+export default function convertId(data, ...keys) {
     const modifyId = obj => {
         const { _id } = obj;
 
-        delete obj._id;
-        obj.id = _id;
+        if (_id) {
+            delete obj._id;
+            obj.id = _id;
+        }
     };
     const handleArray = (data, callback) => {
         if (Array.isArray(data)) data.forEach(obj => callback(obj));
@@ -14,7 +16,7 @@ export default function convertId(response, ...keys) {
         keys.forEach(key => handleArray(obj[key], modifyId));
     };
 
-    handleArray(response, modifyObjects);
+    handleArray(data, modifyObjects);
 
-    return response;
+    return data;
 }
