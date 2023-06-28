@@ -4,7 +4,7 @@ import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
 import Skeleton from "../../../../components/Loaders/Skeleton";
 import useGetUsersQuery from "../../api/getUsers";
-import Users from "../Users";
+import Users from "../../../misc/components/Users";
 import * as Styled from "./style";
 
 export default function Welcome() {

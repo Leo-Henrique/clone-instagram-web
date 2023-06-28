@@ -91,15 +91,15 @@ export const link =
 export const customScrollbar =
     (receivedOptions = {}) =>
     ({ theme }) => {
-        const defaultOptions = { width: 20, padding: 8, bgColor: "background" };
-        const { width, padding, bgColor } = {
+        const defaultOptions = { width: 20, padding: 8, bgColorTheme: "background" };
+        const { width, padding, bgColorTheme } = {
             ...defaultOptions,
             ...receivedOptions,
         };
         const thumbColor = {
             func: theme.name === "light" ? darken : lighten,
             get default() {
-                return this.func(0.15, theme.colors[bgColor]);
+                return this.func(0.15, theme.colors[bgColorTheme]);
             },
             get hover() {
                 return this.func(0.05, this.default);
@@ -122,7 +122,7 @@ export const customScrollbar =
             }
             &::-webkit-scrollbar-thumb {
                 border-radius: 12px;
-                border: ${padding}px solid ${theme.colors[bgColor]};
+                border: ${padding}px solid ${theme.colors[bgColorTheme]};
                 background-color: ${thumbColor.default};
 
                 ${theme.queries.desktop} {

@@ -8,7 +8,7 @@ export const Wrapper = styled(m.div)`
         justify-content: center;
         position: fixed;
         inset: 0;
-        z-index: ${theme.zIndexes.modal[$zIndex]};
+        z-index: ${theme.zIndexes.modal[$zIndex] || theme.zIndexes.modal.default};
         padding: ${theme.global.containerPaddingY} ${theme.global.containerPaddingX};
         background-color: rgba(0, 0, 0, 0.65);
 
@@ -20,15 +20,22 @@ export const Wrapper = styled(m.div)`
 `;
 
 export const Dialog = styled(m.div)`
-    ${({ theme }) => css`
+    ${({ theme, $styles }) => css`
         width: 100%;
         max-width: 400px;
-        overflow-y: auto;
+        height: max-content;
+        max-height: 100%;
         background-color: ${theme.colors.blockSupport1};
         border-radius: 15px;
+        overflow-y: auto;
+        ${theme.mixins.customScrollbar({
+            padding: 6,
+            bgColorTheme: "blockSupport1",
+        })};
 
         ${theme.breakpoints.md} {
             border-radius: 15px 15px 0 0;
         }
+        ${$styles && $styles};
     `}
 `;

@@ -3,7 +3,7 @@ import useMotion from "../../../hooks/useMotion";
 import Button from "../../Misc/Button";
 import * as Styled from "./style";
 
-export default function QueryError({ error, pageError }) {
+export default function QueryError({ error, pageError, ...rest }) {
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, scale: 0.6 },
@@ -21,7 +21,7 @@ export default function QueryError({ error, pageError }) {
     };
 
     return (
-        <Styled.Wrapper {...motionProps} $pageError={pageError}>
+        <Styled.Wrapper {...motionProps} $pageError={pageError} {...rest}>
             {pageError && (
                 <Styled.Icon>
                     <SVGWarning />

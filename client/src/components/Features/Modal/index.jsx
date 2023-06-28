@@ -8,7 +8,7 @@ import useMotion from "../../../hooks/useMotion";
 import Button from "../../Modals/components/Button";
 import * as Styled from "./style";
 
-export default function Modal({ children, name, closeOptions }) {
+export default function Modal({ children, name, dialogStyles, closeOptions }) {
     const close = {
         clickOnAnyElement: false,
         cancelButton: false,
@@ -48,12 +48,13 @@ export default function Modal({ children, name, closeOptions }) {
         <Styled.Wrapper
             id={`modal-${name}`}
             data-transition={theme.transitions[transition].duration}
-            {...wrapperMotion}
             $zIndex={name}
+            {...wrapperMotion}
         >
             <Styled.Dialog
                 {...(isBreakpointMd ? mobileDialogMotion : desktopDialogMotion)}
                 ref={notClose}
+                $styles={dialogStyles}
             >
                 {children}
 

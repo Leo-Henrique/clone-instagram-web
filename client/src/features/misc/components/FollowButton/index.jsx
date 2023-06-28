@@ -27,7 +27,13 @@ const Unfollow = ({ user, ...rest }) => {
     const [unfollow] = useUnfollow(user);
 
     return (
-        <Styled.Button key="unfollow" text="Seguindo" onClick={unfollow} {...rest} />
+        <Styled.Button
+            key="unfollow"
+            text="Seguindo"
+            onClick={unfollow}
+            primary={false}
+            {...rest}
+        />
     );
 };
 

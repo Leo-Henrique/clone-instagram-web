@@ -48,10 +48,11 @@ const theme = {
         tooltip: 10,
         newPosts: 15,
         modal: {
-            options: 20,
-            confirmation: 25,
+            default: 20,
+            options: 25,
+            confirmation: 30,
         },
-        message: 30,
+        message: 35,
     },
     global: {
         containerPaddingX: "15px",

@@ -1,5 +1,6 @@
-import FollowButton from "../../../misc/components/FollowButton";
-import UserBadge from "../../../misc/components/UserBadge";
+import { useSelector } from "react-redux";
+import FollowButton from "../FollowButton";
+import UserBadge from "../UserBadge";
 import * as Styled from "./style";
 
 export default function Users({
@@ -9,6 +10,7 @@ export default function Users({
     skeletonCount = 5,
     styles,
 }) {
+    const authUserId = useSelector(({ auth }) => auth.user.id);
     const users = data ? data : Array.from({ length: skeletonCount });
 
     return (
@@ -17,11 +19,13 @@ export default function Users({
                 <Styled.Wrapper key={user?.username || index} $styles={styles}>
                     <UserBadge user={user} {...userBadgeProps} />
 
-                    <FollowButton
-                        user={user}
-                        $link={followLink}
-                        $linkStyles={Styled.customFollowLinkStyles}
-                    />
+                    {user?.id !== authUserId && (
+                        <FollowButton
+                            user={user}
+                            $link={followLink}
+                            $linkStyles={Styled.customFollowLinkStyles}
+                        />
+                    )}
                 </Styled.Wrapper>
             ))}
         </>

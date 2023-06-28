@@ -4,7 +4,7 @@ import QueryError from "../../../../components/Alerts/QueryError";
 import Footer from "../../../../components/Layout/Footer";
 import UserBadge from "../../../misc/components/UserBadge";
 import useGetUsersQuery from "../../api/getUsers";
-import Users from "../Users";
+import Users from "../../../misc/components/Users";
 import * as Styled from "./style";
 
 export default function Infos() {

@@ -16,6 +16,14 @@ const initialState = {
         show: false,
         actions: [],
     },
+    users: {
+        show: false,
+        expectedAmount: 1,
+        endpoint: {
+            name: null,
+            args: undefined,
+        },
+    },
 };
 
 const modalSlice = createSlice({
@@ -34,6 +42,11 @@ const modalSlice = createSlice({
             state.options.show = true;
             state.options.actions = payload;
         },
+        showUsers: (state, { payload }) => {
+            state.users.show = true;
+            state.users.expectedAmount = payload.expectedAmount;
+            state.users.endpoint = { ...state.users.endpoint, ...payload.endpoint };
+        },
         close: (state, { payload: name }) => {
             state[name].show = false;
         },
@@ -43,7 +56,7 @@ const modalSlice = createSlice({
     },
 });
 
-export const { requireConfirmation, showOptions } = modalSlice.actions;
+export const { requireConfirmation, showOptions, showUsers } = modalSlice.actions;
 const { close, reset } = modalSlice.actions;
 
 export const closeModal = name => dispatch => {

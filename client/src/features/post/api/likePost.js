@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../../app/api";
 import { showErrorMessage } from "../../../app/slices/message";
 
-const invalidatesTags = (result, error, postId) => [{ type: "Post", id: postId }];
+const invalidatesTags = (result, error, postId) => [
+    { type: "Post", id: postId },
+    { type: "Post", id: "LIKES" },
+];
 
 const { useLikePostMutation, useUnlikePostMutation } = api.injectEndpoints({
     endpoints: build => ({
@@ -11,14 +14,14 @@ const { useLikePostMutation, useUnlikePostMutation } = api.injectEndpoints({
                 url: `posts/likes/${postId}`,
                 method: "POST",
             }),
-            invalidatesTags
+            invalidatesTags,
         }),
         unlikePost: build.mutation({
             query: postId => ({
                 url: `posts/likes/${postId}`,
                 method: "DELETE",
             }),
-            invalidatesTags
+            invalidatesTags,
         }),
     }),
 });

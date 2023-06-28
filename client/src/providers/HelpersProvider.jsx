@@ -2,25 +2,26 @@ import { AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
 
 import Message from "../components/Alerts/Message";
-import Confirmation from "../components/Modals/Confirmation";
-import Options from "../components/Modals/Options";
+import ModalConfirmation from "../components/Modals/ModalConfirmation";
+import ModalOptions from "../components/Modals/ModalOptions";
+import ModalUsers from "../components/Modals/ModalUsers";
 
 export default function HelpersProvider({ children }) {
     const showMessage = useSelector(({ message }) => message.show);
     const showConfirmation = useSelector(({ modal }) => modal.confirmation.show);
     const showOptions = useSelector(({ modal }) => modal.options.show);
+    const showUsers = useSelector(({ modal }) => modal.users.show);
 
     return (
         <>
-            <AnimatePresence>
-                {showMessage && <Message />}
-            </AnimatePresence>
+            <AnimatePresence>{showMessage && <Message />}</AnimatePresence>
 
             <AnimatePresence mode="wait">
-                {showConfirmation && <Confirmation key="confirmation" />}
-                {showOptions && <Options key="options" />}
+                {showConfirmation && <ModalConfirmation key="confirmation" />}
+                {showOptions && <ModalOptions key="options" />}
+                {showUsers && <ModalUsers key="users" />}
             </AnimatePresence>
-            
+
             {children}
         </>
     );
