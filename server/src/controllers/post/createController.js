@@ -1,7 +1,7 @@
 import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js";
 import { uploadPost } from "../../modules/multer/uploads.js";
-import { error } from "../../utils/helpers/validations.js";
+import { error, types } from "../../utils/helpers/validations.js";
 
 export default async function createPost(req, res) {
     try {
@@ -36,6 +36,9 @@ export default async function createPost(req, res) {
             };
         });
 
+        if (legend && !legend.match(types.postLegend.regex))
+            return error(types.postLegend.message, 400, res);
+
         const post = await Post.create({
             user: req.userId,
             media,
@@ -52,7 +55,6 @@ export default async function createPost(req, res) {
 
         res.send(post);
     } catch (err) {
-        console.log(err);
         if (typeof err === "string") return error(err, 400, res);
         else
             return error(

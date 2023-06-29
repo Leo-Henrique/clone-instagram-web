@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { css, styled } from "styled-components";
 
 const gap = "1.5rem";
@@ -19,17 +20,17 @@ export const Wrapper = styled.div`
     `}
 `;
 
-export const Legend = styled.legend`
+export const Username = styled(Link)`
     ${({ theme }) => css`
-        a {
-            color: ${theme.colors.text};
-            font-weight: 600;
-            margin-right: 0.6rem;
-        }
-        p {
-            display: inline;
-            word-break: break-word;
-        }
+        display: inline-block;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-right: 0.6rem;
+        vertical-align: top;
+        color: ${theme.colors.text};
+        ${theme.mixins.genericLinkStates()};
     `}
 `;
 

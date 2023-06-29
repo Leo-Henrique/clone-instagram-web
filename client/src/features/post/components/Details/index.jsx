@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import CreatedAt from "../../../../components/Misc/CreatedAt";
+import ViewMore from "../../../../components/Misc/ViewMore";
 import Actions from "./Actions";
 import Likes from "./Likes";
 import * as Styled from "./style";
@@ -11,11 +11,13 @@ const FeedInfos = ({ post: { user, legend, showComments, comments } }) => {
     return (
         <>
             {legend && (
-                <Styled.Legend>
-                    <Link to={`/${user.username}`}>{user.username}</Link>
-
-                    <p>{legend}</p>
-                </Styled.Legend>
+                <ViewMore>
+                    <Styled.Username to={`/${user.username}`}>
+                        {user.username}
+                    </Styled.Username>
+                    
+                    {legend}
+                </ViewMore>
             )}
 
             {showComments && totalComments > 0 && (

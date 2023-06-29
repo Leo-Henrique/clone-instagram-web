@@ -20,6 +20,10 @@ export const types = {
         regex: /^.{1,150}$/m,
         message: "Sua biografia deve ter no máximo 150 caracteres.",
     },
+    postLegend: {
+        regex: /^.{1,2000}$/m,
+        message: "A legenda deve ter no máximo 2000 caracteres.",
+    },
     comment: {
         regex: /^.{1,1000}$/m,
         message: "Seu comentário deve ter no máximo 1000 caracteres.",

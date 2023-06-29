@@ -39,7 +39,7 @@ const theme = {
             timingFunction: "ease",
         },
         modal: {
-            duration: 250,
+            duration: 200,
             timingFunction: "ease-in-out"
         }
     },
