@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "styled-components";
 import { closeModal } from "../../../app/slices/modal";
 import useClose from "../../../hooks/useClose";
-import useDisableScrollbar from "../../../hooks/useDisableScrollbar";
 import useMotion from "../../../hooks/useMotion";
 import Button from "../../Modals/components/Button";
+import useScrollbar from "./hooks/useScrollbar";
 import * as Styled from "./style";
 
 export default function Modal({ children, name, dialogStyles, closeOptions }) {
@@ -42,7 +42,7 @@ export default function Modal({ children, name, dialogStyles, closeOptions }) {
         transition,
     });
 
-    useDisableScrollbar(show);
+    useScrollbar(show);
 
     return (
         <Styled.Wrapper

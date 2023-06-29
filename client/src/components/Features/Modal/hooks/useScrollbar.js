@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useDisableScrollbar(state) {
+export default function useScrollbar(state) {
     const { documentElement: root, body } = document;
     const hasScrollbar = root.scrollHeight > root.clientHeight;
     const [scrolling, setScrolling] = useState(root.scrollTop);
