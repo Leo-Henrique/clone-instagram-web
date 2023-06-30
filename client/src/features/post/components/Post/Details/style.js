@@ -34,7 +34,7 @@ export const Username = styled(Link)`
     `}
 `;
 
-export const ViewComments = styled.button`
+export const ViewComments = styled.button.attrs(() => ({ type: "button" }))`
     ${({ theme }) => css`
         color: ${theme.colors.textSupport2};
         ${theme.mixins.genericLinkStates()};

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { showOptions } from "../../../../../../app/slices/modal";
-import SVGViewMore from "../../../../../../assets/icons/vectors/view-more.svg";
-import useUnfollow from "../../../../../misc/api/unfollow";
+import { showOptions } from "../../../../../../../app/slices/modal";
+import SVGViewMore from "../../../../../../../assets/icons/vectors/view-more.svg";
+import useUnfollow from "../../../../../../misc/api/unfollow";
 import * as Styled from "../style";
 
 export default function InstagramUserOptions({ post, globalOptions }) {

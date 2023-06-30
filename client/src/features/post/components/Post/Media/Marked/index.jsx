@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { showUsers } from "../../../../../app/slices/modal";
-import SVGPerson from "../../../../../assets/icons/vectors/person.svg";
+import { showUsers } from "../../../../../../app/slices/modal";
+import SVGPerson from "../../../../../../assets/icons/vectors/person.svg";
 import * as Styled from "./style";
 
 export default function Marked({ type, persons, showMarked }) {

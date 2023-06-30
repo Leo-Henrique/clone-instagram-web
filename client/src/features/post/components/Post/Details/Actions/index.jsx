@@ -1,15 +1,16 @@
 import { AnimatePresence, m } from "framer-motion";
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "styled-components";
-import SVGComments from "../../../../../assets/icons/vectors/comments.svg";
-import SVGLike from "../../../../../assets/icons/vectors/heart.svg";
-import SVGLiked from "../../../../../assets/icons/vectors/liked.svg";
-import SVGSave from "../../../../../assets/icons/vectors/save.svg";
-import SVGShare from "../../../../../assets/icons/vectors/share.svg";
-import useDisable from "../../../../../hooks/useDisable";
-import useMotion from "../../../../../hooks/useMotion";
-import useToggleLikePost from "../../../api/likePost";
+import { showPost } from "../../../../../../app/slices/modal";
+import SVGComments from "../../../../../../assets/icons/vectors/comments.svg";
+import SVGLike from "../../../../../../assets/icons/vectors/heart.svg";
+import SVGLiked from "../../../../../../assets/icons/vectors/liked.svg";
+import SVGSave from "../../../../../../assets/icons/vectors/save.svg";
+import SVGShare from "../../../../../../assets/icons/vectors/share.svg";
+import useDisable from "../../../../../../hooks/useDisable";
+import useMotion from "../../../../../../hooks/useMotion";
+import useToggleLikePost from "../../../../api/likePost";
 import * as Styled from "./style";
 
 const Like = ({ post }) => {
@@ -56,14 +57,15 @@ const Like = ({ post }) => {
 };
 
 export default function Actions({ post }) {
+    const dispatch = useDispatch();
     const { buttonDisabled } = useDisable();
     const actions = [
         {
             id: "comments",
             description: "Ver comentários da publicação",
             icon: <SVGComments />,
-            show: post?.showComments,
-            callback: buttonDisabled,
+            show: post.showComments,
+            callback: () => dispatch(showPost(post.id)),
         },
         {
             id: "share",

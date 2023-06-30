@@ -26,6 +26,10 @@ const initialState = {
         },
         data: null,
     },
+    post: {
+        show: false,
+        id: null,
+    },
 };
 
 const modalSlice = createSlice({
@@ -55,6 +59,10 @@ const modalSlice = createSlice({
                 }),
             },
         }),
+        showPost: (state, { payload }) => {
+            state.post.show = true;
+            state.post.id = payload;
+        },
         close: (state, { payload: name }) => {
             state[name].show = false;
         },
@@ -64,7 +72,8 @@ const modalSlice = createSlice({
     },
 });
 
-export const { requireConfirmation, showOptions, showUsers } = modalSlice.actions;
+export const { requireConfirmation, showOptions, showUsers, showPost } =
+    modalSlice.actions;
 const { close, reset } = modalSlice.actions;
 
 export const closeModal = name => dispatch => {

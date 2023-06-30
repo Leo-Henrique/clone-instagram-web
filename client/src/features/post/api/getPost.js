@@ -8,7 +8,19 @@ const extendApi = api.injectEndpoints({
         [getPostLikesName]: build.query({
             query: postId => `posts/likes/${postId}`,
             transformResponse: res => convertId(res),
-            providesTags: [{ type: "Post", id: "LIKES" }]
+            providesTags: [{ type: "Post", id: "LIKES" }],
+        }),
+        getPost: build.query({
+            query: postId => `posts/${postId}`,
+            transformResponse: res => {
+                const markedMedia = res.media.map(({ persons }) => persons).flat();
+
+                convertId(res, "user");
+                convertId(markedMedia, "user");
+                return res;
+            },
         }),
     }),
 });
+
+export const { useGetPostQuery } = extendApi;

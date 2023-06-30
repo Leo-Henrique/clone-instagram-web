@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
-import FollowButton from "../../../misc/components/FollowButton";
-import UserBadge from "../../../misc/components/UserBadge";
+import FollowButton from "../../../../misc/components/FollowButton";
+import UserBadge from "../../../../misc/components/UserBadge";
 import ViewMore from "./ViewMore";
 import * as Styled from "./style.js";
 

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Skeleton from "../../../../components/Loaders/Skeleton";
-import Image from "../../../../components/Misc/Image";
-import Video from "../../../../components/Misc/Video";
-import { SERVER_DOMAIN } from "../../../../config";
-import useSize from "../../../../hooks/useSize";
+import Skeleton from "../../../../../components/Loaders/Skeleton";
+import Image from "../../../../../components/Misc/Image";
+import Video from "../../../../../components/Misc/Video";
+import { SERVER_DOMAIN } from "../../../../../config";
+import useSize from "../../../../../hooks/useSize";
 import Marked from "./Marked";
 import * as Styled from "./style.js";
 

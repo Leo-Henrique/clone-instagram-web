@@ -24,7 +24,7 @@ export default function Feed() {
                 ) : (
                     <>
                         {posts.map((post, index) => (
-                            <Post key={post?.id || index} post={post} />
+                            <Post key={post?.id || index} data={post} />
                         ))}
                     </>
                 )}

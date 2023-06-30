@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { showOptions } from "../../../../../../app/slices/modal";
-import SVGViewMore from "../../../../../../assets/icons/vectors/view-more.svg";
-import useDisable from "../../../../../../hooks/useDisable";
-import useDeletePost from "../../../../api/deletePost";
+import { showOptions } from "../../../../../../../app/slices/modal";
+import SVGViewMore from "../../../../../../../assets/icons/vectors/view-more.svg";
+import useDisable from "../../../../../../../hooks/useDisable";
+import useDeletePost from "../../../../../api/deletePost";
 import {
     useToggleShowComments,
     useToggleShowLikes,
-} from "../../../../api/updatePost";
+} from "../../../../../api/updatePost";
 import * as Styled from "../style";
 
 export default function AuthUserOptions({ post, globalOptions }) {

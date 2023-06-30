@@ -20,7 +20,7 @@ export const getPost = async (req, res) => {
 
     try {
         const post = await Post.findById(postId)
-            .populate("user comments")
+            .populate("user media.persons.user comments")
             .populate({ path: "comments", populate: { path: "user" } });
 
         fieldHiding(post);

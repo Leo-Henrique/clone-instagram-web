@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import useCopy from "../../../../../hooks/useCopy";
+import useCopy from "../../../../../../hooks/useCopy";
 import AuthUserOptions from "./AuthUserOptions";
 import InstagramUserOptions from "./InstagramUserOptions";
 

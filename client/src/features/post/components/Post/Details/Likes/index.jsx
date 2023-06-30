@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { showUsers } from "../../../../../app/slices/modal.js";
-import { getPostLikesName } from "../../../api/getPost.js";
+import { showUsers } from "../../../../../../app/slices/modal.js";
+import { getPostLikesName } from "../../../../api/getPost.js";
 import * as Styled from "./style";
 
 export default function Likes({ post: { id, likes, user } }) {
