@@ -3,7 +3,7 @@ import useMotion from "../../../hooks/useMotion";
 import Button from "../../Misc/Button";
 import * as Styled from "./style";
 
-export default function QueryError({ error, pageError, ...rest }) {
+export default function QueryError({ error, pageError, refetch, ...rest }) {
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, scale: 0.6 },
@@ -38,7 +38,7 @@ export default function QueryError({ error, pageError, ...rest }) {
                 <Button
                     text="Tentar novamente"
                     expand={false}
-                    onClick={() => location.reload()}
+                    onClick={() => (refetch ? refetch() : location.reload())}
                 />
             )}
         </Styled.Wrapper>

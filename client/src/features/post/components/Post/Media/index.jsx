@@ -12,7 +12,7 @@ export default function Media({ data, post, tag }) {
     const [showMarked, setShowMarked] = useState(false);
 
     return (
-        <Styled.Media as={tag} ref={element} $width={width}>
+        <Styled.Media as={tag} ref={element}>
             {data?.type === "image" ? (
                 <Image
                     src={`${SERVER_DOMAIN}/${data.source}`}

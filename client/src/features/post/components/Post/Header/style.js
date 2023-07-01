@@ -13,3 +13,20 @@ export const Wrapper = styled.header`
         }
     `}
 `;
+
+export const highlightFollowButton = css`
+    ${({ theme }) => css`
+        font-size: ${theme.fontSizes.body};
+        padding-left: 0.6rem;
+        margin-left: 3px;
+        position: relative;
+
+        &::before {
+            content: "•";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            transform: translateY(-50%);
+        }
+    `}
+`;

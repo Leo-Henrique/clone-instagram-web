@@ -4,8 +4,8 @@ import { css, styled } from "styled-components";
 const gap = "1.5rem";
 
 export const Wrapper = styled.div`
-    ${({ $highlight }) => css`
-        padding: ${$highlight ? `0 ${gap}` : `0 ${gap} 1rem`};
+    ${({ $isHighlight }) => css`
+        padding: ${$isHighlight ? `0 ${gap}` : `0 ${gap} 1rem`};
 
         > * + * {
             padding-top: calc(${gap} / 4);

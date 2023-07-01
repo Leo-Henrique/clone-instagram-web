@@ -34,14 +34,14 @@ const FeedInfos = ({ post: { id, user, legend, showComments, comments } }) => {
     );
 };
 
-export default function Details({ post, highlight }) {
+export default function Details({ post, isHighlight }) {
     return (
-        <Styled.Wrapper $highlight={highlight}>
+        <Styled.Wrapper $isHighlight={isHighlight}>
             <Actions post={post} />
 
             {post.showLikes && <Likes post={post} />}
 
-            {!highlight && <FeedInfos post={post} />}
+            {!isHighlight && <FeedInfos post={post} />}
 
             <CreatedAt ISODate={post.createdAt} $styles={Styled.dateStyles} />
         </Styled.Wrapper>

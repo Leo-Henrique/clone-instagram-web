@@ -1,5 +1,6 @@
 import { memo, useState } from "react";
 
+import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
 import Comments from "../../../comments/components/Comments";
 import { useGetPostQuery } from "../../api/getPost";
@@ -8,16 +9,20 @@ import Header from "./Header";
 import Media from "./Media";
 import * as Styled from "./style";
 
-const Post = memo(({ data: receivedData, highlight, id }) => {
+const Post = memo(({ data: receivedData, isHighlight, isModalHighlight, id }) => {
     const currentMedia = useState(0);
-    const { data, isError, error } = useGetPostQuery(id, { skip: !id });
+    const { data, isError, error, refetch } = useGetPostQuery(id, { skip: !id });
     const post = id ? data : receivedData;
 
-    if (isError) return <>error</>;
+    if (isError)
+        return <QueryError error={error} refetch={refetch} pageError={true} />;
 
     return (
-        <Styled.Wrapper>
-            {highlight || <Header post={post} />}
+        <Styled.Wrapper
+            $isHighlight={isHighlight}
+            $isModalHighlight={isModalHighlight}
+        >
+            {isHighlight || <Header post={post} />}
 
             {post?.media?.length > 1 ? (
                 <Carousel
@@ -31,17 +36,23 @@ const Post = memo(({ data: receivedData, highlight, id }) => {
                     ))}
                 </Carousel>
             ) : (
-                <Styled.SingleMedia>
+                <div>
                     <Media tag="div" data={post?.media[0]} post={post} />
-                </Styled.SingleMedia>
+                </div>
             )}
 
-            <Styled.Infos>
-                {highlight && <Header post={post} showFollowButton={true} />}
+            <Styled.Infos $isModalHighlight={isModalHighlight}>
+                {isHighlight && (
+                    <Header
+                        post={post}
+                        showFollowButton={true}
+                        isHighlight={isHighlight}
+                    />
+                )}
 
-                {highlight && data?.showComments && <Comments />}
+                {isHighlight && data?.showComments && <Comments />}
 
-                {post && <Details post={post} highlight={highlight} />}
+                {post && <Details post={post} isHighlight={isHighlight} />}
             </Styled.Infos>
         </Styled.Wrapper>
     );

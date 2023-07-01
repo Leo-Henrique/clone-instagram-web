@@ -15,6 +15,7 @@ export const Wrapper = styled(m.div)`
             ? css`
                   text-align: center;
                   padding: 2rem ${theme.global.containerPaddingX};
+                  height: 100%;
               `
             : css`
                   padding: 3rem 0;
