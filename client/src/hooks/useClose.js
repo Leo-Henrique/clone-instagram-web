@@ -3,12 +3,11 @@ import { useCallback, useEffect, useRef } from "react";
 export default function useClose({
     state = null,
     callback,
-    clickOnAnyElement,
+    clickOutside: { ref, close },
 }) {
-    const notCloseIn = useRef();
     const clickOutside = useCallback(({ target }) => {
-        if (clickOnAnyElement) callback();
-        else if (!notCloseIn.current.contains(target)) callback();
+        if (close) target === ref.current && callback();
+        else !ref.current.contains(target) && callback();
     });
     const escapeKey = useCallback(({ key }) => {
         if (key === "Escape") callback();
@@ -34,6 +33,4 @@ export default function useClose({
 
         return () => removeEvents();
     }, [state]);
-
-    return { notClose: notCloseIn };
 }

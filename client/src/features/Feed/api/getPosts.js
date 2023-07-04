@@ -17,8 +17,16 @@ const { useGetPostsQuery } = api.injectEndpoints({
             },
             providesTags: result =>
                 result
-                    ? ["Post", ...result.map(({ id }) => ({ type: "Post", id }))]
-                    : ["Post"],
+                    ? [
+                          "Post",
+                          "User",
+                          ...result.map(({ id }) => ({ type: "Post", id })),
+                          ...result.map(({ user }) => ({
+                              type: "User",
+                              id: user.id,
+                          })),
+                      ]
+                    : ["Post", "User"],
         }),
     }),
 });

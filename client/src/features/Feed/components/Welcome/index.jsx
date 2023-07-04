@@ -8,7 +8,7 @@ import Users from "../../../misc/components/Users";
 import * as Styled from "./style";
 
 export default function Welcome() {
-    const { data, isError, error, isFetching } = useGetUsersQuery();
+    const { data, isError, error } = useGetUsersQuery();
     const { isBreakpointMd, isBreakpointSm } = useSelector(
         ({ breakpoints }) => breakpoints,
         shallowEqual
@@ -31,7 +31,7 @@ export default function Welcome() {
             </Styled.Text>
 
             {isBreakpointMd ? (
-                <Carousel transition="scale" padding="4rem 0 2rem">
+                <Carousel transition="scale" padding="4rem 0 2rem" itemsRender={data}>
                     <Users
                         data={data}
                         userBadgeProps={{

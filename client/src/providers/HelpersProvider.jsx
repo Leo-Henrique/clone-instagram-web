@@ -22,8 +22,9 @@ export default function HelpersProvider({ children }) {
                 {showConfirmation && <ModalConfirmation key="confirmation" />}
                 {showOptions && <ModalOptions key="options" />}
                 {showUsers && <ModalUsers key="users" />}
-                {showPost && <ModalPost key="post" />}
             </AnimatePresence>
+
+            <AnimatePresence>{showPost && <ModalPost key="post" />}</AnimatePresence>
 
             {children}
         </>

@@ -1,13 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    keepScrollbar,
+    resetScrollbar,
+    scrollbarScrolling,
+} from "../../../../app/slices/modal";
 
-export default function useScrollbar(state) {
+export default function useScrollbar(modalName) {
+    const dispatch = useDispatch();
+    const modalOpen = useSelector(({ modal }) => modal[modalName].show);
+    const { keep, scrolling } = useSelector(({ modal }) => modal.scrollbar);
     const { documentElement: root, body } = document;
     const hasScrollbar = root.scrollHeight > root.clientHeight;
-    const [scrolling, setScrolling] = useState(root.scrollTop);
     const styles = {
         position: "fixed",
         inlineSize: "100%",
-        top: `-${scrolling}px`,
+        top: `-${root.scrollTop}px`,
         get overflowY() {
             return hasScrollbar ? "scroll" : "hidden";
         },
@@ -16,12 +24,22 @@ export default function useScrollbar(state) {
     useEffect(() => {
         const properties = Object.keys(styles);
 
-        if (state) {
-            setScrolling(root.scrollTop);
-            setTimeout(() => {
-                properties.forEach(key => (body.style[key] = styles[key]));
-            });
+        if (modalOpen) {
+            if (body.style.overflowY) {
+                dispatch(keepScrollbar(true));
+                return;
+            }
+
+            dispatch(scrollbarScrolling(root.scrollTop));
+            setTimeout(() =>
+                properties.forEach(key => (body.style[key] = styles[key]))
+            );
         } else {
+            if (keep) {
+                dispatch(keepScrollbar(false));
+                return;
+            }
+
             properties.forEach(key => {
                 const propertyName = key.replace(
                     /[A-Z]/,
@@ -32,6 +50,7 @@ export default function useScrollbar(state) {
             });
 
             scrollTo({ top: scrolling, behavior: "instant" });
+            dispatch(resetScrollbar());
         }
-    }, [state]);
+    }, [modalOpen]);
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function useDrag({
     settings,
+    checkCurrentItem,
     pressed,
     setPressed,
     displacement,
@@ -33,6 +34,7 @@ export default function useDrag({
         if (walk < max) return setDisplacement(max);
 
         setDisplacement(walk);
+        checkCurrentItem();
     };
     const end = () => {
         setPressed(false);

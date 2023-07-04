@@ -28,7 +28,7 @@ export const Wrapper = styled.article`
 
             ${$isModalHighlight &&
             css`
-                width: 105vh;
+                width: 100vh;
             `}
         }
     `}
@@ -38,7 +38,7 @@ export const Infos = styled.div`
     ${({ $isModalHighlight }) =>
         $isModalHighlight &&
         css`
-            flex: 1 50vh;
+            min-width: 400px;
             display: flex;
             flex-direction: column;
         `}

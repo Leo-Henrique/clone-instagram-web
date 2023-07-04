@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export default function useVisibility({
     wrapperRef,
     innerRef,
-    children,
+    itemsRender,
     externalCurrentItem,
     items,
     setItems,
@@ -11,14 +11,23 @@ export default function useVisibility({
     setCurrentItem,
     displacement,
     setDisplacement,
-    pressed,
 }) {
-    const centerCurrentItem = () => setDisplacement(items[currentItem].center);
+    const checkCurrentItem = () => {
+        const positions = items.map(({ center }) => center);
+        const nearestPosition = positions.reduce((acc, position) =>
+            Math.abs(position - displacement) < Math.abs(acc - displacement)
+                ? position
+                : acc
+        );
+        const nearestIndex = positions.findIndex(
+            position => position === nearestPosition
+        );
+
+        if (nearestIndex !== currentItem) setCurrentItem(nearestIndex);
+    };
 
     useEffect(() => {
         const elements = Array.from(innerRef.current.children);
-
-        if (elements.length <= 1) return;
 
         const definePositions = () => {
             const getPositions = element => ({
@@ -38,24 +47,7 @@ export default function useVisibility({
 
         observer.observe(wrapperRef.current);
         return () => observer.disconnect();
-    }, [children]);
-
-    useEffect(() => {
-        if (!items) return;
-
-        const positions = items.map(({ center }) => center);
-        const nearestPosition = positions.reduce((acc, position) =>
-            Math.abs(position - displacement) < Math.abs(acc - displacement)
-                ? position
-                : acc
-        );
-        const nearestIndex = positions.findIndex(
-            position => position === nearestPosition
-        );
-
-        if (nearestIndex !== currentItem) setCurrentItem(nearestIndex);
-        if (!pressed) centerCurrentItem();
-    }, [items, displacement]);
+    }, [itemsRender]);
 
     useEffect(() => {
         if (!items) return;
@@ -64,8 +56,10 @@ export default function useVisibility({
 
         items.forEach(({ element }) => element.classList.remove(highlightClass));
         items[currentItem].element.classList.add(highlightClass);
-        centerCurrentItem();
-        
+        setDisplacement(items[currentItem].center);
+
         if (externalCurrentItem) externalCurrentItem[1](currentItem);
     }, [items, currentItem]);
+
+    return checkCurrentItem;
 }

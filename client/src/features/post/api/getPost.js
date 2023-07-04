@@ -8,7 +8,7 @@ const extendApi = api.injectEndpoints({
         [getPostLikesName]: build.query({
             query: postId => `posts/likes/${postId}`,
             transformResponse: res => convertId(res),
-            providesTags: [{ type: "Post", id: "LIKES" }],
+            providesTags: (result, error, postId) => [{ type: "Post", id: postId }],
         }),
         getPost: build.query({
             query: postId => `posts/${postId}`,
@@ -19,6 +19,13 @@ const extendApi = api.injectEndpoints({
                 convertId(markedMedia, "user");
                 return res;
             },
+            providesTags: (result, error, postId) =>
+                result
+                    ? [
+                          { type: "Post", id: postId },
+                          { type: "User", id: result.user.id },
+                      ]
+                    : [{ type: "Post", id: postId }],
         }),
     }),
 });

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
+import { useRef } from "react";
 import { useTheme } from "styled-components";
 import { closeModal } from "../../../app/slices/modal";
 import useClose from "../../../hooks/useClose";
@@ -10,7 +11,6 @@ import * as Styled from "./style";
 
 export default function Modal({ children, name, dialogStyles, closeOptions }) {
     const close = {
-        clickOnAnyElement: false,
         cancelButton: false,
         ...closeOptions,
     };
@@ -19,12 +19,6 @@ export default function Modal({ children, name, dialogStyles, closeOptions }) {
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
     );
-    const show = useSelector(({ modal }) => modal[name].show);
-    const closeCallback = () => dispatch(closeModal(name));
-    const { notClose } = useClose({
-        callback: closeCallback,
-        clickOnAnyElement: close.clickOnAnyElement,
-    });
     const transition = "modal";
     const wrapperMotion = useMotion({ transition });
     const desktopDialogMotion = useMotion({
@@ -41,19 +35,29 @@ export default function Modal({ children, name, dialogStyles, closeOptions }) {
         },
         transition,
     });
+    const closeCallback = () => dispatch(closeModal(name));
+    const closeRef = useRef(null);
 
-    useScrollbar(show);
+    useClose({
+        callback: closeCallback,
+        clickOutside: {
+            ref: closeRef,
+            close: true,
+        },
+    });
+
+    useScrollbar(name);
 
     return (
         <Styled.Wrapper
             id={`modal-${name}`}
             data-transition={theme.transitions[transition].duration}
             $zIndex={name}
+            ref={closeRef}
             {...wrapperMotion}
         >
             <Styled.Dialog
                 {...(isBreakpointMd ? mobileDialogMotion : desktopDialogMotion)}
-                ref={notClose}
                 $styles={dialogStyles}
             >
                 {children}

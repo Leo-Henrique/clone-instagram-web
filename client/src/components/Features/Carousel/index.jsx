@@ -43,14 +43,16 @@ const Carousel = ({
         pressed,
         setPressed,
     };
-
-    const dragEvents = useDrag({ settings: settings.drag, ...states });
-
-    useVisibility({
+    const checkCurrentItem = useVisibility({
         wrapperRef,
         innerRef,
-        children,
+        itemsRender: settings.itemsRender,
         externalCurrentItem,
+        ...states,
+    });
+    const dragEvents = useDrag({
+        settings: settings.drag,
+        checkCurrentItem,
         ...states,
     });
 

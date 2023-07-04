@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -45,13 +45,19 @@ export default function MoreNavigation() {
         },
     });
     const [menuOpen, setMenuOpen] = useState(false);
-    const { notClose } = useClose({
+    const notCloseRef = useRef(null);
+
+    useClose({
         state: menuOpen,
         callback: () => setMenuOpen(false),
+        clickOutside: {
+            ref: notCloseRef,
+            close: false,
+        },
     });
 
     return (
-        <Styled.Wrapper ref={notClose}>
+        <Styled.Wrapper ref={notCloseRef}>
             <Styled.Button
                 type="button"
                 onClick={() => setMenuOpen(!menuOpen)}

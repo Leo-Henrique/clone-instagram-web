@@ -30,6 +30,10 @@ const initialState = {
         show: false,
         id: null,
     },
+    scrollbar: {
+        keep: false,
+        scrolling: 0,
+    },
 };
 
 const modalSlice = createSlice({
@@ -66,21 +70,37 @@ const modalSlice = createSlice({
         close: (state, { payload: name }) => {
             state[name].show = false;
         },
-        reset: (state, { payload: name }) => {
+        keepScrollbar: (state, { payload }) => {
+            state.scrollbar.keep = payload;
+        },
+        scrollbarScrolling: (state, { payload }) => {
+            state.scrollbar.scrolling = payload;
+        },
+        resetScrollbar: state => {
+            state.scrollbar = initialState.scrollbar;
+        },
+        resetModal: (state, { payload: name }) => {
             state[name] = initialState[name];
         },
     },
 });
 
-export const { requireConfirmation, showOptions, showUsers, showPost } =
-    modalSlice.actions;
-const { close, reset } = modalSlice.actions;
+export const {
+    requireConfirmation,
+    showOptions,
+    showUsers,
+    showPost,
+    keepScrollbar,
+    scrollbarScrolling,
+    resetScrollbar,
+} = modalSlice.actions;
+const { close, resetModal } = modalSlice.actions;
 
 export const closeModal = name => dispatch => {
     const element = document.getElementById(`modal-${name}`);
     const transitionDuration = +element.dataset.transition;
 
     dispatch(close(name));
-    setTimeout(() => dispatch(reset(name)), transitionDuration);
+    setTimeout(() => dispatch(resetModal(name)), transitionDuration);
 };
 export default modalSlice.reducer;

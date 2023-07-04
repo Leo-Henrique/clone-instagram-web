@@ -1,3 +1,4 @@
+import { lighten } from "polished";
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
@@ -78,5 +79,5 @@ export const mobileUsersItem = css`
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 0 32px 2px rgba(0, 0, 0, 0.16);
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => lighten(0.03, theme.colors.background)};
 `;
