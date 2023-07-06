@@ -49,10 +49,11 @@ const theme = {
         newPosts: 15,
         modal: {
             default: 20,
-            options: 25,
-            confirmation: 30,
+            users: 25,
+            options: 30,
+            confirmation: 35,
         },
-        message: 35,
+        message: 40,
     },
     global: {
         containerPaddingX: "15px",

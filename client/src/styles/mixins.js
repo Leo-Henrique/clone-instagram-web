@@ -52,8 +52,13 @@ export const elementAbove = css`
 `;
 
 export const link =
-    ({ fontSize, primary }) =>
+    (receivedOptions = {}) =>
     ({ theme }) => {
+        const { fontSize, primary } = {
+            fontSize: "body",
+            primary: true,
+            ...receivedOptions,
+        };
         const primaryStyles = css`
             color: ${theme.colors.primary};
 

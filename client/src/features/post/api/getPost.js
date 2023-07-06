@@ -15,8 +15,9 @@ const extendApi = api.injectEndpoints({
             transformResponse: res => {
                 const markedMedia = res.media.map(({ persons }) => persons).flat();
 
-                convertId(res, "user");
+                convertId(res, "user", "comments");
                 convertId(markedMedia, "user");
+                convertId(res.comments, "user");
                 return res;
             },
             providesTags: (result, error, postId) =>

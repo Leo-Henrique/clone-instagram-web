@@ -4,20 +4,18 @@ import { css, styled } from "styled-components";
 const gap = "1.5rem";
 
 export const Wrapper = styled.div`
-    ${({ $isHighlight }) => css`
-        padding: ${$isHighlight ? `0 ${gap}` : `0 ${gap} 1rem`};
+    padding: ${`0 ${gap} 1rem`};
 
-        > * + * {
-            padding-top: calc(${gap} / 4);
-            padding-bottom: calc(${gap} / 4);
-        }
-        > *:nth-child(2) {
-            padding-top: calc(${gap} / 2);
-        }
-        > *:last-child {
-            padding-bottom: 0;
-        }
-    `}
+    > * + * {
+        padding-top: calc(${gap} / 4);
+        padding-bottom: calc(${gap} / 4);
+    }
+    > *:nth-child(2) {
+        padding-top: calc(${gap} / 2);
+    }
+    > *:last-child {
+        padding-bottom: 0;
+    }
 `;
 
 export const Username = styled(Link)`

@@ -11,6 +11,7 @@ export const Wrapper = styled.article`
             ? css`
                   display: flex;
                   border: none;
+                  border-radius: initial;
               `
             : $isHighlight &&
               css`
@@ -22,26 +23,48 @@ export const Wrapper = styled.article`
             border: none;
             border-radius: 0;
         }
+    `}
+`;
 
-        > div:first-child {
-            display: flex;
+export const Media = styled.div`
+    ${({ theme, $isModalHighlight }) => css`
+        display: flex;
 
-            ${$isModalHighlight &&
-            css`
-                width: 100vh;
-            `}
-        }
+        ${$isModalHighlight &&
+        css`
+            width: 107vh;
+            align-items: center;
+
+            ${theme.breakpoints.md} {
+                display: none;
+            }
+            @media (max-height: 200px) {
+                display: none;
+            }
+
+        `}
     `}
 `;
 
 export const Infos = styled.div`
-    ${({ $isModalHighlight }) =>
-        $isModalHighlight &&
+    ${({ theme, $isHighlight, $isModalHighlight }) => css`
+        ${$isHighlight &&
         css`
-            min-width: 400px;
             display: flex;
             flex-direction: column;
         `}
+
+        ${$isModalHighlight &&
+        css`
+            flex: 0 0 400px;
+            overflow-y: auto;
+            ${theme.mixins.customScrollbar({ padding: 7 })};
+
+            ${theme.breakpoints.md} {
+                flex: 1 100%;
+            }
+        `}
+    `}
 `;
 
 export const ViewComments = styled.button`

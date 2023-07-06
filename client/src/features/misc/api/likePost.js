@@ -23,7 +23,7 @@ const { useLikePostMutation, useUnlikePostMutation } = api.injectEndpoints({
     }),
 });
 
-export default function useToggleLikePost({ likes, id }) {
+export default function useToggleLikePost(id, likes) {
     const dispatch = useDispatch();
     const authUserId = useSelector(({ auth }) => auth.user.id);
     const [like, likeResult] = useLikePostMutation();

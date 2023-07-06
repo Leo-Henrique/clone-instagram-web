@@ -36,7 +36,7 @@ const FeedInfos = ({ post: { id, user, legend, showComments, comments } }) => {
 
 export default function Details({ post, isHighlight }) {
     return (
-        <Styled.Wrapper $isHighlight={isHighlight}>
+        <Styled.Wrapper>
             <Actions post={post} />
 
             {post.showLikes && <Likes post={post} />}

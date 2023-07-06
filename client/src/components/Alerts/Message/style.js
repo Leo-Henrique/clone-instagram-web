@@ -32,8 +32,8 @@ export const Wrapper = styled(m.div)`
 
 export const Button = styled.button`
     ${({ theme }) => css`
-        ${theme.mixins.link({ fontSize: "body", primary: true })};
-        padding: .8rem;
+        ${theme.mixins.link()};
+        padding: 0.8rem;
         padding-right: 0;
         white-space: nowrap;
 
@@ -42,4 +42,4 @@ export const Button = styled.button`
             padding-bottom: 0;
         }
     `}
-`
+`;

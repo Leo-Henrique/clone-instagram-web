@@ -2,7 +2,7 @@ import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled(m.div)`
-    ${({ theme, $pageError, $expandHeight }) => css`
+    ${({ theme, $pageError, $expandHeight, $padding }) => css`
         display: flex;
         align-items: center;
         justify-content: center;
@@ -23,6 +23,10 @@ export const Wrapper = styled(m.div)`
         ${$expandHeight &&
         css`
             height: 100%;
+        `}
+        ${$padding &&
+        css`
+            padding: ${$padding};
         `}
     `}
 `;

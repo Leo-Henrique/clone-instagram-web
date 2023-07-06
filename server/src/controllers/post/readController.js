@@ -5,15 +5,14 @@ import filteredContent from "../../utils/helpers/filteredContent.js";
 import { error } from "../../utils/helpers/validations.js";
 
 const reorder = posts => posts.sort((a, b) => b.createdAt - a.createdAt);
-// const fieldHiding = (post, userId) => {
-//     const filter = data => {
-//         if (data.user) return data.user.toString() === userId;
-//         return data._id.toString() === userId;
-//     };
+const handleComments = data => {
+    const handleHiding = post => {
+        if (!post.showComments) post.comments = [];
+    };
 
-//     if (!post.showComments) post.comments = post.comments.filter(filter);
-//     if (!post.showLikes) post.likes = post.likes.filter(filter);
-// };
+    if (Array.isArray(data)) data.forEach(handleHiding);
+    else handleHiding(data);
+};
 
 export const getPost = async (req, res) => {
     const { postId } = req.params;
@@ -23,7 +22,7 @@ export const getPost = async (req, res) => {
             .populate("user media.persons.user comments")
             .populate({ path: "comments", populate: { path: "user" } });
 
-        // fieldHiding(post);
+        handleComments(post);
 
         if (post.showComments)
             post.comments.sort((a, b) => b.likes.length - a.likes.length);
@@ -51,7 +50,7 @@ export const getPosts = async (req, res) => {
             }).populate("user");
             const posts = allPosts.filter(({ user }) => user.username === username);
 
-            // posts.forEach(post => fieldHiding(post));
+            handleComments(posts);
             reorder(posts);
             res.send(filteredContent(posts, req.query));
         } else {
@@ -63,11 +62,12 @@ export const getPosts = async (req, res) => {
                 ...(getReels && { isReel: true }),
             }).populate("user media.persons.user");
 
-            // feed.forEach(post => fieldHiding(post, req.userId));
+            handleComments(feed);
             reorder(feed);
             res.send(filteredContent(feed, req.query));
         }
     } catch (err) {
+        console.log(err);
         return error("Não foi possível carregar as publicações.", 500, res);
     }
 };
