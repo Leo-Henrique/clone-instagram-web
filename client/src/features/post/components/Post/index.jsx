@@ -25,8 +25,8 @@ const Post = memo(({ data: receivedData, isHighlight, isModalHighlight, id }) =>
             <QueryError
                 error={error}
                 refetch={refetch}
-                pageError={true}
-                $padding="4rem"
+                $large={true}
+                $padding="4rem 2rem"
             />
         );
 

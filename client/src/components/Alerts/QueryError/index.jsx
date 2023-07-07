@@ -1,9 +1,17 @@
-import SVGWarning from "../../../assets/icons/vectors/warning.svg";
 import useMotion from "../../../hooks/useMotion";
 import Button from "../../Misc/Button";
 import * as Styled from "./style";
 
-export default function QueryError({ error, pageError, refetch, ...rest }) {
+export default function QueryError({ ...receivedSettings }) {
+    const { error, refetch, ...styles } = {
+        error: null,
+        refetch: null,
+        $large: false,
+        $center: true,
+        $expandHeight: true,
+        $padding: null,
+        ...receivedSettings,
+    };
     const motionProps = useMotion({
         variants: {
             initial: { opacity: 0, scale: 0.6 },
@@ -21,26 +29,19 @@ export default function QueryError({ error, pageError, refetch, ...rest }) {
     };
 
     return (
-        <Styled.Wrapper {...motionProps} $pageError={pageError} {...rest}>
-            {pageError && (
-                <Styled.Icon>
-                    <SVGWarning />
-                </Styled.Icon>
-            )}
-
-            <Styled.Text $pageError={pageError}>
+        <Styled.Wrapper {...motionProps} {...styles}>
+            <Styled.Text {...styles}>
                 {!error || !message
                     ? "Oops, não foi possível carregar o conteúdo :("
                     : messageFormatted()}
             </Styled.Text>
 
-            {pageError && (
-                <Button
-                    text="Tentar novamente"
-                    expand={false}
-                    onClick={() => (refetch ? refetch() : location.reload())}
-                />
-            )}
+            <Styled.TryAgain
+                text={refetch ? "Tentar novamente" : "Recarregar a página"}
+                expand={false}
+                onClick={() => (refetch ? refetch() : location.reload())}
+                {...styles}
+            />
         </Styled.Wrapper>
     );
 }

@@ -3,18 +3,26 @@ import { shallowEqual, useSelector } from "react-redux";
 import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
 import Skeleton from "../../../../components/Loaders/Skeleton";
-import useGetUsersQuery from "../../api/getUsers";
 import Users from "../../../misc/components/Users";
+import useGetUsersQuery from "../../api/getUsers";
 import * as Styled from "./style";
 
 export default function Welcome() {
-    const { data, isError, error } = useGetUsersQuery();
+    const { data, isError, error, refetch } = useGetUsersQuery();
     const { isBreakpointMd, isBreakpointSm } = useSelector(
         ({ breakpoints }) => breakpoints,
         shallowEqual
     );
 
-    if (isError) return <QueryError error={error} pageError={true} />;
+    if (isError)
+        return (
+            <QueryError
+                error={error}
+                refetch={refetch}
+                $large={true}
+                $expandHeight={false}
+            />
+        );
 
     return (
         <Styled.Wrapper>
@@ -31,7 +39,11 @@ export default function Welcome() {
             </Styled.Text>
 
             {isBreakpointMd ? (
-                <Carousel transition="scale" padding="4rem 0 2rem" itemsRender={data}>
+                <Carousel
+                    transition="scale"
+                    padding="4rem 0 2rem"
+                    itemsRender={data}
+                >
                     <Users
                         data={data}
                         userBadgeProps={{

@@ -35,10 +35,10 @@ export default function Comments({ post }) {
             </Styled.Wrapper>
         );
 
-    if (isError)
+    if (!isError)
         return (
-            <Styled.Wrapper $centerItems={true}>
-                <QueryError error={error} $padding="3rem 1.5rem" />
+            <Styled.Wrapper >
+                <QueryError error={error}  />
             </Styled.Wrapper>
         );
 

@@ -16,16 +16,17 @@ export default function Users() {
     const { name, expectedAmount, endpoint, data } = useSelector(
         ({ modal }) => modal.users
     );
+    const getUsers = async refetch => {
+        const result = await dispatch(
+            api.endpoints[endpoint.name].initiate(endpoint.args),
+            refetch && { forceRefetch: true }
+        );
+
+        setResult(result);
+    };
 
     useEffect(() => {
         const { current } = usersRef;
-        const getUsers = async () => {
-            const result = await dispatch(
-                api.endpoints[endpoint.name].initiate(endpoint.args)
-            );
-
-            setResult(result);
-        };
 
         setHasScrollbar(current?.scrollHeight > current?.clientHeight);
         data ? setResult({ data }) : getUsers();
@@ -42,7 +43,7 @@ export default function Users() {
             </Styled.Header>
 
             {result?.isError ? (
-                <QueryError error={result.error} $expandHeight={true} />
+                <QueryError error={result.error} refetch={() => getUsers(true)} />
             ) : (
                 <Styled.Users ref={usersRef} $hasScrollbar={hasScrollbar}>
                     <EachUser

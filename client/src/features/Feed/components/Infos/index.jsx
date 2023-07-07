@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import QueryError from "../../../../components/Alerts/QueryError";
 import Footer from "../../../../components/Layout/Footer";
 import UserBadge from "../../../misc/components/UserBadge";
-import useGetUsersQuery from "../../api/getUsers";
 import Users from "../../../misc/components/Users";
+import useGetUsersQuery from "../../api/getUsers";
 import * as Styled from "./style";
 
 export default function Infos() {
     const authUser = useSelector(({ auth }) => auth.user);
-    const { data: users, isError, error } = useGetUsersQuery();
+    const { data: users, isError, error, refetch } = useGetUsersQuery();
 
     return (
         <Styled.Infos>
@@ -22,7 +22,12 @@ export default function Infos() {
 
             <div>
                 {isError ? (
-                    <QueryError error={error} />
+                    <QueryError
+                        error={error}
+                        refetch={refetch}
+                        $center={false}
+                        $padding="5rem 0"
+                    />
                 ) : (
                     <>
                         <Styled.UsersTitle>Usuários do Instagram</Styled.UsersTitle>
@@ -31,7 +36,11 @@ export default function Infos() {
                             <Users
                                 data={users}
                                 followLink={true}
-                                userBadgeProps={{ pictureSize: 45, gap: "1.2rem", showName: true }}
+                                userBadgeProps={{
+                                    pictureSize: 45,
+                                    gap: "1.2rem",
+                                    showName: true,
+                                }}
                             />
                         </Styled.UsersList>
                     </>

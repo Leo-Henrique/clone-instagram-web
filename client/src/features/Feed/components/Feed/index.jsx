@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 
 import QueryError from "../../../../components/Alerts/QueryError";
-import Spinner from "../../../../components/Loaders/Spinner";
 import Post from "../../../post/components/Post";
 import useGetPostsQuery from "../../api/getPosts";
 import Infos from "../Infos";
@@ -11,7 +10,7 @@ export default function Feed() {
     const isBreakpointLg = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointLg
     );
-    const { data, isError, error, isFetching } = useGetPostsQuery();
+    const { data, isError, error, isFetching, refetch } = useGetPostsQuery();
     const posts = data || Array.from({ length: 4 });
 
     return (
@@ -20,7 +19,11 @@ export default function Feed() {
                 {/* {data && isFetching && <Spinner $size={26} />} */}
 
                 {isError ? (
-                    <QueryError error={error} />
+                    <QueryError
+                        error={error}
+                        refetch={refetch}
+                        {...(isBreakpointLg || { $center: false })}
+                    />
                 ) : (
                     <>
                         {posts.map((post, index) => (

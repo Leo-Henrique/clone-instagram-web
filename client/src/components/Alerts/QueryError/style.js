@@ -1,60 +1,46 @@
 import { m } from "framer-motion";
 import { css, styled } from "styled-components";
+import Button from "../../Misc/Button";
 
 export const Wrapper = styled(m.div)`
-    ${({ theme, $pageError, $expandHeight, $padding }) => css`
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+    ${({ theme, $padding, $center, $expandHeight }) => css`
         max-width: 500px;
         margin: 0 auto;
-        row-gap: 2rem;
+        padding: ${$padding || `3rem ${theme.global.containerPaddingX}`};
 
-        ${$pageError
-            ? css`
-                  text-align: center;
-                  padding: 2rem ${theme.global.containerPaddingX};
-                  height: 100%;
-              `
-            : css`
-                  padding: 3rem 0;
-              `}
+        ${$center &&
+        css`
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        `}
         ${$expandHeight &&
         css`
             height: 100%;
         `}
-        ${$padding &&
-        css`
-            padding: ${$padding};
-        `}
-    `}
-`;
-
-export const Icon = styled.div`
-    ${({ theme }) => css`
-        svg {
-            width: 80px;
-            ${theme.mixins.SVGResponsive};
-
-            ${theme.breakpoints.sm} {
-                width: 65px;
-            }
-        }
-        path {
-            fill: ${theme.colors.text};
-        }
     `}
 `;
 
 export const Text = styled.p`
-    ${({ theme, $pageError }) => css`
-        font-size: ${$pageError ? theme.fontSizes.h2 : theme.fontSizes.subh1};
-        color: ${$pageError ? theme.colors.text : theme.colors.danger};
+    ${({ theme, $large }) => css`
+        font-size: ${$large ? theme.fontSizes.h2 : theme.fontSizes.subh1};
+        color: ${theme.colors.text};
         font-weight: 600;
+        margin-bottom: ${$large ? "2rem" : "1.2rem"};
 
         ${theme.breakpoints.sm} {
-            font-size: ${$pageError ? theme.fontSizes.subh1 : "inherit"};
+            font-size: ${theme.fontSizes.subh1};
         }
     `}
+`;
+
+export const TryAgain = styled(Button)`
+    ${({ theme, $large }) =>
+        $large ||
+        css`
+            font-size: calc(${theme.fontSizes.body} - 0.1rem);
+            padding: 0.6rem 1.4rem;
+        `}
 `;
