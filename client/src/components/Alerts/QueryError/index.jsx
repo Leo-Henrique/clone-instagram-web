@@ -1,5 +1,4 @@
 import useMotion from "../../../hooks/useMotion";
-import Button from "../../Misc/Button";
 import * as Styled from "./style";
 
 export default function QueryError({ ...receivedSettings }) {

@@ -44,11 +44,12 @@ export default function Layout({ children, MobileHeader }) {
             </Styled.Navbar>
             <main
                 style={{
-                    minHeight:
-                        isBreakpointMd &&
-                        `calc(100vh - ${navbarHeight} - ${headerHeight})`,
+                    minHeight: isBreakpointMd
+                        ? `calc(100vh - ${headerHeight} - ${navbarHeight})`
+                        : "100vh",
                     marginBottom: isBreakpointMd && navbarHeight,
-                    marginLeft: !isBreakpointMd && navbarWidth,
+                    marginLeft: isBreakpointMd || navbarWidth,
+                    display: "flex",
                 }}
             >
                 <Styled.Content>{children}</Styled.Content>

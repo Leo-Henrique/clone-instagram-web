@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
         padding-top: 3rem;
 
         ${theme.breakpoints.md} {
-            padding-bottom: 2rem;
+            padding-top: 0;
         }
     `}
 `;

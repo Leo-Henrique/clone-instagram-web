@@ -26,13 +26,9 @@ export const Wrapper = styled(m.div)`
 export const Text = styled.p`
     ${({ theme, $large }) => css`
         font-size: ${$large ? theme.fontSizes.h2 : theme.fontSizes.subh1};
-        color: ${theme.colors.text};
         font-weight: 600;
         margin-bottom: ${$large ? "2rem" : "1.2rem"};
-
-        ${theme.breakpoints.sm} {
-            font-size: ${theme.fontSizes.subh1};
-        }
+        color: ${theme.colors.text};
     `}
 `;
 

@@ -14,7 +14,6 @@ const Post = memo(({ data: receivedData, isHighlight, isModalHighlight, id }) =>
     const currentMedia = useState(0);
     const { data, isError, error, refetch } = useGetPostQuery(id, { skip: !id });
     const post = id ? data : receivedData;
-    // const post = null;
     const cssHighlight = {
         $isHighlight: isHighlight,
         $isModalHighlight: isModalHighlight,

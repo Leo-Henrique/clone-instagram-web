@@ -57,14 +57,15 @@ export const Logo = styled(CloneLogo)`
 
 export const Content = styled.div`
     ${({ theme }) => css`
-        display: flex;
-        min-height: 100vh;
+        flex: 1;
         max-width: calc(935px + ${theme.global.containerPaddingY} * 2);
+        display: flex;
         margin-left: auto;
         margin-right: auto;
         padding: ${theme.global.containerPaddingY};
 
         ${theme.breakpoints.md} {
+            width: 100%;
             padding: 0;
         }
     `}
