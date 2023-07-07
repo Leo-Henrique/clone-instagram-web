@@ -7,12 +7,12 @@ export const wrapperStyles = ({ theme }) => css`
 `;
 
 export const Wrapper = styled.ul`
-    ${({ theme, $loading }) => css`
+    ${({ theme, $centerItems }) => css`
         ${wrapperStyles};
         padding: 1rem 0;
         overflow-y: auto;
         ${theme.mixins.customScrollbar()}
-        ${$loading &&
+        ${$centerItems &&
         css`
             display: flex;
             align-items: center;

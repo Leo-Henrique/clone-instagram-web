@@ -18,15 +18,9 @@ export const getPost = async (req, res) => {
     const { postId } = req.params;
 
     try {
-        const post = await Post.findById(postId)
-            .populate("user media.persons.user comments")
-            .populate({ path: "comments", populate: { path: "user" } });
+        const post = await Post.findById(postId).populate("user media.persons.user");
 
         handleComments(post);
-
-        if (post.showComments)
-            post.comments.sort((a, b) => b.likes.length - a.likes.length);
-
         res.send(post);
     } catch (err) {
         return error("Não foi possível carregar a publicação.", 500, res);

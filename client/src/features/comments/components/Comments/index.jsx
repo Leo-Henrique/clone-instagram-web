@@ -1,11 +1,16 @@
+import QueryError from "../../../../components/Alerts/QueryError";
 import Spinner from "../../../../components/Loaders/Spinner";
 import Like from "../../../misc/components/Like";
 import UserBadge from "../../../misc/components/UserBadge";
+import { useGetCommentsQuery } from "../../api/getComments";
 import Actions from "./Actions";
 import NoComments from "./NoComments";
 import * as Styled from "./style";
 
 export default function Comments({ post }) {
+    const { data, isLoading, isError, error } = useGetCommentsQuery(post?.id, {
+        skip: !post,
+    });
     const comments = () => {
         const highlightedLegend = {
             isLegend: true,
@@ -17,16 +22,23 @@ export default function Comments({ post }) {
 
         if (post.legend)
             return post.showComments
-                ? [highlightedLegend, ...post.comments]
+                ? [highlightedLegend, ...data]
                 : [highlightedLegend];
 
-        return post.comments;
+        return data;
     };
 
-    if (!post)
+    if (!post || isLoading)
         return (
-            <Styled.Wrapper $loading={true}>
+            <Styled.Wrapper $centerItems={true}>
                 <Spinner />
+            </Styled.Wrapper>
+        );
+
+    if (isError)
+        return (
+            <Styled.Wrapper $centerItems={true}>
+                <QueryError error={error} $padding="3rem 1.5rem" />
             </Styled.Wrapper>
         );
 
