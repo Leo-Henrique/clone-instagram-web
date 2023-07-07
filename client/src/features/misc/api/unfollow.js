@@ -25,12 +25,16 @@ const { useUnfollowMutation } = api.injectEndpoints({
                 try {
                     await queryFulfilled;
 
-                    if (following.includes(userId))
-                        dispatch(
+                    if (following.includes(userId)) {
+                        await dispatch(
                             updateUser({
                                 following: following.filter(id => id !== userId),
                             })
                         );
+
+                        if (!getState().auth.user.following.length)
+                            dispatch(updateUser());
+                    }
                 } catch {
                     dispatch(
                         showErrorMessage({

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../../app/api";
 import { showErrorMessage } from "../../../app/slices/message";
 
@@ -39,32 +39,40 @@ export const logoutThunk = () => dispatch => {
     localStorage.removeItem("token");
 };
 
-export const updateUser = updatedData => async dispatch => {
-    if (updatedData) {
-        dispatch(update(updatedData));
-        dispatch(
-            api.util.updateQueryData("auth", null, draft => ({
-                ...draft,
-                ...updatedData,
-            }))
-        );
-        return;
-    }
+export const updateUser = createAsyncThunk(
+    `${authSlice.name}/updateUser`,
+    (updatedData, { dispatch }) => {
+        const manualUpdate = resolve => {
+            dispatch(update(updatedData));
+            dispatch(
+                api.util.updateQueryData("auth", null, draft => ({
+                    ...draft,
+                    ...updatedData,
+                }))
+            );
+            resolve();
+        };
+        const autoUpdate = async (resolve, reject) => {
+            try {
+                const { data } = await dispatch(
+                    api.endpoints.auth.initiate(null, { forceRefetch: true })
+                );
 
-    try {
-        const { data } = await dispatch(
-            api.endpoints.auth.initiate(null, { forceRefetch: true })
-        );
+                dispatch(update(data));
+                resolve();
+            } catch (error) {
+                dispatch(
+                    showErrorMessage({
+                        text: "Não foi possível atualizar as informações.",
+                        suggestReload: true,
+                    })
+                );
+                reject();
+            }
+        };
 
-        dispatch(update(data));
-    } catch (error) {
-        dispatch(
-            showErrorMessage({
-                text: "Não foi possível atualizar as informações.",
-                suggestReload: true,
-            })
-        );
+        return new Promise(updatedData ? manualUpdate : autoUpdate);
     }
-};
+);
 
 export default authSlice.reducer;
