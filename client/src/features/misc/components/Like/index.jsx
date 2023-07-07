@@ -4,12 +4,12 @@ import { useTheme } from "styled-components";
 import SVGLike from "../../../../assets/icons/vectors/heart.svg";
 import SVGLiked from "../../../../assets/icons/vectors/liked.svg";
 import useMotion from "../../../../hooks/useMotion";
+import useToggleLikeComment from "../../api/likeComment";
 import useToggleLikePost from "../../api/likePost";
 import * as Styled from "./style";
 
-export default function Like({ what, id, likes, ...rest }) {
+export default function Like({ what, id, likes, postId, ...rest }) {
     const authUserId = useSelector(({ auth }) => auth.user.id);
-    const [toggleLikePost] = useToggleLikePost(id, likes);
     const theme = useTheme();
     const likeProps = useMotion({
         variants: {
@@ -27,19 +27,27 @@ export default function Like({ what, id, likes, ...rest }) {
         },
         transition: "button",
     });
-    const hasLike = likes.includes(authUserId);
-    const callback = () => {
+    const [toggleLikePost] = useToggleLikePost(id, likes);
+    const [toggleLikeComment] = useToggleLikeComment(
+        { postId, commentId: id },
+        likes
+    );
+    const toggleLike = () => {
         switch (what) {
             case "publicação":
                 toggleLikePost();
                 break;
+            case "comentário":
+                toggleLikeComment();
+                break;
         }
     };
+    const hasLike = likes.includes(authUserId);
 
     return (
         <Styled.Wrapper
             aria-label={hasLike ? `Descurtir ${what}` : `Curtir ${what}`}
-            onClick={callback}
+            onClick={toggleLike}
             {...rest}
         >
             <AnimatePresence mode="wait">

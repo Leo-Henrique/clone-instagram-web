@@ -20,15 +20,18 @@ const schema = {
     ],
 };
 
-const CommentSchema = new mongoose.Schema({
-    post: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
-        required: true,
+const CommentSchema = new mongoose.Schema(
+    {
+        post: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users",
+            required: true,
+        },
+        ...schema,
+        replies: [new mongoose.Schema(schema, { timestamps: true })],
     },
-    ...schema,
-    replies: [new mongoose.Schema(schema, { timestamps: true })],
-});
+    { timestamps: true }
+);
 
 CommentSchema.pre(["findOneAndDelete", "deleteMany"], async function (next) {
     const comments = await Comment.find(this._conditions);

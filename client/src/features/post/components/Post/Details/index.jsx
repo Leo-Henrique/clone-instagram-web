@@ -8,8 +8,7 @@ import * as Styled from "./style";
 
 const FeedInfos = ({ post: { id, user, legend, showComments, comments } }) => {
     const dispatch = useDispatch();
-    const totalComments = comments?.length;
-    const totalCommentsFormatted = totalComments?.toLocaleString("pt-BR");
+    const totalComments = comments.length;
 
     return (
         <>
@@ -26,7 +25,9 @@ const FeedInfos = ({ post: { id, user, legend, showComments, comments } }) => {
             {showComments && totalComments > 0 && (
                 <Styled.ViewComments onClick={() => dispatch(showPost(id))}>
                     {totalComments > 1
-                        ? `Ver todos os ${totalCommentsFormatted} comentários`
+                        ? `Ver todos os ${totalComments.toLocaleString(
+                              "pt-BR"
+                          )} comentários`
                         : "Ver 1 comentário"}
                 </Styled.ViewComments>
             )}

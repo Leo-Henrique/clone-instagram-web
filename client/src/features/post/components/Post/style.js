@@ -32,7 +32,7 @@ export const Media = styled.div`
 
         ${$isModalHighlight &&
         css`
-            width: 107vh;
+            width: 100vh;
             align-items: center;
 
             ${theme.breakpoints.md} {

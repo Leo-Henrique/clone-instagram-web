@@ -83,7 +83,9 @@ export default function CreatedAt({ ISODate, ...rest }) {
 
     return (
         <Styled.Wrapper dateTime={ISODate} {...rest}>
-            há {time} {periodName}
+            {periodName.startsWith("segundo") && time < 10
+                ? "agora"
+                : `há ${time} ${periodName}`}
         </Styled.Wrapper>
     );
 }

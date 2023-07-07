@@ -9,7 +9,7 @@ export const wrapperStyles = ({ theme }) => css`
 export const Wrapper = styled.ul`
     ${({ theme, $loading }) => css`
         ${wrapperStyles};
-        padding: 1rem 1.5rem;
+        padding: 1rem 0;
         overflow-y: auto;
         ${theme.mixins.customScrollbar()}
         ${$loading &&
@@ -22,14 +22,23 @@ export const Wrapper = styled.ul`
 `;
 
 export const Comment = styled.li`
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    column-gap: 1.5rem;
+    ${({ theme, $isLegend }) => css`
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        column-gap: 1.5rem;
+        padding: 0 1.5rem;
 
-    & + & {
-        margin-top: calc(2rem - 0.6rem);
-    }
+        ${$isLegend &&
+        css`
+            border-bottom: 1px solid ${theme.colors.separator};
+            padding-bottom: calc(1.5rem - 0.6rem);
+        `}
+
+        & + & {
+            margin-top: calc(2rem - 0.6rem);
+        }
+    `}
 `;
 
 export const Content = styled.div`

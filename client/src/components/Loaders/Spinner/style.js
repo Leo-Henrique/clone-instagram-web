@@ -11,13 +11,21 @@ const spin = keyframes`
 `;
 
 export const Wrapper = styled(m.div)`
-    ${({ theme, $size, $themeColor = "spinner", $padding = 0, $pageLoading }) => css`
+    ${({
+        theme,
+        $size,
+        $themeColor = "spinner",
+        $padding = 0,
+        $pageLoading,
+        $styles,
+    }) => css`
         display: flex;
         justify-content: center;
         align-items: center;
         padding: ${$padding};
 
-        ${$pageLoading && css`
+        ${$pageLoading &&
+        css`
             min-height: 100vh;
         `}
 
@@ -39,5 +47,7 @@ export const Wrapper = styled(m.div)`
                 fill: ${theme.colors[$themeColor]};
             }
         }
+
+        ${$styles && $styles}
     `}
 `;

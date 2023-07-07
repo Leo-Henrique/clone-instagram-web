@@ -64,7 +64,7 @@ const Post = memo(({ data: receivedData, isHighlight, isModalHighlight, id }) =>
 
                 {post && <Details post={post} isHighlight={isHighlight} />}
 
-                {isHighlight && post?.showComments && <AddComment />}
+                {isHighlight && post?.showComments && <AddComment postId={post.id} />}
             </Styled.Infos>
         </Styled.Wrapper>
     );

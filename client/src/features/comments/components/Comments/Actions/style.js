@@ -13,18 +13,21 @@ export const Wrapper = styled.div`
             padding: 0.6rem 0;
         }
         > *:not(:first-child) {
-            font-weight: 600;;
+            font-weight: 600;
         }
-        > button {
-            color: currentColor;
-            ${theme.mixins.genericLinkStates()};
+    `}
+`;
 
-            svg {
-                margin-left: -4px;
-            }
-            path[fill] {
-                fill: ${theme.colors.textSupport2};
-            }
+export const Action = styled.button.attrs(() => ({ type: "button" }))`
+    ${({ theme }) => css`
+        color: currentColor;
+        ${theme.mixins.genericLinkStates()};
+
+        svg {
+            margin-left: -4px;
+        }
+        path[fill] {
+            fill: ${theme.colors.textSupport2};
         }
     `}
 `;

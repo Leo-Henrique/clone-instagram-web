@@ -1,7 +1,7 @@
 import Spinner from "../../../../components/Loaders/Spinner";
 import Like from "../../../misc/components/Like";
 import UserBadge from "../../../misc/components/UserBadge";
-import Infos from "./Infos";
+import Actions from "./Actions";
 import NoComments from "./NoComments";
 import * as Styled from "./style";
 
@@ -20,7 +20,7 @@ export default function Comments({ post }) {
                 ? [highlightedLegend, ...post.comments]
                 : [highlightedLegend];
 
-        return post.comments
+        return post.comments;
     };
 
     if (!post)
@@ -35,7 +35,7 @@ export default function Comments({ post }) {
     return (
         <Styled.Wrapper>
             {comments().map(comment => (
-                <Styled.Comment key={comment.id}>
+                <Styled.Comment key={comment.id} $isLegend={comment.isLegend}>
                     <UserBadge showUsername={false} user={comment.user} />
 
                     <Styled.Content>
@@ -43,13 +43,18 @@ export default function Comments({ post }) {
 
                         {comment.content}
 
-                        <Infos postAuthor={post.user} {...comment} />
+                        <Actions
+                            postId={post.id}
+                            postAuthor={post.user}
+                            {...comment}
+                        />
                     </Styled.Content>
 
                     {comment.isLegend || (
                         <Like
                             what="comentário"
                             id={comment.id}
+                            postId={post.id}
                             likes={comment.likes}
                             $size={15}
                         />

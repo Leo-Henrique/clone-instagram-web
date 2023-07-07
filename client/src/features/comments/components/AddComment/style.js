@@ -1,3 +1,4 @@
+import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
 const paddingY = "1.5rem";
@@ -6,7 +7,9 @@ export const Wrapper = styled.form`
     ${({ theme }) => css`
         border-top: 1px solid ${theme.colors.separator};
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
+        position: relative;
     `}
 `;
 
@@ -37,9 +40,13 @@ export const ToComment = styled.textarea`
         margin: ${paddingY} 0;
         overflow-y: auto;
         ${theme.mixins.customScrollbar({ width: 16, padding: 6 })}
+        ${theme.mixins.transition(["opacity"])}
 
         &::placeholder {
             color: ${theme.colors.textSupport2};
+        }
+        &[disabled] {
+            opacity: 0.18;
         }
     `}
 `;
@@ -51,6 +58,13 @@ export const Submit = styled.button`
 
         &[disabled] {
             opacity: 0.5;
+            pointer-events: none;
         }
     `}
+`;
+
+export const spinner = css`
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 `;
