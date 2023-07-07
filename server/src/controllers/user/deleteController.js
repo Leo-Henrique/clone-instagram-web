@@ -22,7 +22,6 @@ export default async function deleteUser(req, res) {
         await User.findByIdAndDelete(req.userId);
         res.send({ success: "Sua conta foi excluída." });
     } catch (err) {
-        console.log(err);
         return error(
             "Não foi possível excluir sua conta. Tente novamente.",
             500,

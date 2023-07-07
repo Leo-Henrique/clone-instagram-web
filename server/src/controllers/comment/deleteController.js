@@ -38,7 +38,6 @@ export default async function deleteComment(req, res) {
 
         res.send();
     } catch (err) {
-        console.log(err);
         return error(
             "Não foi possível excluir o comentário. Tente novamente.",
             500,

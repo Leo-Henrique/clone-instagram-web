@@ -61,7 +61,6 @@ export const getPosts = async (req, res) => {
             res.send(filteredContent(feed, req.query));
         }
     } catch (err) {
-        console.log(err);
         return error("Não foi possível carregar as publicações.", 500, res);
     }
 };
