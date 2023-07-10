@@ -44,7 +44,7 @@ export default function Details({ post, isHighlight }) {
 
             {!isHighlight && <FeedInfos post={post} />}
 
-            <CreatedAt ISODate={post.createdAt} $styles={Styled.dateStyles} />
+            <Styled.CreatedAt ISODate={post.createdAt} />
         </Styled.Wrapper>
     );
 }

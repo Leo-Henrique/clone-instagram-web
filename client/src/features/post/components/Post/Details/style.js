@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { css, styled } from "styled-components";
+import Date from "../../../../../components/Misc/CreatedAt";
 
 const gap = "1.5rem";
 
@@ -39,9 +40,11 @@ export const ViewComments = styled.button.attrs(() => ({ type: "button" }))`
     `}
 `;
 
-export const dateStyles = ({ theme }) => css`
-    display: block;
-    font-size: calc(${theme.fontSizes.small} - 1px);
-    color: ${theme.colors.textSupport3};
-    text-transform: uppercase;
+export const CreatedAt = styled(Date)`
+    ${({ theme }) => css`
+        display: block;
+        font-size: calc(${theme.fontSizes.small} - 1px);
+        color: ${theme.colors.textSupport3};
+        text-transform: uppercase;
+    `}
 `;

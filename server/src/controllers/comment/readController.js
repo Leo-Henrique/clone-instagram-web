@@ -5,12 +5,14 @@ export default async function getComments(req, res) {
     const { postId } = req.params;
 
     try {
-        const { comments } = await Post.findById(postId).populate({
+        const post = await Post.findById(postId).populate({
             path: "comments",
             populate: { path: "user replies.user" },
         });
 
-        res.send(comments);
+        if (!post.showComments) post.comments = [];
+
+        res.send(post.comments);
     } catch (err) {
         error("Não foi possível carregar os comentários da publicação.", 500, res);
     }

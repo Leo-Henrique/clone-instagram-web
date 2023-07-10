@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 
-export const Text = styled.div`
+export const Text = styled.span`
     ${({ $maxRows = 2, $expand }) => css`
         display: ${$expand ? "block" : "-webkit-box"};
         line-clamp: ${$maxRows};
@@ -8,6 +8,7 @@ export const Text = styled.div`
         box-orient: vertical;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        word-break: break-word;
     `}
 `;
 

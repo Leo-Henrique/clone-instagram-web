@@ -22,8 +22,8 @@ const extendApi = api.injectEndpoints({
             providesTags: (result, error, postId) =>
                 result
                     ? [
-                          { type: "Post", id: postId },
                           { type: "User", id: result.user.id },
+                          { type: "Post", id: postId },
                       ]
                     : [{ type: "Post", id: postId }],
         }),

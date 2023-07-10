@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as Styled from "./style";
 
-export default function ViewMore({ children, maxRows }) {
+export default function ViewMore({ className, children, maxRows }) {
     const textRef = useRef(null);
     const [hasLongText, setHasLongText] = useState(null);
     const [expand, setExpand] = useState(false);
@@ -13,7 +13,7 @@ export default function ViewMore({ children, maxRows }) {
     }, []);
 
     return (
-        <div>
+        <div className={className}>
             <Styled.Text ref={textRef} $maxRows={maxRows} $expand={expand}>
                 {children}
             </Styled.Text>

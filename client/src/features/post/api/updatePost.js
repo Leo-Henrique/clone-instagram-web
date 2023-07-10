@@ -10,9 +10,14 @@ const { useUpdatePostMutation } = api.injectEndpoints({
                 method: "PATCH",
                 body: patch,
             }),
-            invalidatesTags: (result, error, { postId }) => [
-                { type: "Post", id: postId },
-            ],
+            invalidatesTags: (result, error, { postId, patch }) => {
+                const postTag = { type: "Post", id: postId };
+
+                if (patch.hasOwnProperty("showComments"))
+                    return [postTag, { type: "Comments", id: postId }];
+
+                return [postTag];
+            },
         }),
     }),
 });
@@ -53,6 +58,7 @@ export const useToggleShowComments = (postId, showComments) => {
         const showingComments = "Os comentários da sua publicação foram ativados.";
 
         try {
+            console.log(!showComments)
             await request({
                 postId,
                 patch: { showComments: !showComments },

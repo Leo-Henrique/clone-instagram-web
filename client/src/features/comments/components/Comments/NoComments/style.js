@@ -1,13 +1,12 @@
 import { css, styled } from "styled-components";
-import { wrapperStyles } from "../style";
 
 export const Wrapper = styled.div`
-    ${wrapperStyles};
-    padding: 3rem;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    padding: 0 1.5rem;
     text-align: center;
 `;
 

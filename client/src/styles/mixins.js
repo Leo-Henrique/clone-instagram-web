@@ -141,3 +141,26 @@ export const customScrollbar =
             }
         `;
     };
+
+export const dot =
+    (receivedSettings = {}) =>
+    ({ theme, size }) => {
+        const { gap } = {
+            gap: "0.4rem",
+            size: theme.fontSizes.small,
+            ...receivedSettings
+        };
+
+        return css`
+            display: inline-flex;
+            align-items: center;
+            column-gap: ${gap};
+
+            &::before {
+                content: "•";
+                display: inline-block;
+                font-size: ${size};
+                color: currentColor;
+            }
+        `;
+    };

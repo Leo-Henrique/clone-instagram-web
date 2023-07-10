@@ -1,78 +1,39 @@
 import QueryError from "../../../../components/Alerts/QueryError";
 import Spinner from "../../../../components/Loaders/Spinner";
-import Like from "../../../misc/components/Like";
-import UserBadge from "../../../misc/components/UserBadge";
 import { useGetCommentsQuery } from "../../api/getComments";
-import Actions from "./Actions";
+import Comment from "./Comment";
 import NoComments from "./NoComments";
 import * as Styled from "./style";
 
 export default function Comments({ post }) {
-    const { data, isLoading, isError, error } = useGetCommentsQuery(post?.id, {
-        skip: !post,
+    const {
+        data: comments,
+        isLoading,
+        isSuccess,
+        isError,
+        error,
+        refetch,
+    } = useGetCommentsQuery(post?.id, {
+        skip: !post || !post?.showComments,
     });
-    const comments = () => {
-        const highlightedLegend = {
-            isLegend: true,
-            id: post.id,
-            user: post.user,
-            content: post.legend,
-            createdAt: post.createdAt,
-        };
-
-        if (post.legend)
-            return post.showComments
-                ? [highlightedLegend, ...data]
-                : [highlightedLegend];
-
-        return data;
-    };
-
-    if (!post || isLoading)
-        return (
-            <Styled.Wrapper $centerItems={true}>
-                <Spinner />
-            </Styled.Wrapper>
-        );
-
-    if (!isError)
-        return (
-            <Styled.Wrapper >
-                <QueryError error={error}  />
-            </Styled.Wrapper>
-        );
-
-    if (!comments().length) return <NoComments />;
 
     return (
-        <Styled.Wrapper>
-            {comments().map(comment => (
-                <Styled.Comment key={comment.id} $isLegend={comment.isLegend}>
-                    <UserBadge showUsername={false} user={comment.user} />
+        <Styled.Wrapper {...(isSuccess && { as: "ul" })}>
+            {!post || isLoading ? (
+                <Spinner $expandHeight={true} />
+            ) : isError ? (
+                <QueryError error={error} refetch={refetch} />
+            ) : !post.legend && !comments?.length ? (
+                <NoComments />
+            ) : (
+                <>
+                    {post.legend && <Comment isLegend={true} post={post} />}
 
-                    <Styled.Content>
-                        <UserBadge showPicture={false} user={comment.user} />
-
-                        {comment.content}
-
-                        <Actions
-                            postId={post.id}
-                            postAuthor={post.user}
-                            {...comment}
-                        />
-                    </Styled.Content>
-
-                    {comment.isLegend || (
-                        <Like
-                            what="comentário"
-                            id={comment.id}
-                            postId={post.id}
-                            likes={comment.likes}
-                            $size={15}
-                        />
-                    )}
-                </Styled.Comment>
-            ))}
+                    {comments.map((comment, index) => (
+                        <Comment key={comment.id} post={post} comment={comment} />
+                    ))}
+                </>
+            )}
         </Styled.Wrapper>
     );
 }

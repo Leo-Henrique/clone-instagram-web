@@ -17,7 +17,9 @@ export const { useGetCommentsQuery } = api.injectEndpoints({
 
                 return res;
             },
-            // providesTags: result => result ? ["Comment", ...result.map()]
+            providesTags: (result, error, postId) => [
+                { type: "Comments", id: postId },
+            ],
         }),
     }),
 });

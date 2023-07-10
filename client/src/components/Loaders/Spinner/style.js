@@ -17,6 +17,7 @@ export const Wrapper = styled(m.div)`
         $themeColor = "spinner",
         $padding = 0,
         $pageLoading,
+        $expandHeight,
         $styles,
     }) => css`
         display: flex;
@@ -27,6 +28,10 @@ export const Wrapper = styled(m.div)`
         ${$pageLoading &&
         css`
             min-height: 100vh;
+        `}
+        ${$expandHeight &&
+        css`
+            height: 100%;
         `}
 
         svg {

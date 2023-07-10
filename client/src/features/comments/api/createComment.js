@@ -13,6 +13,7 @@ const { useCreateCommentMutation } = api.injectEndpoints({
             }),
             invalidatesTags: (result, error, { postId }) => [
                 { type: "Post", id: postId },
+                { type: "Comments", id: postId },
             ],
         }),
     }),
