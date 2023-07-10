@@ -29,7 +29,7 @@ export default function Comments({ post }) {
                 <>
                     {post.legend && <Comment isLegend={true} post={post} />}
 
-                    {comments.map((comment, index) => (
+                    {comments.map(comment => (
                         <Comment key={comment.id} post={post} comment={comment} />
                     ))}
                 </>

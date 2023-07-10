@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as Styled from "./style";
 
-export default function CreatedAt({ ISODate, ...rest }) {
+export default function CreatedAt({ className, ISODate }) {
     const original = new Date(ISODate);
     const timeStamp = original.getTime();
     const timeStampDiff = Date.now() - timeStamp;
@@ -82,7 +82,7 @@ export default function CreatedAt({ ISODate, ...rest }) {
     }, [render]);
 
     return (
-        <Styled.Wrapper dateTime={ISODate} {...rest}>
+        <Styled.Wrapper className={className} dateTime={ISODate}>
             {periodName.startsWith("segundo") && time < 10
                 ? "agora"
                 : `há ${time} ${periodName}`}

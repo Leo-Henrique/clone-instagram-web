@@ -11,6 +11,9 @@ export default function Actions({
     user: commentAuthor,
     id: commentId,
     likes,
+    replies,
+    showReplies,
+    setShowReplies,
 }) {
     const dispatch = useDispatch();
     const authUserId = useSelector(({ auth }) => auth.user.id);
@@ -40,7 +43,7 @@ export default function Actions({
 
     return (
         <Styled.Wrapper>
-            {totalLikes > 0 && (
+            {!!totalLikes && (
                 <Styled.Action>
                     {totalLikes.toLocaleString("pt-BR")}
                     {"\n"}
@@ -54,6 +57,14 @@ export default function Actions({
                 <Styled.Action onClick={viewOptions}>
                     <SVGViewMore />
                 </Styled.Action>
+            )}
+
+            {!!replies?.length && (
+                <Styled.ToggleReplies onClick={() => setShowReplies(!showReplies)}>
+                    {showReplies
+                        ? "Ocultar respostas"
+                        : `Ver respostas (${replies.length})`}
+                </Styled.ToggleReplies>
             )}
         </Styled.Wrapper>
     );

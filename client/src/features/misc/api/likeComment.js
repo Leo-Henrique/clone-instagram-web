@@ -3,7 +3,7 @@ import api from "../../../app/api";
 import { showErrorMessage } from "../../../app/slices/message";
 
 const invalidatesTags = (result, error, { postId }) => [
-    { type: "Post", id: postId },
+    { type: "Comments", id: postId },
 ];
 
 const { useLikeCommentMutation, useUnlikeCommentMutation } = api.injectEndpoints({

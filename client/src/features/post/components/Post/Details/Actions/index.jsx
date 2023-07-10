@@ -47,7 +47,7 @@ export default function Actions({ post }) {
                     {index === 0 && (
                         <Like
                             what="publicação"
-                            id={post.id}
+                            requestArgs={post.id}
                             likes={post.likes}
                             $padding={`${Styled.padding} 0`}
                         />

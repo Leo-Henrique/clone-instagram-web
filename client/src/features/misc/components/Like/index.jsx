@@ -8,7 +8,7 @@ import useToggleLikeComment from "../../api/likeComment";
 import useToggleLikePost from "../../api/likePost";
 import * as Styled from "./style";
 
-export default function Like({ what, id, likes, postId, ...rest }) {
+export default function Like({ what, requestArgs, id, likes, postId, ...rest }) {
     const authUserId = useSelector(({ auth }) => auth.user.id);
     const theme = useTheme();
     const likeProps = useMotion({
@@ -27,11 +27,8 @@ export default function Like({ what, id, likes, postId, ...rest }) {
         },
         transition: "button",
     });
-    const [toggleLikePost] = useToggleLikePost(id, likes);
-    const [toggleLikeComment] = useToggleLikeComment(
-        { postId, commentId: id },
-        likes
-    );
+    const [toggleLikePost] = useToggleLikePost(requestArgs, likes);
+    const [toggleLikeComment] = useToggleLikeComment(requestArgs, likes);
     const toggleLike = () => {
         switch (what) {
             case "publicação":

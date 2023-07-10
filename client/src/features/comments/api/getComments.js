@@ -11,10 +11,10 @@ export const { useGetCommentsQuery } = api.injectEndpoints({
         getComments: build.query({
             query: postId => `comments/${postId}`,
             transformResponse: res => {
+                const replies = res.map(({ replies }) => replies).flat();
+
                 convertId(res, "user");
-
-                // if (res.replies.length) convertId(res.replies, "user");
-
+                convertId(replies, "user");
                 return res;
             },
             providesTags: (result, error, postId) => [
