@@ -22,14 +22,27 @@ export default async function createComment(req, res) {
                 $push: { comments: comment.id },
             });
         } else {
-            const parent = await Comment.findByIdAndUpdate(
-                replyTo,
+            let commentReplied = await Comment.findById(replyTo);
+
+            if (!commentReplied)
+                commentReplied = await Comment.findOne({
+                    replies: { $elemMatch: { _id: replyTo } },
+                });
+
+            if (!commentReplied)
+                return error(
+                    "O comentário principal não existe ou foi excluído.",
+                    400,
+                    res
+                );
+
+            const { replies } = await Comment.findByIdAndUpdate(
+                commentReplied.id,
                 {
                     $push: { replies: schema },
                 },
                 { new: true }
             );
-            const { replies } = parent;
 
             comment = replies[replies.length - 1];
         }

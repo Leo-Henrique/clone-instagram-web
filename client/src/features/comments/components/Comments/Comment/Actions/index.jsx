@@ -63,7 +63,9 @@ export default function Actions({
                 <Styled.ToggleReplies onClick={() => setShowReplies(!showReplies)}>
                     {showReplies
                         ? "Ocultar respostas"
-                        : `Ver respostas (${replies.length})`}
+                        : `Ver ${replies.length > 1 ? "respostas" : "resposta"} (${
+                              replies.length
+                          })`}
                 </Styled.ToggleReplies>
             )}
         </Styled.Wrapper>
