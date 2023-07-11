@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { showPost } from "../../../../../app/slices/modal";
-import CreatedAt from "../../../../../components/Misc/CreatedAt";
-import ViewMore from "../../../../../components/Misc/ViewMore";
+import Legend from "../../../../../components/Misc/Legend";
 import Actions from "./Actions";
 import Likes from "./Likes";
 import * as Styled from "./style";
@@ -13,13 +12,11 @@ const FeedInfos = ({ post: { id, user, legend, showComments, comments } }) => {
     return (
         <>
             {legend && (
-                <ViewMore>
+                <Legend text={legend}>
                     <Styled.Username to={`/${user.username}`}>
                         {user.username}
                     </Styled.Username>
-
-                    {legend}
-                </ViewMore>
+                </Legend>
             )}
 
             {showComments && totalComments > 0 && (

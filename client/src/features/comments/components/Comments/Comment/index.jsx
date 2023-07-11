@@ -1,13 +1,13 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import ViewMore from "../../../../../components/Misc/ViewMore";
+import Legend from "../../../../../components/Misc/Legend";
 import useMotion from "../../../../../hooks/useMotion";
 import Like from "../../../../misc/components/Like";
 import UserBadge from "../../../../misc/components/UserBadge";
 import Actions from "./Actions";
 import * as Styled from "./style";
 
-const Legend = ({ user, createdAt, legend }) => (
+const Author = ({ user, createdAt, legend }) => (
     <Styled.Wrapper $isLegend>
         <UserBadge showUsername={false} user={user} />
 
@@ -17,10 +17,10 @@ const Legend = ({ user, createdAt, legend }) => (
 
                 <Styled.CreatedAt ISODate={createdAt} />
 
-                <Styled.LegendAuthor>Autor</Styled.LegendAuthor>
+                <Styled.AuthorWarning>Autor</Styled.AuthorWarning>
             </Styled.Header>
 
-            <ViewMore maxRows={Infinity}>{legend}</ViewMore>
+            <Legend text={legend} viewMore={{ use: false }} />
         </Styled.Main>
     </Styled.Wrapper>
 );
@@ -29,7 +29,7 @@ export default function Comment({ isLegend, post, comment, isReply }) {
     const [showReplies, setShowReplies] = useState(false);
     const motionProps = useMotion({ variants: "height" });
 
-    if (isLegend) return <Legend {...post} />;
+    if (isLegend) return <Author {...post} />;
 
     return (
         <Styled.Wrapper $isReply={isReply}>
@@ -42,7 +42,7 @@ export default function Comment({ isLegend, post, comment, isReply }) {
                     <Styled.CreatedAt ISODate={comment.createdAt} />
                 </Styled.Header>
 
-                <ViewMore maxRows={2}>{comment.content}</ViewMore>
+                <Legend text={comment.content} viewMore={{ maxRows: 8 }} />
 
                 <Actions
                     postId={post.id}

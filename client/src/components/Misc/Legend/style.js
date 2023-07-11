@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import { css, styled } from "styled-components";
 
 export const Text = styled.span`
-    ${({ $maxRows = 2, $expand }) => css`
+    ${({ $maxRows, $expand }) => css`
         display: ${$expand ? "block" : "-webkit-box"};
         line-clamp: ${$maxRows};
         -webkit-line-clamp: ${$maxRows};
@@ -11,6 +12,14 @@ export const Text = styled.span`
         word-break: break-word;
     `}
 `;
+
+export const Mention = styled(Link)`
+    ${({ theme }) => css`
+        color: ${theme.colors.primaryLight2};
+        cursor: pointer;
+        ${theme.mixins.genericLinkStates()};
+    `}
+`
 
 export const Button = styled.button.attrs(() => ({ type: "button" }))`
     ${({ theme }) => css`

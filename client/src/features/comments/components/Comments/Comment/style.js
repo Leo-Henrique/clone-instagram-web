@@ -45,7 +45,7 @@ export const CreatedAt = styled(Date)`
     `}
 `;
 
-export const LegendAuthor = styled.span`
+export const AuthorWarning = styled.span`
     ${({ theme }) => {
         const size = `calc(${theme.fontSizes.body} - 0.1rem)`;
 

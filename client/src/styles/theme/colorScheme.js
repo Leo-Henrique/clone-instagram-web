@@ -48,6 +48,7 @@ const colorScheme = {
         postMarked: "rgba(0, 0, 0, .85)",
         postAudio: "rgba(219,219,219,.2)",
         postPlay: "rgba(0,0,0,.5)",
+        primaryLight2: "#e0f1ff",
         primaryLight1: "#29a6f9",
         primary: "#0095F6",
         primaryDark1: "#1877F2",
