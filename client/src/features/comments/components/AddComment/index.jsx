@@ -17,20 +17,20 @@ export default function AddComment({ postId }) {
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
     );
+    const commentRef = useRef(null);
+    const handleRows = () => {
+        const element = commentRef.current;
+        const lineHeight = parseFloat(getComputedStyle(element).lineHeight);
+        const max = lineHeight * 4;
+
+        element.style.height = "inherit";
+        element.style.height = `${Math.min(element.scrollHeight, max)}px`;
+    };
     const change = ({ target }) => {
-        const defineHeight = () => {
-            const lineHeight = parseFloat(getComputedStyle(target).lineHeight);
-            const max = lineHeight * 4;
-
-            target.style.height = "inherit";
-            target.style.height = `${Math.min(target.scrollHeight, max)}px`;
-        };
-
-        defineHeight();
+        handleRows();
         dispatch(setComment(target.value));
     };
-    const [createComment, { isLoading }] = useCreateComment(postId);
-    const commentRef = useRef(null);
+    const [createComment, { isLoading }] = useCreateComment(postId, handleRows);
 
     useEffect(() => {
         if (focus) {

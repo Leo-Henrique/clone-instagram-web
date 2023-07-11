@@ -19,7 +19,7 @@ const { useCreateCommentMutation } = api.injectEndpoints({
     }),
 });
 
-export default function useCreateComment(postId) {
+export default function useCreateComment(postId, callbackSuccess) {
     const dispatch = useDispatch();
     const content = useSelector(({ comment }) => comment.content);
     const reply = useSelector(({ comment }) => comment.reply);
@@ -31,6 +31,7 @@ export default function useCreateComment(postId) {
             await request({ postId, body }).unwrap();
 
             dispatch(resetComment());
+            if (callbackSuccess) setTimeout(callbackSuccess);
         } catch (error) {
             dispatch(showErrorMessage({ error }));
         }

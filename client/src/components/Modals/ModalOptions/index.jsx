@@ -20,7 +20,7 @@ export default function Options() {
                         ? { as: Link, to: callback }
                         : {
                               onClick: () => {
-                                  dispatch(closeModal("options", true));
+                                  dispatch(closeModal("options"));
                                   callback();
                               },
                           })}

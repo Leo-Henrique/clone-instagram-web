@@ -27,7 +27,7 @@ export default function Comments({ post }) {
                 <NoComments />
             ) : (
                 <>
-                    {post.legend && <Comment isLegend={true} post={post} />}
+                    {post.legend && <Comment isLegend post={post} />}
 
                     {comments.map(comment => (
                         <Comment key={comment.id} post={post} comment={comment} />
