@@ -12,6 +12,8 @@ import * as Styled from "./style";
 export default function Modal({ children, name, dialogStyles, closeOptions }) {
     const close = {
         cancelButton: false,
+        x: false,
+        callback: null,
         ...closeOptions,
     };
     const dispatch = useDispatch();
@@ -35,7 +37,7 @@ export default function Modal({ children, name, dialogStyles, closeOptions }) {
         },
         transition,
     });
-    const closeCallback = () => dispatch(closeModal(name));
+    const closeCallback = () => dispatch(closeModal(name, close.callback));
     const closeRef = useRef(null);
 
     useClose({

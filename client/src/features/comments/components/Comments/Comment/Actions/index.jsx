@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { showOptions } from "../../../../../../app/slices/modal";
+import { showOptions, showUsers } from "../../../../../../app/slices/modal";
 import SVGViewMore from "../../../../../../assets/icons/vectors/view-more.svg";
 import useDeleteComment from "../../../../api/deleteComment";
+import { getCommentLikesName } from "../../../../api/getComments";
 import { replyComment } from "../../../../slices/comment";
 import * as Styled from "./style";
 
@@ -18,6 +19,19 @@ export default function Actions({
     const dispatch = useDispatch();
     const authUserId = useSelector(({ auth }) => auth.user.id);
     const [deleteComment] = useDeleteComment({ commentAuthor, postId, commentId });
+    const totalLikes = likes.length;
+    const showLikes = () => {
+        dispatch(
+            showUsers({
+                name: "Curtidas",
+                expectedAmount: totalLikes,
+                endpoint: {
+                    name: getCommentLikesName,
+                    args: { postId, commentId },
+                },
+            })
+        );
+    };
     const viewOptions = () => {
         dispatch(
             showOptions([
@@ -37,14 +51,13 @@ export default function Actions({
             })
         );
     };
-    const totalLikes = likes?.length;
     const allowOptions =
         postAuthor.id === authUserId || commentAuthor.id === authUserId;
 
     return (
         <Styled.Wrapper>
             {!!totalLikes && (
-                <Styled.Action>
+                <Styled.Action onClick={showLikes}>
                     {totalLikes.toLocaleString("pt-BR")}
                     {"\n"}
                     {totalLikes > 1 ? "curtidas" : "curtida"}

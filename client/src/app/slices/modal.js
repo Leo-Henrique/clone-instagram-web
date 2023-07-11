@@ -96,11 +96,14 @@ export const {
 } = modalSlice.actions;
 const { close, resetModal } = modalSlice.actions;
 
-export const closeModal = name => dispatch => {
+export const closeModal = (name, callback) => dispatch => {
     const element = document.getElementById(`modal-${name}`);
     const transitionDuration = +element.dataset.transition;
 
     dispatch(close(name));
-    setTimeout(() => dispatch(resetModal(name)), transitionDuration);
+    setTimeout(() => {
+        dispatch(resetModal(name));
+        if (callback) callback();
+    }, transitionDuration);
 };
 export default modalSlice.reducer;
