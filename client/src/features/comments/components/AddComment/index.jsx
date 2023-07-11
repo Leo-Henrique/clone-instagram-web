@@ -1,9 +1,10 @@
+import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SVGEmote from "../../../../assets/icons/vectors/emoji.svg";
 import Spinner from "../../../../components/Loaders/Spinner";
 import useCreateComment from "../../api/createComment";
 import { focusAddComment, setComment } from "../../slices/comment";
+import Emojis from "./Emojis";
 import ReplyTo from "./ReplyTo";
 import * as Styled from "./style";
 
@@ -11,6 +12,10 @@ export default function AddComment({ postId }) {
     const dispatch = useDispatch();
     const content = useSelector(({ comment }) => comment.content);
     const focus = useSelector(({ comment }) => comment.focus);
+    const isReplyComment = useSelector(({ comment }) => comment.reply.isReply);
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
     const change = ({ target }) => {
         const defineHeight = () => {
             const lineHeight = parseFloat(getComputedStyle(target).lineHeight);
@@ -35,11 +40,9 @@ export default function AddComment({ postId }) {
 
     return (
         <Styled.Wrapper>
-            <ReplyTo />
+            <AnimatePresence>{isReplyComment && <ReplyTo />}</AnimatePresence>
 
-            <Styled.ViewEmotes aria-label="Ver emojis">
-                <SVGEmote />
-            </Styled.ViewEmotes>
+            {isBreakpointMd || <Emojis />}
 
             <Styled.ToComment
                 ref={commentRef}

@@ -9,7 +9,10 @@
         "preview": "vite preview --open"
     },
     "dependencies": {
+        "@emoji-mart/data": "^1.1.2",
+        "@emoji-mart/react": "^1.1.1",
         "@reduxjs/toolkit": "^1.9.5",
+        "emoji-mart": "^5.5.2",
         "framer-motion": "^10.12.12",
         "leo-reset.css": "^1.0.4",
         "polished": "^4.2.2",

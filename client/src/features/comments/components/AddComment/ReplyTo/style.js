@@ -1,7 +1,7 @@
 import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
-export const Reply = styled(m.div)`
+export const Wrapper = styled(m.div)`
     ${({ theme }) => css`
         flex: 1 100%;
         display: flex;

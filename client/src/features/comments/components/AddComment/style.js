@@ -1,4 +1,3 @@
-import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
 const paddingY = "1.5rem";
@@ -10,21 +9,6 @@ export const Wrapper = styled.form`
         flex-wrap: wrap;
         align-items: center;
         position: relative;
-    `}
-`;
-
-export const ViewEmotes = styled.button.attrs(() => ({ type: "button" }))`
-    ${({ theme }) => css`
-        padding: ${paddingY};
-        ${theme.mixins.genericLinkStates()};
-
-        svg {
-            width: 24px;
-            height: 24px;
-        }
-        path {
-            fill: ${theme.colors.text};
-        }
     `}
 `;
 
@@ -47,6 +31,9 @@ export const ToComment = styled.textarea`
         }
         &[disabled] {
             opacity: 0.18;
+        }
+        ${theme.breakpoints.md} {
+            margin-left: ${paddingY};
         }
     `}
 `;
