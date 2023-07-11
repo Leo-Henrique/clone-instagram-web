@@ -1,12 +1,13 @@
 import { AnimatePresence } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { Suspense, lazy, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../../../components/Loaders/Spinner";
 import useCreateComment from "../../api/createComment";
 import { focusAddComment, setComment } from "../../slices/comment";
-import Emojis from "./Emojis";
 import ReplyTo from "./ReplyTo";
 import * as Styled from "./style";
+
+const Emojis = lazy(() => import("./Emojis"));
 
 export default function AddComment({ postId }) {
     const dispatch = useDispatch();
@@ -42,7 +43,11 @@ export default function AddComment({ postId }) {
         <Styled.Wrapper>
             <AnimatePresence>{isReplyComment && <ReplyTo />}</AnimatePresence>
 
-            {isBreakpointMd || <Emojis />}
+            {isBreakpointMd || (
+                <Suspense fallback={<Spinner $padding="0 1.5rem" />}>
+                    <Emojis />
+                </Suspense>
+            )}
 
             <Styled.ToComment
                 ref={commentRef}
