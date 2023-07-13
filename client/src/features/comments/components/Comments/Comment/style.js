@@ -2,7 +2,7 @@ import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 import Date from "../../../../../components/Misc/CreatedAt";
 
-const gapItems = "1.4rem";
+const gapItems = "1.6rem";
 
 export const Wrapper = styled.li`
     ${({ theme, $isLegend, $isReply }) => css`
@@ -24,6 +24,10 @@ export const Wrapper = styled.li`
 
         & + & {
             margin-top: ${gapItems};
+        }
+
+        ${theme.breakpoints.md} {
+            column-gap: 1rem;
         }
     `}
 `;
@@ -63,6 +67,6 @@ export const Replies = styled(m.ul)`
     grid-column: 2 / 4;
 
     > *:first-child {
-        margin-top: calc(1.6rem - 0.6rem);
+        margin-top: 1.6rem;
     }
 `;

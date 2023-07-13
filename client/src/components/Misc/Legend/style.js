@@ -22,7 +22,9 @@ export const Text = styled.span`
 
 export const Mention = styled(Link)`
     ${({ theme }) => css`
-        color: ${theme.colors.primaryLight2};
+        color: ${theme.name === "light"
+            ? theme.colors.primaryDark2
+            : theme.colors.primaryLight2};
         cursor: pointer;
         ${theme.mixins.genericLinkStates()};
     `}

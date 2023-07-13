@@ -1,26 +1,26 @@
 import { useDispatch } from "react-redux";
-import { showPost } from "../../../../../app/slices/modal";
+import { showComments } from "../../../../../app/slices/modal";
 import Legend from "../../../../../components/Misc/Legend";
 import Actions from "./Actions";
 import Likes from "./Likes";
 import * as Styled from "./style";
 
-const FeedInfos = ({ post: { id, user, legend, showComments, comments } }) => {
+const FeedInfos = ({ post }) => {
     const dispatch = useDispatch();
-    const totalComments = comments.length;
+    const totalComments = post.comments.length;
 
     return (
         <>
-            {legend && (
-                <Legend text={legend}>
-                    <Styled.Username to={`/${user.username}`}>
-                        {user.username}
+            {post.legend && (
+                <Legend text={post.legend}>
+                    <Styled.Username to={`/${post.user.username}`}>
+                        {post.user.username}
                     </Styled.Username>
                 </Legend>
             )}
 
-            {showComments && totalComments > 0 && (
-                <Styled.ViewComments onClick={() => dispatch(showPost(id))}>
+            {post.showComments && totalComments > 0 && (
+                <Styled.ViewComments onClick={() => dispatch(showComments(post))}>
                     {totalComments > 1
                         ? `Ver todos os ${totalComments.toLocaleString(
                               "pt-BR"

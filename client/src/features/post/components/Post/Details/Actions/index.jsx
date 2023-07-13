@@ -1,20 +1,15 @@
 import { Fragment } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { showPost } from "../../../../../../app/slices/modal";
+import { useDispatch } from "react-redux";
+import { showComments } from "../../../../../../app/slices/modal";
 import SVGComments from "../../../../../../assets/icons/vectors/comments.svg";
 import SVGSave from "../../../../../../assets/icons/vectors/save.svg";
 import SVGShare from "../../../../../../assets/icons/vectors/share.svg";
 import useDisable from "../../../../../../hooks/useDisable";
-import { focusAddComment } from "../../../../../comments/slices/comment";
 import Like from "../../../../../misc/components/Like";
 import * as Styled from "./style";
 
 export default function Actions({ post }) {
     const dispatch = useDispatch();
-    const modalIsOpen = useSelector(({ modal }) => modal.post.show);
-    const viewComments = () => {
-        modalIsOpen ? dispatch(focusAddComment()) : dispatch(showPost(post.id));
-    };
     const { buttonDisabled } = useDisable();
     const actions = [
         {
@@ -22,7 +17,7 @@ export default function Actions({ post }) {
             description: "Ver comentários da publicação",
             icon: <SVGComments />,
             show: post.showComments,
-            callback: viewComments,
+            callback: () => dispatch(showComments(post)),
         },
         {
             id: "share",

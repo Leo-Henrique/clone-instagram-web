@@ -6,15 +6,16 @@ export const Wrapper = styled.div`
         flex-wrap: wrap;
         align-items: center;
         column-gap: 1.2rem;
-        font-size: ${theme.fontSizes.small};
+        row-gap: 0.4rem;
+        margin-top: 0.6rem;
         line-height: 1.084;
+        font-size: ${theme.fontSizes.small};
         color: ${theme.colors.textSupport2};
     `}
 `;
 
 export const Action = styled.button.attrs(() => ({ type: "button" }))`
     ${({ theme }) => css`
-        padding: 0.6rem 0;
         font-weight: 600;
         color: currentColor;
         ${theme.mixins.genericLinkStates()};
@@ -33,7 +34,7 @@ export const ToggleReplies = styled(Action)`
     display: flex;
     align-items: center;
     column-gap: 1.2rem;
-    margin-top: calc(1.6rem - 0.6rem * 2);
+    margin-top: 1.6rem;
 
     &::before {
         content: "";

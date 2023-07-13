@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { focusAddComment } from "../../features/comments/slices/comment";
 
 const initialState = {
     confirmation: {
@@ -29,6 +30,10 @@ const initialState = {
     post: {
         show: false,
         id: null,
+    },
+    comments: {
+        show: false,
+        post: null,
     },
     scrollbar: {
         keep: false,
@@ -67,6 +72,10 @@ const modalSlice = createSlice({
             state.post.show = true;
             state.post.id = payload;
         },
+        showComments: (state, { payload }) => {
+            state.comments.show = true;
+            state.comments.post = payload;
+        },
         close: (state, { payload: name }) => {
             state[name].show = false;
         },
@@ -90,11 +99,22 @@ export const {
     showOptions,
     showUsers,
     showPost,
+    showComments: showCommentsAction,
     keepScrollbar,
     scrollbarScrolling,
     resetScrollbar,
 } = modalSlice.actions;
 const { close, resetModal } = modalSlice.actions;
+
+export const showComments = post => (dispatch, getState) => {
+    const postModalIsOpen = getState().modal.post.show;
+    const { isBreakpointMd } = getState().breakpoints;
+
+    if (isBreakpointMd) return dispatch(showCommentsAction(post));
+    if (postModalIsOpen) return dispatch(focusAddComment());
+
+    dispatch(showPost(post.id));
+};
 
 export const closeModal = (name, callback) => dispatch => {
     const element = document.getElementById(`modal-${name}`);

@@ -5,7 +5,11 @@ import Comment from "./Comment";
 import NoComments from "./NoComments";
 import * as Styled from "./style";
 
-export default function Comments({ post }) {
+export default function Comments({
+    post,
+    isHighlight,
+    bgColorTheme = "background",
+}) {
     const {
         data: comments,
         isLoading,
@@ -16,21 +20,34 @@ export default function Comments({ post }) {
     } = useGetCommentsQuery(post?.id, {
         skip: !post || !post?.showComments,
     });
+    const renderNoComments = () => {
+        if (isHighlight) return !comments?.length;
+        else return !post.legend && !comments?.length;
+    };
 
     return (
-        <Styled.Wrapper {...(isSuccess && { as: "ul" })}>
+        <Styled.Wrapper
+            {...(isSuccess && { as: "ul" })}
+            $isHighlight={isHighlight}
+            $bgColorTheme={bgColorTheme}
+        >
             {!post || isLoading ? (
                 <Spinner $expandHeight={true} />
             ) : isError ? (
                 <QueryError error={error} refetch={refetch} />
-            ) : !post.legend && !comments?.length ? (
+            ) : renderNoComments() ? (
                 <NoComments />
             ) : (
                 <>
-                    {post.legend && <Comment isLegend post={post} />}
+                    {!isHighlight && post.legend && <Comment isLegend post={post} />}
 
                     {comments.map(comment => (
-                        <Comment key={comment.id} post={post} comment={comment} />
+                        <Comment
+                            key={comment.id}
+                            post={post}
+                            comment={comment}
+                            isHighlight={isHighlight}
+                        />
                     ))}
                 </>
             )}

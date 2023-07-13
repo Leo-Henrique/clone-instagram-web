@@ -9,7 +9,13 @@ import Button from "../../Modals/components/Button";
 import useScrollbar from "./hooks/useScrollbar";
 import * as Styled from "./style";
 
-export default function Modal({ children, name, closeOptions, dialogStyles }) {
+export default function Modal({
+    className,
+    children,
+    name,
+    closeOptions,
+    dialogStyles,
+}) {
     const close = {
         cancelButton: false,
         x: false,
@@ -52,6 +58,7 @@ export default function Modal({ children, name, closeOptions, dialogStyles }) {
 
     return (
         <Styled.Wrapper
+            className={className}
             id={`modal-${name}`}
             data-transition={theme.transitions[transition].duration}
             $zIndex={name}

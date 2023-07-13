@@ -5,6 +5,7 @@ import Message from "../components/Alerts/Message";
 import ModalConfirmation from "../components/Modals/ModalConfirmation";
 import ModalOptions from "../components/Modals/ModalOptions";
 import ModalUsers from "../components/Modals/ModalUsers";
+import ModalComments from "../features/comments/components/Modal";
 import ModalPost from "../features/post/components/Modal";
 
 export default function HelpersProvider({ children }) {
@@ -13,6 +14,7 @@ export default function HelpersProvider({ children }) {
     const showOptions = useSelector(({ modal }) => modal.options.show);
     const showUsers = useSelector(({ modal }) => modal.users.show);
     const showPost = useSelector(({ modal }) => modal.post.show);
+    const showComments = useSelector(({ modal }) => modal.comments.show);
 
     return (
         <>
@@ -24,7 +26,10 @@ export default function HelpersProvider({ children }) {
                 {showUsers && <ModalUsers key="users" />}
             </AnimatePresence>
 
-            <AnimatePresence>{showPost && <ModalPost key="post" />}</AnimatePresence>
+            <AnimatePresence>
+                {showPost && <ModalPost key="post" />}
+                {showComments && <ModalComments key="comments" />}
+            </AnimatePresence>
 
             {children}
         </>

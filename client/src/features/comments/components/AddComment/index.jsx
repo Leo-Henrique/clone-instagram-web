@@ -9,7 +9,11 @@ import * as Styled from "./style";
 
 const Emojis = lazy(() => import("./Emojis"));
 
-export default function AddComment({ postId }) {
+export default function AddComment({
+    postId,
+    isHighlight,
+    bgColorTheme = "background",
+}) {
     const dispatch = useDispatch();
     const content = useSelector(({ comment }) => comment.content);
     const focus = useSelector(({ comment }) => comment.focus);
@@ -40,7 +44,7 @@ export default function AddComment({ postId }) {
     }, [focus]);
 
     return (
-        <Styled.Wrapper>
+        <Styled.Wrapper $isHighlight={isHighlight}>
             <AnimatePresence>{isReplyComment && <ReplyTo />}</AnimatePresence>
 
             {isBreakpointMd || (
@@ -58,6 +62,7 @@ export default function AddComment({ postId }) {
                 onChange={change}
                 rows="1"
                 disabled={isLoading}
+                $bgColorTheme={bgColorTheme}
             ></Styled.ToComment>
 
             {isLoading && <Spinner $size={22} $styles={Styled.spinner} />}
