@@ -58,7 +58,6 @@ export const useToggleShowComments = (postId, showComments) => {
         const showingComments = "Os comentários da sua publicação foram ativados.";
 
         try {
-            console.log(!showComments)
             await request({
                 postId,
                 patch: { showComments: !showComments },

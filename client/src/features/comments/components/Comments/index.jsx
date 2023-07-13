@@ -17,9 +17,7 @@ export default function Comments({
         isError,
         error,
         refetch,
-    } = useGetCommentsQuery(post?.id, {
-        skip: !post || !post?.showComments,
-    });
+    } = useGetCommentsQuery(post?.id, { skip: !post });
     const renderNoComments = () => {
         if (isHighlight) return !comments?.length;
         else return !post.legend && !comments?.length;

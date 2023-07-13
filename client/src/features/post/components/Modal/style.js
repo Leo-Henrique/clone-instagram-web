@@ -8,7 +8,7 @@ export const dialog = css`
         width: calc(100vh - 4rem + ${commentsWidth});
         display: flex;
         flex-direction: column;
-        margin: 0 5rem;
+        margin: 0 6rem;
         overflow: hidden;
         border-radius: 5px !important;
 

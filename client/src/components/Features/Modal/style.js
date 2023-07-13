@@ -38,3 +38,17 @@ export const Dialog = styled(m.div)`
         ${$styles && $styles};
     `}
 `;
+
+export const Close = styled.button.attrs(() => ({ type: "button" }))`
+    ${({ theme }) => css`
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: ${theme.global.containerPaddingY} ${theme.global.containerPaddingX};
+        ${theme.mixins.genericLinkStates()};
+
+        path {
+            stroke: ${theme.colors.white};
+        }
+    `}
+`;

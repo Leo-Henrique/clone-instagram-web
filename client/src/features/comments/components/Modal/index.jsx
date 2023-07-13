@@ -7,7 +7,7 @@ export default function ModalComments() {
     const post = useSelector(({ modal }) => modal.comments.post);
 
     return (
-        <Styled.Modal name="comments" closeOptions={{ x: true }}>
+        <Styled.Modal name="comments">
             <Styled.Header>
                 <h1>Comentários</h1>
             </Styled.Header>

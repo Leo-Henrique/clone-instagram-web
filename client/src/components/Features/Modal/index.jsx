@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "styled-components";
 import { closeModal } from "../../../app/slices/modal";
+import SVGClose from "../../../assets/icons/vectors/close.svg";
 import useClose from "../../../hooks/useClose";
 import useMotion from "../../../hooks/useMotion";
 import Button from "../../Modals/components/Button";
@@ -75,6 +75,12 @@ export default function Modal({
                     <Button text="Cancelar" onClick={closeCallback} />
                 )}
             </Styled.Dialog>
+
+            {close.x && (
+                <Styled.Close aria-label="Fechar janela" onClick={closeCallback}>
+                    <SVGClose />
+                </Styled.Close>
+            )}
         </Styled.Wrapper>
     );
 }
