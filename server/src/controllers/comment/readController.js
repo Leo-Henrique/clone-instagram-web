@@ -10,6 +10,8 @@ export default async function getComments(req, res) {
             populate: { path: "user replies.user" },
         });
 
+        post.comments.sort((a, b) => b.createdAt - a.createdAt);
+
         if (!post.showComments) post.comments = [];
 
         res.send(post.comments);
