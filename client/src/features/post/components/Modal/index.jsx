@@ -15,7 +15,7 @@ export default function ModalPost() {
             dialogStyles={Styled.dialog}
             closeOptions={{ x: true, callback: callbackClose }}
         >
-            <Post id={postId} isHighlight={true} isModalHighlight={true} />
+            <Post id={postId} startWithHighlight={true} isModalHighlight={true} />
         </Modal>
     );
 }

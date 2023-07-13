@@ -9,7 +9,7 @@ import Button from "../../Modals/components/Button";
 import useScrollbar from "./hooks/useScrollbar";
 import * as Styled from "./style";
 
-export default function Modal({ children, name, dialogStyles, closeOptions }) {
+export default function Modal({ children, name, closeOptions, dialogStyles }) {
     const close = {
         cancelButton: false,
         x: false,

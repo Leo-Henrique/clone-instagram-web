@@ -1,4 +1,5 @@
 import { css, styled } from "styled-components";
+import { commentsWidth } from "../Modal/style";
 
 export const Wrapper = styled.article`
     ${({ theme, $isHighlight, $isModalHighlight }) => css`
@@ -7,41 +8,35 @@ export const Wrapper = styled.article`
         border-radius: 10px;
         overflow: hidden;
 
-        ${$isModalHighlight
-            ? css`
-                  display: flex;
-                  border: none;
-                  border-radius: initial;
-              `
-            : $isHighlight &&
-              css`
-                  display: grid;
-                  grid-template-columns: 2fr 1fr;
-              `}
-
         ${theme.breakpoints.sm} {
             border: none;
             border-radius: 0;
         }
+
+        ${$isHighlight &&
+        css`
+            display: flex;
+        `}
+
+        ${$isModalHighlight &&
+        css`
+            border: none;
+            border-radius: initial;
+
+            ${theme.breakpoints.md} {
+                overflow-y: auto;
+            }
+        `}
     `}
 `;
 
 export const Media = styled.div`
-    ${({ theme, $isModalHighlight }) => css`
-        display: flex;
-
-        ${$isModalHighlight &&
+    ${({ $isHighlight }) => css`
+        ${$isHighlight &&
         css`
-            width: 100vh;
+            display: flex;
             align-items: center;
-
-            ${theme.breakpoints.md} {
-                display: none;
-            }
-            @media (max-height: 200px) {
-                display: none;
-            }
-
+            flex: 1;
         `}
     `}
 `;
@@ -56,13 +51,9 @@ export const Infos = styled.div`
 
         ${$isModalHighlight &&
         css`
-            flex: 0 0 400px;
+            flex: 0 0 ${commentsWidth};
             overflow-y: auto;
             ${theme.mixins.customScrollbar({ padding: 7 })};
-
-            ${theme.breakpoints.md} {
-                flex: 1 100%;
-            }
         `}
     `}
 `;

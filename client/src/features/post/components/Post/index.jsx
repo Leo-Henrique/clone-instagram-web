@@ -1,5 +1,7 @@
 import { memo, useState } from "react";
 
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
 import AddComment from "../../../comments/components/AddComment";
@@ -10,14 +12,24 @@ import Header from "./Header";
 import Media from "./Media";
 import * as Styled from "./style";
 
-const Post = memo(({ data: receivedData, isHighlight, isModalHighlight, id }) => {
-    const currentMedia = useState(0);
-    const { data, isError, error, refetch } = useGetPostQuery(id, { skip: !id });
-    const post = id ? data : receivedData;
+const Post = memo(({ data: receivedData, id, ...highlight }) => {
+    const { startWithHighlight, isModalHighlight } = highlight;
+    const [isHighlight, setIsHighlight] = useState(startWithHighlight);
     const cssHighlight = {
         $isHighlight: isHighlight,
         $isModalHighlight: isModalHighlight,
     };
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
+    const currentMedia = useState(0);
+    const { data, isError, error, refetch } = useGetPostQuery(id, { skip: !id });
+    const post = id ? data : receivedData;
+
+    useEffect(() => {
+        if (isBreakpointMd) setIsHighlight(false);
+        else if (isModalHighlight) setIsHighlight(true);
+    }, [isBreakpointMd]);
 
     if (isError)
         return (
@@ -63,7 +75,9 @@ const Post = memo(({ data: receivedData, isHighlight, isModalHighlight, id }) =>
 
                 {post && <Details post={post} isHighlight={isHighlight} />}
 
-                {isHighlight && post?.showComments && <AddComment postId={post.id} />}
+                {isHighlight && post?.showComments && (
+                    <AddComment postId={post.id} />
+                )}
             </Styled.Infos>
         </Styled.Wrapper>
     );
