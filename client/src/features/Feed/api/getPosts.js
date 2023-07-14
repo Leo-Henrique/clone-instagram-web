@@ -1,10 +1,23 @@
 import api from "../../../app/api";
 import convertId from "../../../utils/convertId";
 
-const { useGetPostsQuery } = api.injectEndpoints({
+const getPostsName = "getPosts";
+
+api.injectEndpoints({
     endpoints: build => ({
-        getPosts: build.query({
-            query: () => "posts",
+        [getPostsName]: build.query({
+            query: queryObject => {
+                const path = "posts";
+
+                if (!queryObject) return path;
+
+                const params = Object.keys(queryObject);
+                const paramsWithValue = params.map(
+                    param => `${param}=${queryObject[param]}`
+                );
+
+                return `${path}?${paramsWithValue.join("&")}`;
+            },
             transformResponse: res => {
                 const media = res.map(({ media }) => media);
                 const markedMedia = media
@@ -31,4 +44,4 @@ const { useGetPostsQuery } = api.injectEndpoints({
     }),
 });
 
-export default useGetPostsQuery;
+export default getPostsName;
