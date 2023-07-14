@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../app/api";
 
 export default function useInfiniteScroll(receivedSettings = {}) {
@@ -13,43 +13,39 @@ export default function useInfiniteScroll(receivedSettings = {}) {
         initialCollection: 1,
         ...receivedSettings,
     };
+    const [collection, setCollection] = useState(initialCollection);
     const [data, setData] = useState(Array.from({ length: items }));
-    const [request, result, { lastArg }] = api.endpoints[endpoint.name].useLazyQuery(
+    const result = api.endpoints[endpoint.name].useQuery(
+        { items, collection },
         endpoint.options
     );
     const [scrollFinished, setScrollFinished] = useState(false);
-    const triggerRequest = async collection => {
-        try {
-            const latestData = await request({ items, collection }).unwrap();
-
-            if (collection === initialCollection) setData(latestData);
-            else setData([...data, ...latestData]);
-
-            if (latestData.length < items) setScrollFinished(true);
-        } catch {}
-    };
-    const firstRender = useRef(true);
+    const resetScroll = () => setCollection(initialCollection);
 
     useEffect(() => {
-        if (firstRender.current) {
-            triggerRequest(initialCollection);
-            firstRender.current = false;
-            return;
-        }
+        if (!result.isSuccess) return;
 
-        if (data.includes(undefined) || scrollFinished) return;
+        if (collection === initialCollection) setData(result.data);
+        else setData([...data, ...result.data]);
+
+        if (result.data.length < items) setScrollFinished(true);
+        else setScrollFinished(false);
+    }, [result.data]);
+
+    useEffect(() => {
+        if (!result.isSuccess || scrollFinished) return;
 
         const loadMore = ([entry], observer) => {
             if (entry.isIntersecting) {
-                triggerRequest(lastArg.collection + 1);
+                setCollection(collection + 1);
                 observer.disconnect();
             }
         };
-        const observer = new IntersectionObserver(loadMore, { threshold: 0.8 });
+        const observer = new IntersectionObserver(loadMore, { threshold: 0.3 });
 
         observer.observe(wrapperRef.current.lastElementChild);
         return () => observer.disconnect();
     }, [data]);
 
-    return [data, result, scrollFinished];
+    return { result: { ...result, data }, scrollFinished, resetScroll };
 }

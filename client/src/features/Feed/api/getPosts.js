@@ -30,16 +30,8 @@ api.injectEndpoints({
             },
             providesTags: result =>
                 result
-                    ? [
-                          "Post",
-                          "User",
-                          ...result.map(({ id }) => ({ type: "Post", id })),
-                          ...result.map(({ user }) => ({
-                              type: "User",
-                              id: user.id,
-                          })),
-                      ]
-                    : ["Post", "User"],
+                    ? ["Post", ...result.map(({ id }) => ({ type: "Post", id }))]
+                    : ["Post"],
         }),
     }),
 });

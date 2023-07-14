@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import api from "../../../../app/api";
 import useMotion from "../../../../hooks/useMotion";
-import { updateUser } from "../../../auth/slices/auth";
-import { resetNewPosts } from "../../slices/newPosts";
+import { updateFeed } from "../../slices/newPosts";
 import * as Styled from "./style";
 
 export default function NewPosts() {
     const dispatch = useDispatch();
-    const hasContentInFeed = useSelector(({ auth }) => auth.user.hasContentInFeed);
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
     );
@@ -19,16 +16,6 @@ export default function NewPosts() {
             animate: { opacity: 1, y: 0 },
         },
     });
-    const showUpdatedFeed = () => {
-        if (hasContentInFeed)
-            dispatch(
-                api.endpoints.getPosts.initiate(undefined, { forceRefetch: true })
-            );
-        else dispatch(updateUser({ hasContentInFeed: true }));
-
-        dispatch(resetNewPosts());
-    };
-
     const [headerHeight, setHeaderHeight] = useState("0px");
 
     useEffect(() => {
@@ -41,7 +28,7 @@ export default function NewPosts() {
 
     return (
         <Styled.Wrapper {...motionProps} $headerHeight={headerHeight}>
-            <button type="button" onClick={showUpdatedFeed}>
+            <button type="button" onClick={() => dispatch(updateFeed())}>
                 Novas publicações
             </button>
         </Styled.Wrapper>

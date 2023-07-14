@@ -1,22 +1,31 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import QueryError from "../../../../components/Alerts/QueryError";
+import Spinner from "../../../../components/Loaders/Spinner";
 import useInfiniteScroll from "../../../../hooks/useInfiniteScroll";
 import Post from "../../../post/components/Post";
 import getPostsName from "../../api/getPosts";
 import Infos from "../Infos";
 import * as Styled from "./style";
-import Spinner from "../../../../components/Loaders/Spinner";
 
 export default function Feed() {
     const isBreakpointLg = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointLg
     );
+    const updateFeed = useSelector(({ newPosts }) => newPosts.updateFeed);
     const wrapperRef = useRef(null);
-    const [posts, { isLoading, isFetching, isError, error, refetch }, scrollFinished] = useInfiniteScroll({
+    const {
+        result: { data: posts, isLoading, isFetching, isError, error, refetch },
+        scrollFinished,
+        resetScroll,
+    } = useInfiniteScroll({
         endpoint: { name: getPostsName },
         wrapperRef,
     });
+
+    useEffect(() => {
+        if (updateFeed) resetScroll();
+    }, [updateFeed]);
 
     return (
         <Styled.Wrapper>

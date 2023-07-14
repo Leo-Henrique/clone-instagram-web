@@ -4,7 +4,7 @@ import api from "../../../app/api";
 import { showErrorMessage } from "../../../app/slices/message";
 import { requireConfirmation } from "../../../app/slices/modal";
 import { updateUser } from "../../auth/slices/auth";
-import { notWarnNewPosts } from "../../feed/slices/newPosts";
+import { notWarnNewPosts, updateFeed } from "../../feed/slices/newPosts";
 
 const { useUnfollowMutation } = api.injectEndpoints({
     endpoints: build => ({
@@ -20,10 +20,8 @@ const { useUnfollowMutation } = api.injectEndpoints({
                 userId,
                 { dispatch, getState, queryFulfilled }
             ) => {
-                const { following } = getState().auth.user;
-
-                try {
-                    await queryFulfilled;
+                const updateAuthUser = async () => {
+                    const { following } = getState().auth.user;
 
                     if (following.includes(userId)) {
                         await dispatch(
@@ -35,7 +33,19 @@ const { useUnfollowMutation } = api.injectEndpoints({
                         if (!getState().auth.user.following.length)
                             dispatch(updateUser());
                     }
-                } catch {
+                };
+                const handleFeed = async () => {
+                    const hasNewFollowers = getState().newPosts.newFollowers;
+
+                    if (!hasNewFollowers) dispatch(updateFeed());
+                };
+
+                try {
+                    await queryFulfilled;
+
+                    handleFeed();
+                    updateAuthUser();
+                } catch (err) {
                     dispatch(
                         showErrorMessage({
                             text: "Não foi possível atualizar as informações.",

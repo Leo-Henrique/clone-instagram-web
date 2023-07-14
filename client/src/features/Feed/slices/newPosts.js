@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import api from "../../../app/api";
+import { updateUser } from "../../auth/slices/auth";
 
 const initialState = {
     show: false,
     newFollowers: 0,
+    updateFeed: false,
 };
 
-const newPostsSlice = createSlice({
+const { actions, reducer } = createSlice({
     name: "newPosts",
     initialState,
     reducers: {
@@ -17,14 +20,18 @@ const newPostsSlice = createSlice({
         decrementNewFollowers: state => {
             state.newFollowers = state.newFollowers - 1;
         },
+        updateFeed: state => ({ ...state, updateFeed: true }),
         resetNewPosts: () => initialState,
     },
 });
 
-const { warn, notWarn, incrementNewFollowers, decrementNewFollowers } =
-    newPostsSlice.actions;
-
-export const { resetNewPosts } = newPostsSlice.actions;
+const {
+    warn,
+    notWarn,
+    incrementNewFollowers,
+    decrementNewFollowers,
+    resetNewPosts,
+} = actions;
 
 export const warnNewPosts = () => dispatch => {
     dispatch(warn());
@@ -37,4 +44,14 @@ export const notWarnNewPosts = () => (dispatch, getState) => {
     if (getState().newPosts.newFollowers === 0) dispatch(notWarn());
 };
 
-export default newPostsSlice.reducer;
+export const updateFeed = () => (dispatch, getState) => {
+    const inWelcomePage = !getState().auth.user.hasContentInFeed;
+
+    if (inWelcomePage) dispatch(updateUser({ hasContentInFeed: true }));
+    else dispatch(actions.updateFeed());
+
+    dispatch(api.util.invalidateTags(["Post"]));
+    setTimeout(() => dispatch(resetNewPosts()));
+};
+
+export default reducer;
