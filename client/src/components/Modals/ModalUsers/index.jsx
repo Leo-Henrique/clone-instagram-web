@@ -10,26 +10,28 @@ import * as Styled from "./style";
 
 export default function Users() {
     const dispatch = useDispatch();
-    const usersRef = useRef(null);
+    const {
+        name,
+        expectedAmount,
+        endpoint,
+        data: receivedData,
+    } = useSelector(({ modal }) => modal.users);
+    const {
+        data: apiData,
+        isError,
+        error,
+        refetch,
+    } = api.endpoints[endpoint.name].useQuery(endpoint.args, {
+        skip: !!receivedData,
+    });
+    const data = receivedData || apiData;
+    const usersListRef = useRef(null);
     const [hasScrollbar, setHasScrollbar] = useState(null);
-    const [result, setResult] = useState(null);
-    const { name, expectedAmount, endpoint, data } = useSelector(
-        ({ modal }) => modal.users
-    );
-    const getUsers = async refetch => {
-        const result = await dispatch(
-            api.endpoints[endpoint.name].initiate(endpoint.args),
-            refetch && { forceRefetch: true }
-        );
-
-        setResult(result);
-    };
 
     useEffect(() => {
-        const { current } = usersRef;
+        const usersList = usersListRef.current;
 
-        setHasScrollbar(current?.scrollHeight > current?.clientHeight);
-        data ? setResult({ data }) : getUsers();
+        setHasScrollbar(usersList?.scrollHeight > usersList?.clientHeight);
     }, []);
 
     return (
@@ -42,12 +44,12 @@ export default function Users() {
                 </Styled.Close>
             </Styled.Header>
 
-            {result?.isError ? (
-                <QueryError error={result.error} refetch={() => getUsers(true)} />
+            {isError ? (
+                <QueryError error={error} refetch={refetch} />
             ) : (
-                <Styled.Users ref={usersRef} $hasScrollbar={hasScrollbar}>
+                <Styled.Users ref={usersListRef} $hasScrollbar={hasScrollbar}>
                     <EachUser
-                        data={result?.data}
+                        data={data}
                         userBadgeProps={{ showName: true, pictureSize: 45 }}
                         skeletonCount={expectedAmount}
                     />

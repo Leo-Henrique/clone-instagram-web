@@ -8,7 +8,13 @@ const extendApi = api.injectEndpoints({
         [getPostLikesName]: build.query({
             query: postId => `posts/likes/${postId}`,
             transformResponse: res => convertId(res),
-            providesTags: (result, error, postId) => [{ type: "Post", id: postId }],
+            providesTags: (result, error, postId) => {
+                const postTag = { type: "Post", id: postId };
+
+                return result
+                    ? [postTag, ...result.map(({ id }) => ({ type: "User", id }))]
+                    : [postTag];
+            },
         }),
         getPost: build.query({
             query: postId => `posts/${postId}`,
@@ -19,13 +25,13 @@ const extendApi = api.injectEndpoints({
                 convertId(markedMedia, "user");
                 return res;
             },
-            providesTags: (result, error, postId) =>
-                result
-                    ? [
-                          { type: "User", id: result.user.id },
-                          { type: "Post", id: postId },
-                      ]
-                    : [{ type: "Post", id: postId }],
+            providesTags: (result, error, postId) => {
+                const postTag = { type: "Post", id: postId };
+
+                return result
+                    ? [postTag, { type: "User", id: result.user.id }]
+                    : [postTag];
+            },
         }),
     }),
 });

@@ -57,10 +57,7 @@ export const getLikes = async (req, res) => {
             await doc.populate("replies.likes");
         } else await doc.populate("likes");
 
-        const { likes } = comment;
-
-        likes.sort(() => 0.5 - Math.random());
-        res.send(likes);
+        res.send(comment.likes);
     } catch (err) {
         return error("Não foi possível obter as curtidas.", 500, res);
     }

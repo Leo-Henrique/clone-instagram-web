@@ -20,9 +20,9 @@ const initialState = {
     users: {
         show: false,
         name: "Usuários",
-        expectedAmount: 1,
+        expectedAmount: 3,
         endpoint: {
-            name: null,
+            name: "getUsers",
             args: undefined,
         },
         data: null,

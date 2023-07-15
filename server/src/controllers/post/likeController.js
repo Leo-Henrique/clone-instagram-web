@@ -29,7 +29,6 @@ export const getLikes = async (req, res) => {
     try {
         const post = await Post.findById(postId).populate("likes");
 
-        post.likes.sort(() => 0.5 - Math.random());
         res.send(post.likes);
     } catch (err) {
         return error("Não foi possível obter as curtidas.", 500, res);

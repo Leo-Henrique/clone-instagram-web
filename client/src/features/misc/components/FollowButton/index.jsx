@@ -38,7 +38,7 @@ const Unfollow = ({ user, ...rest }) => {
 };
 
 const FollowButton = memo(({ user, $link, $linkStyles }) => {
-    const authUserId = useSelector(({ auth }) => auth.user.id);
+    const authUserFollowing = useSelector(({ auth }) => auth.user.following);
     const isBreakpointSm = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointSm
     );
@@ -63,7 +63,7 @@ const FollowButton = memo(({ user, $link, $linkStyles }) => {
 
     return (
         <AnimatePresence mode="wait">
-            {user.followers.includes(authUserId) ? (
+            {authUserFollowing.includes(user.id) ? (
                 <Unfollow key="unfollow" {...props} />
             ) : (
                 <Follow key="follow" {...props} />

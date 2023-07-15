@@ -8,9 +8,16 @@ export const { useGetCommentsQuery } = api.injectEndpoints({
         [getCommentLikesName]: build.query({
             query: ({ commentId }) => `comments/likes/${commentId}`,
             transformResponse: res => convertId(res),
-            providesTags: (result, error, { postId }) => [
-                { type: "Comments", id: postId },
-            ],
+            providesTags: (result, error, { postId }) => {
+                const commentsTag = { type: "Comments", id: postId };
+
+                return result
+                    ? [
+                          commentsTag,
+                          ...result.map(({ id }) => ({ type: "User", id })),
+                      ]
+                    : [commentsTag];
+            },
         }),
         getComments: build.query({
             query: postId => `comments/${postId}`,

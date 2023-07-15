@@ -23,10 +23,10 @@ export default function HelpersProvider({ children }) {
             <AnimatePresence mode="wait">
                 {showConfirmation && <ModalConfirmation key="confirmation" />}
                 {showOptions && <ModalOptions key="options" />}
-                {showUsers && <ModalUsers key="users" />}
             </AnimatePresence>
 
             <AnimatePresence>
+                {showUsers && <ModalUsers key="users" />}
                 {showPost && <ModalPost key="post" />}
                 {showComments && <ModalComments key="comments" />}
             </AnimatePresence>
