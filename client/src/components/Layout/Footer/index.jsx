@@ -5,7 +5,7 @@ import * as Styled from "./style";
 
 export default function Footer({ pageLoading }) {
     const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
-    const { element, width } = useSize();
+    const [footerRef, footerHeight, footerWidth] = useSize();
 
     return (
         <Styled.Wrapper
@@ -25,9 +25,9 @@ export default function Footer({ pageLoading }) {
                     href="https://www.linkedin.com/in/leonardo-henrique-/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    ref={element}
+                    ref={footerRef}
                     $isAuthenticated={isAuthenticated}
-                    $width={width}
+                    $width={footerWidth}
                     $pageLoading={pageLoading}
                 >
                     Leonardo Henrique

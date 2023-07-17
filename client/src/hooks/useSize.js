@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function useSize() {
-    const element = useRef();
+    const elementRef = useRef();
     const [width, setWidth] = useState("0px");
     const [height, setHeight] = useState("0px");
 
     useEffect(() => {
-        const { current } = element;
+        const element = elementRef.current;
 
-        if (current) {
+        if (element) {
             const observer = new ResizeObserver(entries => {
                 entries.forEach(entry => {
                     const [sizes] = entry.borderBoxSize;
@@ -18,10 +18,10 @@ export default function useSize() {
                 });
             });
 
-            observer.observe(current);
+            observer.observe(element);
             return () => observer.disconnect();
         }
-    }, [element.current]);
+    }, [elementRef.current]);
 
-    return { element, width, height };
+    return [elementRef, height, width];
 }

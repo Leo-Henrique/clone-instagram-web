@@ -8,11 +8,15 @@ import Marked from "./Marked";
 import * as Styled from "./style.js";
 
 export default function Media({ data, post, tag }) {
-    const { element, width } = useSize();
+    const [mediaRef, mediaHeight, mediaWidth] = useSize();
     const [showMarked, setShowMarked] = useState(false);
 
     return (
-        <Styled.Media as={tag} ref={element} {...(!data && { $height: width })}>
+        <Styled.Media
+            as={tag}
+            ref={mediaRef}
+            {...(!data && { $height: mediaWidth })}
+        >
             {data?.type === "image" ? (
                 <Image
                     src={`${SERVER_DOMAIN}/${data.source}`}
@@ -21,7 +25,7 @@ export default function Media({ data, post, tag }) {
             ) : data?.type === "video" ? (
                 <Video src={`${SERVER_DOMAIN}/${data.source}`} />
             ) : (
-                <Skeleton $height={width} $borderRadius={false} />
+                <Skeleton $height={mediaWidth} $borderRadius={false} />
             )}
 
             {data && data.persons.length !== 0 && (

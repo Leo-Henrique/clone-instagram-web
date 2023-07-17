@@ -12,19 +12,19 @@ export default function Layout({ children, MobileHeader }) {
         ({ breakpoints }) => breakpoints,
         shallowEqual
     );
-    const { element: navbar, height: navbarHeight, width: navbarWidth } = useSize();
-    const { element: header, height: headerHeight } = useSize();
+    const [navbarRef, navbarHeight, navbarWidth] = useSize();
+    const [headerRef, headerHeight] = useSize();
     const motionProps = useMotion();
 
     return (
         <>
             {MobileHeader && isBreakpointMd && (
-                <Styled.MobileHeader ref={header} id="header">
+                <Styled.MobileHeader ref={headerRef} id="header">
                     <MobileHeader />
                 </Styled.MobileHeader>
             )}
 
-            <Styled.Navbar {...motionProps} ref={navbar} id="navbar">
+            <Styled.Navbar {...motionProps} ref={navbarRef} id="navbar">
                 <Styled.Logo SVG={isBreakpointXl && <SVGLogo />} />
 
                 <Navigation
