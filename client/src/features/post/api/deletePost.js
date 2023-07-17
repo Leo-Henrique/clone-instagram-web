@@ -3,6 +3,7 @@ import api from "../../../app/api";
 import { showErrorMessage, showMessage } from "../../../app/slices/message";
 import { requireConfirmation } from "../../../app/slices/modal";
 import { updateUser } from "../../auth/slices/auth";
+import { updateFeed } from "../../feed/slices/newPosts";
 
 const { useDeletePostMutation } = api.injectEndpoints({
     endpoints: build => ({
@@ -18,6 +19,7 @@ const { useDeletePostMutation } = api.injectEndpoints({
                 try {
                     await queryFulfilled;
                     dispatch(updateUser());
+                    dispatch(updateFeed());
                 } catch {}
             },
         }),

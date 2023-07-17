@@ -6,6 +6,7 @@ const initialState = {
     show: false,
     newFollowers: 0,
     updateFeed: false,
+    updateDelay: 800,
 };
 
 const { actions, reducer } = createSlice({
@@ -46,12 +47,19 @@ export const notWarnNewPosts = () => (dispatch, getState) => {
 
 export const updateFeed = () => (dispatch, getState) => {
     const inWelcomePage = !getState().auth.user.hasContentInFeed;
+    const reset = () => {
+        dispatch(api.util.invalidateTags(["Post"]));
+        dispatch(resetNewPosts());
+    };
 
-    if (inWelcomePage) dispatch(updateUser({ hasContentInFeed: true }));
-    else dispatch(actions.updateFeed());
-
-    dispatch(api.util.invalidateTags(["Post"]));
-    setTimeout(() => dispatch(resetNewPosts()));
+    if (inWelcomePage) {
+        dispatch(updateUser({ hasContentInFeed: true }));
+        reset();
+    } else {
+        dispatch(actions.updateFeed());
+        dispatch(notWarnNewPosts());
+        setTimeout(reset, initialState.updateDelay);
+    }
 };
 
 export default reducer;

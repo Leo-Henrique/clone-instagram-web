@@ -14,13 +14,12 @@ export default function useInfiniteScroll(receivedSettings = {}) {
         ...receivedSettings,
     };
     const [collection, setCollection] = useState(initialCollection);
+    const [scrollFinished, setScrollFinished] = useState(false);
     const [data, setData] = useState(Array.from({ length: items }));
     const result = api.endpoints[endpoint.name].useQuery(
         { items, collection },
-        endpoint.options
+        { ...endpoint.options, skip: scrollFinished }
     );
-    const [scrollFinished, setScrollFinished] = useState(false);
-    const resetScroll = () => setCollection(initialCollection);
 
     useEffect(() => {
         if (!result.isSuccess) return;
@@ -47,5 +46,12 @@ export default function useInfiniteScroll(receivedSettings = {}) {
         return () => observer.disconnect();
     }, [data]);
 
-    return { result: { ...result, data }, scrollFinished, resetScroll };
+    return {
+        result: { ...result, data },
+        scrollFinished,
+        resetScroll: () => {
+            setScrollFinished(false);
+            setCollection(initialCollection);
+        },
+    };
 }
