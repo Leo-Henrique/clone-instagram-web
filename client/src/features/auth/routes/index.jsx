@@ -9,12 +9,12 @@ export default function AuthRoutes() {
     const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
 
     if (isAuthenticated) return <Navigate to="/" />;
-    else
-        return (
-            <Routes>
-                <Route path="signup" element={<SignUp />} />
-                <Route path="forgot_password" element={<ForgotPassword />} />
-                <Route path="reset_password" element={<ResetPassword />} />
-            </Routes>
-        );
+    
+    return (
+        <Routes>
+            <Route path="signup" element={<SignUp />} />
+            <Route path="forgot_password" element={<ForgotPassword />} />
+            <Route path="reset_password" element={<ResetPassword />} />
+        </Routes>
+    );
 }
