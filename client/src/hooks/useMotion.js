@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { useTheme } from "styled-components";
 
 import convertThemeTransition from "../utils/convertThemeTransition";
@@ -28,6 +29,14 @@ const motionVariants = {
         initial: { opacity: 0, x: 15 },
         animate: { opacity: 1, x: 0 },
     },
+    fadeInTop: {
+        initial: { opacity: 0, y: -15 },
+        animate: { opacity: 1, y: 0 },
+    },
+    fadeInBottom: {
+        initial: { opacity: 0, y: 15 },
+        animate: { opacity: 1, y: 0 },
+    },
 };
 
 export default function useMotion(receivedOptions = {}) {
@@ -40,26 +49,42 @@ export default function useMotion(receivedOptions = {}) {
         ...defaultOptions,
         ...receivedOptions,
     };
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
     const { transitions } = useTheme();
-    const variantsConfig =
-        typeof variants === "string" ? motionVariants[variants] : variants;
-    const transitionConfig =
-        typeof transition === "string"
-            ? convertThemeTransition(transitions[transition])
-            : transition;
+    const variantsObject = () => {
+        if (typeof variants === "string") {
+            if (isBreakpointMd && variants === "fadeInLeft")
+                return motionVariants.fadeInBottom;
 
-    if (delay) transitionConfig.delay = delay;
+            if (isBreakpointMd && variants === "fadeInRight")
+                return motionVariants.fadeInTop;
+
+            return motionVariants[variants];
+        }
+
+        return variants;
+    };
+    const transitionObject = () => {
+        if (typeof transition === "string")
+            return convertThemeTransition(transitions[transition]);
+
+        return transition;
+    };
+
+    if (delay) transitionObject().delay = delay;
 
     if (!reducedMotion.matches)
         return {
-            variants: variantsConfig,
+            variants: variantsObject(),
             animate: "animate",
-            transition: transitionConfig,
-            ...(variantsConfig.initial && { initial: "initial" }),
-            ...(variantsConfig.exit
+            transition: transitionObject(),
+            ...(variantsObject().initial && { initial: "initial" }),
+            ...(variantsObject().exit
                 ? { exit: "exit" }
-                : variantsConfig.initial && { exit: "initial" }),
+                : variantsObject().initial && { exit: "initial" }),
         };
     else return {};
 }
