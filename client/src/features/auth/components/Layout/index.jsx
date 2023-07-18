@@ -5,12 +5,7 @@ import useMotion from "../../../../hooks/useMotion";
 import * as Styled from "./style";
 
 const Template = ({ children }) => {
-    const motionProps = useMotion({
-        variants: {
-            initial: { opacity: 0, x: 15 },
-            animate: { opacity: 1, x: 0 },
-        },
-    });
+    const motionProps = useMotion({ variants: "fadeInRight" });
 
     return (
         <Styled.Wrapper>

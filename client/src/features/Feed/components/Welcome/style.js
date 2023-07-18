@@ -1,7 +1,8 @@
+import { m } from "framer-motion";
 import { lighten } from "polished";
 import { css, styled } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(m.div)`
     ${({ theme }) => css`
         align-self: center;
         width: 100%;

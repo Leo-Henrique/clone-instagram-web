@@ -1,5 +1,6 @@
 import { css, styled } from "styled-components";
 import DefaultLogo from "../../Misc/Logo";
+import { m } from "framer-motion";
 
 const linkPaddingY = "1.5rem";
 export const linkPaddingX = "1.5rem";
@@ -70,7 +71,7 @@ const mainAttrs = ({
     return styles({ marginLeft: $navbarWidth });
 };
 
-export const Main = styled.main.attrs(mainAttrs)`
+export const Main = styled(m.main).attrs(mainAttrs)`
     min-height: 100vh;
     display: flex;
 `;

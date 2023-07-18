@@ -1,6 +1,7 @@
+import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(m.div)`
     flex: 1;
     align-self: center;
     text-align: center;

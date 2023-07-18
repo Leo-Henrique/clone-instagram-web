@@ -34,10 +34,11 @@ export const signInThunk = data => dispatch => {
     if (data.token) localStorage.setItem("token", JSON.stringify(data.token));
 };
 
-export const logoutThunk = () => dispatch => {
+export const logoutThunk = redirect => dispatch => {
     dispatch(logout());
     dispatch(api.util.resetApiState());
     localStorage.removeItem("token");
+    redirect();
 };
 
 export const updateUser = createAsyncThunk(

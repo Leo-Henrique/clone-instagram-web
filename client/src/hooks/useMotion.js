@@ -20,6 +20,14 @@ const motionVariants = {
         initial: { opacity: 0, x: 15 },
         animate: { opacity: 1, x: 0 },
     },
+    fadeInLeft: {
+        initial: { opacity: 0, x: -15 },
+        animate: { opacity: 1, x: 0 },
+    },
+    fadeInRight: {
+        initial: { opacity: 0, x: 15 },
+        animate: { opacity: 1, x: 0 },
+    },
 };
 
 export default function useMotion(receivedOptions = {}) {

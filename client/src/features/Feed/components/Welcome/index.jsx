@@ -3,6 +3,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
 import Skeleton from "../../../../components/Loaders/Skeleton";
+import useMotion from "../../../../hooks/useMotion";
 import Users from "../../../misc/components/Users";
 import useGetUsersQuery from "../../api/getUsers";
 import * as Styled from "./style";
@@ -13,6 +14,7 @@ export default function Welcome() {
         ({ breakpoints }) => breakpoints,
         shallowEqual
     );
+    const motionProps = useMotion({ variants: "fadeInRight" });
 
     if (isError)
         return (
@@ -25,7 +27,7 @@ export default function Welcome() {
         );
 
     return (
-        <Styled.Wrapper>
+        <Styled.Wrapper {...motionProps}>
             <Styled.Title>
                 {data ? "Bem-vindo ao Instagram" : <Skeleton />}
             </Styled.Title>

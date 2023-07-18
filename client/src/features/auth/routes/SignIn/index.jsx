@@ -9,7 +9,6 @@ import { useSignIn } from "../../api/signIn";
 import Layout from "../../components/Layout";
 import Slideshow from "../../components/Slideshow";
 import * as Styled from "./style";
-import { useEffect } from "react";
 
 export default function SignIn() {
     const [form, setForm] = useState({
@@ -17,12 +16,7 @@ export default function SignIn() {
         password: "",
     });
     const [signIn, { isLoading, isError, error }] = useSignIn(form);
-    const motionProps = useMotion({
-        variants: {
-            initial: { opacity: 0, x: -15 },
-            animate: { opacity: 1, x: 0 },
-        },
-    });
+    const motionProps = useMotion({ variants: "fadeInLeft" });
 
     return (
         <Layout.Wrapper>

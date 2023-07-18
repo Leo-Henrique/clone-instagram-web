@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-
 import { AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 import Layout from "../../../components/Layout";
 import Head from "../../../components/Misc/Head";
+import useMotion from "../../../hooks/useMotion";
 import Feed from "../components/Feed";
 import FeedHeader from "../components/FeedHeader";
 import NewPosts from "../components/NewPosts";
@@ -19,7 +19,9 @@ export default function Main() {
             <AnimatePresence>{showNewPosts && <NewPosts />}</AnimatePresence>
 
             <Layout privateHeader={<FeedHeader />}>
-                {hasFeed ? <Feed /> : <Welcome />}
+                <AnimatePresence mode="wait">
+                    {hasFeed ? <Feed key="feed" /> : <Welcome key="welcome" />}
+                </AnimatePresence>
             </Layout>
         </>
     );

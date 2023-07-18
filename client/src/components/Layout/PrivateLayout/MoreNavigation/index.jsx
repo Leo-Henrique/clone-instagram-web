@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { toggleTheme } from "../../../../app/slices/theme";
 import { logoutThunk } from "../../../../features/auth/slices/auth";
@@ -16,6 +16,7 @@ import * as Styled from "./style";
 
 export default function MoreNavigation() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { linkDisabled } = useDisable();
     const menu = [
         {
@@ -35,7 +36,7 @@ export default function MoreNavigation() {
         },
         {
             name: "Sair",
-            callback: () => dispatch(logoutThunk()),
+            callback: () => dispatch(logoutThunk(() => navigate("/"))),
         },
     ];
     const motionProps = useMotion({

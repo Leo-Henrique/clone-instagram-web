@@ -1,14 +1,17 @@
 import Layout from "../../components/Layout";
 import Button from "../../components/Misc/Button";
 import Head from "../../components/Misc/Head";
+import useMotion from "../../hooks/useMotion";
 import * as Styled from "./style";
 
 export default function NotFound() {
+    const motionProps = useMotion({ variants: "fadeInRight" });
+
     return (
         <Layout>
             <Head title="Página não encontrada" />
 
-            <Styled.Wrapper>
+            <Styled.Wrapper {...motionProps}>
                 <Styled.Title>Página indisponível.</Styled.Title>
 
                 <Styled.Text>

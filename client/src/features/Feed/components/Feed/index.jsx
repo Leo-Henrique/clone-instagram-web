@@ -26,6 +26,7 @@ export default function Feed() {
         endpoint: { name: getPostsName },
         wrapperRef,
     });
+    const wrapperMotionProps = useMotion({ variants: "fadeInLeft" });
     const spinnerMotionProps = useMotion({
         variants: "height",
         transition: "loading",
@@ -36,7 +37,7 @@ export default function Feed() {
     }, [updateFeed]);
 
     return (
-        <Styled.Wrapper>
+        <Styled.Wrapper {...wrapperMotionProps}>
             <Styled.Posts ref={wrapperRef}>
                 <AnimatePresence>
                     {updateFeed && <Spinner $size={26} {...spinnerMotionProps} />}

@@ -1,5 +1,7 @@
 import { shallowEqual, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import SVGLogo from "../../../assets/icons/vectors/logo.svg";
+import useMotion from "../../../hooks/useMotion";
 import useSize from "../../../hooks/useSize";
 import Header from "../Header";
 import MoreNavigation from "./MoreNavigation";
@@ -13,6 +15,8 @@ export default function PrivateLayout({ children, privateHeader }) {
     );
     const [navbarRef, navbarHeight, navbarWidth] = useSize();
     const [headerRef, headerHeight] = useSize();
+    const motionProps = useMotion({ variants: "fadeInLeft" });
+    const location = useLocation();
 
     return (
         <>
@@ -44,6 +48,7 @@ export default function PrivateLayout({ children, privateHeader }) {
                 $headerHeight={headerHeight}
                 $navbarHeight={navbarHeight}
                 $navbarWidth={navbarWidth}
+                {...(location.pathname === "/" && motionProps)}
             >
                 <Styled.Content>{children}</Styled.Content>
             </Styled.Main>

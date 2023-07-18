@@ -4,6 +4,7 @@ import QueryError from "../../../components/Alerts/QueryError";
 import Layout from "../../../components/Layout";
 import Footer from "../../../components/Misc/Footer";
 import Head from "../../../components/Misc/Head";
+import useMotion from "../../../hooks/useMotion";
 import { useGetPostQuery } from "../api/getPost";
 import Post from "../components/Post";
 import PostHeader from "../components/PostHeader";
@@ -17,6 +18,7 @@ export default function PostRoute() {
     const { postId } = useParams();
     const { data: post, isError, error, refetch } = useGetPostQuery(postId);
     const navigate = useNavigate();
+    const motionProps = useMotion({ variants: "fadeInRight" });
 
     return (
         <Layout privateHeader={<PostHeader />}>
@@ -27,7 +29,7 @@ export default function PostRoute() {
                 })}
             />
 
-            <Styled.Wrapper $isAuthenticated={isAuthenticated}>
+            <Styled.Wrapper $isAuthenticated={isAuthenticated} {...motionProps}>
                 {isError ? (
                     <QueryError
                         error={error}
