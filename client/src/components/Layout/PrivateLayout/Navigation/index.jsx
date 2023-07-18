@@ -1,16 +1,16 @@
 import { shallowEqual, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import SVGCreate from "../../../assets/icons/vectors/create.svg";
-import SVGExplore from "../../../assets/icons/vectors/explore.svg";
-import SVGNotifications from "../../../assets/icons/vectors/heart.svg";
-import SVGHome from "../../../assets/icons/vectors/home.svg";
-import SVGMessages from "../../../assets/icons/vectors/messages.svg";
-import SVGReels from "../../../assets/icons/vectors/reels.svg";
-import SVGSearch from "../../../assets/icons/vectors/search.svg";
-import { SERVER_DOMAIN } from "../../../config";
-import useDisable from "../../../hooks/useDisable";
-import Tooltip from "../../Features/Tooltip";
+import SVGCreate from "../../../../assets/icons/vectors/create.svg";
+import SVGExplore from "../../../../assets/icons/vectors/explore.svg";
+import SVGNotifications from "../../../../assets/icons/vectors/heart.svg";
+import SVGHome from "../../../../assets/icons/vectors/home.svg";
+import SVGMessages from "../../../../assets/icons/vectors/messages.svg";
+import SVGReels from "../../../../assets/icons/vectors/reels.svg";
+import SVGSearch from "../../../../assets/icons/vectors/search.svg";
+import { SERVER_DOMAIN } from "../../../../config";
+import useDisable from "../../../../hooks/useDisable";
+import Tooltip from "../../../Features/Tooltip";
 import * as Styled from "./style";
 
 const Action = ({ name, callback, icon, ...rest }) => {

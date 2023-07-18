@@ -17,7 +17,11 @@ export default function Options() {
                     text={name}
                     $danger={danger}
                     {...(typeof callback === "string"
-                        ? { as: Link, to: callback }
+                        ? {
+                              as: Link,
+                              to: callback,
+                              onClick: () => dispatch(closeModal("options")),
+                          }
                         : {
                               onClick: () => {
                                   dispatch(closeModal("options"));

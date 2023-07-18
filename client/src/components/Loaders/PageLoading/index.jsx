@@ -1,7 +1,7 @@
 import IMGLogo from "../../../assets/images/logo.png";
 import Head from "../../../components/Misc/Head";
 import useMotion from "../../../hooks/useMotion";
-import Footer from "../../Layout/Footer";
+import Footer from "../../Misc/Footer";
 import Image from "../../Misc/Image";
 import * as Styled from "./style";
 

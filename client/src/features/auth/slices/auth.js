@@ -29,6 +29,7 @@ const { signIn, logout, update } = authSlice.actions;
 
 export const signInThunk = data => dispatch => {
     dispatch(signIn(data));
+    localStorage.removeItem("signInWarning");
 
     if (data.token) localStorage.setItem("token", JSON.stringify(data.token));
 };

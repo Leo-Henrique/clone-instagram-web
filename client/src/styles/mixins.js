@@ -29,6 +29,27 @@ export const authBlock = ({ theme }) => css`
     }
 `;
 
+export const container =
+    ({ paddingY, paddingX } = {}) =>
+    ({ theme }) =>
+        css`
+            max-width: ${theme.global.container};
+            margin-left: auto;
+            margin-right: auto;
+
+            ${paddingY &&
+            css`
+                padding-top: ${theme.global.containerPaddingY};
+                padding-bottom: ${theme.global.containerPaddingY};
+            `}
+
+            ${paddingX &&
+            css`
+                padding-left: ${theme.global.containerPaddingX};
+                padding-right: ${theme.global.containerPaddingX};
+            `}
+        `;
+
 export const genericLinkStates =
     (opacityFactor = 3) =>
     ({ theme }) =>
@@ -87,6 +108,7 @@ export const link =
         return css`
             font-size: ${theme.fontSizes[fontSize]};
             font-weight: 600;
+            white-space: nowrap;
             cursor: pointer;
             ${theme.mixins.transition(["color", "opacity"])};
             ${primary ? primaryStyles : defaultStyles};
@@ -148,7 +170,7 @@ export const dot =
         const { gap } = {
             gap: "0.4rem",
             size: theme.fontSizes.small,
-            ...receivedSettings
+            ...receivedSettings,
         };
 
         return css`

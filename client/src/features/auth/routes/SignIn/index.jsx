@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import Footer from "../../../../components/Layout/Footer";
+import Footer from "../../../../components/Misc/Footer";
 import Head from "../../../../components/Misc/Head";
 import Button from "../../../../components/misc/Button";
 import useMotion from "../../../../hooks/useMotion";

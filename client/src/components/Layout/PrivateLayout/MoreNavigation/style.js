@@ -1,5 +1,5 @@
-import { css, styled } from "styled-components";
 import { m } from "framer-motion";
+import { css, styled } from "styled-components";
 
 import { Action, Icon, Text, actionActive } from "../Navigation/style";
 import { linkMarginX } from "../style";

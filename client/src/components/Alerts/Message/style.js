@@ -35,7 +35,6 @@ export const Button = styled.button`
         ${theme.mixins.link()};
         padding: 0.8rem;
         padding-right: 0;
-        white-space: nowrap;
 
         ${theme.breakpoints.md} {
             padding: 1.5rem 1.2rem;

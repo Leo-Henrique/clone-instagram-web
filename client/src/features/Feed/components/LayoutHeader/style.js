@@ -1,9 +1,8 @@
 import { styled } from "styled-components";
+import DefaultNavigation from "../../../../components/Layout/PrivateLayout/Navigation";
+import DefaultLogo from "../../../../components/Misc/Logo";
 
-import CloneNavigation from "../../../../components/Layout/Navigation";
-import CloneLogo from "../../../../components/Misc/Logo";
-
-export const Logo = styled(CloneLogo)`
+export const Logo = styled(DefaultLogo)`
     align-self: stretch;
 
     a {
@@ -12,13 +11,13 @@ export const Logo = styled(CloneLogo)`
     }
 `;
 
-export const Navigation = styled(CloneNavigation)`
+export const Navigation = styled(DefaultNavigation)`
     max-width: initial !important;
     margin: initial !important;
     padding: initial !important;
     flex: initial !important;
 
-    a {
+    #messages {
         padding-right: 0;
     }
 `;

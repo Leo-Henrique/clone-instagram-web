@@ -3,15 +3,15 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { toggleTheme } from "../../../app/slices/theme";
-import SVGConfig from "../../../assets/icons/vectors/config.svg";
-import SVGMore from "../../../assets/icons/vectors/menu.svg";
-import SVGMode from "../../../assets/icons/vectors/moon.svg";
-import SVGSaved from "../../../assets/icons/vectors/save.svg";
-import { logoutThunk } from "../../../features/auth/slices/auth";
-import useClose from "../../../hooks/useClose";
-import useDisable from "../../../hooks/useDisable";
-import useMotion from "../../../hooks/useMotion";
+import { toggleTheme } from "../../../../app/slices/theme";
+import { logoutThunk } from "../../../../features/auth/slices/auth";
+import useClose from "../../../../hooks/useClose";
+import useDisable from "../../../../hooks/useDisable";
+import useMotion from "../../../../hooks/useMotion";
+import SVGConfig from "../../../../assets/icons/vectors/config.svg";
+import SVGMore from "../../../../assets/icons/vectors/menu.svg";
+import SVGMode from "../../../../assets/icons/vectors/moon.svg";
+import SVGSaved from "../../../../assets/icons/vectors/save.svg";
 import * as Styled from "./style";
 
 export default function MoreNavigation() {

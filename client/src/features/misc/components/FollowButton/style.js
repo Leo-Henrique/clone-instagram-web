@@ -1,13 +1,12 @@
 import { css, styled } from "styled-components";
 
-import CloneButton from "../../../../components/Misc/Button";
+import DefaultButton from "../../../../components/Misc/Button";
 
-export const Button = styled(CloneButton)`
+export const Button = styled(DefaultButton)`
     ${({ theme, $link, primary, $linkStyles }) => css`
         ${$link &&
         css`
             background-color: transparent !important;
-            white-space: nowrap;
             ${theme.mixins.link({ fontSize: "small", primary })};
             ${$linkStyles && $linkStyles};
         `}

@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 
 import { AnimatePresence } from "framer-motion";
+import Layout from "../../../components/Layout";
 import Head from "../../../components/Misc/Head";
 import Feed from "../components/Feed";
+import LayoutHeader from "../components/LayoutHeader";
 import NewPosts from "../components/NewPosts";
-import Template from "../components/Template";
 import Welcome from "../components/Welcome";
 
 export default function Main() {
@@ -17,7 +18,9 @@ export default function Main() {
 
             <AnimatePresence>{showNewPosts && <NewPosts />}</AnimatePresence>
 
-            <Template>{hasFeed ? <Feed /> : <Welcome />}</Template>
+            <Layout PrivateHeader={<LayoutHeader />}>
+                {hasFeed ? <Feed /> : <Welcome />}
+            </Layout>
         </>
     );
 }

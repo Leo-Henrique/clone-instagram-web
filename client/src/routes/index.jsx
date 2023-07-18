@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 
 import AuthRoutes from "../features/auth/routes";
 import Feed from "../features/feed/routes";
+import PostRoute from "../features/post/routes";
 import PrivateRoute from "./PrivateRoute";
 
 export default function AppRoutes() {
@@ -13,6 +14,7 @@ export default function AppRoutes() {
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<PrivateRoute private={<Feed />} />} />
                 <Route path="auth/*" element={<AuthRoutes />} />
+                <Route path="post/*" element={<PostRoute />} />
             </Routes>
         </AnimatePresence>
     );

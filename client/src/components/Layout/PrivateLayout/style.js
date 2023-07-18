@@ -1,7 +1,6 @@
 import { m } from "framer-motion";
 import { css, styled } from "styled-components";
-
-import CloneLogo from "../Misc/Logo";
+import DefaultLogo from "../../Misc/Logo";
 
 const linkPaddingY = "1.5rem";
 export const linkPaddingX = "1.5rem";
@@ -38,7 +37,7 @@ export const Navbar = styled(m.div)`
     `}
 `;
 
-export const Logo = styled(CloneLogo)`
+export const Logo = styled(DefaultLogo)`
     ${({ theme }) => css`
         a {
             padding: ${linkPaddingY} ${linkPaddingX};
@@ -55,30 +54,38 @@ export const Logo = styled(CloneLogo)`
     `}
 `;
 
+const mainAttrs = ({
+    $isBreakpointMd,
+    $headerHeight,
+    $navbarHeight,
+    $navbarWidth,
+}) => {
+    const styles = properties => ({ style: { ...properties } });
+
+    if ($isBreakpointMd)
+        return styles({
+            minHeight: `calc(100vh - ${$headerHeight} - ${$navbarHeight})`,
+            marginBottom: $navbarHeight,
+        });
+
+    return styles({ marginLeft: $navbarWidth });
+};
+
+export const Main = styled.main.attrs(mainAttrs)`
+    min-height: 100vh;
+    display: flex;
+`;
+
 export const Content = styled.div`
     ${({ theme }) => css`
         flex: 1;
-        max-width: calc(935px + ${theme.global.containerPaddingY} * 2);
         display: flex;
-        margin-left: auto;
-        margin-right: auto;
         padding: ${theme.global.containerPaddingY};
+        ${theme.mixins.container()}
 
         ${theme.breakpoints.md} {
             width: 100%;
             padding: 0;
         }
-    `}
-`;
-
-export const MobileHeader = styled.header`
-    ${({ theme }) => css`
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        column-gap: 2rem;
-        padding: 0 ${theme.global.containerPaddingX};
-        background-color: ${theme.colors.block};
-        border-bottom: 1px solid ${theme.colors.separator};
     `}
 `;

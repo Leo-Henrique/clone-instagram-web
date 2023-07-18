@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 import QueryError from "../../../../../components/Alerts/QueryError";
-import Footer from "../../../../../components/Layout/Footer";
+import Footer from "../../../../../components/Misc/Footer";
 import UserBadge from "../../../../misc/components/UserBadge";
 import Users from "../../../../misc/components/Users";
 import useGetUsersQuery from "../../../api/getUsers";

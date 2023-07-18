@@ -58,6 +58,9 @@ const theme = {
     global: {
         containerPaddingX: "15px",
         containerPaddingY: "20px",
+        get container() {
+            return `calc(935px + ${this.containerPaddingY} * 2)`
+        }
     },
 };
 
