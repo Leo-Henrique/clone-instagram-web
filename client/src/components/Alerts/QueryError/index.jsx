@@ -1,10 +1,18 @@
 import useMotion from "../../../hooks/useMotion";
 import * as Styled from "./style";
 
-export default function QueryError({ ...receivedSettings }) {
-    const { error, refetch, ...styles } = {
+export default function QueryError({
+    customButton: receivedCustomButton,
+    ...receivedSettings
+}) {
+    const { error, refetch, customButton, ...styles } = {
         error: null,
         refetch: null,
+        customButton: {
+            text: null,
+            callback: null,
+            ...receivedCustomButton,
+        },
         $large: false,
         $center: true,
         $expandHeight: true,
@@ -26,6 +34,13 @@ export default function QueryError({ ...receivedSettings }) {
 
         return `Oops, ${lastLetter === "." ? lowercase.slice(0, -1) : lowercase} :(`;
     };
+    const text = () => {
+        if (customButton.text) return customButton.text;
+
+        if (refetch) return "Tentar novamente";
+
+        return "Recarregar a página";
+    }
 
     return (
         <Styled.Wrapper {...motionProps} {...styles}>
@@ -36,9 +51,15 @@ export default function QueryError({ ...receivedSettings }) {
             </Styled.Text>
 
             <Styled.TryAgain
-                text={refetch ? "Tentar novamente" : "Recarregar a página"}
+                text={text()}
                 expand={false}
-                onClick={() => (refetch ? refetch() : location.reload())}
+                onClick={() => {
+                    if (customButton.callback) return customButton.callback();
+
+                    if (refetch) return refetch();
+            
+                    return location.reload()
+                }}
                 {...styles}
             />
         </Styled.Wrapper>

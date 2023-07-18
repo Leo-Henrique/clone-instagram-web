@@ -34,6 +34,7 @@ export const Content = styled.div.attrs(contentAttrs)`
         }
         main {
             flex: 1;
+            display: flex;
         }
     `}
 `;

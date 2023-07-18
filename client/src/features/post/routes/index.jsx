@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import QueryError from "../../../components/Alerts/QueryError";
 import Layout from "../../../components/Layout";
 import Footer from "../../../components/Misc/Footer";
@@ -16,30 +16,44 @@ export default function PostRoute() {
     const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
     const { postId } = useParams();
     const { data: post, isError, error, refetch } = useGetPostQuery(postId);
+    const navigate = useNavigate();
 
     return (
         <Layout privateHeader={<PostHeader />}>
-            {isError ? (
-                <QueryError
-                    error={error}
-                    refetch={refetch}
-                    $padding="4rem 2rem"
-                    $large
-                />
-            ) : (
-                <Styled.Wrapper $isAuthenticated={isAuthenticated}>
-                    {post && <Head title={`Publicação de ${post.user.name}`} />}
+            <Head
+                {...(post && {
+                    title: `Publicação de ${post.user.name}`,
+                    index: true,
+                })}
+            />
 
-                    <Post post={post} startWithHighlight />
+            <Styled.Wrapper $isAuthenticated={isAuthenticated}>
+                {isError ? (
+                    <QueryError
+                        error={error}
+                        refetch={refetch}
+                        $padding="4rem 2rem"
+                        $large
+                        {...(error.status === 400 && {
+                            customButton: {
+                                text: "Voltar a página inicial",
+                                callback: () => navigate("/"),
+                            },
+                        })}
+                    />
+                ) : (
+                    <>
+                        <Post post={post} startWithHighlight />
 
-                    {isAuthenticated && (
-                        <Footer
-                            $padding={isBreakpointMd ? "3rem 0" : "5rem 0 1rem"}
-                            $center
-                        />
-                    )}
-                </Styled.Wrapper>
-            )}
+                        {isAuthenticated && (
+                            <Footer
+                                $padding={isBreakpointMd ? "3rem 0" : "5rem 0 1rem"}
+                                $center
+                            />
+                        )}
+                    </>
+                )}
+            </Styled.Wrapper>
         </Layout>
     );
 }

@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, Navigate, useLocation } from "react-router-dom";
 
-import { showMessage } from "../../../../app/slices/message";
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import Head from "../../../../components/Misc/Head";
 import Button from "../../../../components/misc/Button";
 import PNGIcon from "../../../../components/misc/PNGIcon";
-import useResetPasswordMutation from "../../api/resetPassword";
-import Layout from "../../components/Layout";
 import useResetPassword from "../../api/resetPassword";
+import Layout from "../../components/Layout";
+import NotFound from "../../../../routes/NotFound";
 
 export default function ResetPassword() {
     const [form, setForm] = useState({ password: "" });
@@ -20,10 +18,10 @@ export default function ResetPassword() {
     const [resetPassword, { isLoading, isError, error }] = useResetPassword({
         userId,
         token,
-        password: form.password
+        password: form.password,
     });
 
-    if (!location.search || !userId || !token) return <Navigate to="/" />;
+    if (!location.search || !userId || !token) return <NotFound />;
 
     return (
         <Layout.Template>

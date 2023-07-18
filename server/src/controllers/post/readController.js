@@ -1,3 +1,4 @@
+import { isValidObjectId } from "mongoose";
 import auth from "../../middlewares/authMiddleware.js";
 import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js";
@@ -18,7 +19,13 @@ export const getPost = async (req, res) => {
     const { postId } = req.params;
 
     try {
+        if (!isValidObjectId(postId))
+            return error("A publicação não existe.", 400, res);
+
         const post = await Post.findById(postId).populate("user media.persons.user");
+
+        if (!post)
+            return error("A publicação foi excluída ou nunca existiu.", 400, res);
 
         handleComments(post);
         res.send(post);
