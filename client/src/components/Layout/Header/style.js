@@ -16,5 +16,22 @@ export const Container = styled.div`
         padding-top: ${$paddingY};
         padding-bottom: ${$paddingY};
         ${theme.mixins.container({ paddingX: true })}
+
+        > button,
+        > a {
+            padding-top: 1.4rem;
+            padding-bottom: 1.4rem;
+
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+            svg path[fill] {
+                fill: ${theme.colors.text};
+            }
+            svg path[stroke] {
+                stroke: ${theme.colors.text};
+            }
+        }
     `}
 `;

@@ -14,7 +14,7 @@ const loading = width => keyframes`
 `;
 
 export const Wrapper = styled.footer`
-    ${({ theme, $isAuthenticated, $pageLoading }) => css`
+    ${({ theme, $isAuthenticated, $pageLoading, $center }) => css`
         padding: 5rem 1.5rem 3rem;
 
         ${$isAuthenticated
@@ -32,6 +32,10 @@ export const Wrapper = styled.footer`
         css`
             position: absolute;
             bottom: 0;
+        `}
+        ${$center &&
+        css`
+            text-align: center;
         `}
     `}
 `;

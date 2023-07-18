@@ -14,7 +14,7 @@ export default function AppRoutes() {
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<PrivateRoute private={<Feed />} />} />
                 <Route path="auth/*" element={<AuthRoutes />} />
-                <Route path="post/*" element={<PostRoute />} />
+                <Route path="post/:postId" element={<PostRoute />} />
             </Routes>
         </AnimatePresence>
     );

@@ -8,7 +8,7 @@ import useDisable from "../../../../../../hooks/useDisable";
 import Like from "../../../../../misc/components/Like";
 import * as Styled from "./style";
 
-export default function Actions({ post }) {
+export default function Actions({ post, isHighlight }) {
     const dispatch = useDispatch();
     const { buttonDisabled } = useDisable();
     const actions = [
@@ -17,7 +17,7 @@ export default function Actions({ post }) {
             description: "Ver comentários da publicação",
             icon: <SVGComments />,
             show: post.showComments,
-            callback: () => dispatch(showComments(post)),
+            callback: () => dispatch(showComments(post, isHighlight)),
         },
         {
             id: "share",

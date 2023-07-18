@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import useSize from "../../../hooks/useSize";
 import * as Styled from "./style";
 
-export default function Footer({ pageLoading }) {
+export default function Footer({ pageLoading, ...rest }) {
     const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
     const [footerRef, footerHeight, footerWidth] = useSize();
 
@@ -11,6 +11,7 @@ export default function Footer({ pageLoading }) {
         <Styled.Wrapper
             $isAuthenticated={isAuthenticated}
             $pageLoading={pageLoading}
+            {...rest}
         >
             <Styled.Text $pageLoading={pageLoading}>
                 {pageLoading ? (

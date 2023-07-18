@@ -29,7 +29,7 @@ const initialState = {
     },
     post: {
         show: false,
-        id: null,
+        data: null,
     },
     comments: {
         show: false,
@@ -70,7 +70,7 @@ const modalSlice = createSlice({
         }),
         showPost: (state, { payload }) => {
             state.post.show = true;
-            state.post.id = payload;
+            state.post.data = payload;
         },
         showComments: (state, { payload }) => {
             state.comments.show = true;
@@ -106,14 +106,14 @@ export const {
 } = modalSlice.actions;
 const { close, resetModal } = modalSlice.actions;
 
-export const showComments = post => (dispatch, getState) => {
-    const postModalIsOpen = getState().modal.post.show;
+export const showComments = (post, isHighlight) => (dispatch, getState) => {
     const { isBreakpointMd } = getState().breakpoints;
 
     if (isBreakpointMd) return dispatch(showCommentsAction(post));
-    if (postModalIsOpen) return dispatch(focusAddComment());
+    
+    if (isHighlight) return dispatch(focusAddComment());
 
-    dispatch(showPost(post.id));
+    dispatch(showPost(post));
 };
 
 export const closeModal = (name, callback) => dispatch => {

@@ -2,44 +2,29 @@ import { memo, useState } from "react";
 
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import QueryError from "../../../../components/Alerts/QueryError";
 import Carousel from "../../../../components/Features/Carousel";
 import AddComment from "../../../comments/components/AddComment";
 import Comments from "../../../comments/components/Comments";
-import { useGetPostQuery } from "../../api/getPost";
 import Details from "./Details";
 import Header from "./Header";
 import Media from "./Media";
 import * as Styled from "./style";
 
-const Post = memo(({ data: receivedData, id, ...highlight }) => {
-    const { startWithHighlight, isModalHighlight } = highlight;
+const Post = memo(({ post, startWithHighlight, isModalHighlight }) => {
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
+    const currentMedia = useState(0);
     const [isHighlight, setIsHighlight] = useState(startWithHighlight);
     const cssHighlight = {
         $isHighlight: isHighlight,
         $isModalHighlight: isModalHighlight,
     };
-    const isBreakpointMd = useSelector(
-        ({ breakpoints }) => breakpoints.isBreakpointMd
-    );
-    const currentMedia = useState(0);
-    const { data, isError, error, refetch } = useGetPostQuery(id, { skip: !id });
-    const post = id ? data : receivedData;
 
     useEffect(() => {
         if (isBreakpointMd) setIsHighlight(false);
-        else if (isModalHighlight) setIsHighlight(true);
+        else if (startWithHighlight) setIsHighlight(true);
     }, [isBreakpointMd]);
-
-    if (isError)
-        return (
-            <QueryError
-                error={error}
-                refetch={refetch}
-                $large={true}
-                $padding="4rem 2rem"
-            />
-        );
 
     return (
         <Styled.Wrapper {...cssHighlight}>

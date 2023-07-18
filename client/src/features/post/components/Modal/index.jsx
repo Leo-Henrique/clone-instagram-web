@@ -9,14 +9,18 @@ import * as Styled from "./style";
 export default function ModalPost() {
     const location = useLocation();
     const dispatch = useDispatch();
-    const postId = useSelector(({ modal }) => modal.post.id);
+    const post = useSelector(({ modal }) => modal.post.data);
     const callbackClose = () => {
         dispatch(resetComment());
         history.replaceState(null, null, window.location.origin + location.pathname);
     };
 
     useEffect(() => {
-        history.replaceState(null, null, `${window.location.origin}/post/${postId}`);
+        history.replaceState(
+            null,
+            null,
+            `${window.location.origin}/post/${post.id}`
+        );
     }, []);
 
     return (
@@ -25,7 +29,7 @@ export default function ModalPost() {
             dialogStyles={Styled.dialog}
             closeOptions={{ x: true, callback: callbackClose }}
         >
-            <Post id={postId} startWithHighlight={true} isModalHighlight={true} />
+            <Post post={post} startWithHighlight isModalHighlight />
         </Modal>
     );
 }

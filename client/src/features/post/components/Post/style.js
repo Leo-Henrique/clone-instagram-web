@@ -16,6 +16,7 @@ export const Wrapper = styled.article`
         ${$isHighlight &&
         css`
             display: flex;
+            border-radius: 5px;
         `}
 
         ${$isModalHighlight &&
@@ -47,11 +48,13 @@ export const Infos = styled.div`
         css`
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
+            flex-basis: 350px;
         `}
 
         ${$isModalHighlight &&
         css`
-            flex: 0 0 ${commentsWidth};
+            flex-basis: ${commentsWidth};
             overflow-y: auto;
             ${theme.mixins.customScrollbar({ padding: 7 })};
         `}

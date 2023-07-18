@@ -5,7 +5,7 @@ import Actions from "./Actions";
 import Likes from "./Likes";
 import * as Styled from "./style";
 
-const FeedInfos = ({ post }) => {
+const FeedInfos = ({ post, isHighlight }) => {
     const dispatch = useDispatch();
     const totalComments = post.comments.length;
 
@@ -20,7 +20,9 @@ const FeedInfos = ({ post }) => {
             )}
 
             {post.showComments && totalComments > 0 && (
-                <Styled.ViewComments onClick={() => dispatch(showComments(post))}>
+                <Styled.ViewComments
+                    onClick={() => dispatch(showComments(post, isHighlight))}
+                >
                     {totalComments > 1
                         ? `Ver todos os ${totalComments.toLocaleString(
                               "pt-BR"
@@ -35,11 +37,11 @@ const FeedInfos = ({ post }) => {
 export default function Details({ post, isHighlight }) {
     return (
         <Styled.Wrapper>
-            <Actions post={post} />
+            <Actions post={post} isHighlight={isHighlight} />
 
             {post.showLikes && <Likes post={post} />}
 
-            {!isHighlight && <FeedInfos post={post} />}
+            {!isHighlight && <FeedInfos post={post} isHighlight={isHighlight} />}
 
             <Styled.CreatedAt ISODate={post.createdAt} />
         </Styled.Wrapper>

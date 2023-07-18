@@ -1,6 +1,6 @@
 import * as Styled from "./style";
 
-export default function LayoutHeader() {
+export default function FeedHeader() {
     return (
         <>
             <Styled.Logo />

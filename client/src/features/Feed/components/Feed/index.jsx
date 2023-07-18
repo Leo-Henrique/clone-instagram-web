@@ -50,8 +50,8 @@ export default function Feed() {
                     />
                 ) : (
                     <>
-                        {posts.map((post, index, array) => (
-                            <Post key={post?.id || index} data={post} />
+                        {posts.map((post, index) => (
+                            <Post key={post?.id || index} post={post} />
                         ))}
                     </>
                 )}

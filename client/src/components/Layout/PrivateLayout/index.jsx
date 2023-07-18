@@ -7,7 +7,7 @@ import MoreNavigation from "./MoreNavigation";
 import Navigation from "./Navigation";
 import * as Styled from "./style";
 
-export default function PrivateLayout({ children, PrivateHeader }) {
+export default function PrivateLayout({ children, privateHeader }) {
     const { isBreakpointXl, isBreakpointMd } = useSelector(
         ({ breakpoints }) => breakpoints,
         shallowEqual
@@ -18,8 +18,8 @@ export default function PrivateLayout({ children, PrivateHeader }) {
 
     return (
         <>
-            {isBreakpointMd && PrivateHeader && (
-                <Header ref={headerRef}>{PrivateHeader}</Header>
+            {isBreakpointMd && privateHeader && (
+                <Header ref={headerRef}>{privateHeader}</Header>
             )}
 
             <Styled.Navbar ref={navbarRef} id="navbar" {...navbarMotionProps}>

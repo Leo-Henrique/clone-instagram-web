@@ -4,7 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import Layout from "../../../components/Layout";
 import Head from "../../../components/Misc/Head";
 import Feed from "../components/Feed";
-import LayoutHeader from "../components/LayoutHeader";
+import FeedHeader from "../components/FeedHeader";
 import NewPosts from "../components/NewPosts";
 import Welcome from "../components/Welcome";
 
@@ -18,7 +18,7 @@ export default function Main() {
 
             <AnimatePresence>{showNewPosts && <NewPosts />}</AnimatePresence>
 
-            <Layout PrivateHeader={<LayoutHeader />}>
+            <Layout privateHeader={<FeedHeader />}>
                 {hasFeed ? <Feed /> : <Welcome />}
             </Layout>
         </>
