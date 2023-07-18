@@ -27,7 +27,7 @@ const { useLikeCommentMutation, useUnlikeCommentMutation } = api.injectEndpoints
 
 export default function useToggleLikeComment(ids, likes) {
     const dispatch = useDispatch();
-    const authUserId = useSelector(({ auth }) => auth.user.id);
+    const authUserId = useSelector(({ auth }) => auth.user?.id);
     const [like, likeResult] = useLikeCommentMutation();
     const [unlike, unlikeResult] = useUnlikeCommentMutation();
     const toggleLikeComment = async () => {

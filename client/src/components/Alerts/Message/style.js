@@ -1,5 +1,6 @@
 import { m } from "framer-motion";
 import { css, styled } from "styled-components";
+import { Link as DefaultLink } from "react-router-dom";
 
 export const Wrapper = styled(m.div)`
     ${({ theme, $navbarHeight }) => css`
@@ -29,6 +30,10 @@ export const Wrapper = styled(m.div)`
         }
     `}
 `;
+
+export const Link = styled(DefaultLink)`
+    ${({ theme }) => theme.mixins.link()};
+`
 
 export const Button = styled.button`
     ${({ theme }) => css`

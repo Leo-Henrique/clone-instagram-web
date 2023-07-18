@@ -1,6 +1,5 @@
 import { shallowEqual, useSelector } from "react-redux";
 import SVGLogo from "../../../assets/icons/vectors/logo.svg";
-import useMotion from "../../../hooks/useMotion";
 import useSize from "../../../hooks/useSize";
 import Header from "../Header";
 import MoreNavigation from "./MoreNavigation";
@@ -14,7 +13,6 @@ export default function PrivateLayout({ children, privateHeader }) {
     );
     const [navbarRef, navbarHeight, navbarWidth] = useSize();
     const [headerRef, headerHeight] = useSize();
-    const navbarMotionProps = useMotion();
 
     return (
         <>
@@ -22,7 +20,7 @@ export default function PrivateLayout({ children, privateHeader }) {
                 <Header ref={headerRef}>{privateHeader}</Header>
             )}
 
-            <Styled.Navbar ref={navbarRef} id="navbar" {...navbarMotionProps}>
+            <Styled.Navbar ref={navbarRef} id="navbar">
                 <Styled.Logo SVG={isBreakpointXl && <SVGLogo />} />
 
                 <Navigation

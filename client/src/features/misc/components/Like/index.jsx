@@ -1,6 +1,7 @@
 import { AnimatePresence, m } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "styled-components";
+import { showSignInMessage } from "../../../../app/slices/message";
 import SVGLike from "../../../../assets/icons/vectors/heart.svg";
 import SVGLiked from "../../../../assets/icons/vectors/liked.svg";
 import useMotion from "../../../../hooks/useMotion";
@@ -9,7 +10,8 @@ import useToggleLikePost from "../../api/likePost";
 import * as Styled from "./style";
 
 export default function Like({ what, requestArgs, id, likes, postId, ...rest }) {
-    const authUserId = useSelector(({ auth }) => auth.user.id);
+    const dispatch = useDispatch();
+    const authUserId = useSelector(({ auth }) => auth.user?.id);
     const theme = useTheme();
     const likeProps = useMotion({
         variants: {
@@ -44,7 +46,7 @@ export default function Like({ what, requestArgs, id, likes, postId, ...rest }) 
     return (
         <Styled.Wrapper
             aria-label={hasLike ? `Descurtir ${what}` : `Curtir ${what}`}
-            onClick={toggleLike}
+            onClick={authUserId ? toggleLike : () => dispatch(showSignInMessage())}
             {...rest}
         >
             <AnimatePresence mode="wait">

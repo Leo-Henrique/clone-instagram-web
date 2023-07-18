@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import useSize from "../../../hooks/useSize";
 import Footer from "../../Misc/Footer";
 import Header from "../Header";
@@ -8,6 +9,9 @@ import Warning from "./Warning";
 import * as Styled from "./style";
 
 export default function PublicLayout({ children }) {
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
     const [headerRef, headerHeight] = useSize();
     const [warningRef, warningHeight] = useSize();
     const [showWarning, setShowWarning] = useState(!localStorage.signInWarning);
@@ -15,14 +19,10 @@ export default function PublicLayout({ children }) {
     return (
         <>
             <Header ref={headerRef} $paddingY="1.2rem">
+                <Styled.Logo />
+
                 <Buttons expandSignIn={false} />
             </Header>
-
-            <AnimatePresence>
-                {showWarning && (
-                    <Warning ref={warningRef} setShowWarning={setShowWarning} />
-                )}
-            </AnimatePresence>
 
             <Styled.Content
                 $headerHeight={headerHeight}
@@ -30,8 +30,14 @@ export default function PublicLayout({ children }) {
             >
                 <main>{children}</main>
 
-                <Footer />
+                <Footer $padding={isBreakpointMd ? "3rem 0" : "5rem 0 3rem"} />
             </Styled.Content>
+
+            <AnimatePresence>
+                {showWarning && (
+                    <Warning ref={warningRef} setShowWarning={setShowWarning} />
+                )}
+            </AnimatePresence>
         </>
     );
 }

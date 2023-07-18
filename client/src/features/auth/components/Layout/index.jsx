@@ -18,7 +18,7 @@ const Template = ({ children }) => {
                 {children}
             </Styled.Column>
 
-            <Footer />
+            <Footer $padding="5rem 1.5rem 3rem" />
         </Styled.Wrapper>
     );
 };

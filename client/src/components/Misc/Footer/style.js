@@ -14,19 +14,17 @@ const loading = width => keyframes`
 `;
 
 export const Wrapper = styled.footer`
-    ${({ theme, $isAuthenticated, $pageLoading, $center }) => css`
-        padding: 5rem 1.5rem 3rem;
+    ${({ theme, $isAuthenticated, $pageLoading, $center, $padding = 0 }) => css`
+        padding: ${$padding};
 
         ${$isAuthenticated
             ? css`
                   font-size: ${theme.fontSizes.small};
                   color: ${theme.colors.footer};
-                  padding: 4rem 0;
               `
             : css`
                   text-align: center;
                   color: ${theme.colors.textSupport2};
-                  padding-top: 5rem ${theme.global.containerPaddingX} 3rem;
               `}
         ${$pageLoading &&
         css`

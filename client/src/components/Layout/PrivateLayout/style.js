@@ -1,4 +1,3 @@
-import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 import DefaultLogo from "../../Misc/Logo";
 
@@ -6,7 +5,7 @@ const linkPaddingY = "1.5rem";
 export const linkPaddingX = "1.5rem";
 export const linkMarginX = ".9rem";
 
-export const Navbar = styled(m.div)`
+export const Navbar = styled.div`
     ${({ theme }) => css`
         position: fixed;
         z-index: ${theme.zIndexes.navbar};
@@ -80,8 +79,7 @@ export const Content = styled.div`
     ${({ theme }) => css`
         flex: 1;
         display: flex;
-        padding: ${theme.global.containerPaddingY};
-        ${theme.mixins.container()}
+        ${theme.mixins.container({ paddingX: true, paddingY: true })}
 
         ${theme.breakpoints.md} {
             width: 100%;

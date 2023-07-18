@@ -1,4 +1,5 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showSignInMessage } from "../../../../../app/slices/message";
 import { showComments } from "../../../../../app/slices/modal";
 import Legend from "../../../../../components/Misc/Legend";
 import Actions from "./Actions";
@@ -6,6 +7,7 @@ import Likes from "./Likes";
 import * as Styled from "./style";
 
 const FeedInfos = ({ post, isHighlight }) => {
+    const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
     const dispatch = useDispatch();
     const totalComments = post.comments.length;
 
@@ -21,7 +23,11 @@ const FeedInfos = ({ post, isHighlight }) => {
 
             {post.showComments && totalComments > 0 && (
                 <Styled.ViewComments
-                    onClick={() => dispatch(showComments(post, isHighlight))}
+                    onClick={() =>
+                        isAuthenticated
+                            ? dispatch(showComments(post, isHighlight))
+                            : dispatch(showSignInMessage())
+                    }
                 >
                     {totalComments > 1
                         ? `Ver todos os ${totalComments.toLocaleString(

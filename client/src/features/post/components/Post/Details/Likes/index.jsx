@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-
+import { showSignInMessage } from "../../../../../../app/slices/message.js";
 import { showUsers } from "../../../../../../app/slices/modal.js";
 import { getPostLikesName } from "../../../../api/getPost.js";
 import * as Styled from "./style";
 
 export default function Likes({ post: { id, likes, user } }) {
     const dispatch = useDispatch();
-    const authUserId = useSelector(({ auth }) => auth.user.id);
+    const authUserId = useSelector(({ auth }) => auth.user?.id);
     const totalLikes = likes.length;
     const getLikes = () => {
         dispatch(
@@ -23,7 +23,9 @@ export default function Likes({ post: { id, likes, user } }) {
 
     if (totalLikes > 0)
         return (
-            <Styled.Likes onClick={getLikes}>
+            <Styled.Likes
+                onClick={authUserId ? getLikes : () => dispatch(showSignInMessage())}
+            >
                 {totalLikes.toLocaleString("pt-BR")}
                 {"\n"}
                 {totalLikes > 1 ? "curtidas" : "curtida"}

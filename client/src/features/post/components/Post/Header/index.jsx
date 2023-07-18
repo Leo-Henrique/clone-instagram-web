@@ -6,7 +6,7 @@ import ViewMore from "./ViewMore";
 import * as Styled from "./style.js";
 
 export default function Header({ post, showFollowButton, isHighlight }) {
-    const authUserId = useSelector(({ auth }) => auth.user.id);
+    const authUserId = useSelector(({ auth }) => auth.user?.id);
 
     return (
         <Styled.Wrapper>

@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import QueryError from "../../../../components/Alerts/QueryError";
 import Spinner from "../../../../components/Loaders/Spinner";
 import { useGetCommentsQuery } from "../../api/getComments";
@@ -10,6 +11,7 @@ export default function Comments({
     isHighlight,
     bgColorTheme = "background",
 }) {
+    const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
     const {
         data: comments,
         isLoading,
@@ -17,7 +19,7 @@ export default function Comments({
         isError,
         error,
         refetch,
-    } = useGetCommentsQuery(post?.id, { skip: !post });
+    } = useGetCommentsQuery(post?.id, { skip: !post || !isAuthenticated });
     const renderNoComments = () => {
         if (isHighlight) return !comments?.length;
         else return !post.legend && !comments?.length;
@@ -29,7 +31,9 @@ export default function Comments({
             $isHighlight={isHighlight}
             $bgColorTheme={bgColorTheme}
         >
-            {!post || isLoading ? (
+            {!isAuthenticated ? (
+                <NoComments />
+            ) : !post || isLoading ? (
                 <Spinner $expandHeight={true} />
             ) : isError ? (
                 <QueryError error={error} refetch={refetch} />

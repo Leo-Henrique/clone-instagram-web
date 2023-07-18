@@ -7,6 +7,7 @@ const initialState = {
     duration: null,
     loading: false,
     suggestReload: false,
+    template: null,
 };
 
 const messageSlice = createSlice({
@@ -75,9 +76,13 @@ export const showErrorMessage =
                 text: resError ? resError : defaultError,
                 duration: duration ? duration : suggestReload ? 8000 : 6000,
                 suggestReload,
-                ...rest
+                ...rest,
             })
         );
     };
+
+export const showSignInMessage = () => dispatch => {
+    dispatch(showMessage({ template: "signIn", duration: 5000 }));
+};
 
 export default messageSlice.reducer;

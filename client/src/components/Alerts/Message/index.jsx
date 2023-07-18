@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { useTheme } from "styled-components";
-
 import useMotion from "../../../hooks/useMotion";
 import * as Styled from "./style";
 
@@ -15,7 +14,7 @@ export default function Message() {
         },
         transition,
     });
-    const { text, loading, suggestReload } = useSelector(
+    const { text, loading, suggestReload, template } = useSelector(
         ({ message }) => message,
         shallowEqual
     );
@@ -47,10 +46,17 @@ export default function Message() {
             data-transition={theme.transitions[transition].duration}
             $navbarHeight={navbarHeight}
         >
-            <p>
-                {text}
-                {loading && dots}
-            </p>
+            {template === "signIn" ? (
+                <p>
+                    <Styled.Link to="/">Entre</Styled.Link> para interagir no
+                    Instagram.
+                </p>
+            ) : (
+                <p>
+                    {text}
+                    {loading && dots}
+                </p>
+            )}
 
             {suggestReload && (
                 <Styled.Button onClick={() => location.reload()}>

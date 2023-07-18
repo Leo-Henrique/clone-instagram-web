@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import QueryError from "../../../components/Alerts/QueryError";
 import Layout from "../../../components/Layout";
@@ -9,6 +10,10 @@ import PostHeader from "../components/PostHeader";
 import * as Styled from "./style";
 
 export default function PostRoute() {
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
+    const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
     const { postId } = useParams();
     const { data: post, isError, error, refetch } = useGetPostQuery(postId);
 
@@ -22,12 +27,17 @@ export default function PostRoute() {
                     $large
                 />
             ) : (
-                <Styled.Wrapper>
+                <Styled.Wrapper $isAuthenticated={isAuthenticated}>
                     {post && <Head title={`Publicação de ${post.user.name}`} />}
 
                     <Post post={post} startWithHighlight />
 
-                    <Footer $center />
+                    {isAuthenticated && (
+                        <Footer
+                            $padding={isBreakpointMd ? "3rem 0" : "5rem 0 1rem"}
+                            $center
+                        />
+                    )}
                 </Styled.Wrapper>
             )}
         </Layout>

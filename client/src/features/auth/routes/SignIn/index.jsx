@@ -84,7 +84,7 @@ export default function SignIn() {
                 </Layout.Column>
             </Styled.Wrapper>
 
-            <Footer />
+            <Footer $padding="5rem 1.5rem 3rem" />
         </Layout.Wrapper>
     );
 }

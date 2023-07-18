@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { css, styled } from "styled-components";
 
 export const Wrapper = styled.div`
@@ -25,4 +26,8 @@ export const Text = styled.span`
         display: block;
         color: ${theme.colors.textSupport2};
     `}
+`;
+
+export const SignIn = styled(Link)`
+    ${({ theme }) => theme.mixins.link()}
 `;

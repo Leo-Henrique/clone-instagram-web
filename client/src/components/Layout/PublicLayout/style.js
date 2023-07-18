@@ -1,4 +1,14 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
+import DefaultLogo from "../../Misc/Logo";
+
+export const Logo = styled(DefaultLogo)`
+    align-self: stretch;
+
+    a {
+        height: 100%;
+        display: flex;
+    }
+`;
 
 const contentAttrs = ({ $warningHeight, $headerHeight }) => {
     const styles = properties => ({ style: { ...properties } });
@@ -13,11 +23,17 @@ const contentAttrs = ({ $warningHeight, $headerHeight }) => {
 };
 
 export const Content = styled.div.attrs(contentAttrs)`
-    display: flex;
-    flex-direction: column;
-    ${({ theme }) => theme.mixins.container()};
+    ${({ theme }) => css`
+        display: flex;
+        flex-direction: column;
+        padding-top: ${theme.global.containerPaddingY};
+        ${({ theme }) => theme.mixins.container({ paddingX: true })};
 
-    main {
-        flex: 1;
-    }
+        ${theme.breakpoints.md} {
+            padding: 0;
+        }
+        main {
+            flex: 1;
+        }
+    `}
 `;

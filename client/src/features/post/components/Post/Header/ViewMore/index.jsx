@@ -6,7 +6,7 @@ import InstagramUserOptions from "./InstagramUserOptions";
 
 export default function ViewMore({ post }) {
     const location = useLocation();
-    const authUserId = useSelector(({ auth }) => auth.user.id);
+    const authUserId = useSelector(({ auth }) => auth.user?.id);
     const postLink = `/post/${post.id}`;
     const copyPostLink = useCopy({
         text: location.origin + postLink,

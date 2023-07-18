@@ -1,7 +1,6 @@
 import IMGLogo from "../../../assets/images/logo.png";
 import Head from "../../../components/Misc/Head";
 import useMotion from "../../../hooks/useMotion";
-import Footer from "../../Misc/Footer";
 import Image from "../../Misc/Image";
 import * as Styled from "./style";
 
@@ -19,7 +18,7 @@ export default function PageLoading() {
                 <Image src={IMGLogo} alt="Logo do Instagram" />
             </Styled.Logo>
 
-            <Footer pageLoading={true} />
+            <Styled.Footer pageLoading />
         </Styled.Wrapper>
     );
 }

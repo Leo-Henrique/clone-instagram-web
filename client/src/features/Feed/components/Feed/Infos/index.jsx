@@ -47,7 +47,7 @@ export default function Infos() {
                 )}
             </div>
 
-            {isError || <Footer />}
+            {isError || <Footer $padding="4rem 0" />}
         </Styled.Infos>
     );
 }

@@ -11,6 +11,7 @@ import Media from "./Media";
 import * as Styled from "./style";
 
 const Post = memo(({ post, startWithHighlight, isModalHighlight }) => {
+    const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
     const isBreakpointMd = useSelector(
         ({ breakpoints }) => breakpoints.isBreakpointMd
     );
@@ -60,7 +61,7 @@ const Post = memo(({ post, startWithHighlight, isModalHighlight }) => {
 
                 {post && <Details post={post} isHighlight={isHighlight} />}
 
-                {isHighlight && post?.showComments && (
+                {isHighlight && post?.showComments && isAuthenticated && (
                     <AddComment postId={post.id} />
                 )}
             </Styled.Infos>

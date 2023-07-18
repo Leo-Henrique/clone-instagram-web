@@ -1,5 +1,6 @@
 import { Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showSignInMessage } from "../../../../../../app/slices/message";
 import { showComments } from "../../../../../../app/slices/modal";
 import SVGComments from "../../../../../../assets/icons/vectors/comments.svg";
 import SVGSave from "../../../../../../assets/icons/vectors/save.svg";
@@ -10,28 +11,31 @@ import * as Styled from "./style";
 
 export default function Actions({ post, isHighlight }) {
     const dispatch = useDispatch();
+    const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
     const { buttonDisabled } = useDisable();
+    const handleAuth = callback =>
+        isAuthenticated ? callback : () => dispatch(showSignInMessage());
     const actions = [
         {
             id: "comments",
             description: "Ver comentários da publicação",
             icon: <SVGComments />,
             show: post.showComments,
-            callback: () => dispatch(showComments(post, isHighlight)),
+            callback: handleAuth(() => dispatch(showComments(post, isHighlight))),
         },
         {
             id: "share",
             description: "Compartilhar publicação",
             icon: <SVGShare />,
             show: true,
-            callback: buttonDisabled,
+            callback: handleAuth(buttonDisabled),
         },
         {
             id: "save",
             description: "Salvar a publicação",
             icon: <SVGSave />,
             show: true,
-            callback: buttonDisabled,
+            callback: handleAuth(buttonDisabled),
         },
     ];
 
