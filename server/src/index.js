@@ -11,7 +11,7 @@ const dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 dotenv.config();
 database();
-app.use(cors({ origin: process.env.ALLOW_ACCESS }));
+app.use(cors({ origin: process.env.CLIENT_DEV_SERVER }));
 app.use(express.json());
 app.use("/api", routes);
 app.use("/uploads", express.static(path.resolve(dirname, "..", "uploads")));
