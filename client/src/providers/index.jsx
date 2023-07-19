@@ -6,7 +6,7 @@ import store from "../app/store";
 import HelpersProvider from "./HelpersProvider";
 import MotionProvider from "./MotionProvider";
 import StylesProvider from "./StylesProvider";
-import AuthProvider from "./authProvider";
+import AuthProvider from "./AuthProvider";
 
 export default function AppProvider({ children }) {
     return (
