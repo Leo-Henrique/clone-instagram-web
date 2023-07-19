@@ -3,10 +3,8 @@ import crypto from "crypto";
 import path from "path";
 import url from "url";
 
-const filename = url.fileURLToPath(import.meta.url);
-
 export const storage = multer.diskStorage({
-    destination: path.resolve(filename, "..", "..", "..", "..", "uploads"),
+    destination: "/tmp",
     filename: (req, file, cb) => {
         const hash = crypto.randomBytes(20).toString("hex");
         const ext = path.extname(file.originalname);
