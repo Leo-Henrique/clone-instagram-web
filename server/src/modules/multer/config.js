@@ -1,9 +1,12 @@
 import multer from "multer";
 import crypto from "crypto";
 import path from "path";
+import url from "url";
+
+const filename = url.fileURLToPath(import.meta.url);
 
 export const storage = multer.diskStorage({
-    destination: "uploads",
+    destination: path.resolve(filename, "..", "..", "..", "..", "uploads"),
     filename: (req, file, cb) => {
         const hash = crypto.randomBytes(20).toString("hex");
         const ext = path.extname(file.originalname);
