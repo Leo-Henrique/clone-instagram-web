@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import Head from "../../../../components/Misc/Head";
-import Button from "../../../../components/misc/Button";
+import Button from "../../../../components/Misc/Button";
 import useSignUp from "../../api/signUp";
 import Layout from "../../components/Layout";
 import * as Styled from "./style";

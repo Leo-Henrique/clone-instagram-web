@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import newPosts from "../features/Feed/slices/newPosts";
+import newPosts from "../features/feed/slices/newPosts";
 import auth from "../features/auth/slices/auth";
 import comment from "../features/comments/slices/comment";
 import api from "./api";

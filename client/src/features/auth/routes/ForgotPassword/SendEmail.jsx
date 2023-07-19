@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
-import Button from "../../../../components/misc/Button";
-import PNGIcon from "../../../../components/misc/PNGIcon";
+import Button from "../../../../components/Misc/Button";
+import PNGIcon from "../../../../components/Misc/PNGIcon";
 import useMotion from "../../../../hooks/useMotion";
 import Layout from "../../components/Layout";
 

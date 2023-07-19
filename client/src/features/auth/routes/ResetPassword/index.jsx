@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import IMGForgotPassword from "../../../../assets/icons/forgot-password.png";
 import Head from "../../../../components/Misc/Head";
-import Button from "../../../../components/misc/Button";
-import PNGIcon from "../../../../components/misc/PNGIcon";
+import Button from "../../../../components/Misc/Button";
+import PNGIcon from "../../../../components/Misc/PNGIcon";
+import NotFound from "../../../../routes/NotFound";
 import useResetPassword from "../../api/resetPassword";
 import Layout from "../../components/Layout";
-import NotFound from "../../../../routes/NotFound";
 
 export default function ResetPassword() {
     const [form, setForm] = useState({ password: "" });
