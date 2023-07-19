@@ -17,6 +17,8 @@ export default function Modal({
     dialogStyles,
 }) {
     const close = {
+        clickOutside: true,
+        escapeKey: true,
         cancelButton: false,
         x: false,
         callback: null,
@@ -52,6 +54,7 @@ export default function Modal({
             ref: closeRef,
             close: true,
         },
+        options: close,
     });
 
     useScrollbar(name);

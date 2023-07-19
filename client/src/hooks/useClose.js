@@ -1,10 +1,16 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 
 export default function useClose({
     state = null,
     callback,
     clickOutside: { ref, close },
+    options: receivedOptions = {},
 }) {
+    const options = {
+        clickOutside: true,
+        escapeKey: true,
+        ...receivedOptions,
+    };
     const clickOutside = useCallback(({ target }) => {
         if (close) target === ref.current && callback();
         else !ref.current.contains(target) && callback();
@@ -16,10 +22,12 @@ export default function useClose({
     useEffect(() => {
         const clickEvents = ["touchstart", "mousedown"];
         const addEvents = () => {
-            clickEvents.forEach(event =>
-                document.addEventListener(event, clickOutside)
-            );
-            document.addEventListener("keydown", escapeKey);
+            if (options.clickOutside)
+                clickEvents.forEach(event =>
+                    document.addEventListener(event, clickOutside)
+                );
+
+            if (options.escapeKey) document.addEventListener("keydown", escapeKey);
         };
         const removeEvents = () => {
             clickEvents.forEach(event =>

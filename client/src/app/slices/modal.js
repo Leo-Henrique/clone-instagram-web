@@ -35,6 +35,9 @@ const initialState = {
         show: false,
         post: null,
     },
+    warningVersion: {
+        show: false,
+    },
     scrollbar: {
         keep: false,
         scrolling: 0,
@@ -76,6 +79,9 @@ const modalSlice = createSlice({
             state.comments.show = true;
             state.comments.post = payload;
         },
+        showWarningVersion: state => {
+            state.warningVersion.show = true;
+        },
         close: (state, { payload: name }) => {
             state[name].show = false;
         },
@@ -100,6 +106,7 @@ export const {
     showUsers,
     showPost,
     showComments: showCommentsAction,
+    showWarningVersion,
     keepScrollbar,
     scrollbarScrolling,
     resetScrollbar,
@@ -110,7 +117,7 @@ export const showComments = (post, isHighlight) => (dispatch, getState) => {
     const { isBreakpointMd } = getState().breakpoints;
 
     if (isBreakpointMd) return dispatch(showCommentsAction(post));
-    
+
     if (isHighlight) return dispatch(focusAddComment());
 
     dispatch(showPost(post));

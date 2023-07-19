@@ -3,7 +3,11 @@ import { Helmet } from "react-helmet-async";
 const appName = "Instagram";
 
 export default function Head({ title = appName, description, index }) {
-    const titleTemplate = title !== appName ? `${title} | ${appName}` : title;
+    const version = "(pré-alfa)";
+    const titleTemplate =
+        title !== appName
+            ? `${title} | ${appName} ${version}`
+            : `${title} ${version}`;
 
     return (
         <Helmet>
