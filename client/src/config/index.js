@@ -1,6 +1,5 @@
-const serverPort = 3000;
+const { hostname, origin } = location;
+const devServerPort = 3000;
+const devServer = `http://${hostname}:${devServerPort}`;
 
-export const { protocol, hostname, origin } = location;
-
-export const SERVER_DOMAIN =
-    hostname === "localhost" ? `${protocol}//${hostname}:${serverPort}` : origin;
+export const SERVER_DOMAIN = hostname === "localhost" ? devServer : origin;
