@@ -29,7 +29,7 @@ const initialState = {
     },
     post: {
         show: false,
-        data: null,
+        id: null,
     },
     comments: {
         show: false,
@@ -73,7 +73,7 @@ const modalSlice = createSlice({
         }),
         showPost: (state, { payload }) => {
             state.post.show = true;
-            state.post.data = payload;
+            state.post.id = payload;
         },
         showComments: (state, { payload }) => {
             state.comments.show = true;
@@ -120,7 +120,7 @@ export const showComments = (post, isHighlight) => (dispatch, getState) => {
 
     if (isHighlight) return dispatch(focusAddComment());
 
-    dispatch(showPost(post));
+    dispatch(showPost(post.id));
 };
 
 export const closeModal = (name, callback) => dispatch => {

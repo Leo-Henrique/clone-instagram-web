@@ -10,14 +10,15 @@ export default function InstagramUserOptions({ post, globalOptions }) {
     const dispatch = useDispatch();
     const [unfollow] = useUnfollow(post.user);
     const viewOptions = () => {
-        const options = globalOptions;
-
-        if (post.user.followers.includes(authUserId))
-            options.unshift({
-                name: "Deixar de seguir",
-                danger: true,
-                callback: unfollow,
-            });
+        const followingPostAuthor = post.user.followers.includes(authUserId);
+        const unfollowPostAuthor = {
+            name: "Deixar de seguir",
+            danger: true,
+            callback: unfollow,
+        };
+        const options = followingPostAuthor
+            ? [unfollowPostAuthor, ...globalOptions]
+            : globalOptions;
 
         dispatch(showOptions(options));
     };

@@ -25,9 +25,9 @@ export default function ViewMore({ post }) {
             callback: postLink,
         };
 
-        if (!location.pathname.startsWith("/post")) options.unshift(goToPostPage);
+        if (location.pathname.startsWith("/post")) return options;
 
-        return options;
+        return [goToPostPage, ...options];
     };
 
     if (post.user.id === authUserId)

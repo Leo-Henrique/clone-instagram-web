@@ -1,10 +1,23 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal, showPost } from "../../../../app/slices/modal";
 import AddComment from "../AddComment";
 import Comments from "../Comments";
 import * as Styled from "./style";
 
 export default function ModalComments() {
+    const dispatch = useDispatch();
     const post = useSelector(({ modal }) => modal.comments.post);
+    const isBreakpointMd = useSelector(
+        ({ breakpoints }) => breakpoints.isBreakpointMd
+    );
+
+    useEffect(() => {
+        if (!isBreakpointMd) {
+            dispatch(closeModal("comments"));
+            dispatch(showPost(post.id));
+        }
+    }, [isBreakpointMd]);
 
     return (
         <Styled.Modal name="comments">

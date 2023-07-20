@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { showWarningVersion } from "../app/slices/modal";
 import Message from "../components/Alerts/Message";
 import ModalConfirmation from "../components/Modals/ModalConfirmation";
@@ -35,9 +35,12 @@ export default function HelpersProvider({ children }) {
 
             <AnimatePresence>
                 {showUsers && <ModalUsers key="users" />}
+                {warningVersion && <ModalWarningVersion key="warningVersion" />}
+            </AnimatePresence>
+
+            <AnimatePresence mode="wait">
                 {showPost && <ModalPost key="post" />}
                 {showComments && <ModalComments key="comments" />}
-                {warningVersion && <ModalWarningVersion key="warningVersion" />}
             </AnimatePresence>
 
             {children}
