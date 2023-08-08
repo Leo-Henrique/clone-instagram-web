@@ -1,24 +1,20 @@
-import User from "../../models/userModel.js";
-import { error } from "../../utils/helpers/validations.js";
-import { defaultPicture } from "../../models/userModel.js";
 import fs from "fs";
-import { uploadUserPicture } from "../../modules/multer/uploads.js";
+import User, { defaultPicture } from "../../models/userModel.js";
+import uploadProfilePicture from "../../modules/multer/uploadProfilePicture.js";
+import { error } from "../../utils/helpers/validations.js";
 
 export const newProfilePicture = async (req, res) => {
     try {
-        const { path } = await uploadUserPicture("picture", req, res);
+        await uploadProfilePicture("picture", req, res);
+        await User.findByIdAndUpdate(req.userId, { picture: req.file.path });
 
-        await User.findByIdAndUpdate(req.userId, { picture: path });
-
-        res.send({ source: path });
+        res.send({ source: req.file.path });
     } catch (err) {
-        if (typeof err === "string") return error(err, 400, res);
-        else
-            return error(
-                "Não foi possível adicionar uma foto de perfil. Tente novamente.",
-                500,
-                res
-            );
+        return error(
+            "Não foi possível adicionar uma foto de perfil. Tente novamente.",
+            500,
+            res
+        );
     }
 };
 

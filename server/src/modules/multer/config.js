@@ -1,9 +1,11 @@
 import crypto from "crypto";
 import multer from "multer";
+import os from "os";
 import path from "path";
+import { error } from "../../utils/helpers/validations.js";
 
 export const storage = multer.diskStorage({
-    destination: "/tmp",
+    destination: os.hostname().includes("local") ? "uploads" : "/tmp",
     filename: (req, file, cb) => {
         const hash = crypto.randomBytes(20).toString("hex");
         const ext = path.extname(file.originalname);
@@ -13,40 +15,68 @@ export const storage = multer.diskStorage({
     },
 });
 
-export const filter = (type, subtypes) => {
-    const allowedMimes = () => {
-        if (type) return subtypes.map(mime => `${type}/${mime}`);
-        else return subtypes;
-    };
+export const allowedMimes = {
+    get images() {
+        const extensions = ["bmp", "jpeg", "png"];
 
-    return (req, file, cb) => {
-        if (allowedMimes().includes(file.mimetype)) cb(null, true);
-        else cb(new Error("Invalid format"));
-    };
+        return extensions.map(extension => `image/${extension}`);
+    },
+    get videos() {
+        const extensions = [
+            "mp4",
+            "quicktime",
+            "x-ms-wmv",
+            "x-msvideo",
+            "mpeg",
+            "ogg",
+        ];
+
+        return extensions.map(extension => `video/${extension}`);
+    },
 };
 
-export const handleErrors = (callback, req, res, messages) => {
-    return new Promise((resolve, reject) => {
-        const validate = err => {
-            if (!err && !req.file && !req.files.length)
-                reject("Nenhum arquivo foi fornecido.");
+export const validateMimes = (allowedMimes, file, cb, res) => {
+    if (allowedMimes.includes(file.mimetype)) cb(null, true);
+    else error("Formato de arquivo inválido.", 400, res);
+};
 
-            switch (err && err.message) {
-                case "Invalid format":
-                    reject("O formato do arquivo não é permitido.");
-                case "File too large":
-                    reject(messages.fileSize);
-                case "Too many files":
-                    reject(
-                        messages.fileLimit
-                            ? messages.fileLimit
-                            : "Máximo de arquivos excedido."
-                    );
-                default:
-                    resolve(req.file ? req.file : req.files);
+export const handleErrors = ({
+    upload,
+    customMessages,
+    isSingleUpload,
+    controllerArgs: { req, res },
+}) => {
+    const message = (code, singleUploadMessage, multipleUploadMessage) => {
+        if (customMessages[code]) return customMessages[code];
+
+        if (isSingleUpload) return singleUploadMessage;
+        else return multipleUploadMessage || singleUploadMessage;
+    };
+    const messages = {
+        LIMIT_FILE_SIZE: message(
+            "LIMIT_FILE_SIZE",
+            "O arquivo é grande demais.",
+            "Algum arquivo é grande demais."
+        ),
+        LIMIT_FILE_COUNT: message(
+            "LIMIT_FILE_COUNT",
+            "Máximo de arquivos excedido."
+        ),
+    };
+    const executor = resolve => {
+        upload(req, res, err => {
+            if (!req.file && !req.files.length)
+                return error("Nenhum arquivo foi fornecido.", 400, res);
+
+            if (err) {
+                if (messages[err.code]) return error(messages[err.code], 400, res);
+
+                return error(err.message, 400, res);
             }
-        };
 
-        callback(req, res, validate);
-    });
+            resolve();
+        });
+    };
+
+    return new Promise(executor);
 };

@@ -1,10 +1,10 @@
 import express from "express";
-import authMiddleware from "../middlewares/authMiddleware.js";
 import createPost from "../controllers/post/createController.js";
-import updatePost from "../controllers/post/updateController.js";
-import { getPost, getPosts } from "../controllers/post/readController.js";
 import deletePost from "../controllers/post/deleteController.js";
 import { getLikes, like, unlike } from "../controllers/post/likeController.js";
+import { getPost, getPosts } from "../controllers/post/readController.js";
+import updatePost from "../controllers/post/updateController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
