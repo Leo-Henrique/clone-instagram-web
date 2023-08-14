@@ -49,7 +49,7 @@ export default async function resetPassword(req, res) {
         user.save();
 
         return res.send({
-            success: "Sua senha foi atualizada com sucesso.",
+            user,
             token: generateToken(user.id),
         });
     } catch (err) {
