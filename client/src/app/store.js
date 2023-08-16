@@ -19,8 +19,15 @@ const reducer = combineReducers({
     modal,
     comment,
 });
+
+const rootReducer = (state, action) => {
+    if (action.type === "auth/logout") return reducer(undefined, action);
+
+    return reducer(state, action);
+}
+
 const middleware = getDefaultMiddleware =>
     getDefaultMiddleware({ serializableCheck: false }).concat(api.middleware);
-const store = configureStore({ reducer, middleware });
+const store = configureStore({ reducer: rootReducer, middleware });
 
 export default store;
