@@ -35,9 +35,7 @@ export default function Playback({ videoRef }) {
     };
 
     useEffect(() => {
-        const autoPlayback = ([entry]) => {
-            entry.isIntersecting ? play() : pause();
-        };
+        const autoPlayback = ([entry]) => (entry.isIntersecting ? play() : pause());
         const observer = new IntersectionObserver(autoPlayback, {
             threshold: 0.3,
         });

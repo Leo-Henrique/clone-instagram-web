@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import IMGPlay from "../../../assets/icons/play.png";
+import { useRef, useState } from "react";
 import SVGAudioMuted from "../../../assets/icons/vectors/audio-silence.svg";
 import PostControl from "../PostControl";
 import Playback from "./Playback";
@@ -13,14 +12,19 @@ export default function Video(receivedSettings) {
         muted: true,
         playsInline: true,
         preload: "none",
-        poster: IMGPlay,
         ...receivedSettings,
     };
+    const [loaded, setLoaded] = useState(false);
     const videoRef = useRef(null);
 
     return (
         <>
-            <Styled.Video ref={videoRef} {...settings} />
+            <Styled.Video
+                ref={videoRef}
+                onLoadedData={() => setLoaded(true)}
+                $isLoaded={loaded}
+                {...settings}
+            />
 
             <Playback videoRef={videoRef} />
 
