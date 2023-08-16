@@ -4,7 +4,7 @@ import { allowedMimes, handleErrors, storage, validateMimes } from "./config.js"
 
 export default function uploadPost(fieldName, req, res) {
     const MBLimit = 100;
-    const fileLimit = 2;
+    const fileLimit = 10;
     const upload = multer({
         storage,
         fileFilter: (req, ...rest) => {
