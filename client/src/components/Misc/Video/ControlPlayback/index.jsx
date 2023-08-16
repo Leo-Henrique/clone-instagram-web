@@ -4,7 +4,7 @@ import SVGPlay from "../../../../assets/icons/vectors/play.svg";
 import useMotion from "../../../../hooks/useMotion";
 import * as Styled from "./style";
 
-export default function Playback({ videoRef }) {
+export default function ControlPlayback({ videoRef }) {
     const [paused, setPaused] = useState(true);
     const [forcedPause, setForcedPause] = useState(false);
     const motionProps = useMotion({

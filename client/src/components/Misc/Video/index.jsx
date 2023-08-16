@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
-import SVGAudioMuted from "../../../assets/icons/vectors/audio-silence.svg";
-import PostControl from "../PostControl";
-import Playback from "./Playback";
+import ControlAudio from "./ControlAudio";
+import ControlPlayback from "./ControlPlayback";
 import * as Styled from "./style";
 
 export default function Video(receivedSettings) {
@@ -26,15 +25,9 @@ export default function Video(receivedSettings) {
                 {...settings}
             />
 
-            <Playback videoRef={videoRef} />
+            <ControlPlayback videoRef={videoRef} />
 
-            <PostControl
-                label="Reproduzir áudio do vídeo"
-                $positionY="bottom"
-                $positionX="right"
-            >
-                <SVGAudioMuted />
-            </PostControl>
+            <ControlAudio videoRef={videoRef} />
         </>
     );
 }
