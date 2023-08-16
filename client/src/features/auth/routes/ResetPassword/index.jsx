@@ -28,7 +28,7 @@ export default function ResetPassword() {
             <Head title="Criar nova senha" />
 
             <Layout.FormBlock>
-                <PNGIcon $src={IMGForgotPassword} $size={96} $center />
+                <PNGIcon src={IMGForgotPassword} size={96} center />
 
                 <Layout.Title $marginTop="1.5rem">Crie uma nova senha</Layout.Title>
 

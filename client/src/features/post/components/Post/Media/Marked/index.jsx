@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { showUsers } from "../../../../../../app/slices/modal";
 import SVGPerson from "../../../../../../assets/icons/vectors/person.svg";
+import PostControl from "../../../../../../components/Misc/PostControl";
 import * as Styled from "./style";
 
 export default function Marked({ type, persons, showMarked }) {
@@ -18,9 +19,14 @@ export default function Marked({ type, persons, showMarked }) {
 
     return (
         <>
-            <Styled.Button onClick={openUsersModal}>
+            <PostControl
+                label="Ver pessoas marcadas"
+                $paddingY="bottom"
+                $paddingX="left"
+                onClick={openUsersModal}
+            >
                 <SVGPerson aria-label="Ver pessoas marcadas" />
-            </Styled.Button>
+            </PostControl>
 
             {type === "image" && showMarked && (
                 <Styled.Badges>

@@ -19,7 +19,7 @@ export default function Controls({ currentItem, setCurrentItem, items }) {
                     onClick={() => setCurrentItem(currentItem - 1)}
                     {...motionProps}
                 >
-                    <PNGIcon $src={IconPrev} $size={25} />
+                    <PNGIcon src={IconPrev} size={25} />
                 </Styled.Arrow>
             )}
 
@@ -31,7 +31,7 @@ export default function Controls({ currentItem, setCurrentItem, items }) {
                     onClick={() => setCurrentItem(currentItem + 1)}
                     {...motionProps}
                 >
-                    <PNGIcon $src={IconNext} $size={25} />
+                    <PNGIcon src={IconNext} size={25} />
                 </Styled.Arrow>
             )}
         </AnimatePresence>

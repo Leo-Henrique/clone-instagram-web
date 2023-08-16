@@ -5,7 +5,7 @@ import * as Styled from "./style";
 export default function Finished() {
     return (
         <Styled.Wrapper>
-            <PNGIcon $src={IMGChecked} $size={72} $center={true} />
+            <PNGIcon src={IMGChecked} size={72} center />
 
             <Styled.Title>Isso é tudo</Styled.Title>
 

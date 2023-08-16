@@ -1,6 +1,7 @@
+import { m } from "framer-motion";
 import { css, styled } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(m.div)`
     ${({ $src, $size, $center }) => css`
         max-width: 100%;
         width: ${$size}px;

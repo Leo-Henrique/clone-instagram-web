@@ -18,7 +18,7 @@ export default function SendEmail({ sendEmailToLogin, isLoading, isError, error 
     return (
         <>
             <Layout.FormBlock {...motionProps}>
-                <PNGIcon $src={IMGForgotPassword} $size={96} $center />
+                <PNGIcon src={IMGForgotPassword} size={96} center />
 
                 <Layout.Title $marginTop="1.5rem">
                     Problemas para entrar?
