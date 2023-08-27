@@ -1,8 +1,9 @@
 import multer from "multer";
-import { allowedMimes, handleErrors, storage, validateMimes } from "./config.js";
+import storage from "../storage.js";
+import { allowedMimes, handleErrors, validateMimes } from "../validation.js";
 
 export default function uploadProfilePicture(fieldName, req, res) {
-    const MBLimit = 5;
+    const MBLimit = 10;
     const upload = multer({
         storage,
         fileFilter: (req, file, cb) =>
@@ -14,7 +15,6 @@ export default function uploadProfilePicture(fieldName, req, res) {
         upload,
         customMessages: {
             LIMIT_FILE_SIZE: `Envie uma imagem com menos de ${MBLimit}MB.`,
-            LIMIT_FILE_COUNT: `Você só pode enviar no máximo ${fileLimit} arquivos.`,
         },
         controllerArgs: { req, res },
     });

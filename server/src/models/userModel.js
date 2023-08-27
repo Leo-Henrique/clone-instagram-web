@@ -1,10 +1,30 @@
-import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
+import Comment from "./commentModel.js";
 import Post from "./postModel.js";
 import Saved from "./savedModel.js";
-import Comment from "./commentModel.js";
 
-export const defaultPicture = "uploads/default/user-picture.jpg";
+const defaultPicture = {
+    key: "user-picture.jpg",
+    get source() {
+        const url = "https://leo-clone-instagram.s3.sa-east-1.amazonaws.com/default/" 
+
+        return url + this.key;
+    }
+}
+
+const PictureSchema =  new mongoose.Schema({ 
+    key: {
+        type: String,
+        required: true,
+        default: defaultPicture.key
+    },
+    source: {
+        type: String,
+        required: true,
+        default: defaultPicture.source
+    }
+}, { _id: false });
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -49,10 +69,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    picture: {
-        type: String,
-        default: defaultPicture,
-    },
+    picture: PictureSchema,
     followers: [
         {
             type: mongoose.Schema.Types.ObjectId,

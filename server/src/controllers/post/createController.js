@@ -1,6 +1,6 @@
 import Post from "../../models/postModel.js";
 import User from "../../models/userModel.js";
-import uploadPost from "../../modules/multer/uploadPost.js";
+import uploadPost from "../../modules/multer/uploads/uploadPost.js";
 import { error } from "../../utils/helpers/validations.js";
 
 export default async function createPost(req, res) {
@@ -32,7 +32,8 @@ export default async function createPost(req, res) {
 
             return {
                 type: file.mimetype.match(/^.+(?=\/)/)[0],
-                source: file.path,
+                key: file.key,
+                source: file.location,
                 persons: allPersons,
             };
         });

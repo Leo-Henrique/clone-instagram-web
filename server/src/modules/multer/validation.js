@@ -1,19 +1,4 @@
-import crypto from "crypto";
-import multer from "multer";
-import os from "os";
-import path from "path";
 import { error } from "../../utils/helpers/validations.js";
-
-export const storage = multer.diskStorage({
-    destination: os.hostname().includes("local") ? "uploads" : "/tmp",
-    filename: (req, file, cb) => {
-        const hash = crypto.randomBytes(20).toString("hex");
-        const ext = path.extname(file.originalname);
-        const name = `${Date.now()}-${hash}${ext}`;
-
-        cb(null, name);
-    },
-});
 
 export const allowedMimes = {
     get images() {
@@ -65,14 +50,14 @@ export const handleErrors = ({
     };
     const executor = resolve => {
         upload(req, res, err => {
-            if (!req.file && !req.files.length)
-                return error("Nenhum arquivo foi fornecido.", 400, res);
-
             if (err) {
                 if (messages[err.code]) return error(messages[err.code], 400, res);
 
                 return error(err.message, 400, res);
             }
+
+            if (!req.file && !req.files.length)
+                return error("Nenhum arquivo foi fornecido.", 400, res);
 
             resolve();
         });

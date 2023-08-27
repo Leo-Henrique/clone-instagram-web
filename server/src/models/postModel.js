@@ -8,6 +8,10 @@ const MediaSchema = new mongoose.Schema(
             type: "String",
             required: true,
         },
+        key: {
+            type: "String",
+            required: true,
+        },
         source: {
             type: String,
             required: true,
@@ -29,41 +33,44 @@ const MediaSchema = new mongoose.Schema(
     { _id: false }
 );
 
-const PostSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
-    },
-    media: [MediaSchema],
-    legend: {
-        type: String,
-        default: "",
-    },
-    likes: [
-        {
+const PostSchema = new mongoose.Schema(
+    {
+        user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "users",
         },
-    ],
-    comments: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "comments",
+        media: [MediaSchema],
+        legend: {
+            type: String,
+            default: "",
         },
-    ],
-    showLikes: {
-        type: Boolean,
-        default: true,
+        likes: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "users",
+            },
+        ],
+        comments: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "comments",
+            },
+        ],
+        showLikes: {
+            type: Boolean,
+            default: true,
+        },
+        showComments: {
+            type: Boolean,
+            default: true,
+        },
+        isReel: {
+            type: Boolean,
+            required: true,
+        },
     },
-    showComments: {
-        type: Boolean,
-        default: true,
-    },
-    isReel: {
-        type: Boolean,
-        required: true,
-    },
-}, { timestamps: true });
+    { timestamps: true }
+);
 
 PostSchema.pre(["findOneAndDelete", "deleteMany"], async function (next) {
     const posts = await Post.find(this._conditions);

@@ -1,18 +1,18 @@
-import express from "express";
-import dotenv from "dotenv";
-import routes from "./routes/routes.js";
-import database from "./database.js";
 import cors from "cors";
-import url from "url";
+import "dotenv/config";
+import express from "express";
 import path from "path";
+import url from "url";
+import database from "./database.js";
+import { tmpPath } from "./modules/multer/storage.js";
+import routes from "./routes/routes.js";
 
 const app = express();
 const dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-dotenv.config();
 database();
 app.use(cors());
 app.use(express.json());
 app.use("/api", routes);
-app.use("/uploads", express.static(path.resolve(dirname, "..", "uploads")));
-app.listen(3000);
+app.use(`/${tmpPath}`, express.static(path.resolve(dirname, "..", tmpPath)));
+app.listen(process.env.SERVER_PORT);

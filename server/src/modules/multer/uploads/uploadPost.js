@@ -1,9 +1,10 @@
 import multer from "multer";
-import { error, types } from "../../utils/helpers/validations.js";
-import { allowedMimes, handleErrors, storage, validateMimes } from "./config.js";
+import { error, types } from "../../../utils/helpers/validations.js";
+import storage from "../storage.js";
+import { allowedMimes, handleErrors, validateMimes } from "../validation.js";
 
 export default function uploadPost(fieldName, req, res) {
-    const MBLimit = 100;
+    const MBLimit = 50;
     const fileLimit = 10;
     const upload = multer({
         storage,
