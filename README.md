@@ -39,6 +39,7 @@ Meu principal objetivo com esse clone é o conhecimento. Aprender cada processo 
 * [MongoDB (Atlas)](https://www.mongodb.com/atlas/database) - banco de dados
 * [JSON Web Token](https://www.npmjs.com/package/jsonwebtoken) - autenticação
 * [Nodemailer](https://nodemailer.com/about/) - envio de e-mails
+* [Amazon S3](https://aws.amazon.com/pt/s3/) - armazenamento de arquivos em nuvem
 
 ## 🔗 Alguns links úteis
 
