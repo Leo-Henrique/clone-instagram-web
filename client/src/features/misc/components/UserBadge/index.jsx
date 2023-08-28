@@ -1,7 +1,6 @@
 import SVGVerified from "../../../../assets/icons/vectors/verified-blue.svg";
 import Skeleton from "../../../../components/Loaders/Skeleton/index.jsx";
 import Image from "../../../../components/Misc/Image";
-import { SERVER_DOMAIN } from "../../../../config/index.js";
 import * as Styled from "./style.js";
 
 export default function UserBadge({
@@ -23,7 +22,7 @@ export default function UserBadge({
                 <Styled.Picture $size={pictureSize}>
                     {user?.picture ? (
                         <Image
-                            src={`${SERVER_DOMAIN}/${user.picture}`}
+                            src={user.picture.source}
                             alt={`Foto de perfil de ${user.name}`}
                         />
                     ) : (

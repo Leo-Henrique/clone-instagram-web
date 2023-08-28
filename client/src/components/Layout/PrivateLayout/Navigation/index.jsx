@@ -8,7 +8,6 @@ import SVGHome from "../../../../assets/icons/vectors/home.svg";
 import SVGMessages from "../../../../assets/icons/vectors/messages.svg";
 import SVGReels from "../../../../assets/icons/vectors/reels.svg";
 import SVGSearch from "../../../../assets/icons/vectors/search.svg";
-import { SERVER_DOMAIN } from "../../../../config";
 import useDisable from "../../../../hooks/useDisable";
 import Tooltip from "../../../Features/Tooltip";
 import * as Styled from "./style";
@@ -90,7 +89,7 @@ export default function Navigation({ filter, reorder, ...rest }) {
         {
             id: "profile",
             name: "Perfil",
-            icon: `${SERVER_DOMAIN}/${userPicture}`,
+            icon: userPicture.source,
             callback: `/${username}`,
         },
     ];
