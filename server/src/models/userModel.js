@@ -4,10 +4,10 @@ import Comment from "./commentModel.js";
 import Post from "./postModel.js";
 import Saved from "./savedModel.js";
 
-const defaultPicture = {
-    key: "user-picture.jpg",
+export const defaultPicture = {
+    key: "default/user-picture.jpg",
     get source() {
-        const url = "https://leo-clone-instagram.s3.sa-east-1.amazonaws.com/default/" 
+        const url = "https://leo-clone-instagram.s3.sa-east-1.amazonaws.com/" 
 
         return url + this.key;
     }
