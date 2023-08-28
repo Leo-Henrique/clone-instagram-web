@@ -25,7 +25,7 @@ export const s3 = new S3Client();
 
 const storage = {
     local: multer.diskStorage({
-        destination: tmpPath,
+        destination: isLocalApp ? tmpPath : "/tmp",
         filename: filename("local"),
     }),
     cloud: multerS3({
