@@ -7,90 +7,91 @@ import Saved from "./savedModel.js";
 export const defaultPicture = {
     key: "default/user-picture.jpg",
     get source() {
-        const url = "https://leo-clone-instagram.s3.sa-east-1.amazonaws.com/" 
+        const url = "https://leo-clone-instagram.s3.sa-east-1.amazonaws.com/";
 
         return url + this.key;
-    }
-}
+    },
+};
 
-const PictureSchema =  new mongoose.Schema({ 
-    key: {
-        type: String,
-        required: true,
-        default: defaultPicture.key
-    },
-    source: {
-        type: String,
-        required: true,
-        default: defaultPicture.source
-    }
-}, { _id: false });
-
-const UserSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true,
-        lowercase: true,
-        trim: true,
-    },
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-        lowercase: true,
-        trim: true,
-        select: false,
-    },
-    password: {
-        type: String,
-        required: true,
-        trim: true,
-        select: false,
-    },
-    passwordResetToken: {
-        type: String,
-        select: false,
-    },
-    passwordResetTokenExpiration: {
-        type: Number,
-        select: false,
-    },
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    verified: {
-        type: Boolean,
-        default: false,
-    },
-    bio: {
-        type: String,
-        trim: true,
-    },
-    picture: PictureSchema,
-    followers: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "users",
+const UserSchema = new mongoose.Schema(
+    {
+        username: {
+            type: String,
+            unique: true,
+            required: true,
+            lowercase: true,
+            trim: true,
         },
-    ],
-    following: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "users",
+        email: {
+            type: String,
+            unique: true,
+            required: true,
+            lowercase: true,
+            trim: true,
+            select: false,
         },
-    ],
-    hasPosts: {
-        type: Boolean,
-        default: false,
+        password: {
+            type: String,
+            required: true,
+            trim: true,
+            select: false,
+        },
+        passwordResetToken: {
+            type: String,
+            select: false,
+        },
+        passwordResetTokenExpiration: {
+            type: Number,
+            select: false,
+        },
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        verified: {
+            type: Boolean,
+            default: false,
+        },
+        bio: {
+            type: String,
+            trim: true,
+        },
+        picture: {
+            key: {
+                type: String,
+                required: true,
+                default: defaultPicture.key,
+            },
+            source: {
+                type: String,
+                required: true,
+                default: defaultPicture.source,
+            },
+        },
+        followers: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "users",
+            },
+        ],
+        following: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "users",
+            },
+        ],
+        hasPosts: {
+            type: Boolean,
+            default: false,
+        },
+        hasContentInFeed: {
+            type: Boolean,
+            default: false,
+        },
     },
-    hasContentInFeed: {
-        type: Boolean,
-        default: false,
-    }
-}, { timestamps: true });
+    { timestamps: true }
+);
 
 UserSchema.pre("save", async function (next) {
     if (this.password) {
